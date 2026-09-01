@@ -1,0 +1,100 @@
+# ==========================================
+# Configuración del Asistente / Reglas del Agente
+# ==========================================
+GEMINI.md
+gemini.md
+.gemini/
+
+# ==========================================
+# Variables de Entorno y Secretos
+# ==========================================
+.env
+.env.*
+!.env.example
+
+# ==========================================
+# Entornos Virtuales y Python
+# ==========================================
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# ==========================================
+# Datos e Imágenes de Histopatología (Archivos pesados)
+# ==========================================
+# Directorios de datos locales
+data/
+Data/
+raw/
+processed/
+
+# Formatos de Whole Slide Images (WSI) y microscopía
+*.svs
+*.ndpi
+*.tif
+*.tiff
+*.mrxs
+*.vms
+*.vmu
+*.scn
+*.bif
+*.czi
+
+# Formatos binarios, tensores, pesos y embeddings
+*.h5
+*.hdf5
+*.pt
+*.pth
+*.bin
+*.onnx
+*.safetensors
+*.pkl
+*.pickle
+*.parquet
+*.feather
+
+# Archivos comprimidos y volcados de datasets
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# ==========================================
+# Caches de Modelos y Hugging Face
+# ==========================================
+.cache/
+hf_cache/
+checkpoints/
+wandb/
+
+# ==========================================
+# Reportes Temporales y Vistas Previas
+# ==========================================
+artifacts/
+reports/preview_*.html
+reports/*.html
+reports/temp/
+
+# ==========================================
+# Editores y Sistema Operativo
+# ==========================================
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
