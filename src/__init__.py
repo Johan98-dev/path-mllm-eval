@@ -1,1 +1,2 @@
-" \Modulo de auditoria de datasets\\n
+# -*- coding: utf-8 -*-
+"""Modulo de auditoria de datasets para la tesis."""
