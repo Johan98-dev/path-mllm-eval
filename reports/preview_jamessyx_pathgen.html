@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoria de Dataset: jamessyx/PathGen</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-green: #4ade80;
+            --accent-amber: #fbbf24;
+            --badge-bg: #0b1329;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 24px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            margin: 0 0 8px 0;
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+        .task-banner {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 14px 0;
+        }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .meta-item {
+            background: var(--badge-bg);
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .meta-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .meta-value {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 6px;
+            margin-top: 6px;
+        }
+        .badge-open { background: #065f46; color: var(--accent-green); }
+        .badge-gated { background: #78350f; color: var(--accent-amber); }
+        .badge-task { background: #1e3a8a; color: var(--accent); }
+        .badge-secondary { background: #334155; color: #cbd5e1; }
+        .samples-header {
+            margin: 32px 0 16px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sample-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+        @media (max-width: 900px) {
+            .sample-card { grid-template-columns: 1fr; }
+        }
+        .visual-pane {
+            background: #020617;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid var(--border-color);
+        }
+        .text-pane {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .sample-num {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .field-box {
+            background: var(--badge-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px;
+        }
+        .field-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .field-content {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔬 Auditoria de Dataset: <code>jamessyx/PathGen</code></h1>
+            
+            <div class="task-banner">
+                <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); font-weight: bold; margin-bottom: 4px;">
+                    🎯 Tareas Multimodales Formalizadas &amp; Derivadas
+                </div>
+                <div style="font-size: 1.05rem; font-weight: bold; color: var(--text-main); margin-bottom: 6px;">
+                    Tarea Principal: Dense Image Captioning &amp; Synthetic Knowledge Generation
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
+                    <strong>Formalizacion:</strong> Si (Dataset de enriquecimiento de leyendas sintéticas de PathAsst, Sun et al., AAAI 2024)
+                </div>
+                <div>
+                    <span style="font-size: 0.8rem; color: var(--text-muted); margin-right: 6px;">Tareas Secundarias / Posibles:</span>
+                    <span class='badge badge-secondary'>Detailed Morphological Description</span>
+                    <span class='badge badge-secondary'>Synthetic VLP Pretraining</span>
+                    <span class='badge badge-secondary'>Patch-Level WSI Dense Grounding</span>
+                </div>
+            </div>
+
+            <div>
+                <span class="badge badge-gated">🔒 Gated (Requiere Autenticacion)</span>
+                <span class="badge badge-task">Licencia: CC BY-NC 2.0</span>
+                <span class="badge badge-task">Descargas: 48</span>
+                <span class="badge badge-task">Likes: 12</span>
+            </div>
+
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <div class="meta-label">Tamano Total en Hub (Repo)</div>
+                    <div class="meta-value">933.29 MB</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">PathGen-1.6M.json: 933.28 MB</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Split Muestreado</div>
+                    <div class="meta-value"><code>train</code></div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">7 muestras extraidas</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Total Pares Parche-Dense Caption</div>
+                    <div class="meta-value">1,620,876</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">1.62 Millones de coordenadas en TCGA</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Metodo de Generacion</div>
+                    <div class="meta-value">GPT-4 Dense Expansion</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Parches muestreados de láminas de TCGA</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="samples-header">
+            <h2>📝 Muestras de Dense Captions Sintéticos sobre TCGA WSI (7)</h2>
+            <span style="color: var(--text-muted); font-size: 0.9rem;">Inspeccion de Alineacion Multimodal (TCGA Slide ID + Coordenadas (X,Y) &harr; Dense Caption)</span>
+        </div>
+
+        
+    <div class="sample-card">
+        <div class="visual-pane">
+            
+    <div style="background: #1e293b; border: 1px dashed #475569; border-radius: 8px; padding: 24px 16px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 8px;">🔬</div>
+        <strong style="color: #38bdf8;">Coordenada Espacial en WSI (TCGA)</strong><br>
+        <code style="font-size: 0.75rem; word-break: break-all;">TCGA-AA-3844-01Z-00-DX1.bf88ce1f-0601-40c8-813e-4e3df51bd2f0</code>
+        <div style="margin-top: 12px; font-size: 0.75rem; color: #64748b; border-top: 1px solid #334155; padding-top: 8px;">
+            <strong>Posición (X, Y):</strong> (35136, 33344)<br>
+            <strong>Patch ID:</strong> <code style="font-size: 0.7rem;">bffacf34-4942-496d-9c5d-d36294d80a9d</code>
+        </div>
+    </div>
+    
+        </div>
+        <div class="text-pane">
+            <div class="sample-num">MUESTRA #1 &bull; TCGA Slide ID: <code>TCGA-AA-3844-01Z-00-DX1.bf88ce1f-0601-40c8-813e-4e3df51bd2f0</code></div>
+            
+            <div class="field-box">
+                <div class="field-title">
+                    <span>📝 Caption Sintético Denso (Generado por GPT-4 para Preentrenamiento VLP)</span>
+                    <span>43 palabras | 378 caracteres</span>
+                </div>
+                <div class="field-content" style="font-size: 0.95rem; color: #f8fafc; line-height: 1.6;">
+                    The colon tissue exhibits pleomorphism, hyperchromatic nuclei, and irregular glandular architecture, indicative of a neoplastic process. Stroma shows inflammatory infiltration and increased cellularity, suggesting a desmoplastic reaction. These characteristics potentially point to adenocarcinoma, requiring further clinical and molecular correlation for a definitive diagnosis.
+                </div>
+            </div>
+            
+            <div class="field-box" style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">
+                <strong>Localización Espacial:</strong> X: <code>35136</code>, Y: <code>33344</code> | UUID: <code>bffacf34-4942-496d-9c5d-d36294d80a9d</code>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sample-card">
+        <div class="visual-pane">
+            
+    <div style="background: #1e293b; border: 1px dashed #475569; border-radius: 8px; padding: 24px 16px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 8px;">🔬</div>
+        <strong style="color: #38bdf8;">Coordenada Espacial en WSI (TCGA)</strong><br>
+        <code style="font-size: 0.75rem; word-break: break-all;">TCGA-22-5474-01Z-00-DX1.8736FB24-7E65-4ACB-9325-382D7F864F62</code>
+        <div style="margin-top: 12px; font-size: 0.75rem; color: #64748b; border-top: 1px solid #334155; padding-top: 8px;">
+            <strong>Posición (X, Y):</strong> (41024, 35104)<br>
+            <strong>Patch ID:</strong> <code style="font-size: 0.7rem;">4cff975b-adbe-4ecf-9be5-365c715e2305</code>
+        </div>
+    </div>
+    
+        </div>
+        <div class="text-pane">
+            <div class="sample-num">MUESTRA #2 &bull; TCGA Slide ID: <code>TCGA-22-5474-01Z-00-DX1.8736FB24-7E65-4ACB-9325-382D7F864F62</code></div>
+            
+            <div class="field-box">
+                <div class="field-title">
+                    <span>📝 Caption Sintético Denso (Generado por GPT-4 para Preentrenamiento VLP)</span>
+                    <span>47 palabras | 381 caracteres</span>
+                </div>
+                <div class="field-content" style="font-size: 0.95rem; color: #f8fafc; line-height: 1.6;">
+                    The tissue image reveals dense cellular infiltration, suggesting inflammation, and cells with large, hyperchromatic nuclei and high nuclear-to-cytoplasmic ratios indicative of a neoplastic process. Pink, acellular material points to fibrosis or connective tissue. The disrupted architecture further supports a pathological condition, possibly cancer combined with fibrotic changes.
+                </div>
+            </div>
+            
+            <div class="field-box" style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">
+                <strong>Localización Espacial:</strong> X: <code>41024</code>, Y: <code>35104</code> | UUID: <code>4cff975b-adbe-4ecf-9be5-365c715e2305</code>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sample-card">
+        <div class="visual-pane">
+            
+    <div style="background: #1e293b; border: 1px dashed #475569; border-radius: 8px; padding: 24px 16px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 8px;">🔬</div>
+        <strong style="color: #38bdf8;">Coordenada Espacial en WSI (TCGA)</strong><br>
+        <code style="font-size: 0.75rem; word-break: break-all;">TCGA-CM-4746-01Z-00-DX1.c83b9795-bf45-4100-9052-a7e485e0f770</code>
+        <div style="margin-top: 12px; font-size: 0.75rem; color: #64748b; border-top: 1px solid #334155; padding-top: 8px;">
+            <strong>Posición (X, Y):</strong> (84672, 36288)<br>
+            <strong>Patch ID:</strong> <code style="font-size: 0.7rem;">ed7c20f8-e2a0-4a07-baaf-5002433d8c0c</code>
+        </div>
+    </div>
+    
+        </div>
+        <div class="text-pane">
+            <div class="sample-num">MUESTRA #3 &bull; TCGA Slide ID: <code>TCGA-CM-4746-01Z-00-DX1.c83b9795-bf45-4100-9052-a7e485e0f770</code></div>
+            
+            <div class="field-box">
+                <div class="field-title">
+                    <span>📝 Caption Sintético Denso (Generado por GPT-4 para Preentrenamiento VLP)</span>
+                    <span>47 palabras | 411 caracteres</span>
+                </div>
+                <div class="field-content" style="font-size: 0.95rem; color: #f8fafc; line-height: 1.6;">
+                    The tissue section shows epithelial cells with pleomorphism, high nuclear-to-cytoplasmic ratios, hyperchromatic and irregular nuclei, and conspicuous nucleoli. Glandular structures are irregular and vary in size, indicating disrupted architecture. Scant stroma and desmoplastic reactions are present. These characteristics suggest a well-differentiated adenocarcinoma, indicating a malignant neoplastic process.
+                </div>
+            </div>
+            
+            <div class="field-box" style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">
+                <strong>Localización Espacial:</strong> X: <code>84672</code>, Y: <code>36288</code> | UUID: <code>ed7c20f8-e2a0-4a07-baaf-5002433d8c0c</code>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sample-card">
+        <div class="visual-pane">
+            
+    <div style="background: #1e293b; border: 1px dashed #475569; border-radius: 8px; padding: 24px 16px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 8px;">🔬</div>
+        <strong style="color: #38bdf8;">Coordenada Espacial en WSI (TCGA)</strong><br>
+        <code style="font-size: 0.75rem; word-break: break-all;">TCGA-55-8621-01Z-00-DX1.7C519007-D59D-432A-BF4D-23D14A1C8BB6</code>
+        <div style="margin-top: 12px; font-size: 0.75rem; color: #64748b; border-top: 1px solid #334155; padding-top: 8px;">
+            <strong>Posición (X, Y):</strong> (13280, 13056)<br>
+            <strong>Patch ID:</strong> <code style="font-size: 0.7rem;">c362b1ce-0af7-43a4-80f5-43d849262abc</code>
+        </div>
+    </div>
+    
+        </div>
+        <div class="text-pane">
+            <div class="sample-num">MUESTRA #4 &bull; TCGA Slide ID: <code>TCGA-55-8621-01Z-00-DX1.7C519007-D59D-432A-BF4D-23D14A1C8BB6</code></div>
+            
+            <div class="field-box">
+                <div class="field-title">
+                    <span>📝 Caption Sintético Denso (Generado por GPT-4 para Preentrenamiento VLP)</span>
+                    <span>54 palabras | 435 caracteres</span>
+                </div>
+                <div class="field-content" style="font-size: 0.95rem; color: #f8fafc; line-height: 1.6;">
+                    The lung tissue image displays myofibroblasts with elongated nuclei and eosinophilic cytoplasm, indicative of collagen-rich fibrosis. Epithelial cells, forming glandular structures, show cellular atypia. The architecture is disrupted by dense fibrotic areas and patchy cellular infiltration, suggesting an interstitial lung disease characterized by chronic fibrosis and inflammation. Hemorrhage or hemosiderin deposits are not evident.
+                </div>
+            </div>
+            
+            <div class="field-box" style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">
+                <strong>Localización Espacial:</strong> X: <code>13280</code>, Y: <code>13056</code> | UUID: <code>c362b1ce-0af7-43a4-80f5-43d849262abc</code>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sample-card">
+        <div class="visual-pane">
+            
+    <div style="background: #1e293b; border: 1px dashed #475569; border-radius: 8px; padding: 24px 16px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 8px;">🔬</div>
+        <strong style="color: #38bdf8;">Coordenada Espacial en WSI (TCGA)</strong><br>
+        <code style="font-size: 0.75rem; word-break: break-all;">TCGA-AH-6547-01Z-00-DX1.73040c3e-8219-4d21-88f2-613218d32297</code>
+        <div style="margin-top: 12px; font-size: 0.75rem; color: #64748b; border-top: 1px solid #334155; padding-top: 8px;">
+            <strong>Posición (X, Y):</strong> (5472, 8320)<br>
+            <strong>Patch ID:</strong> <code style="font-size: 0.7rem;">32abfee5-daea-4816-8c24-122dbf593aff</code>
+        </div>
+    </div>
+    
+        </div>
+        <div class="text-pane">
+            <div class="sample-num">MUESTRA #5 &bull; TCGA Slide ID: <code>TCGA-AH-6547-01Z-00-DX1.73040c3e-8219-4d21-88f2-613218d32297</code></div>
+            
+            <div class="field-box">
+                <div class="field-title">
+                    <span>📝 Caption Sintético Denso (Generado por GPT-4 para Preentrenamiento VLP)</span>
+                    <span>47 palabras | 401 caracteres</span>
+                </div>
+                <div class="field-content" style="font-size: 0.95rem; color: #f8fafc; line-height: 1.6;">
+                    The tissue shows irregular, atypical glandular structures indicative of adenocarcinoma, with hyperchromatic nuclei, high nuclear-to-cytoplasmic ratio, and pleomorphism. Desmoplastic stroma and mitotic figures suggest high-grade dysplasia. These features confirm a diagnosis of malignant adenocarcinoma of the rectum, characterized by loss of normal glandular architecture and cellular disorganization.
+                </div>
+            </div>
+            
+            <div class="field-box" style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">
+                <strong>Localización Espacial:</strong> X: <code>5472</code>, Y: <code>8320</code> | UUID: <code>32abfee5-daea-4816-8c24-122dbf593aff</code>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sample-card">
+        <div class="visual-pane">
+            
+    <div style="background: #1e293b; border: 1px dashed #475569; border-radius: 8px; padding: 24px 16px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 8px;">🔬</div>
+        <strong style="color: #38bdf8;">Coordenada Espacial en WSI (TCGA)</strong><br>
+        <code style="font-size: 0.75rem; word-break: break-all;">TCGA-BP-4770-01Z-00-DX1.d8a5f4f9-c07d-4465-823f-6c4b3759b4ad</code>
+        <div style="margin-top: 12px; font-size: 0.75rem; color: #64748b; border-top: 1px solid #334155; padding-top: 8px;">
+            <strong>Posición (X, Y):</strong> (9792, 7584)<br>
+            <strong>Patch ID:</strong> <code style="font-size: 0.7rem;">9ae2309d-02ee-42cb-bfa8-5c81ac7ea947</code>
+        </div>
+    </div>
+    
+        </div>
+        <div class="text-pane">
+            <div class="sample-num">MUESTRA #6 &bull; TCGA Slide ID: <code>TCGA-BP-4770-01Z-00-DX1.d8a5f4f9-c07d-4465-823f-6c4b3759b4ad</code></div>
+            
+            <div class="field-box">
+                <div class="field-title">
+                    <span>📝 Caption Sintético Denso (Generado por GPT-4 para Preentrenamiento VLP)</span>
+                    <span>42 palabras | 357 caracteres</span>
+                </div>
+                <div class="field-content" style="font-size: 0.95rem; color: #f8fafc; line-height: 1.6;">
+                    The tissue section exhibits pleomorphism, hyperchromatic large nuclei, high nucleus-to-cytoplasm ratios, prominent nucleoli, and disorganized architecture. Densely packed cells with eosinophilic cytoplasm and scant stroma are observed, lacking normal kidney structures. These features suggest a neoplastic process, likely a carcinoma, indicating malignancy.
+                </div>
+            </div>
+            
+            <div class="field-box" style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">
+                <strong>Localización Espacial:</strong> X: <code>9792</code>, Y: <code>7584</code> | UUID: <code>9ae2309d-02ee-42cb-bfa8-5c81ac7ea947</code>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sample-card">
+        <div class="visual-pane">
+            
+    <div style="background: #1e293b; border: 1px dashed #475569; border-radius: 8px; padding: 24px 16px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 8px;">🔬</div>
+        <strong style="color: #38bdf8;">Coordenada Espacial en WSI (TCGA)</strong><br>
+        <code style="font-size: 0.75rem; word-break: break-all;">TCGA-D8-A1JM-01Z-00-DX1.3CD15BC8-08B3-4BEE-9FD7-A8BEED33268E</code>
+        <div style="margin-top: 12px; font-size: 0.75rem; color: #64748b; border-top: 1px solid #334155; padding-top: 8px;">
+            <strong>Posición (X, Y):</strong> (34336, 69120)<br>
+            <strong>Patch ID:</strong> <code style="font-size: 0.7rem;">a7002593-8da9-4d5a-9b66-75a85f3ee466</code>
+        </div>
+    </div>
+    
+        </div>
+        <div class="text-pane">
+            <div class="sample-num">MUESTRA #7 &bull; TCGA Slide ID: <code>TCGA-D8-A1JM-01Z-00-DX1.3CD15BC8-08B3-4BEE-9FD7-A8BEED33268E</code></div>
+            
+            <div class="field-box">
+                <div class="field-title">
+                    <span>📝 Caption Sintético Denso (Generado por GPT-4 para Preentrenamiento VLP)</span>
+                    <span>53 palabras | 443 caracteres</span>
+                </div>
+                <div class="field-content" style="font-size: 0.95rem; color: #f8fafc; line-height: 1.6;">
+                    The breast tissue image shows a duct with epithelial cells displaying pleomorphism and hyperchromatic nuclei, suggesting abnormality. Surrounding ducts are infiltrated by lymphocytes, indicating inflammation. The stroma is fibrous with increased cellularity, possibly reactive or neoplastic. Distortions in tissue architecture suggest potential inflammatory or neoplastic processes. Diagnosis requires further clinical correlation and testing.
+                </div>
+            </div>
+            
+            <div class="field-box" style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">
+                <strong>Localización Espacial:</strong> X: <code>34336</code>, Y: <code>69120</code> | UUID: <code>a7002593-8da9-4d5a-9b66-75a85f3ee466</code>
+            </div>
+        </div>
+    </div>
+    
+
+        <div class="field-box" style="margin-top: 32px; border: 1px solid #38bdf8; background: rgba(56, 189, 248, 0.05); padding: 24px; border-radius: 12px;">
+            <div style="font-size: 1.1rem; font-weight: bold; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                <span>💡 Hallazgo Metodológico Clave (PathGen: Coordenadas TCGA y Enriquecimiento Semántico Masivo)</span>
+            </div>
+            <div style="color: var(--text-main); font-size: 0.95rem; line-height: 1.7;">
+                <p style="margin-top: 0;"><strong>1. Naturaleza de los Datos (Coordenadas Espaciales en TCGA):</strong><br>
+                A diferencia de PathCap (que almacena recortes JPEG planos de PubMed Central), <strong>PathGen-1.6M vincula 1,620,876 coordenadas de parches (X, Y) extraídas sobre láminas histopatológicas completas (WSI) del repositorio The Cancer Genome Atlas (TCGA)</strong>.</p>
+                
+                <p><strong>2. Superación del Cuello de Botella de Captions Breves:</strong><br>
+                Las descripciones de figuras clínicas convencionales suelen ser muy breves. PathGen generó <strong>captions sintéticos densos con GPT-4</strong> que detallan pleomorfismo celular, hipercromasia nuclear, arquitectura estromal e hipótesis diagnósticas diferenciales para cada parche.</p>
+
+                <p style="margin-bottom: 0;"><strong>3. Relevancia Metodológica para la Tesis:</strong><br>
+                Permite investigar el impacto de entrenar modelos de lenguaje multimodal con <strong>datos masivos generados por LMMs (*synthetic data pretraining*)</strong> frente a datos anotados exclusivamente por humanos.</p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

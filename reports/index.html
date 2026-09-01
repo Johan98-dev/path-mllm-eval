@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz Comparativa de Datasets Multimodales de Histopatología</title>
+    <style>
+        :root {
+            --bg-color: #0b1120;
+            --card-bg: #1e293b;
+            --card-subtle: #0f172a;
+            --border-color: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0284c7;
+            --accent-green: #4ade80;
+            --accent-amber: #fbbf24;
+            --accent-purple: #c084fc;
+            --accent-rose: #fb7185;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 24px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1700px;
+            margin: 0 auto;
+        }
+        
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0c4a6e 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 28px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+        }
+        .thesis-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: var(--accent);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+        .hero-banner h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.1rem;
+            color: #ffffff;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        .hero-subtitle {
+            color: #94a3b8;
+            font-size: 1.05rem;
+            max-width: 1000px;
+            line-height: 1.6;
+        }
+
+        /* KPI Cards Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        .kpi-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+        .kpi-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .kpi-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+        .kpi-subtext {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Filter Controls */
+        .controls-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .search-box {
+            flex: 1;
+            min-width: 280px;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            background: var(--card-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 16px 10px 38px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus {
+            border-color: var(--accent);
+        }
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .filter-btn {
+            background: var(--card-subtle);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Main Table */
+        .table-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            overflow-x: auto;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            margin-bottom: 32px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+        thead {
+            background: #0f172a;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        th {
+            padding: 14px 16px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            border-bottom: 2px solid var(--border-color);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+        tbody tr:hover {
+            background: rgba(56, 189, 248, 0.04);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-right: 4px;
+            white-space: nowrap;
+        }
+        .badge-open { background: #065f46; color: var(--accent-green); }
+        .badge-gated { background: #78350f; color: var(--accent-amber); }
+        .badge-vqa { background: #1e3a8a; color: var(--accent); }
+        .badge-sft { background: #581c87; color: var(--accent-purple); }
+        .badge-vlp { background: #064e3b; color: #6ee7b7; }
+        .badge-wsi { background: #881337; color: var(--accent-rose); }
+        .badge-retrieval { background: #14532d; color: #86efac; }
+        .badge-secondary { background: #334155; color: #cbd5e1; }
+
+        /* Links & Buttons */
+        .hf-link {
+            color: var(--accent);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .hf-link:hover {
+            text-decoration: underline;
+        }
+        .btn-report {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            transition: transform 0.2s, background 0.2s;
+            white-space: nowrap;
+        }
+        .btn-report:hover {
+            transform: scale(1.04);
+            background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+        }
+
+        /* Methodology Insights Section */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        .insight-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .insight-header {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .insight-content {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 24px 0;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Hero Header -->
+        <div class="hero-banner">
+            <div class="thesis-tag">🔬 Tesis de Maestría en Patología Computacional &bull; Fase 1</div>
+            <h1>Matriz Comparativa y Consolidado de Datasets Multimodales</h1>
+            <div class="hero-subtitle">
+                Auditoría factual por streaming, verificación de esquemas reales en Hugging Face Hub, clasificación taxonómica de tareas y catálogo de reportes visuales interactivos.
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">Datasets Auditados en Hub</div>
+                <div class="kpi-value" style="color: var(--accent);">9 / 9</div>
+                <div class="kpi-subtext">100% de la lista prioritaria en Hugging Face</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Total Registros Auditados</div>
+                <div class="kpi-value" style="color: var(--accent-green);">2,196,113</div>
+                <div class="kpi-subtext">&gt;2.19 Millones de pares imagen-texto/Q&amp;A</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Tareas Multimodales Formalizadas</div>
+                <div class="kpi-value" style="color: var(--accent-purple);">8 Tareas</div>
+                <div class="kpi-subtext">VQA, SFT, Captioning, Retrieval, WSI-Report</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-label">Modelos Baselines Vinculados</div>
+                <div class="kpi-value" style="color: var(--accent-amber);">6 Baselines</div>
+                <div class="kpi-subtext">PLIP, PathAsst, Quilt-LLaVA, HistGen, LLaVA-Med, BiomedCLIP</div>
+            </div>
+        </div>
+
+        <!-- Controls: Search & Category Filters -->
+        <div class="controls-card">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" class="search-input" placeholder="Buscar por dataset, tarea, repositorio o formato...">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterCategory('all', this)">Todos (9)</button>
+                <button class="filter-btn" onclick="filterCategory('VQA', this)">VQA (3)</button>
+                <button class="filter-btn" onclick="filterCategory('Instruction Tuning', this)">Visual Instruction Tuning (2)</button>
+                <button class="filter-btn" onclick="filterCategory('Captioning / VLP', this)">Captioning &amp; VLP (2)</button>
+                <button class="filter-btn" onclick="filterCategory('WSI / Reports', this)">WSI &amp; Reports (1)</button>
+                <button class="filter-btn" onclick="filterCategory('Zero-Shot / Retrieval', this)">Zero-Shot &amp; Retrieval (1)</button>
+            </div>
+        </div>
+
+        <!-- Main Comparison Table -->
+        <div class="table-container">
+            <table id="datasetsTable">
+                <thead>
+                    <tr>
+                        <th style="width: 40px; text-align: center;">#</th>
+                        <th style="min-width: 180px;">Dataset / ID</th>
+                        <th style="min-width: 220px;">Repositorio en Hub &amp; Baseline</th>
+                        <th style="min-width: 260px;">Tarea Principal &amp; Formalización</th>
+                        <th style="min-width: 220px; text-align: right;">Registros &amp; Splits Fácticos</th>
+                        <th style="min-width: 240px;">Modalidad Visual &amp; Almacenamiento</th>
+                        <th style="min-width: 160px;">Tamaños Hub / Disco</th>
+                        <th style="min-width: 140px;">Acceso &amp; Licencia</th>
+                        <th style="min-width: 140px; text-align: center;">Reporte Visual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+    <tr class="dataset-row" data-category="VQA" data-access="open">
+        <td style="text-align: center; font-weight: bold; color: var(--accent);">1</td>
+        <td>
+            <div style="font-weight: bold; font-size: 1.05rem; color: #f8fafc;">PathVQA</div>
+            <code style="font-size: 0.75rem; color: #94a3b8;">path-vqa</code>
+        </td>
+        <td>
+            <a href="https://huggingface.co/datasets/flaviagiammarino/path-vqa" target="_blank" class="hf-link">
+                🤗 <code>flaviagiammarino/path-vqa</code>
+            </a>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                <strong>Baseline:</strong> BiomedCLIP / LLaVA-Med / PathAsst
+            </div>
+        </td>
+        <td>
+            <span class="badge badge-vqa">VQA</span>
+            <div style="font-size: 0.85rem; font-weight: 600; color: #e2e8f0; margin-top: 4px;">Visual Question Answering (VQA Abierta)</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Sí (Benchmark VQA estándar por He et al., 2020)</div>
+        </td>
+        <td style="text-align: right;">
+            <div style="font-weight: bold; color: var(--accent-green); font-size: 1rem;">32,632 preguntas</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">train: 19,654 (60.2%) | test: 6,719 (20.6%) | val: 6,259 (19.2%)</div>
+        </td>
+        <td>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">Parches H&E / IHC (~300-600px) embebidos en Parquet</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;"><code>Parquet nativo con imágenes binarias</code></div>
+        </td>
+        <td style="font-size: 0.85rem;">
+            <div><strong>Hub:</strong> 749.04 MB</div>
+            <div style="color: var(--text-muted); font-size: 0.75rem;"><strong>Descomp.:</strong> 5.10 GB</div>
+        </td>
+        <td>
+            <span class='badge badge-open'>🔓 Abierto</span>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Licencia: <code>MIT</code></div>
+        </td>
+        <td style="text-align: center;">
+            <a href="preview_flaviagiammarino_path_vqa.html" class="btn-report" title="Ver reporte visual interactivo con 7 muestras">
+                👁️ Ver Reporte
+            </a>
+        </td>
+    </tr>
+    
+    <tr class="dataset-row" data-category="VQA" data-access="gated">
+        <td style="text-align: center; font-weight: bold; color: var(--accent);">2</td>
+        <td>
+            <div style="font-weight: bold; font-size: 1.05rem; color: #f8fafc;">Quilt-VQA</div>
+            <code style="font-size: 0.75rem; color: #94a3b8;">quilt-vqa</code>
+        </td>
+        <td>
+            <a href="https://huggingface.co/datasets/wisdomik/Quilt_VQA" target="_blank" class="hf-link">
+                🤗 <code>wisdomik/Quilt_VQA</code>
+            </a>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                <strong>Baseline:</strong> Quilt-LLaVA / LLaVA-Med
+            </div>
+        </td>
+        <td>
+            <span class="badge badge-vqa">VQA</span>
+            <div style="font-size: 0.85rem; font-weight: 600; color: #e2e8f0; margin-top: 4px;">Benchmark VQA Curado por Expertos</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Sí (Curaduría humana por patólogos certificados, Seyfioglu et al., 2024)</div>
+        </td>
+        <td style="text-align: right;">
+            <div style="font-weight: bold; color: var(--accent-green); font-size: 1rem;">985 preguntas</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">train: 985 (100% - Evaluación Ciega)</div>
+        </td>
+        <td>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">Parches de video educativo con cursor anclado</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;"><code>Parquet nativo con imágenes binarias</code></div>
+        </td>
+        <td style="font-size: 0.85rem;">
+            <div><strong>Hub:</strong> 505.50 MB</div>
+            <div style="color: var(--text-muted); font-size: 0.75rem;"><strong>Descomp.:</strong> 215.13 MB</div>
+        </td>
+        <td>
+            <span class='badge badge-gated'>🔒 Gated</span>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Licencia: <code>CC BY-NC-ND 3.0</code></div>
+        </td>
+        <td style="text-align: center;">
+            <a href="preview_wisdomik_quilt_vqa.html" class="btn-report" title="Ver reporte visual interactivo con 7 muestras">
+                👁️ Ver Reporte
+            </a>
+        </td>
+    </tr>
+    
+    <tr class="dataset-row" data-category="Instruction Tuning" data-access="gated">
+        <td style="text-align: center; font-weight: bold; color: var(--accent);">3</td>
+        <td>
+            <div style="font-weight: bold; font-size: 1.05rem; color: #f8fafc;">Quilt-Instruct</div>
+            <code style="font-size: 0.75rem; color: #94a3b8;">quilt-instruct</code>
+        </td>
+        <td>
+            <a href="https://huggingface.co/datasets/wisdomik/QUILT-LLaVA-Instruct-107K" target="_blank" class="hf-link">
+                🤗 <code>wisdomik/QUILT-LLaVA-Instruct-107K</code>
+            </a>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                <strong>Baseline:</strong> Quilt-LLaVA (CVPR 2024)
+            </div>
+        </td>
+        <td>
+            <span class="badge badge-sft">Instruction Tuning</span>
+            <div style="font-size: 0.85rem; font-weight: 600; color: #e2e8f0; margin-top: 4px;">Visual Instruction Tuning (SFT)</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Sí (Dataset de SFT para Quilt-LLaVA por Seyfioglu et al., CVPR 2024)</div>
+        </td>
+        <td style="text-align: right;">
+            <div style="font-weight: bold; color: var(--accent-green); font-size: 1rem;">107,000 diálogos</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">train: 107,000 (100% - SFT Training)</div>
+        </td>
+        <td>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">Referencias a parches de Quilt-1M (Desacoplado)</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;"><code>JSON / Parquet con punteros de archivo de imagen</code></div>
+        </td>
+        <td style="font-size: 0.85rem;">
+            <div><strong>Hub:</strong> 855.79 MB</div>
+            <div style="color: var(--text-muted); font-size: 0.75rem;"><strong>Descomp.:</strong> Desacoplado (Quilt-1M)</div>
+        </td>
+        <td>
+            <span class='badge badge-gated'>🔒 Gated</span>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Licencia: <code>CC BY-NC-ND 3.0</code></div>
+        </td>
+        <td style="text-align: center;">
+            <a href="preview_wisdomik_quilt_llava_instruct_107k.html" class="btn-report" title="Ver reporte visual interactivo con 7 muestras">
+                👁️ Ver Reporte
+            </a>
+        </td>
+    </tr>
+    
+    <tr class="dataset-row" data-category="WSI / Reports" data-access="open">
+        <td style="text-align: center; font-weight: bold; color: var(--accent);">4</td>
+        <td>
+            <div style="font-weight: bold; font-size: 1.05rem; color: #f8fafc;">HistGen</div>
+            <code style="font-size: 0.75rem; color: #94a3b8;">histgen</code>
+        </td>
+        <td>
+            <a href="https://huggingface.co/datasets/david4real/HistGen" target="_blank" class="hf-link">
+                🤗 <code>david4real/HistGen</code>
+            </a>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                <strong>Baseline:</strong> HistGen (MICCAI 2024)
+            </div>
+        </td>
+        <td>
+            <span class="badge badge-wsi">WSI / Reports</span>
+            <div style="font-size: 0.85rem; font-weight: 600; color: #e2e8f0; margin-top: 4px;">WSI-to-Diagnostic Report Generation</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Sí (Benchmark formal de generación de reportes, Guo et al., MICCAI 2024)</div>
+        </td>
+        <td style="text-align: right;">
+            <div style="font-weight: bold; color: var(--accent-green); font-size: 1rem;">7,690 WSI-Reports</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">train: 6,152 (80.0%) | test: 769 (10.0%) | val: 769 (10.0%)</div>
+        </td>
+        <td>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">Embeddings de lámina completa DINOv2 (Tensores .pt / .h5)</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;"><code>15 volúmenes ZIP (299.3 GB Features) + annotation.json (26.9 MB)</code></div>
+        </td>
+        <td style="font-size: 0.85rem;">
+            <div><strong>Hub:</strong> 303.24 GB</div>
+            <div style="color: var(--text-muted); font-size: 0.75rem;"><strong>Descomp.:</strong> 299.28 GB (Embeddings WSI)</div>
+        </td>
+        <td>
+            <span class='badge badge-open'>🔓 Abierto</span>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Licencia: <code>Apache-2.0</code></div>
+        </td>
+        <td style="text-align: center;">
+            <a href="preview_david4real_histgen.html" class="btn-report" title="Ver reporte visual interactivo con 7 muestras">
+                👁️ Ver Reporte
+            </a>
+        </td>
+    </tr>
+    
+    <tr class="dataset-row" data-category="VQA" data-access="gated">
+        <td style="text-align: center; font-weight: bold; color: var(--accent);">5</td>
+        <td>
+            <div style="font-weight: bold; font-size: 1.05rem; color: #f8fafc;">PathMMU</div>
+            <code style="font-size: 0.75rem; color: #94a3b8;">pathmmu</code>
+        </td>
+        <td>
+            <a href="https://huggingface.co/datasets/jamessyx/PathMMU" target="_blank" class="hf-link">
+                🤗 <code>jamessyx/PathMMU</code>
+            </a>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                <strong>Baseline:</strong> PathAsst / GPT-4V / LLaVA-Med
+            </div>
+        </td>
+        <td>
+            <span class="badge badge-vqa">VQA</span>
+            <div style="font-size: 0.85rem; font-weight: 600; color: #e2e8f0; margin-top: 4px;">Benchmark VQA Multiple-Choice</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Sí (Benchmark validado por 7 patólogos certificados, Sun et al., ECCV 2024)</div>
+        </td>
+        <td style="text-align: right;">
+            <div style="font-weight: bold; color: var(--accent-green); font-size: 1rem;">10,387 preguntas</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">test: 8,521 (82.0%) | test_tiny: 1,156 (11.1%) | val: 710 (6.8%)</div>
+        </td>
+        <td>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">Imágenes histopatológicas de 5 fuentes clínicas (800x600px)</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;"><code>data.json (8.88 MB) + images.zip (1.80 GB)</code></div>
+        </td>
+        <td style="font-size: 0.85rem;">
+            <div><strong>Hub:</strong> 1.81 GB</div>
+            <div style="color: var(--text-muted); font-size: 0.75rem;"><strong>Descomp.:</strong> 1.80 GB (Imágenes)</div>
+        </td>
+        <td>
+            <span class='badge badge-gated'>🔒 Gated</span>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Licencia: <code>CC BY-ND 4.0</code></div>
+        </td>
+        <td style="text-align: center;">
+            <a href="preview_jamessyx_pathmmu.html" class="btn-report" title="Ver reporte visual interactivo con 7 muestras">
+                👁️ Ver Reporte
+            </a>
+        </td>
+    </tr>
+    
+    <tr class="dataset-row" data-category="Captioning / VLP" data-access="gated">
+        <td style="text-align: center; font-weight: bold; color: var(--accent);">6</td>
+        <td>
+            <div style="font-weight: bold; font-size: 1.05rem; color: #f8fafc;">PathCap</div>
+            <code style="font-size: 0.75rem; color: #94a3b8;">pathcap</code>
+        </td>
+        <td>
+            <a href="https://huggingface.co/datasets/jamessyx/PathCap" target="_blank" class="hf-link">
+                🤗 <code>jamessyx/PathCap</code>
+            </a>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                <strong>Baseline:</strong> PathCLIP / PathAsst (AAAI 2024)
+            </div>
+        </td>
+        <td>
+            <span class="badge badge-vlp">Captioning / VLP</span>
+            <div style="font-size: 0.85rem; font-weight: 600; color: #e2e8f0; margin-top: 4px;">Image Captioning / VLP Pretraining</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Sí (Corpus de preentrenamiento multimodal de PathAsst, Sun et al., AAAI 2024)</div>
+        </td>
+        <td style="text-align: right;">
+            <div style="font-weight: bold; color: var(--accent-green); font-size: 1rem;">223,169 pares</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">train: 223,169 (100% - Preentrenamiento VLP Continuo)</div>
+        </td>
+        <td>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">Subfiguras histopatológicas y citológicas de PubMed Central</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;"><code>data.json (66.96 MB) + images.zip (12.68 GB)</code></div>
+        </td>
+        <td style="font-size: 0.85rem;">
+            <div><strong>Hub:</strong> 12.75 GB</div>
+            <div style="color: var(--text-muted); font-size: 0.75rem;"><strong>Descomp.:</strong> 12.68 GB (Imágenes)</div>
+        </td>
+        <td>
+            <span class='badge badge-gated'>🔒 Gated</span>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Licencia: <code>CC BY-NC 2.0</code></div>
+        </td>
+        <td style="text-align: center;">
+            <a href="preview_jamessyx_pathcap.html" class="btn-report" title="Ver reporte visual interactivo con 7 muestras">
+                👁️ Ver Reporte
+            </a>
+        </td>
+    </tr>
+    
+    <tr class="dataset-row" data-category="Instruction Tuning" data-access="gated">
+        <td style="text-align: center; font-weight: bold; color: var(--accent);">7</td>
+        <td>
+            <div style="font-weight: bold; font-size: 1.05rem; color: #f8fafc;">PathInstruct</div>
+            <code style="font-size: 0.75rem; color: #94a3b8;">pathinstruct</code>
+        </td>
+        <td>
+            <a href="https://huggingface.co/datasets/jamessyx/PathInstruct" target="_blank" class="hf-link">
+                🤗 <code>jamessyx/PathInstruct</code>
+            </a>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                <strong>Baseline:</strong> PathAsst (AAAI 2024)
+            </div>
+        </td>
+        <td>
+            <span class="badge badge-sft">Instruction Tuning</span>
+            <div style="font-size: 0.85rem; font-weight: 600; color: #e2e8f0; margin-top: 4px;">Visual Instruction Tuning (SFT)</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Sí (Dataset de SFT estructurado en 2 Fases, Sun et al., AAAI 2024)</div>
+        </td>
+        <td style="text-align: right;">
+            <div style="font-weight: bold; color: var(--accent-green); font-size: 1rem;">186,194 instrucciones</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Fase 1: 186,194 diálogos morfológicos | Fase 2: Diálogos de diagnóstico clínico</div>
+        </td>
+        <td>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">Parches de subfiguras de PMC autocontenidos en images.zip</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;"><code>2 archivos JSON (Fase 1 y 2) + images.zip (10.74 GB)</code></div>
+        </td>
+        <td style="font-size: 0.85rem;">
+            <div><strong>Hub:</strong> 10.92 GB</div>
+            <div style="color: var(--text-muted); font-size: 0.75rem;"><strong>Descomp.:</strong> 10.74 GB (Imágenes)</div>
+        </td>
+        <td>
+            <span class='badge badge-gated'>🔒 Gated</span>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Licencia: <code>CC BY-NC 2.0</code></div>
+        </td>
+        <td style="text-align: center;">
+            <a href="preview_jamessyx_pathinstruct.html" class="btn-report" title="Ver reporte visual interactivo con 7 muestras">
+                👁️ Ver Reporte
+            </a>
+        </td>
+    </tr>
+    
+    <tr class="dataset-row" data-category="Captioning / VLP" data-access="gated">
+        <td style="text-align: center; font-weight: bold; color: var(--accent);">8</td>
+        <td>
+            <div style="font-weight: bold; font-size: 1.05rem; color: #f8fafc;">PathGen-1.6M</div>
+            <code style="font-size: 0.75rem; color: #94a3b8;">pathgen</code>
+        </td>
+        <td>
+            <a href="https://huggingface.co/datasets/jamessyx/PathGen" target="_blank" class="hf-link">
+                🤗 <code>jamessyx/PathGen</code>
+            </a>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                <strong>Baseline:</strong> PathAsst-v2 / LMM Pretraining
+            </div>
+        </td>
+        <td>
+            <span class="badge badge-vlp">Captioning / VLP</span>
+            <div style="font-size: 0.85rem; font-weight: 600; color: #e2e8f0; margin-top: 4px;">Dense Captioning & Synthetic Pretraining</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Sí (Dataset de enriquecimiento de leyendas sintéticas, Sun et al., ICLR 2025)</div>
+        </td>
+        <td style="text-align: right;">
+            <div style="font-weight: bold; color: var(--accent-green); font-size: 1rem;">1,620,876 parches</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">train: 1,620,876 (100% - Coordenadas sobre láminas de TCGA)</div>
+        </td>
+        <td>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">Coordenadas espaciales (X, Y) y UUIDs sobre WSIs de TCGA</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;"><code>PathGen-1.6M.json (933.28 MB) estructurado</code></div>
+        </td>
+        <td style="font-size: 0.85rem;">
+            <div><strong>Hub:</strong> 933.28 MB</div>
+            <div style="color: var(--text-muted); font-size: 0.75rem;"><strong>Descomp.:</strong> 933.28 MB (Metadatos/Texto)</div>
+        </td>
+        <td>
+            <span class='badge badge-gated'>🔒 Gated</span>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Licencia: <code>CC BY-NC 2.0</code></div>
+        </td>
+        <td style="text-align: center;">
+            <a href="preview_jamessyx_pathgen.html" class="btn-report" title="Ver reporte visual interactivo con 7 muestras">
+                👁️ Ver Reporte
+            </a>
+        </td>
+    </tr>
+    
+    <tr class="dataset-row" data-category="Zero-Shot / Retrieval" data-access="open">
+        <td style="text-align: center; font-weight: bold; color: var(--accent);">9</td>
+        <td>
+            <div style="font-weight: bold; font-size: 1.05rem; color: #f8fafc;">OpenPath / PLIP</div>
+            <code style="font-size: 0.75rem; color: #94a3b8;">openpath</code>
+        </td>
+        <td>
+            <a href="https://huggingface.co/datasets/akshayg08/OpenPath" target="_blank" class="hf-link">
+                🤗 <code>akshayg08/OpenPath</code>
+            </a>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                <strong>Baseline:</strong> PLIP (Nature Medicine 2023)
+            </div>
+        </td>
+        <td>
+            <span class="badge badge-retrieval">Zero-Shot / Retrieval</span>
+            <div style="font-size: 0.85rem; font-weight: 600; color: #e2e8f0; margin-top: 4px;">Zero-Shot Classification & Retrieval Benchmark</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Sí (Suite oficial de evaluación de PLIP, Huang et al., Nature Medicine 2023)</div>
+        </td>
+        <td style="text-align: right;">
+            <div style="font-weight: bold; color: var(--accent-green); font-size: 1rem;">7,180 parches / 4 suites</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Kather: 7,180 parches | PanNuke: 19 clases | DigestPath | WSSS4LUAD</div>
+        </td>
+        <td>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">Parches histológicos en formato .tif con 9 clases tisulares</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;"><code>8 archivos CSV + 32 matrices de embeddings .npy + 7,180 TIF</code></div>
+        </td>
+        <td style="font-size: 0.85rem;">
+            <div><strong>Hub:</strong> 2.15 GB</div>
+            <div style="color: var(--text-muted); font-size: 0.75rem;"><strong>Descomp.:</strong> 2.15 GB</div>
+        </td>
+        <td>
+            <span class='badge badge-open'>🔓 Abierto</span>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Licencia: <code>Apache-2.0</code></div>
+        </td>
+        <td style="text-align: center;">
+            <a href="preview_akshayg08_openpath.html" class="btn-report" title="Ver reporte visual interactivo con 7 muestras">
+                👁️ Ver Reporte
+            </a>
+        </td>
+    </tr>
+    
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Methodological Insights Section -->
+        <div class="insights-grid">
+            <div class="insight-card">
+                <div class="insight-header">
+                    <span>📦 1. Arquitecturas de Empaquetado en Hugging Face</span>
+                </div>
+                <div class="insight-content">
+                    <p style="margin-top: 0;"><strong>A. Parquet Nativo con Imágenes Embebidas (PathVQA, Quilt-VQA):</strong> Permite streaming puro fila por fila mediante <code>load_dataset(..., streaming=True)</code> sin necesidad de descargar el dataset completo a disco.</p>
+                    <p><strong>B. Contenedor ZIP + JSON de Metadatos (PathMMU, PathCap, PathInstruct):</strong> Las imágenes están empaquetadas en un único archivo ZIP (hasta 12.68 GB). El acceso por streaming se resolvió mediante <em>HTTP Range Requests</em> para extraer exclusivamente las muestras deseadas sin saturar el almacenamiento.</p>
+                    <p style="margin-bottom: 0;"><strong>C. Desacoplamiento de Gran Escala (Quilt-Instruct, HistGen, PathGen):</strong> Separación entre el dato textual (instrucciones, reportes) y los píxeles o embeddings densos (Quilt-1M, DINOv2 Features de 299 GB, o coordenadas en TCGA).</p>
+                </div>
+            </div>
+
+            <div class="insight-card">
+                <div class="insight-header">
+                    <span>⚖️ 2. Taxonomía de Tareas y Evaluación en la Tesis</span>
+                </div>
+                <div class="insight-content">
+                    <p style="margin-top: 0;"><strong>• VQA de Opción Múltiple &amp; Justificación (PathMMU):</strong> Evalúa precisión diagnóstica y calidad del razonamiento patológico (*Clinical Rationale*).</p>
+                    <p><strong>• VQA Abierta (PathVQA, Quilt-VQA):</strong> Evalúa generación directa de respuestas concisas sobre parches histológicos.</p>
+                    <p><strong>• Visual Instruction Tuning (Quilt-Instruct, PathInstruct):</strong> Evalúa la capacidad conversacional y seguimiento de instrucciones complejas en patología.</p>
+                    <p><strong>• Zero-Shot &amp; Retrieval (OpenPath / PLIP):</strong> Evalúa la alineación del espacio latente multimodal en 4 benchmarks canónicos.</p>
+                    <p style="margin-bottom: 0;"><strong>• WSI-to-Report Generation (HistGen):</strong> Evalúa la síntesis de reportes quirúrgicos completos a partir de láminas completas.</p>
+                </div>
+            </div>
+
+            <div class="insight-card">
+                <div class="insight-header">
+                    <span>🛡️ 3. Aislamiento Metodológico y Control de Data Leakage</span>
+                </div>
+                <div class="insight-content">
+                    <p style="margin-top: 0;"><strong>• Solapamiento por Fuentes Comunes:</strong> Datasets como PathCap, PathInstruct, PathVQA y Quilt-1M comparten artículos de PubMed Central (PMC). Para evaluaciones ciego-rigurosas, se debe filtrar por <code>PMID / PMC ID</code>.</p>
+                    <p><strong>• Cobertura Multicéntrica de TCGA:</strong> HistGen, PathGen, WSI-VQA y SlideInstruction se basan en láminas de TCGA. La unidad de partición estricta debe ser el <code>Patient ID</code> (ej. <code>TCGA-XX-XXXX</code>) para garantizar que ninguna lámina del mismo paciente esté en entrenamiento y prueba.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Tesis de Maestría en Patología Computacional &bull; Directorio de Trabajo: <code>Thesis/</code> &bull; Generado con Antigravity AI Engine
+        </div>
+
+    </div>
+
+    <!-- Interactive Filtering Script -->
+    <script>
+        function filterCategory(category, btn) {
+            // Update active button state
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const rows = document.querySelectorAll('.dataset-row');
+            rows.forEach(row => {
+                if (category === 'all' || row.getAttribute('data-category') === category) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('.dataset-row');
+            
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                if (text.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

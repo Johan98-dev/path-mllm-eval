@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoria de Dataset: wisdomik/QUILT-LLaVA-Instruct-107K</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-green: #4ade80;
+            --accent-amber: #fbbf24;
+            --badge-bg: #0b1329;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 24px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            margin: 0 0 8px 0;
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+        .task-banner {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 14px 0;
+        }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .meta-item {
+            background: var(--badge-bg);
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .meta-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .meta-value {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 6px;
+            margin-top: 6px;
+        }
+        .badge-open { background: #065f46; color: var(--accent-green); }
+        .badge-gated { background: #78350f; color: var(--accent-amber); }
+        .badge-task { background: #1e3a8a; color: var(--accent); }
+        .badge-secondary { background: #334155; color: #cbd5e1; }
+
+        .samples-header {
+            margin: 32px 0 16px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sample-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+        @media (max-width: 900px) {
+            .sample-card { grid-template-columns: 1fr; }
+        }
+        .visual-pane {
+            background: #020617;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid var(--border-color);
+        }
+        .visual-pane img {
+            max-width: 100%;
+            max-height: 320px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            object-fit: contain;
+        }
+        .image-meta {
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+        .text-pane {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .sample-num {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .field-box {
+            background: var(--badge-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+        }
+        .field-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .field-content {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .dialogue-bubble {
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        .dialogue-human {
+            background: #1e3a8a;
+            color: #dbeafe;
+            border-left: 4px solid var(--accent);
+        }
+        .dialogue-gpt {
+            background: #14532d;
+            color: #dcfce7;
+            border-left: 4px solid var(--accent-green);
+        }
+        .dialogue-speaker {
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .raw-meta-box {
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        details summary {
+            cursor: pointer;
+            color: var(--accent);
+            outline: none;
+        }
+        pre {
+            background: #020617;
+            padding: 10px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.8rem;
+        }
+        .error-banner {
+            background: #7f1d1d;
+            color: #fecaca;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            border: 1px solid #b91c1c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔬 Auditoria de Dataset: <code>wisdomik/QUILT-LLaVA-Instruct-107K</code></h1>
+            
+            <div class="task-banner">
+                <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); font-weight: bold; margin-bottom: 4px;">
+                    🎯 Tareas Multimodales Formalizadas &amp; Derivadas
+                </div>
+                <div style="font-size: 1.05rem; font-weight: bold; color: var(--text-main); margin-bottom: 6px;">
+                    Tarea Principal: Visual Instruction Tuning / Multi-turn Dialogue
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
+                    <strong>Formalizacion:</strong> Si (Curado para LLaVA-Med / Quilt-LLaVA por Seyfioglu et al., CVPR 2024)
+                </div>
+                <div>
+                    <span style="font-size: 0.8rem; color: var(--text-muted); margin-right: 6px;">Tareas Secundarias / Posibles:</span>
+                    <span class='badge badge-secondary'>Spatial Grounding VQA</span> <span class='badge badge-secondary'>Complex Pathological Reasoning</span> <span class='badge badge-secondary'>LMM Fine-tuning</span> 
+                </div>
+            </div>
+
+            <div>
+                <span class="badge badge-gated">
+                    🔒 Gated (Requiere Aprobacion)
+                </span>
+                <span class="badge badge-task">Licencia: cc-by-nc-nd-3.0</span>
+                <span class="badge badge-task">Descargas: 58</span>
+                <span class="badge badge-task">Likes: 11</span>
+            </div>
+
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <div class="meta-label">Tamano Total en Hub (Archivos)</div>
+                    <div class="meta-value">855.79 MB</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">9 archivos totales</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Tamano Descomprimido (Dataset)</div>
+                    <div class="meta-value">Desconocido</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Descarga: Desconocido</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Split Muestreado</div>
+                    <div class="meta-value"><code>train</code></div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">7 muestras extraidas</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Total Registros (Todos los Splits)</div>
+                    <div class="meta-value">0</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Sumatoria de particiones</div>
+                </div>
+
+                
+            </div>
+
+            
+        </div>
+
+        <div class="samples-header">
+            <h2>🖼️ Muestras Extraidas por Streaming (7)</h2>
+            <span style="color: var(--text-muted); font-size: 0.9rem;">Inspeccion de Alineacion Multimodal (Imagen &harr; Texto)</span>
+        </div>
+    
+        <div class="sample-card">
+            <div class="visual-pane">
+                <div style='color: var(--text-muted); padding: 40px;'>Sin imagen directa (o dato vectorial)</div>
+            </div>
+            <div class="text-pane">
+                <div class='sample-num'>MUESTRA #1</div>
+                <div class="field-box">
+                    <div class="field-title">
+                        <span>📝 Campo: <code>id</code></span>
+                        <span>1 palabras | 17 caracteres</span>
+                    </div>
+                    <div class="field-content">_KJZm1orOvU_25699</div>
+                </div>
+                
+                <div class="field-box">
+                    <div class="field-title">
+                        <span>📝 Campo: <code>image</code></span>
+                        <span>1 palabras | 56 caracteres</span>
+                    </div>
+                    <div class="field-content">_KJZm1orOvU_roi_d41681f6-8143-468f-98fc-b1e258b7947c.jpg</div>
+                </div>
+                
+                <div class="field-box">
+                    <div class="field-title"><span>🗨️ Dialogo / Instruccion: <code>conversations</code></span></div>
+                    
+                    <div class="dialogue-bubble dialogue-human">
+                        <div class="dialogue-speaker">human</div>
+                        <div>Can you describe the main features visible in this histopathology image?
+<image></div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-gpt">
+                        <div class="dialogue-speaker">gpt</div>
+                        <div>The image primarily showcases a foreign body giant cell reaction, which is a type of immune response. There's a cyst visible, and it appears to have ruptured into the surrounding connective tissue. Most notably, towards the upper middle to the right side of the image, there are multinucleated foreign body giant cells, which are indicative of an ongoing immune response.</div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-human">
+                        <div class="dialogue-speaker">human</div>
+                        <div>Can you elaborate on the spatial relationship between the cyst and the foreign body giant cells?</div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-gpt">
+                        <div class="dialogue-speaker">gpt</div>
+                        <div>Certainly. The cyst is present in the image, and it seems to have ruptured, releasing its contents into the surrounding connective tissue. The multinucleated foreign body giant cells, which are a response to this event, are located slightly above and extending towards the right side of the ruptured cyst. This suggests that these cells are actively responding to the ruptured cyst.</div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-human">
+                        <div class="dialogue-speaker">human</div>
+                        <div>What could be the potential implications of these findings?</div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-gpt">
+                        <div class="dialogue-speaker">gpt</div>
+                        <div>The presence of a ruptured cyst and foreign body giant cells indicates an ongoing inflammatory response. Foreign body giant cells are typically formed when the immune system attempts to wall off or isolate foreign material that it cannot eliminate. This could be due to a foreign body, such as a splinter, suture material, or other implanted material. Alternatively, it could be a response to an endogenous substance that is perceived as foreign, such as the contents of a ruptured cyst. The exact implications would depend on the clinical context and may require further investigation.</div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="sample-card">
+            <div class="visual-pane">
+                <div style='color: var(--text-muted); padding: 40px;'>Sin imagen directa (o dato vectorial)</div>
+            </div>
+            <div class="text-pane">
+                <div class='sample-num'>MUESTRA #2</div>
+                <div class="field-box">
+                    <div class="field-title">
+                        <span>📝 Campo: <code>id</code></span>
+                        <span>1 palabras | 17 caracteres</span>
+                    </div>
+                    <div class="field-content">vLReQ1gQA0Y_79088</div>
+                </div>
+                
+                <div class="field-box">
+                    <div class="field-title">
+                        <span>📝 Campo: <code>image</code></span>
+                        <span>1 palabras | 56 caracteres</span>
+                    </div>
+                    <div class="field-content">vLReQ1gQA0Y_roi_143a4ff5-2c51-4eeb-9b3e-d4d75b3c5bfb.jpg</div>
+                </div>
+                
+                <div class="field-box">
+                    <div class="field-title"><span>🗨️ Dialogo / Instruccion: <code>conversations</code></span></div>
+                    
+                    <div class="dialogue-bubble dialogue-human">
+                        <div class="dialogue-speaker">human</div>
+                        <div>Could you distill the contents of the displayed histopathology image into a brief description?
+<image></div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-gpt">
+                        <div class="dialogue-speaker">gpt</div>
+                        <div>Upon examination of the histopathology image, it is evident that there is an aneurysmal bone cyst formation. This is characterized by the presence of blood-filled spaces separated by connective tissue septa containing trabeculae or osteoid tissue and osteoclast-like giant cells. The cystic spaces are often filled with blood, without an endothelial lining. 
+
+In addition, there are signs of secondary aneurysmal changes. These changes are typically characterized by the presence of fibrous tissue, hemosiderin deposition, and reactive bone formation. 
+
+It is important to note that distinguishing between primary aneurysmal bone cysts and secondary aneurysmal changes can be challenging. However, in this particular image, the vast majority of the features are indicative of an aneurysmal bone cyst formation. The presence of multiple blood-filled cystic spaces, the lack of an endothelial lining, and the presence of osteoclast-like giant cells are all characteristic of this condition. 
+
+In contrast, secondary aneurysmal changes are usually associated with other underlying bone pathologies and may present with more fibrous tissue and reactive bone formation. The features observed in this image are more consistent with a primary aneurysmal bone cyst.</div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="sample-card">
+            <div class="visual-pane">
+                <div style='color: var(--text-muted); padding: 40px;'>Sin imagen directa (o dato vectorial)</div>
+            </div>
+            <div class="text-pane">
+                <div class='sample-num'>MUESTRA #3</div>
+                <div class="field-box">
+                    <div class="field-title">
+                        <span>📝 Campo: <code>id</code></span>
+                        <span>1 palabras | 17 caracteres</span>
+                    </div>
+                    <div class="field-content">_nYqmcSoFRQ_18641</div>
+                </div>
+                
+                <div class="field-box">
+                    <div class="field-title">
+                        <span>📝 Campo: <code>image</code></span>
+                        <span>1 palabras | 56 caracteres</span>
+                    </div>
+                    <div class="field-content">_nYqmcSoFRQ_roi_0d6a2423-11f0-41d4-8659-bab4b1b8974f.jpg</div>
+                </div>
+                
+                <div class="field-box">
+                    <div class="field-title"><span>🗨️ Dialogo / Instruccion: <code>conversations</code></span></div>
+                    
+                    <div class="dialogue-bubble dialogue-human">
+                        <div class="dialogue-speaker">human</div>
+                        <div><image>
+I see a wound covered by benign epidermis, with a keratinised layer of anucleate cells on top. There are also areas of pink, thick, ropey collagen. Could this suggest a healing process, possibly in the later stages of wound repair?</div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-gpt">
+                        <div class="dialogue-speaker">gpt</div>
+                        <div>Your observation about the healing process is on the right track, but the presence of thick, ropey collagen might suggest something more than just normal wound healing. The collagen appears to be excessive and has a distinct appearance. Hint: Consider conditions where collagen production might be excessive, leading to a firm texture. Also, think about the significance of the pink, thick, ropey collagen. What could this suggest about the nature of the scar tissue?</div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-human">
+                        <div class="dialogue-speaker">human</div>
+                        <div>Given the excessive collagen production and its distinct appearance, could this be indicative of a hypertrophic scar or keloid formation?</div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-gpt">
+                        <div class="dialogue-speaker">gpt</div>
+                        <div>You're getting closer. Both hypertrophic scars and keloids are characterized by excessive collagen production. However, there are certain distinguishing features between the two. Hint: Consider the extent of the scar tissue. Does it remain within the confines of the original wound or does it extend beyond? Also, think about the timing of the appearance of this lump in relation to the initial injury or incision. These factors might help you differentiate between a hypertrophic scar and a keloid.</div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-human">
+                        <div class="dialogue-speaker">human</div>
+                        <div>Considering the extent of the scar tissue and the timing of its appearance, could this be a hypertrophic scar, which typically remains within the confines of the original wound and appears soon after the injury?</div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-gpt">
+                        <div class="dialogue-speaker">gpt</div>
+                        <div>Your reasoning is sound, but the hypertrophic scar typically does not extend beyond the confines of the original wound. However, the image you're analyzing shows a different scenario. Hint: Reflect on the nature of the scar tissue you're observing. Does it seem to extend beyond the original wound? Also, consider the timing of the appearance of this lump in relation to the initial injury or incision. These factors might help you differentiate between a hypertrophic scar and a keloid.</div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="sample-card">
+            <div class="visual-pane">
+                <div style='color: var(--text-muted); padding: 40px;'>Sin imagen directa (o dato vectorial)</div>
+            </div>
+            <div class="text-pane">
+                <div class='sample-num'>MUESTRA #4</div>
+                <div class="field-box">
+                    <div class="field-title">
+                        <span>📝 Campo: <code>id</code></span>
+                        <span>1 palabras | 17 caracteres</span>
+                    </div>
+                    <div class="field-content">dAwdAP96Gaw_23077</div>
+                </div>
+                
+                <div class="field-box">
+                    <div class="field-title">
+                        <span>📝 Campo: <code>image</code></span>
+                        <span>1 palabras | 56 caracteres</span>
+                    </div>
+                    <div class="field-content">dAwdAP96Gaw_roi_74b39e1e-0cc1-4b36-8307-a0fd6c3fc8bc.jpg</div>
+                </div>
+                
+                <div class="field-box">
+                    <div class="field-title"><span>🗨️ Dialogo / Instruccion: <code>conversations</code></span></div>
+                    
+                    <div class="dialogue-bubble dialogue-human">
+                        <div class="dialogue-speaker">human</div>
+                        <div><image>
+How would you summarize the features of the histopathology image displayed?</div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-gpt">
+                        <div class="dialogue-speaker">gpt</div>
+                        <div>The histopathology image reveals follicles that are stained, indicating the presence of certain markers. The follicles exhibit positivity for CD10 and BCL6, which are typically associated with primary nodal involvement. This suggests that the follicles could have originated from the lymph nodes and subsequently migrated to the skin.
+
+In addition, there is a notable distribution of BCL2 staining among the primary cutaneous follicles. Approximately 80% of these follicles do not express BCL2, which is a common characteristic of primary cutaneous follicles. However, an interesting observation is that 20% of these follicles are positive for BCL2. This is a significant finding as it deviates from the typical staining pattern of primary cutaneous follicles, suggesting a potential variation or anomaly in the follicular development or behavior.</div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="sample-card">
+            <div class="visual-pane">
+                <div style='color: var(--text-muted); padding: 40px;'>Sin imagen directa (o dato vectorial)</div>
+            </div>
+            <div class="text-pane">
+                <div class='sample-num'>MUESTRA #5</div>
+                <div class="field-box">
+                    <div class="field-title">
+                        <span>📝 Campo: <code>id</code></span>
+                        <span>1 palabras | 17 caracteres</span>
+                    </div>
+                    <div class="field-content">N-uwhvVpH4k_29643</div>
+                </div>
+                
+                <div class="field-box">
+                    <div class="field-title">
+                        <span>📝 Campo: <code>image</code></span>
+                        <span>1 palabras | 56 caracteres</span>
+                    </div>
+                    <div class="field-content">N-uwhvVpH4k_roi_691c2920-32e7-4d20-b326-29973d7707b9.jpg</div>
+                </div>
+                
+                <div class="field-box">
+                    <div class="field-title"><span>🗨️ Dialogo / Instruccion: <code>conversations</code></span></div>
+                    
+                    <div class="dialogue-bubble dialogue-human">
+                        <div class="dialogue-speaker">human</div>
+                        <div><image>
+Can you provide an analysis based on this single patch of the histopathology image?</div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-gpt">
+                        <div class="dialogue-speaker">gpt</div>
+                        <div>Certainly. Upon examination of this patch, we can observe several key features. There is a well-circumscribed area, which suggests a localized lesion or growth. This is a significant observation as it indicates a possible abnormality in the tissue.
+
+In addition, we can see parts of the erector pili muscle and sweat glands, which are normal structures in the skin. Their presence does not necessarily indicate a pathological condition, but their relationship to the well-circumscribed area could be important.
+
+The dermis, the layer of skin beneath the epidermis, is also visible. The condition of the dermis, including its thickness, cellularity, and the presence or absence of inflammation or other changes, can provide valuable clues about potential skin disorders.
+
+However, the details provided in this single patch are not sufficient to make a definitive diagnosis. The well-circumscribed area could be indicative of a variety of conditions, ranging from benign growths like nevi to more serious conditions like melanoma. The absence of additional information, such as the presence of pigmented cells, mitotic figures, or other cellular abnormalities, makes it challenging to narrow down the possibilities.
+
+Therefore, while this patch provides some useful information, a more comprehensive examination of the whole slide would be necessary to confirm any findings and make a definitive diagnosis. This would ideally include a closer look at the well-circumscribed area, as well as the surrounding tissue, to identify any consistent pathological features or contrasting characteristics.</div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="sample-card">
+            <div class="visual-pane">
+                <div style='color: var(--text-muted); padding: 40px;'>Sin imagen directa (o dato vectorial)</div>
+            </div>
+            <div class="text-pane">
+                <div class='sample-num'>MUESTRA #6</div>
+                <div class="field-box">
+                    <div class="field-title">
+                        <span>📝 Campo: <code>id</code></span>
+                        <span>1 palabras | 17 caracteres</span>
+                    </div>
+                    <div class="field-content">MUlI_olCBDw_60617</div>
+                </div>
+                
+                <div class="field-box">
+                    <div class="field-title">
+                        <span>📝 Campo: <code>image</code></span>
+                        <span>1 palabras | 56 caracteres</span>
+                    </div>
+                    <div class="field-content">MUlI_olCBDw_roi_cb5cf1cf-7c33-45d9-8a0c-f4dfacc3e539.jpg</div>
+                </div>
+                
+                <div class="field-box">
+                    <div class="field-title"><span>🗨️ Dialogo / Instruccion: <code>conversations</code></span></div>
+                    
+                    <div class="dialogue-bubble dialogue-human">
+                        <div class="dialogue-speaker">human</div>
+                        <div>I see sinus histiocytes in the subcapsular sinus, which is the first port of call for draining lymph. Could this suggest a normal lymphatic drainage process or possibly an immune response to an infection?
+<image></div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-gpt">
+                        <div class="dialogue-speaker">gpt</div>
+                        <div>Your observation about the presence of sinus histiocytes in the subcapsular sinus and the lymph drainage process is accurate. However, these features are not necessarily indicative of an infection. They are part of the normal architecture and function of a lymph node. Hint: Consider the overall architecture of the lymph node. What other features would you expect to see in a normal lymph node? For instance, think about the presence of primary and secondary follicles, germinal centres, and the types of cells you might find there. What role do these structures and cells play in the immune response?</div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-human">
+                        <div class="dialogue-speaker">human</div>
+                        <div>I see a normal lymph node architecture with sinus histiocytes in the subcapsular sinus. Could this suggest a healthy immune response, with the lymph node effectively filtering lymph and initiating immune responses?</div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-gpt">
+                        <div class="dialogue-speaker">gpt</div>
+                        <div>Your abduction is correct. The presence of sinus histiocytes in the subcapsular sinus and the normal architecture of the lymph node indeed suggest a healthy immune response. The lymph node is effectively filtering lymph and initiating immune responses. Hint: You've made a good observation. Now, consider the types of cells you might find in the germinal centres and their roles in the immune response. What would you expect to see in a normal lymph node?</div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-human">
+                        <div class="dialogue-speaker">human</div>
+                        <div>I would expect to see B cells in the germinal centers of a normal lymph node, which are crucial for the immune response. Could this suggest that the lymph node is actively producing antibodies in response to antigens?</div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-gpt">
+                        <div class="dialogue-speaker">gpt</div>
+                        <div>Your abduction is correct. The presence of B cells in the germinal centers of a normal lymph node indeed suggests that the lymph node is actively producing antibodies in response to antigens. This is a key part of the immune response. Hint: You've made a good observation. Now, consider the presence of other cells like tingible body macrophages within germinal centres. What role do they play in a normal lymph node?</div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="sample-card">
+            <div class="visual-pane">
+                <div style='color: var(--text-muted); padding: 40px;'>Sin imagen directa (o dato vectorial)</div>
+            </div>
+            <div class="text-pane">
+                <div class='sample-num'>MUESTRA #7</div>
+                <div class="field-box">
+                    <div class="field-title">
+                        <span>📝 Campo: <code>id</code></span>
+                        <span>1 palabras | 17 caracteres</span>
+                    </div>
+                    <div class="field-content">lRulbyp4uPY_73995</div>
+                </div>
+                
+                <div class="field-box">
+                    <div class="field-title">
+                        <span>📝 Campo: <code>image</code></span>
+                        <span>1 palabras | 56 caracteres</span>
+                    </div>
+                    <div class="field-content">lRulbyp4uPY_roi_c29adea2-ca74-4fe4-b914-4c8990fbcc82.jpg</div>
+                </div>
+                
+                <div class="field-box">
+                    <div class="field-title"><span>🗨️ Dialogo / Instruccion: <code>conversations</code></span></div>
+                    
+                    <div class="dialogue-bubble dialogue-human">
+                        <div class="dialogue-speaker">human</div>
+                        <div>How would you encapsulate the findings presented in the histopathology image?
+<image></div>
+                    </div>
+                    
+                    <div class="dialogue-bubble dialogue-gpt">
+                        <div class="dialogue-speaker">gpt</div>
+                        <div>In the central region of the histopathology image, there is a notable area that exhibits the characteristic features of a neurofibroma. This region is devoid of pigment, allowing for a clear observation of the cellular morphology and stroma.
+
+The cells in this region are predominantly comma-shaped and S-shaped, typical of Schwann cells seen in neurofibromas. These cells are dispersed in a background that appears pale, indicative of a slightly myxoid and collagenous stroma. This stroma provides a supportive matrix for the cells and is a common feature in neurofibromas.
+
+In addition to these, there are also mast cells interspersed among the Schwann cells. These cells are part of the immune system and their presence is consistent with the inflammatory response often seen in neurofibromas. The overall cellular arrangement and stromal composition strongly suggest a diagnosis of neurofibroma in this region of the image.</div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

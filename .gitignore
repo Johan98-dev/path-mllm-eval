@@ -84,9 +84,8 @@ wandb/
 # Reportes Temporales y Vistas Previas
 # ==========================================
 artifacts/
-reports/preview_*.html
-reports/*.html
 reports/temp/
+
 
 # ==========================================
 # Editores y Sistema Operativo

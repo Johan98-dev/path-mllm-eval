@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoria de Dataset: david4real/HistGen</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-green: #4ade80;
+            --accent-amber: #fbbf24;
+            --badge-bg: #0b1329;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 24px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            margin: 0 0 8px 0;
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+        .task-banner {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 14px 0;
+        }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .meta-item {
+            background: var(--badge-bg);
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .meta-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .meta-value {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 6px;
+            margin-top: 6px;
+        }
+        .badge-open { background: #065f46; color: var(--accent-green); }
+        .badge-task { background: #1e3a8a; color: var(--accent); }
+        .badge-secondary { background: #334155; color: #cbd5e1; }
+        .samples-header {
+            margin: 32px 0 16px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sample-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+        @media (max-width: 900px) {
+            .sample-card { grid-template-columns: 1fr; }
+        }
+        .visual-pane {
+            background: #020617;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid var(--border-color);
+        }
+        .text-pane {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .sample-num {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .field-box {
+            background: var(--badge-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px;
+        }
+        .field-title {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .field-content {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔬 Auditoria de Dataset: <code>david4real/HistGen</code></h1>
+            
+            <div class="task-banner">
+                <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); font-weight: bold; margin-bottom: 4px;">
+                    🎯 Tareas Multimodales Formalizadas &amp; Derivadas
+                </div>
+                <div style="font-size: 1.05rem; font-weight: bold; color: var(--text-main); margin-bottom: 6px;">
+                    Tarea Principal: WSI-to-Diagnostic Report Generation (Generacion de Reportes Patologicos desde WSI)
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
+                    <strong>Formalizacion:</strong> Si (Benchmark y dataset estandar de generacion de reportes, Guo et al., MICCAI 2024)
+                </div>
+                <div>
+                    <span style="font-size: 0.8rem; color: var(--text-muted); margin-right: 6px;">Tareas Secundarias / Posibles:</span>
+                    <span class='badge badge-secondary'>Long-form Pathology Report Generation</span>
+                    <span class='badge badge-secondary'>Multi-Cancer Report Synthesis</span>
+                    <span class='badge badge-secondary'>WSI Clinical Captioning</span>
+                </div>
+            </div>
+
+            <div>
+                <span class="badge badge-open">🔓 Acceso Abierto Directo</span>
+                <span class="badge badge-task">Licencia: Apache-2.0</span>
+                <span class="badge badge-task">Descargas: 84</span>
+                <span class="badge badge-task">Archivos Totales: 23</span>
+            </div>
+
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <div class="meta-label">Tamano Total en Hub (Archivos)</div>
+                    <div class="meta-value">303.24 GB</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">299.3 GB en 15 partes ZIP (Features DINOv2)</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Metadato Textual (annotation.json)</div>
+                    <div class="meta-value">26.91 MB</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Descargable independientemente</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Split Muestreado</div>
+                    <div class="meta-value"><code>train</code></div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">7 muestras extraidas</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Total Registros (WSI-Report)</div>
+                    <div class="meta-value">7,690</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">WSI de TCGA con reporte completo</div>
+                </div>
+
+                <div class="meta-item" style="grid-column: 1 / -1; margin-top: 8px;">
+                    <div class="meta-label">Desglose Oficial de Particiones (Splits) - Total Registros: 7,690</div>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.9rem;">
+                        <thead>
+                            <tr style="background: rgba(255,255,255,0.05); text-align: left;">
+                                <th style="padding: 8px 12px; border-bottom: 1px solid var(--border-color);">Split</th>
+                                <th style="padding: 8px 12px; border-bottom: 1px solid var(--border-color); text-align: right;">Registros / WSI</th>
+                                <th style="padding: 8px 12px; border-bottom: 1px solid var(--border-color); text-align: right;">Porcentaje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="color: var(--accent); font-weight: bold;">
+                                <td style="padding: 8px 12px; border-bottom: 1px solid var(--border-color);"><code>train</code></td>
+                                <td style="padding: 8px 12px; border-bottom: 1px solid var(--border-color); text-align: right;">6,152</td>
+                                <td style="padding: 8px 12px; border-bottom: 1px solid var(--border-color); text-align: right;">80.0%</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px 12px; border-bottom: 1px solid var(--border-color);"><code>val</code></td>
+                                <td style="padding: 8px 12px; border-bottom: 1px solid var(--border-color); text-align: right;">769</td>
+                                <td style="padding: 8px 12px; border-bottom: 1px solid var(--border-color); text-align: right;">10.0%</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px 12px; border-bottom: 1px solid var(--border-color);"><code>test</code></td>
+                                <td style="padding: 8px 12px; border-bottom: 1px solid var(--border-color); text-align: right;">769</td>
+                                <td style="padding: 8px 12px; border-bottom: 1px solid var(--border-color); text-align: right;">10.0%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="samples-header">
+            <h2>📄 Muestras de Reportes Patológicos Estructurados (7)</h2>
+            <span style="color: var(--text-muted); font-size: 0.9rem;">Inspeccion de Alineacion Multimodal (WSI ID &harr; Reporte Clínico)</span>
+        </div>
+
+        
+    <div class="sample-card">
+        <div class="visual-pane">
+            <div style="background: #1e293b; border: 1px dashed #475569; border-radius: 8px; padding: 24px 16px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+                <div style="font-size: 2.5rem; margin-bottom: 8px;">🔬</div>
+                <strong style="color: #38bdf8;">Whole Slide Image (WSI)</strong><br>
+                <code style="font-size: 0.75rem; word-break: break-all;">TCGA-A7-A6VW-01Z-00-DX1.1BC4790C-DB45-4A3D-9C97-92C92C03FF60</code>
+                <div style="margin-top: 12px; font-size: 0.75rem; color: #64748b; border-top: 1px solid #334155; padding-top: 8px;">
+                    <strong>Features:</strong> DINOv2 Pre-extracted<br>
+                    <strong>Formato:</strong> H5 Coords / .pt Embeddings
+                </div>
+            </div>
+        </div>
+        <div class="text-pane">
+            <div class="sample-num">MUESTRA #1 &bull; TCGA Slide ID: <code>TCGA-A7-A6VW-01Z-00-DX1.1BC4790C-DB45-4A3D-9C97-92C92C03FF60</code></div>
+            <div class="field-box">
+                <div class="field-title">
+                    <span>📋 Reporte Patológico Diagnóstico Estructurado (TCGA Surgical Pathology Report)</span>
+                    <span>294 palabras | 1905 caracteres</span>
+                </div>
+                <div class="field-content">Final Surgical Pathology Report Procedure: Diagnosis A. Sentinel lymph node, left axilla, biopsy: Two negative lymph nodes (0/2). B. Breast, left, excisional biopsy: Invasive ductal carcinoma, grade 3, size 3.0 cm in greatest dimension, close to the medial and inferior margins. Microscopic Description: Invasive carcinoma: Histologic type: Ductal Histologic grade: 3 Overall grade: 9/9 Architectural score: 3 Nuclear score: 3 Mitotic score: 3 Greatest dimension (pT2): Size 3.0 cm in greatest dimension Specimen margins: Carcinoma is well-demarcated and forms a discrete mass lesion that is less than 1 mm from the medial margin and 0.5 mm from the inferior margin. Vessel invasion: Not identified. Ductal carcinoma in situ: Not identified. Comment: Prior biopsy site identified. Distant metastasis (pM): Unknown. Lymph nodes: Two negative sentinel lymph nodes, 0/2. Prognostic markers: See previous core biopsy. Specimen A: Left axillary sentinel node Specimen B: Left breast biopsy Clinical Information: Left breast cancer, 24-year-old black female with grade 3 invasive ductal carcinoma. Gross Description: A. Received unfixed, labeled left axillary sentinel node; there are two lymph nodes, the larger of which is 1.4 x 1.2 x 1.0 cm, bisected and submitted in blocks 1-2, and an additional node, 1.0 x 0.5 x 0.5 cm, bisected and submitted in block 3. B. Received unfixed in a container, labeled left breast; it is a portion of fibrofatty tissue that is oriented and 6.0 cm anterior to posterior, 4.5 cm medial to lateral, and 2.3 cm superior to inferior. Margins are inked: inferior blue, superior black, medial yellow, lateral green. The specimen is serially sectioned from anterior to posterior. There is a 3.0 x 2.0 x 1.9 cm tumor present, adjacent to the medial and inferior margins. Representative sections, including the anterior and posterior shave margins, sequentially submitted in 8 blocks.</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sample-card">
+        <div class="visual-pane">
+            <div style="background: #1e293b; border: 1px dashed #475569; border-radius: 8px; padding: 24px 16px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+                <div style="font-size: 2.5rem; margin-bottom: 8px;">🔬</div>
+                <strong style="color: #38bdf8;">Whole Slide Image (WSI)</strong><br>
+                <code style="font-size: 0.75rem; word-break: break-all;">TCGA-E9-A3QA-01Z-00-DX1.9D664AF3-9ABD-4EED-B826-4C4FBFC33F3E</code>
+                <div style="margin-top: 12px; font-size: 0.75rem; color: #64748b; border-top: 1px solid #334155; padding-top: 8px;">
+                    <strong>Features:</strong> DINOv2 Pre-extracted<br>
+                    <strong>Formato:</strong> H5 Coords / .pt Embeddings
+                </div>
+            </div>
+        </div>
+        <div class="text-pane">
+            <div class="sample-num">MUESTRA #2 &bull; TCGA Slide ID: <code>TCGA-E9-A3QA-01Z-00-DX1.9D664AF3-9ABD-4EED-B826-4C4FBFC33F3E</code></div>
+            <div class="field-box">
+                <div class="field-title">
+                    <span>📋 Reporte Patológico Diagnóstico Estructurado (TCGA Surgical Pathology Report)</span>
+                    <span>97 palabras | 748 caracteres</span>
+                </div>
+                <div class="field-content">Laterality: Left. Path Report: BREAST TISSUE CHECKLIST. Specimen type: Mastectomy. Specimen size: Not specified. Tumor site: Breast. Tumor size: 2 x 2.5 x 2 cm. Grossly evident lesion: Yes. Histologic type: Medullary carcinoma. Histologic grade: Moderately differentiated. Tumor extent: Not specified. Lymph nodes: Not specified. Extracapsular invasion of the lymph nodes: Not specified. Margins: Not specified. Nottingham Histologic Score: Tubule formation: Not specified. Nuclear pleomorphism: Not specified. Mitotic count (25x): Not specified. Mitotic count (40x): Not specified. Total Nottingham Score: Score cannot be determined. Evidence of neo-adjuvant treatment: Not specified. Additional pathologic findings: Not specified. Comments: None.</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sample-card">
+        <div class="visual-pane">
+            <div style="background: #1e293b; border: 1px dashed #475569; border-radius: 8px; padding: 24px 16px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+                <div style="font-size: 2.5rem; margin-bottom: 8px;">🔬</div>
+                <strong style="color: #38bdf8;">Whole Slide Image (WSI)</strong><br>
+                <code style="font-size: 0.75rem; word-break: break-all;">TCGA-DX-A23V-01Z-00-DX1.E7E5DAB8-EB00-44A2-91F1-2C660F624D1E</code>
+                <div style="margin-top: 12px; font-size: 0.75rem; color: #64748b; border-top: 1px solid #334155; padding-top: 8px;">
+                    <strong>Features:</strong> DINOv2 Pre-extracted<br>
+                    <strong>Formato:</strong> H5 Coords / .pt Embeddings
+                </div>
+            </div>
+        </div>
+        <div class="text-pane">
+            <div class="sample-num">MUESTRA #3 &bull; TCGA Slide ID: <code>TCGA-DX-A23V-01Z-00-DX1.E7E5DAB8-EB00-44A2-91F1-2C660F624D1E</code></div>
+            <div class="field-box">
+                <div class="field-title">
+                    <span>📋 Reporte Patológico Diagnóstico Estructurado (TCGA Surgical Pathology Report)</span>
+                    <span>884 palabras | 5332 caracteres</span>
+                </div>
+                <div class="field-content">Clinical Diagnosis & History: Retroperitoneal liposarcoma for resection. Specimens Submitted: 1. SP: Retroperitoneal sarcoma, 2nd & 3rd portion of duodenum, and right colon. 2. SP: Subcutaneous fat. 3. SP: Proximal small bowel. 4. SP: Gallbladder. 5. SP: Superior mesenteric vein nodule. DIAGNOSIS: 1. Soft Tissue, 2nd and 3rd portion of duodenum, portion of pancreas, and right colon; excision: - Dedifferentiated liposarcoma, present as multiple nodules (13 cm in aggregate) involving mesenteric/subserosal fat of duodenum and large bowel. The tumor extends to the deep margin. - The tumor involves the duodenal wall and encases a portion of the pancreas. 2. Adipose tissue, subcutaneous; biopsy: - Benign adipose tissue. 3. Small bowel, proximal; excision: - Benign small bowel wall with moderate acute serositis. 4. Gallbladder; cholecystectomy: - Benign gallbladder. 5. Soft tissue, superior mesenteric vein nodule; excision: - Well-differentiated liposarcoma, sclerosing type. I ATTEST THAT THE ABOVE DIAGNOSIS IS BASED UPON MY PERSONAL EXAMINATION OF THE SLIDES (AND/OR OTHER MATERIAL) AND THAT I HAVE REVIEWED AND APPROVED THIS REPORT. Gross Description: 1. The specimen is received fresh, labeled "Retroperitoneal sarcoma, 2nd and 3rd portion of duodenum and right colon." It consists of a segment of the duodenum; 2nd and 3rd portions measuring 15 cm in length. Both margins are stapled. The proximal margin measures 5 cm in circumference. The distal margin measures 6 cm in circumference. Between the 2nd and 3rd portions of the duodenum at the superior margin, a small fragment of pancreatic tissue is recognized, measuring 2 x 1 x 0.5 cm. Attached to the duodenal wall, covered by the duodenal serosa on the superior aspect of the 3rd portion of the duodenum, there is a multinodular, rubbery tumor, measuring 4 x 3 x 2.5 cm. The tumor has an attached 0.5 cm pedicle to the duodenal wall and is located 2 cm from the distal duodenal margin. The second multinodular tumor covered on the anterior aspect by the peritoneum and located 5 cm from the distal surgical margin is seen. This tumor is composed of multiple nodules, ranging in size from 1 to 3.5 cm in diameter. On the right side, 5 cm from the duodenal angle, there is a segment of ascending colon and terminal ileum. The terminal ileum measures 2.5 cm in length. The proximal surgical margin measures 4 cm in circumference. The ascending colon measures 15 cm in length. The distal surgical margin measures 9 cm in circumference. The appendix is not identified. The pericolic fat measures up to 5 cm in width. The surgical margin is inked: superior-blue, deep-black, inferior-red, lateral-green. The duodenum is opened, revealing an unremarkable duodenal mucosa. The colon is opened to reveal unremarkable tan-pink mucosa. Serial sectioning of the specimen shows that the nodules adjacent to the distal duodenum have a tan-pink appearance. The nodules located retroperitoneal show a variegated appearance. Some have a white-yellow appearance. They measure from 1.0 x 0.3 cm in diameter and are located 0.1 cm from the deep margin. One of the nodules located 3 cm from the deep margin showed a tan-pink appearance with hemorrhagic areas. This nodule measures 3.5 cm and has a soft consistency. Sections are taken to: Photographs are taken. Summary of Sections: DPM - Duodenal proximal margin DDM - Duodenal distal margin TD - Tumor at the distal margin RT - Retroperitoneal tumor IM - Inner margin CM - Colonic margin D - Duodenum C - Colon CNL - Pericolic lymph node 2. The specimen is received fresh, labeled "Subcutaneous fat." It consists of multiple irregular pieces of fatty tissue, measuring 3 x 3 x 0.25 cm. The specimen is submitted for representative sections. Summary of Sections: U - Undesignated 3. Specimen received in formalin labeled "Proximal small bowel." It consists of a single fragment of small bowel with an attached scanty amount of mesenteric adipose tissue. The bowel measures 5 cm in length and 3.5 cm in the greatest diameter. The serosa is tan and smooth. Upon opening, the intestinal wall measures 0.5 cm in thickness. The mucosa is tan and unremarkable. Representative sections are submitted. Cassette summary: SM - Surgical margins I - Intestine 4. Specimen received formalin labeled "Gallbladder." It consists of a club-shaped gallbladder measuring 10 x 3 x 2.5 cm. The serosa is tan and smooth. Upon opening, the lumen contains green bile. No calculi were identified. The wall measures 0.2 cm in thickness. The mucosa is velvety and grossly unremarkable. Representative sections are submitted. Cassette summary: U - Undesignated 5. Specimen received in formalin labeled "Superior mesenteric vein nodule." It consists of a nodular fibromembranous tissue measuring 1 x 1 x 0.6 cm. The nodule was bisected and entirely submitted. Cassette summary: U - Undesignated Summary of Sections: Part 1: SP: Retroperitoneal sarcoma, 2nd & 3rd portion of duodenum and right colon. Block Sect. Site PCs. 1. c. 1 1 cm 1 1 cnl 1 1 d. 1 1 ddm 1 1 dpm 1 1 i. 1 3. LN. 14 8 rt. 8 3 td. 3 Part 2: SP: Subcutaneous fat. Block Sect. Site PCs. 2. u. 2 Part 3: SP: Proximal small bowel. Block Sect. Site PCs. 1. i. 2 1. sm. 2 Part 4: SP: Gallbladder. Block Sect. Site PCs. 1. u. 3 Part 5: SP: Superior mesenteric vein nodule. Block Sect. Site PCs. 1. u. 2</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sample-card">
+        <div class="visual-pane">
+            <div style="background: #1e293b; border: 1px dashed #475569; border-radius: 8px; padding: 24px 16px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+                <div style="font-size: 2.5rem; margin-bottom: 8px;">🔬</div>
+                <strong style="color: #38bdf8;">Whole Slide Image (WSI)</strong><br>
+                <code style="font-size: 0.75rem; word-break: break-all;">TCGA-43-2576-01Z-00-DX1.779df209-95e1-4303-9c32-4083e8088d8e</code>
+                <div style="margin-top: 12px; font-size: 0.75rem; color: #64748b; border-top: 1px solid #334155; padding-top: 8px;">
+                    <strong>Features:</strong> DINOv2 Pre-extracted<br>
+                    <strong>Formato:</strong> H5 Coords / .pt Embeddings
+                </div>
+            </div>
+        </div>
+        <div class="text-pane">
+            <div class="sample-num">MUESTRA #4 &bull; TCGA Slide ID: <code>TCGA-43-2576-01Z-00-DX1.779df209-95e1-4303-9c32-4083e8088d8e</code></div>
+            <div class="field-box">
+                <div class="field-title">
+                    <span>📋 Reporte Patológico Diagnóstico Estructurado (TCGA Surgical Pathology Report)</span>
+                    <span>253 palabras | 1558 caracteres</span>
+                </div>
+                <div class="field-content">Specimen A: Level 5 lymph node. Specimen B: Left upper lobe. Specimen C: Level 7. Clinical notes: Pre-op diagnosis: Lung cancer. Frozen section diagnosis: A) Lymph node, level 5, excision - Non-small cell carcinoma. Gross Description: A. A irregularly shaped fragment of tissue labeled "level 5 lymph node" measures 2.5 x 2.2 x 1.5 cm. A representative section is submitted for frozen section, and the remaining tissue is entirely submitted for permanent section in a single cassette. B. A lung specimen labeled "left upper lobe" measuring 14.5 x 5.5 x 4.0 cm is partially covered with pink-red smooth glistening pleura, with black stippling present. The specimen shows an umbilication in the pleura which is 1.2 cm in greatest dimension and comes within 3.0 cm of the stapled margin. The pleura is inked blue and black, and the specimen is sectioned to show a 3.5 x 2.5 x 2.5 cm white-tan-gray firm focus grossly consistent with tumor. This is contiguous with the umbilication grossly identified on the pleura and comes within 0.7 cm of the stapled margin (inked blue). The remainder of the cut surface is pink-tan and spongy, showing no other discrete gross lesions identified. Representative sections of the specimen are submitted as follows: BLOCK SUMMARY: 1 - representative normal; 2-3 - representative section tumor to stapled margin; 4-6 - representative section of tumor to pleura and normal. C. Two black-red irregular soft tissue fragments labeled "level 7" measuring 0.8 cm and 0.6 cm in greatest dimension are entirely submitted in one cassette.</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sample-card">
+        <div class="visual-pane">
+            <div style="background: #1e293b; border: 1px dashed #475569; border-radius: 8px; padding: 24px 16px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+                <div style="font-size: 2.5rem; margin-bottom: 8px;">🔬</div>
+                <strong style="color: #38bdf8;">Whole Slide Image (WSI)</strong><br>
+                <code style="font-size: 0.75rem; word-break: break-all;">TCGA-B5-A3FD-01Z-00-DX1.2DD780C5-E07F-4F84-968B-3B1800BB7D7D</code>
+                <div style="margin-top: 12px; font-size: 0.75rem; color: #64748b; border-top: 1px solid #334155; padding-top: 8px;">
+                    <strong>Features:</strong> DINOv2 Pre-extracted<br>
+                    <strong>Formato:</strong> H5 Coords / .pt Embeddings
+                </div>
+            </div>
+        </div>
+        <div class="text-pane">
+            <div class="sample-num">MUESTRA #5 &bull; TCGA Slide ID: <code>TCGA-B5-A3FD-01Z-00-DX1.2DD780C5-E07F-4F84-968B-3B1800BB7D7D</code></div>
+            <div class="field-box">
+                <div class="field-title">
+                    <span>📋 Reporte Patológico Diagnóstico Estructurado (TCGA Surgical Pathology Report)</span>
+                    <span>1268 palabras | 8247 caracteres</span>
+                </div>
+                <div class="field-content">Clinical history: Malignant neocorpus uteri. Gross Examination: A. "Uterus, cervix, bilateral tubes and ovaries (AF1)" received fresh for frozen section and placed in formalin at on. Is a 293-gram, 13.5 x 8.5 x 5.5 cm total hysterectomy specimen with an attached 3.2 cm in diameter cervix with a 0.6 cm patent os. The specimen is opened to reveal a 3.6 x 5.2 x 2.1 cm tan-white, soft, friable, fungating mass lesion located at the uterine fundus. This mass lesion is located 3.2 cm to the anterior lower uterine segment and 2.8 cm to the closest posterior lower uterine segment. (A4- anterior lower uterine segment, A5- posterior lower uterine segment) . The mass lesion is sectioned to reveal an apparent 0.8 cm invasion into to a 2.1 cm thick trabeculated myometrium. A section with the apparent deepest invasion at the fundus is frozen as AF1 with the frozen section remnant submitted in block A1. Sections of the anterior endomyometrium and posterior endomyometrium with the aforementioned mass lesion are submitted in blocks A6-7, respectively. The mass lesions come to 1.5 cm to the closest serosal surface. An additional representative section of the mass lesion is submitted in block A8. The remainder of the specimen demonstrates an endometrium of 0. cm overlying a 2.1 cm trabeculated myometrium in the uninvolved uterus, within an endometrial cavity of 6 x 5.1 cm. The uterus uninvolved by the aforementioned mass lesion is remarkable for a 1.1 x 0.9 cm polypoid lesion in the posterior lower uterine segment. The polypoid lesion is submitted in block A9. Also in the posterior uterus are two white, whorled nodules up to 1.8 cm in greatest dimension. The smaller white, whorled nodule is submitted in block A7 with the posterior endomyometrium. The larger white, whorled nodule is submitted in block A10. The cervix is sectioned to reveal a white-pink, firm, homogeneous unremarkable cut surface. Representative sections of the cervix are submitted in blocks A2-3 (A2- anterior, A3- posterior). The serosal surface is pink-tan, smooth, glistening, and grossly unremarkable. Attached to the uterus are bilateral adnexa. The right ovary measures 3.8 x 1.5 x 0.8 cm in dimension, demonstrates a smooth unremarkable surface and is sectioned to reveal a grossly unremarkable parenchyma. Adjacent to the right ovary is a 9 cm in length x 0.6 cm in diameter fimbriated fallopian tube with a 1 cm in greatest diameter serous-filled paratubal cyst. Representative sections of the unremarkable tube and ovary are submitted in block A13. The left ovary is a 4.3 x 0.8 x 0.7 cm in dimension, demonstrates a smooth unremarkable serosal surface, and is sectioned to reveal an unremarkable cut surface. The left fallopian tube is 6.2 cm in length x 0.6 cm in diameter and is grossly unremarkable. Representative left tube and ovary are submitted in block A14. BLOCK SUMMARY: A1- Frozen section remnant AF1 (deepest invasion). A2- Anterior cervix. A3- Posterior cervix. A4- Anterior lower uterine segment. A5- Posterior lower uterine segment. A6- Anterior endomyometrium with mass lesions. A7- Posterior endomyometrium with mass lesions. A8- Additional representative section of mass lesion. A9- Polypoid lesion in posterior lower uterine segment. A10- Posterior white whorled nodule. All- anterior endomyometrium. A12- Posterior endomyometrium. A13- Right tube and ovary. A14- Left tube and ovary. B. "Right external iliac node," received fresh and placed in formalin at on. Is a 4.3 x 3.8 x 1.5 cm fragment of fibroadipose tissue dissected for lymph node candidates. Six lymph node candidates are identified ranging in size from 0.7 x to 1.9 cm in greatest dimension. Lymph node candidates are submitted as follows. BLOCK SUMMARY: B1- Four lymph node candidates. B2- One lymph node candidate, bisected. B3- One lymph node candidate, bisected. B4- Remainder of fibroadipose tissue entirely submitted. C. "Right obturator node," received fresh and placed in formalin at on. Is a 2.9 x 2.5 x 1.3 cm aggregate of fibroadipose tissue. Nine lymph node candidates are identified and submitted in blocks C1-2. The remainder of the fibroadipose tissue is submitted in block C3. BLOCK SUMMARY: C1- Seven lymph node candidates. C2- Two lymph node candidates. C3- Remainder of fibroadipose tissue. D. "Left pelvic lymph node," received fresh and placed in formalin at on4. Is a 6.5 x 3.5 x 2.2 cm aggregate of fibroadipose tissue dissected for lymph node candidate. Thirteen lymph node candidates are identified and are submitted in blocks D1-6 with the remainder of the fibroadipose tissue submitted in blocks D7 and D8. Sections are submitted as follows. BLOCK SUMMARY: D1- Six lymph node candidates. D2- Three lymph node candidates. D3- Two lymph node candidates, bisected, one inked black. D4- One lymph node candidate, bisected. D5-6- One lymph node candidate, divided into four (largest lymph 3.9 cm in greatest dimension). D7-8- Remainder of fibroadipose tissue entirely submitted. E. "Right aortic nodes," received fresh and placed in formalin at on. Is a 3.2 x 0.9 x 3.2 cm aggregate of fibroadipose tissue dissected for lymph node candidates. Three lymph node candidates are identified ranging in size from 1.3 to 4.7 cm in greatest dimension. Lymph node candidates are submitted in blocks E1-3 with the remainder of the fibroadipose tissue submitted in block E4. BLOCK SUMMARY: E1- Two lymph node candidates. E2-3- One lymph node candidate, sectioned. E4- Remainder of fibroadipose tissue. F. "Left aortic nodes," received fresh and placed in formalin at on. Is a 1.3 x 1.2 x 0.3 cm fragment of tan soft tissue submitted entirely in block F1. Intra-operative consultation: A. "Uterus, cervix, bilateral tubes and ovaries":AF1 (deepest invasion-fundus) - adenocarcinoma, favor grade 2 endometrioid type. Less than 50% myometrial invasion. No gross involvement of cervix. Microscopic Examination: Microscopic examination is performed. Pathologic Stage: Procedure: Aysterosalpingo-oophorectomy and node dissection. Pathologic Stage (AJCC 7th Edition): pTla pNO pMX. Note: Information on pathology stage and the operative procedure for is transmitted to this Institution's Cancer Registry as required accreditation by the Commission on Cancer. Pathology stage is based solely the current tissue specimen being evaluated and does not incorporate upon information on any specimens submitted separately to our Cytology section, past findings. Pathology stage is only a component to be considered in determining for it pathology information, imaging studies, or clinical or operative the clinical stage, and should not be confused with nor substituted. The exact operative procedure is available in the surgeon's operative report. DIAGNOSIS: A. UTERUS, CERVIX, BILATERAL TUBES, AND OVARIES (AF1): UTERUS: 293 GRAMS. CARCINOMA OF THE ENDOMETRIUM: TUMOR SITE: FUNDUS. HISTOLOGIC TYPE: ENDOMETRIOID ADENOCARCINOMA. FIGO GRADE: 3/3. TUMOR SIZE: 5.2 X 3.6 X 2.1 CM. MAXIMUM DEPTH OF MYOMETRIAL INVASION: 0.7 CM, IN A 2.3 THICK WALL. LYMPHATIC/VASCULAR INVASION: ABSENT. ADJACENT NON-NEOPLASTIC ENDOMETRIUM: NOT HYPERPLASTIC. REMAINING MYOMETRIUM: LEIOMYOMATA AND ADENOMYOSIS. CERVIX: NEGATIVE FOR CARCINOMA. SEROSA: NEGATIVE FOR CARCINOMA. SPECIMEN MARGINS: NOT INVOLVED. OVARIES, RIGHT AND LEFT: NEGATIVE FOR CARCINOMA. FALLOPIAN TUBE, RIGHT AND LEFT: NEGATIVE FOR CARCINOMA. B. RIGHT EXTERNAL ILIAC NODE DISSECTION: SIX LYMPH NODES, NEGATIVE FOR CARCINOMA (0/6). C. RIGHT OBTURATOR NODE DISSECTION: TEN LYMPH NODES, NEGATIVE FOR CARCINOMA (0/10). D. LEFT PELVIC LYMPH NODE DISSECTION: EIGHTEEN LYMPH NODES, NEGATIVE FOR CARCINOMA (0/18). E. RIGHT AORTIC LYMPH NODE DISSECTION: FIVE LYMPH NODES, NEGATIVE FOR CARCINOMA (0/5). F. LEFT AORTIC NODES: TWO LYMPH NODES, NEGATIVE FOR CARCINOMA (0/2). COMMENT: The tumor has areas of villous glandular differentiation, but no definite papillary serous tumor is identified. In the posterior lower uterine segment (block A9), there is a mixed endometrial/endocervical polyp with a small focus of carcinoma. However, carcinoma is not demonstrated to involve the cervix itself. I certify that I personally conducted the diagnostic evaluation of the above specimen(s) and have rendered the above diagnosis(es). Attending MD.</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sample-card">
+        <div class="visual-pane">
+            <div style="background: #1e293b; border: 1px dashed #475569; border-radius: 8px; padding: 24px 16px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+                <div style="font-size: 2.5rem; margin-bottom: 8px;">🔬</div>
+                <strong style="color: #38bdf8;">Whole Slide Image (WSI)</strong><br>
+                <code style="font-size: 0.75rem; word-break: break-all;">TCGA-TM-A7CA-01Z-00-DX1.1CEBE1E1-7CBE-4F80-BAFC-828F7FA787B7</code>
+                <div style="margin-top: 12px; font-size: 0.75rem; color: #64748b; border-top: 1px solid #334155; padding-top: 8px;">
+                    <strong>Features:</strong> DINOv2 Pre-extracted<br>
+                    <strong>Formato:</strong> H5 Coords / .pt Embeddings
+                </div>
+            </div>
+        </div>
+        <div class="text-pane">
+            <div class="sample-num">MUESTRA #6 &bull; TCGA Slide ID: <code>TCGA-TM-A7CA-01Z-00-DX1.1CEBE1E1-7CBE-4F80-BAFC-828F7FA787B7</code></div>
+            <div class="field-box">
+                <div class="field-title">
+                    <span>📋 Reporte Patológico Diagnóstico Estructurado (TCGA Surgical Pathology Report)</span>
+                    <span>176 palabras | 1177 caracteres</span>
+                </div>
+                <div class="field-content">1. CLINICAL: Right insular tumor, possibly low-grade glioma. MACROSCOPIC: Specimen labeled "Brain tumor" consists of fragments of brain tissue measuring 1-5mm. AE 1 block. MICROSCOPIC: (Reported by [name]). The sections of cerebral tissue show focal areas of mildly to moderately hypercellular glial tissue associated with mild nuclear atypia and scattered microgemistocytes. Some of the atypical glial cells have round nuclei, and there is a network of branching capillaries. However, the overall features are not definitive for a diagnosis of oligodendroglioma. There are no visible mitoses or necrosis. Ki67 staining shows positive staining in approximately 2% of nuclei within tumor areas. I have reviewed this case with Dr. [name], and we agree that the overall features are consistent with a low-grade astrocytoma (Grade 2, WHO). Considering the presence of some suggestive features of oligodendroglioma, it might be worth considering further genetic testing on this tumor (1p/19q deletion). Staining for IDH1 is also in progress. A copy of this report has been faxed to [recipient]. DIAGNOSIS: BRAIN: LOW-GRADE ASTROCYTOMA (WHO GRADE 2) - SEE ABOVE. Last edited: [date].</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="sample-card">
+        <div class="visual-pane">
+            <div style="background: #1e293b; border: 1px dashed #475569; border-radius: 8px; padding: 24px 16px; text-align: center; color: #94a3b8; font-size: 0.85rem;">
+                <div style="font-size: 2.5rem; margin-bottom: 8px;">🔬</div>
+                <strong style="color: #38bdf8;">Whole Slide Image (WSI)</strong><br>
+                <code style="font-size: 0.75rem; word-break: break-all;">TCGA-B6-A0I6-01Z-00-DX1.D597D207-BEB2-4CE5-B315-FE7AD6E9C30B</code>
+                <div style="margin-top: 12px; font-size: 0.75rem; color: #64748b; border-top: 1px solid #334155; padding-top: 8px;">
+                    <strong>Features:</strong> DINOv2 Pre-extracted<br>
+                    <strong>Formato:</strong> H5 Coords / .pt Embeddings
+                </div>
+            </div>
+        </div>
+        <div class="text-pane">
+            <div class="sample-num">MUESTRA #7 &bull; TCGA Slide ID: <code>TCGA-B6-A0I6-01Z-00-DX1.D597D207-BEB2-4CE5-B315-FE7AD6E9C30B</code></div>
+            <div class="field-box">
+                <div class="field-title">
+                    <span>📋 Reporte Patológico Diagnóstico Estructurado (TCGA Surgical Pathology Report)</span>
+                    <span>500 palabras | 3247 caracteres</span>
+                </div>
+                <div class="field-content">Material Submitted: Left breast with axillary contents. History: Clinical. Diagnosis: Operating. Dr. Gross Examination: The specimen is received in a single container, labeled with the patient's name, history number, date, and "left breast and axillary contents". Received is a breast measuring approximately 23.0 x 16.0 x 8.5 cm. Also received is axillary contents measuring 8.0 cm x 9.0 cm x 3.0 cm. There are no previous scars or other lesions on the surface of the breast. Noted grossly was a 5.0 x 5.0 x 4.0 cm mass submitted for receptors. The specimen has been inked in blue and sectioned extensively before accessioning. Examination of the specimen reveals a firm white nodule measuring approximately 3.5 x 3.0 cm in two dimensions. Gross inspection of the tumor at the deep margin does not show extension through the deep margin grossly. Representative sections are submitted as follows: Block I: Representative section of tumor to show deep margin. Block II: Representative section of tumor to show deep margin. Blocks III and IV: Representative sections of the tumor. Palpation of the remainder of the breast does not reveal any separate nodules from the main tumor region. From the main mass, a couple of satellite nodules are noted that appear to be contiguous with the main mass. A section of this area is submitted in Block V. Block VI: Representative section of nipple. Block VII: Representative section of skin over tumor. Block VIII: Random sample of upper inner quadrant. Block IX: Random sample of lower inner quadrant. Block X: Random sample of upper outer quadrant. Block XI: Random sample of lower outer quadrant. The axillary contents are separate from the remainder of the specimen and palpated for lymph nodes. Lymph node candidates are submitted from the inferior to the superior direction. They are submitted as follows: Block XII: Two lymph node candidates. Block XIII: Three lymph node candidates. Block XIV: Three lymph node candidates. Block XV: Five lymph node candidates. Block XVI: Three lymph node candidates. Block XVII: Three lymph node candidates. Block XVIII: Five lymph node candidates. (Continued on page 2. Dr. Dr.) (Continuation from page 1) Block XIX: Five lymph node candidates. Block XX: Three lymph node candidates. Block XXI: Five lymph node candidates. Block XXII: Five lymph node candidates. Block XXIII: Three lymph node candidates. Block XXIV: Three lymph node candidates. MICROSCOPIC: The apparent satellite nodules seen grossly (Block 5) consist of sclerosis and hemangioma (so-called "peritubular hemangioma"). Portions of the carcinoma have intermediate-grade nuclei, but areas have a high-grade nuclear pattern. DIAGNOSIS: "LEFT" BREAST, MASTECTOMY: A. LARGE (5.0 x 5.0 x 4.0 CM) INFILTRATING DUCTAL CARCINOMA, N.S.A.B.P. NUCLEAR GRADE POORLY DIFFERENTIATED, HISTOLOGIC GRADE 3 OF 3. B. FOCAL INTRATUMORAL INTRADUCTAL CARCINOMA. C. PROMINENT VASCULAR INVASION BY CARCINOMA. D. NO CARCINOMA IDENTIFIED IN SURGICAL MARGINS. E. HEMANGIOMA. F. FIBROCYSTIC CHANGES: 1. MARKED DUCTAL EPITHELIAL HYPERPLASIA. 2. PAPILLARY APOCRINE METAPLASIA. 3. DUCT ECTASIA. 4. SCLEROSIS. "LEFT" AXILLARY DISSECTION: A. METASTATIC CARCINOMA IN 6 OF 32 LYMPH NODES. B. FOCAL CARCINOMA IN PERINODAL BLOOD VESSELS.</div>
+            </div>
+        <div class="field-box" style="margin-top: 32px; border: 1px solid #38bdf8; background: rgba(56, 189, 248, 0.05); padding: 24px; border-radius: 12px;">
+            <div style="font-size: 1.1rem; font-weight: bold; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                <span>💡 Hallazgo Metodológico Clave (Alineación Multimodal &amp; Eficiencia en WSI)</span>
+            </div>
+            <div style="color: var(--text-main); font-size: 0.95rem; line-height: 1.7;">
+                <p style="margin-top: 0;"><strong>1. Desacoplamiento de Gran Escala (Gigapíxeles vs. Embeddings):</strong><br>
+                A diferencia de los datasets de parches convencionales (como Path-VQA o PathCap), <strong>HistGen opera sobre láminas histopatológicas completas (Whole Slide Images - WSI)</strong> de TCGA. Para evitar el cuello de botella de transferir terabytes de imágenes <code>.svs</code> en crudo, los autores pre-extrajeron y empaquetaron <strong>vectores de características densos con DINOv2</strong> (distribuidos en 15 partes ZIP que suman 299.28 GB) junto con sus coordenadas espaciales en archivos H5 (560.94 MB).</p>
+                
+                <p><strong>2. Metadatos Diagnósticos Centralizados:</strong><br>
+                El archivo <code>annotation.json</code> (26.91 MB) contiene los <strong>7,690 reportes quirúrgicos patológicos completos</strong> y estructurados, divididos en <code>train</code> (6,152), <code>val</code> (769) y <code>test</code> (769). Cada reporte incluye secciones de diagnóstico microscópico, grados histológicos, invasión vascular/perineural y estado de márgenes quirúrgicos.</p>
+
+                <p style="margin-bottom: 0;"><strong>3. Implicación para la Evaluación de la Tesis:</strong><br>
+                Este dataset permite evaluar directamente la capacidad de los modelos de lenguaje multimodales para generar reportes diagnósticos patológicos extensos (Long-form Generation) recibiendo las representaciones visuales de lámina completa sin requerir infraestructura pesada de procesamiento WSI en tiempo real.</p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
