@@ -18,7 +18,7 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 | 7 | **PathInstruct** | Parche + Diálogo Multi-turno | Visual Instruction Tuning (SFT en 2 Fases) | **186,194 instrucciones** (con imágenes propias) | CC BY-NC 2.0 / Gated | ✅ Auditado (Range Stream) | [`preview_jamessyx_pathinstruct.html`](../reports/preview_jamessyx_pathinstruct.html) |
 | 8 | **PathGen-1.6M** | Coordenadas TCGA + Dense Caption | Dense Captioning & Synthetic Pretraining | **1,620,876 parches** sobre WSIs de TCGA | CC BY-NC 2.0 / Gated | ✅ Auditado (JSON/Coords) | [`preview_jamessyx_pathgen.html`](../reports/preview_jamessyx_pathgen.html) |
 | 9 | **OpenPath** | Parches TIF + CSV + Embeddings NPY | Zero-Shot Classification & Retrieval | **7,180 parches** en 4 suites (Kather, PanNuke, etc.) | Apache-2.0 / Abierto | ✅ Auditado (Parquet/CSV) | [`preview_akshayg08_openpath.html`](../reports/preview_akshayg08_openpath.html) |
-| 10 | **Quilt-1M** | Imagen (parche/ROI) + texto | Vision-Language Pretraining (VLP) | ~1M pares (802K YouTube + PMC + LAION) | CC BY-NC-SA 4.0 | ⏳ Pendiente Auditoría | - |
+| 10 | **Quilt-1M** | Imagen (parche/ROI) + texto | Vision-Language Pretraining (VLP) / Retrieval | **1,017,712 pares** (train: 1,004,153 | val: 13,559) | CC BY-NC-SA 4.0 / Gated | ✅ Auditado (Local CSV + Zip) | [`preview_wisdomik_quilt_1m.html`](../reports/preview_wisdomik_quilt_1m.html) |
 | 11 | **ARCH** | Multiple-instance captioning | Dense Pathology Captioning & Retrieval | 11.8K bags / 15.2K imágenes con descripciones | CC BY-NC-SA 4.0 | ⏳ Pendiente Auditoría | - |
 | 12 | **WSI-VQA** | WSI + Q/A diagnóstico | VQA a nivel de lámina completa | 8.7K pares Q/A sobre 977 WSIs de TCGA-BRCA | Abierto / GDC | ⏳ Pendiente Auditoría | - |
 | 13 | **PathText (WsiCaption)** | WSI + reporte estructurado | Report Generation & WSI Summarization | 9K pares WSI-texto filtrados con LLM (TCGA) | Abierto / GDC | ⏳ Pendiente Auditoría | - |
@@ -252,21 +252,37 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 
 ---
 
-### 10. Quilt-1M
+### 10. Quilt-1M (`wisdomik/quilt1m`)
 
-- **Tipo de Dato / Modalidad Principal:** Imagen (parche/ROI) + texto
-- **Descripción General:** ~1M pares imagen-texto: 802K de videos educativos de YouTube + PubMed, LAION y OpenPath.
-- **Acceso / Licencia:** Repositorio en Hugging Face (`wisdomik/Quilt-1M`), Licencia **CC BY-NC-SA 4.0** (Requiere registro/autenticación).
-- **Referencia Bibliográfica:** Ikezogwo et al., *"Quilt-1M: One Million Image-Text Pairs for Histopathology"*, NeurIPS 2023 / arXiv:2306.11207.
+- **Tipo de Dato / Modalidad Principal:** Parche / ROI Histopatológico + Caption Descriptivo / Narración Clínica (*Vision-Language Pretraining & Multi-Modal Alignment*).
+- **Descripción General:** El dataset multimodal abierto más grande y diverso en patología computacional, compuesto por más de un millón de pares imagen-texto obtenidos mediante procesamiento automatizado de videos educativos de YouTube (con tracking del cursor del patólogo y transcripción de voz con corrección LLM), combinado con PubMed Central, Twitter/OpenPath y LAION-5B.
+- **Acceso / Licencia:** Repositorio en Hugging Face (`wisdomik/Quilt-1M`), Licencia **CC BY-NC-SA 4.0** (Uso para investigación / académico).
+- **Referencia Bibliográfica:** Ikezogwo et al., *"Quilt-1M: One Million Image-Text Pairs for Histopathology"*, **NeurIPS 2023 (Oral)** / arXiv:2306.11207.
 
-#### 📋 Registro de Auditoría y Métricas Detalladas
+#### 📋 Registro de Auditoría Factual y Métricas Verificadas
 - **Modalidades de Entrada:**
-  - **Visual:** Parches extraídos de videos educativos de YouTube y figuras de artículos biomédicos.
-  - **Textual:** Narraciones transcritas de patólogos y leyendas de figuras asociadas temporalmente mediante procesamiento de video.
-- **Número de Ejemplos:** ~1,000,000 pares imagen-texto.
-- **Splits Disponibles:** Diseñado como corpus de preentrenamiento continuo para modelos CLIP (Quilt-Net).
-- **Riesgo de Data Leakage:** Alto solapamiento potencial con subconjuntos de YouTube y PMC; requiere filtrado de canales y PMIDs antes de evaluar en benchmarks cerrados.
-- **Estado en el Proyecto:** ⏳ Pendiente de muestreo detallado por streaming en fase posterior.
+  - **Visual:** Parches y ROIs histopatológicos en formato `.jpg` / `.png` (redimensionados estándar a $512\times 512$ px), cubriendo múltiples órganos, subtipos tumorales y tinciones histológicas.
+  - **Textual:** Captions descriptivos (`caption`), transcripciones automáticas de voz (`noisy_text`), descripciones refinadas mediante GPT-3.5 (`corrected_text`), narraciones específicas del área señalada (`roi_text`) e identificadores de conceptos médicos de la ontología UMLS (`med_umls_ids`).
+- **Número de Ejemplos / Parches / Subconjuntos (Cifras Fácticas del Dataset):**
+  - **Total Registros:** **`1,017,712 pares imagen-texto`** (1,017,708 con caption válido).
+  - **Desglose Fáctico por Subconjunto (`subset`):**
+    - `quilt` (Videos de YouTube): **802,148 pares** (78.82%) con tracking espacial de cursor y corrección GPT.
+    - `openpath` (Twitter / Casos de Patólogos): **133,511 pares** (13.12%).
+    - `pubmed` (PubMed Central Open Access): **59,371 pares** (5.83%).
+    - `laion` (Subconjunto filtrado de LAION-5B): **22,682 pares** (2.23%).
+- **Splits Disponibles:**
+  - `train`: **1,004,153 pares** (98.67%).
+  - `val`: **13,559 pares** (1.33%).
+- **Magnificación y Escala Microquímica:**
+  - **802,148 registros (78.82%)** del subconjunto YouTube cuentan con magnificación discreta clasificada:
+    - Nivel `0.0` (Baja magnificación / Arquitectura panorámica): **480,726 pares** (59.9%).
+    - Nivel `1.0` (Magnificación media): **135,048 pares** (16.8%).
+    - Nivel `2.0` (Alta magnificación / Detalle celular y nuclear): **186,374 pares** (23.2%).
+- **Riesgo de Data Leakage (Aislamiento y Filtrado):**
+  - **Riesgo Alto:** Al ser el corpus de preentrenamiento base más grande, presenta solapamiento de artículos y casos con datasets como PathCap, OpenPath y subconjuntos de PubMed. Para evaluar en benchmarks como Quilt-VQA o PathVQA se deben excluir rigurosamente los canales de YouTube y PMIDs correspondientes.
+- **Notas y Hallazgos del Proyecto:**
+  - Base sobre la cual se entrenaron modelos fundamentales de visión-lenguaje como **QuiltNet** (CLIP adaptado a patología) y el dataset de instrucciones **Quilt-LLaVA / Quilt-Instruct-107K**.
+  - **Reporte Visual HTML:** [`reports/preview_wisdomik_quilt_1m.html`](../reports/preview_wisdomik_quilt_1m.html).
 
 ---
 
