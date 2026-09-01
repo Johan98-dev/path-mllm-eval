@@ -23,7 +23,7 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 | 12 | **WSI-VQA** | WSI + Q/A diagnóstico | VQA a nivel de lámina completa | **8,672 preguntas** (train: 7,139 | val: 798 | test: 735) / 976 WSIs | Abierto / GDC Portal | ✅ Auditado (GitHub + GDC Stream) | [`preview_cpystan_wsi_vqa.html`](../reports/preview_cpystan_wsi_vqa.html) |
 | 13 | **PathText (WsiCaption)** | WSI + reporte estructurado | Report Generation & WSI Summarization | 9K pares WSI-texto filtrados con LLM (TCGA) | Abierto / GDC | ⏳ Pendiente Auditoría | - |
 | 14 | **SlideInstruction / SlideBench** | WSI + instrucciones / VQA | WSI Visual Instruction Tuning & Benchmarking | 4.9K WSI-reportes → 4.2K captions + 176K VQA | Abierto / GDC | ⏳ Pendiente Auditoría | - |
-| 15 | **PatchGastricADC22** | Parches + caption de reporte clínico | Patch-Level Diagnostic Captioning | 262.7K parches de 991 WSIs de cáncer gástrico | Uso Académico | ⏳ Pendiente Auditoría | - |
+| 15 | **PatchGastricADC22** | Parches + caption de reporte clínico | Patch-Level Diagnostic Captioning | **262,777 parches** / 1,305 reportes de 991 WSIs | Acceso Abierto / Zenodo (6021442) | ✅ Auditado (Local Zip/CSV) | [`preview_patch_gastric_adc22.html`](../reports/preview_patch_gastric_adc22.html) |
 | 16 | **CAMELYON16 / 17** | WSI + anotación a nivel de píxel/slide | Metástasis en Ganglio Centinela | 400 WSIs (CAMELYON16) / 1,000 WSIs (CAMELYON17) | CC0 (Dominio Público) | ⏳ Pendiente Auditoría | - |
 | 17 | **TCGA (familia)** | WSI SVS + reporte PDF + clínica | Corpus Clínico y Genómico Multimodal | >30K láminas gigapíxel SVS con reportes clínicos | Open-Access (GDC) | ⏳ Base Multicéntrica | - |
 | 18 | **HEST-1k** | WSI H&E + transcriptómica espacial | Histology-to-Spatial-Transcriptomics | 1.2K perfiles de transcriptómica ligados a WSI | CC BY-NC-SA 4.0 | ⏳ Pendiente Auditoría | - |
@@ -361,17 +361,32 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 
 ---
 
-### 15. PatchGastricADC22
+### 15. PatchGastricADC22 (Zenodo 6021442)
 
-- **Tipo de Dato / Modalidad Principal:** Parches + caption de reporte clínico real.
-- **Descripción General:** 262.7K parches histológicos extraídos de 991 WSIs de adenocarcinoma gástrico con leyendas extraídas directamente de reportes hospitalarios reales.
-- **Acceso / Licencia:** Disponible bajo solicitud para fines de investigación académica.
-- **Referencia Bibliográfica:** Tsuneki & Kanavati, MIDL 2022 / arXiv:2202.03432.
+- **Tipo de Dato / Modalidad Principal:** Parche Histopatológico $300\times 300$ px (H&E) + Caption de Diagnóstico y Subtipo Patológico (*Histopathology Patch-Level Diagnostic Captioning*).
+- **Descripción General:** Dataset multimodal curado a partir de 991 láminas histopatológicas completas (WSIs) de biopsias endoscópicas de adenocarcinoma gástrico humano. Las leyendas textuales provienen directamente de reportes diagnósticos hospitalarios reales elaborados por patólogos certificados según las directrices de la Asociación Japonesa de Cáncer Gástrico (JGCA) y la OMS.
+- **Acceso / Licencia:** Acceso abierto y público en Zenodo ([DOI: 10.5281/zenodo.6021442](https://doi.org/10.5281/zenodo.6021442)).
+- **Referencia Bibliográfica:** Masayuki Tsuneki & Fahdi Kanavati, *"Inference of captions from histopathological patches"*, **MIDL 2022** / PMLR 172:1235–1250, 2022 / arXiv:2202.03432.
 
-#### 📋 Registro de Auditoría y Métricas Detalladas
-- **Modalidades de Entrada:** Parches $512 \times 512$ px a $20\times$ emparejados con oraciones diagnósticas reales de patólogos japoneses.
-- **Número de Ejemplos:** 262,700 parches de 991 láminas.
-- **Estado en el Proyecto:** ⏳ Pendiente de gestión de acceso institucional.
+#### 📋 Registro de Auditoría Factual y Métricas Verificadas
+- **Modalidades de Entrada:**
+  - **Visual:** **262,777 parches histológicos** ($300 \times 300$ píxeles, RGB, formato JPEG, 7.20 GB en `patches_captions.zip`) extraídos de regiones tumorales de 991 WSIs (promedio ~265 parches por lámina).
+  - **Textual:** **1,305 reportes y descripciones diagnósticas** en `captions.csv` (media de 23.6 palabras por reporte; rango: 4 a 45 palabras).
+- **Distribución de Subtipos Histopatológicos (JGCA / WHO):**
+  1. *Well differentiated tubular adenocarcinoma (tub1):* 285 reportes (21.8%)
+  2. *Moderately differentiated tubular adenocarcinoma (tub2):* 275 reportes (21.1%)
+  3. *Poorly differentiated adenocarcinoma, non-solid (por2):* 182 reportes (13.9%)
+  4. *Signet ring cell carcinoma (sig):* 142 reportes (10.9%)
+  5. *Papillary adenocarcinoma (pap):* 135 reportes (10.3%)
+  6. *Poorly differentiated adenocarcinoma, solid (por1):* 132 reportes (10.1%)
+  7. *Moderately to poorly differentiated adenocarcinoma:* 86 reportes (6.6%)
+  8. *Well to moderately differentiated tubular adenocarcinoma:* 61 reportes (4.7%)
+  9. *Mucinous adenocarcinoma (muc):* 4 reportes (0.3%)
+  10. *Variantes combinadas:* 3 reportes (0.2%)
+- **Archivos Locales Auditados:**
+  - `captions.csv` (339.8 KB) en `C:\Users\johan\OneDrive\Documentos\Projects`
+  - `patches_captions.zip` (7.20 GB, 262,777 imágenes) en `C:\Users\johan\OneDrive\Documentos\Projects`
+- **Reporte Visual HTML:** [`reports/preview_patch_gastric_adc22.html`](../reports/preview_patch_gastric_adc22.html) con 12 muestras visuales reales decodificadas y descripciones diagnósticas.
 
 ---
 
