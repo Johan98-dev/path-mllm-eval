@@ -355,11 +355,11 @@
                 <input type="text" id="searchInput" class="search-input" placeholder="Buscar por dataset, tarea, repositorio o formato...">
             </div>
             <div class="filter-buttons">
-                <button class="filter-btn active" onclick="filterCategory('all', this)">Todos (10)</button>
+                <button class="filter-btn active" onclick="filterCategory('all', this)">Todos (11)</button>
                 <button class="filter-btn" onclick="filterCategory('VQA', this)">VQA (3)</button>
                 <button class="filter-btn" onclick="filterCategory('Instruction Tuning', this)">Visual Instruction Tuning (2)</button>
                 <button class="filter-btn" onclick="filterCategory('Captioning / VLP', this)">Captioning &amp; VLP (3)</button>
-                <button class="filter-btn" onclick="filterCategory('WSI / Reports', this)">WSI &amp; Reports (1)</button>
+                <button class="filter-btn" onclick="filterCategory('WSI / Reports', this)">WSI &amp; Reports (2)</button>
                 <button class="filter-btn" onclick="filterCategory('Zero-Shot / Retrieval', this)">Zero-Shot &amp; Retrieval (1)</button>
             </div>
         </div>
@@ -797,6 +797,48 @@
         </td>
         <td style="text-align: center;">
             <a href="preview_wisdomik_quilt_1m.html" class="btn-report" title="Ver reporte visual interactivo con 12 muestras">
+                👁️ Ver Reporte
+            </a>
+        </td>
+    </tr>
+    
+    <tr class="dataset-row" data-category="WSI / Reports" data-access="open">
+        <td style="text-align: center; font-weight: bold; color: var(--accent);">11</td>
+        <td>
+            <div style="font-weight: bold; font-size: 1.05rem; color: #f8fafc;">WSI-VQA</div>
+            <code style="font-size: 0.75rem; color: #94a3b8;">wsi-vqa</code>
+        </td>
+        <td>
+            <a href="https://github.com/cpystan/WSI-VQA" target="_blank" class="hf-link">
+                🐙 <code>cpystan/WSI-VQA</code>
+            </a>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                <strong>Baseline:</strong> W2T Transformer (ECCV 2024)
+            </div>
+        </td>
+        <td>
+            <span class="badge badge-wsi">WSI / Reports</span>
+            <div style="font-size: 0.85rem; font-weight: 600; color: #e2e8f0; margin-top: 4px;">Whole Slide Image Visual Question Answering</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Sí (Benchmark generativo a nivel de paciente/lámina, Shen et al., ECCV 2024)</div>
+        </td>
+        <td style="text-align: right;">
+            <div style="font-weight: bold; color: var(--accent-green); font-size: 1rem;">8,672 preguntas</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">train: 7,139 | val: 798 | test: 735 / 976 WSIs</div>
+        </td>
+        <td>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">Láminas gigapíxel SVS (TCGA-BRCA) + Embeddings CLAM</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;"><code>WsiVQA_*.json (1.45 MB) + WSIs en NIH GDC</code></div>
+        </td>
+        <td style="font-size: 0.85rem;">
+            <div><strong>Q&amp;A:</strong> 1.45 MB</div>
+            <div style="color: var(--text-muted); font-size: 0.75rem;"><strong>SVS:</strong> ~1 TB (NIH GDC)</div>
+        </td>
+        <td>
+            <span class='badge badge-open'>🔓 Abierto</span>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Licencia: <code>MIT / Open</code></div>
+        </td>
+        <td style="text-align: center;">
+            <a href="preview_cpystan_wsi_vqa.html" class="btn-report" title="Ver reporte visual interactivo con 6 láminas gigapíxel y preguntas clínicas">
                 👁️ Ver Reporte
             </a>
         </td>

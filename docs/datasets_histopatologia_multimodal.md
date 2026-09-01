@@ -20,7 +20,7 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 | 9 | **OpenPath** | Parches TIF + CSV + Embeddings NPY | Zero-Shot Classification & Retrieval | **7,180 parches** en 4 suites (Kather, PanNuke, etc.) | Apache-2.0 / Abierto | ✅ Auditado (Parquet/CSV) | [`preview_akshayg08_openpath.html`](../reports/preview_akshayg08_openpath.html) |
 | 10 | **Quilt-1M** | Imagen (parche/ROI) + texto | Vision-Language Pretraining (VLP) / Retrieval | **1,017,712 pares** (train: 1,004,153 | val: 13,559) | CC BY-NC-SA 4.0 / Gated | ✅ Auditado (Local CSV + Zip) | [`preview_wisdomik_quilt_1m.html`](../reports/preview_wisdomik_quilt_1m.html) |
 | 11 | **ARCH** | Multiple-instance captioning | Dense Pathology Captioning & Retrieval | 11.8K bags / 15.2K imágenes con descripciones | CC BY-NC-SA 4.0 | ⏳ Pendiente Auditoría | - |
-| 12 | **WSI-VQA** | WSI + Q/A diagnóstico | VQA a nivel de lámina completa | 8.7K pares Q/A sobre 977 WSIs de TCGA-BRCA | Abierto / GDC | ⏳ Pendiente Auditoría | - |
+| 12 | **WSI-VQA** | WSI + Q/A diagnóstico | VQA a nivel de lámina completa | **8,672 preguntas** (train: 7,139 | val: 798 | test: 735) / 976 WSIs | Abierto / GDC Portal | ✅ Auditado (GitHub + GDC Stream) | [`preview_cpystan_wsi_vqa.html`](../reports/preview_cpystan_wsi_vqa.html) |
 | 13 | **PathText (WsiCaption)** | WSI + reporte estructurado | Report Generation & WSI Summarization | 9K pares WSI-texto filtrados con LLM (TCGA) | Abierto / GDC | ⏳ Pendiente Auditoría | - |
 | 14 | **SlideInstruction / SlideBench** | WSI + instrucciones / VQA | WSI Visual Instruction Tuning & Benchmarking | 4.9K WSI-reportes → 4.2K captions + 176K VQA | Abierto / GDC | ⏳ Pendiente Auditoría | - |
 | 15 | **PatchGastricADC22** | Parches + caption de reporte clínico | Patch-Level Diagnostic Captioning | 262.7K parches de 991 WSIs de cáncer gástrico | Uso Académico | ⏳ Pendiente Auditoría | - |
@@ -301,17 +301,35 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 
 ---
 
-### 12. WSI-VQA
+### 12. WSI-VQA (`cpystan/WSI-VQA`)
 
-- **Tipo de Dato / Modalidad Principal:** VQA a nivel de lámina completa (*Whole Slide Image VQA*).
-- **Descripción General:** 8.7K pares Q/A sobre 977 WSIs de TCGA-BRCA cubriendo grading tumoral, supervivencia y subtipificación molecular.
-- **Acceso / Licencia:** Preguntas/respuestas abiertas; WSIs descargables desde GDC Data Portal.
-- **Referencia Bibliográfica:** Chen et al., *"WSI-VQA: Visual Question Answering on Whole Slide Images"*, ECCV 2024 / arXiv:2407.05603.
+- **Tipo de Dato / Modalidad Principal:** Whole Slide Image (SVS Gigapíxel / Tensores de Parches) + Preguntas Diagnósticas Clínicas (*Whole Slide Image Visual Question Answering*).
+- **Descripción General:** Framework y dataset pionero de VQA generativo sobre láminas histopatológicas completas de cáncer de mama (cohorte TCGA-BRCA). Permite evaluar el razonamiento clínico multimodal sobre la totalidad de la lámina en tareas de subtipificación de carcinomas, gradación de Nottingham, predicción de biomarcadores moleculares (ER, PR, HER2) y estimación de supervivencia global.
+- **Acceso / Licencia:** Código y anotaciones Q&A abiertas en GitHub (`cpystan/WSI-VQA`); láminas SVS gigapíxel de libre acceso a través del portal de NIH Genomic Data Commons (GDC).
+- **Referencia Bibliográfica:** Shen et al., *"WSI-VQA: Interpreting Whole Slide Image by Generative Question Answering"*, **ECCV 2024** / arXiv:2407.05603.
 
-#### 📋 Registro de Auditoría y Métricas Detalladas
-- **Modalidades de Entrada:** Láminas gigapíxel SVS de cáncer de mama (TCGA-BRCA) emparejadas con preguntas clínicas sobre la totalidad de la lámina.
-- **Número de Ejemplos:** 8,700 pares Q/A sobre 977 WSIs.
-- **Estado en el Proyecto:** ⏳ Pendiente de auditoría y vinculación con WSIs locales.
+#### 📋 Registro de Auditoría Factual y Métricas Verificadas
+- **Modalidades de Entrada:**
+  - **Visual:** Láminas gigapíxel SVS a $20\times$ y $40\times$ de resolución (~$50,000\times 40,000$ a $100,000\times 50,000$ píxeles) y matrices de embeddings de parches $256\times 256$ procesadas con CLAM/ResNet.
+  - **Textual:** Preguntas clínicas en lenguaje natural con opciones múltiples (52.2%) y preguntas abiertas de predicción numérica y categórica (47.8%).
+- **Número de Ejemplos / Preguntas / Láminas (Cifras Fácticas en Repositorio):**
+  - **Total Registros:** **`8,672 preguntas Q&A`**.
+  - **Total Láminas Gigapíxel:** **`976 WSIs únicas`** (cohorte TCGA-BRCA).
+- **Splits Disponibles:**
+  - `train` (`WsiVQA_train.json`): **7,139 preguntas** (82.3%) sobre 804 WSIs.
+  - `val` (`WsiVQA_val.json`): **798 preguntas** (9.2%) sobre 87 WSIs.
+  - `test` (`WsiVQA_test.json`): **735 preguntas** (8.5%) sobre 86 WSIs.
+- **Distribución Temática de Tareas Clínicas:**
+  - *Biomarcadores Moleculares / IHC (ER, PR, HER2):* 21.5% (1,533 preguntas).
+  - *Supervivencia y Estado Vital (Alive/Dead, Días de Sobrevida):* 20.1% (1,433 preguntas).
+  - *Subtipo Histológico y Diagnóstico de Carcinoma:* 13.6% (972 preguntas).
+  - *Morfología, Tamaño y Márgenes Quirúrgicos:* 13.1% (936 preguntas).
+  - *Gradación de Nottingham y Estadificación TNM:* 8.4% (598 preguntas).
+  - *Otros Hallazgos Histopatológicos (DCIS, Necrosis, Calcificaciones):* 23.4% (1,667 preguntas).
+- **Notas y Hallazgos del Proyecto:**
+  - Modelo fundacional asociado: **W2T (Wsi2Text Transformer)**.
+  - Visualización e inspección directa: Cada caso en el reporte incluye la miniatura panorámica real del tejido extraída mediante HTTP Range stream desde GDC y el enlace al visor oficial de láminas gigapíxel con zoom óptico $40\times$.
+  - **Reporte Visual HTML:** [`reports/preview_cpystan_wsi_vqa.html`](../reports/preview_cpystan_wsi_vqa.html).
 
 ---
 
