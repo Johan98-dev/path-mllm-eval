@@ -85,6 +85,103 @@
             line-height: 1.6;
         }
 
+        /* Thesis Context & Objectives */
+        .thesis-context-card {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 12px;
+            padding: 22px;
+            margin-top: 22px;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+        }
+        .thesis-title-row {
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+        }
+        .thesis-title-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .thesis-title-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.4;
+        }
+        .thesis-general-obj {
+            background: rgba(56, 189, 248, 0.08);
+            border-left: 4px solid var(--accent);
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+        .objectives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 14px;
+        }
+        .obj-card {
+            background: #1e293b;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .obj-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .obj-card.active-phase {
+            border-color: var(--accent-green);
+            background: rgba(6, 95, 70, 0.18);
+        }
+        .obj-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .obj-num {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .obj-card.active-phase .obj-num {
+            color: var(--accent-green);
+        }
+        .obj-status {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+        .obj-status-active {
+            background: #065f46;
+            color: var(--accent-green);
+            border: 1px solid #4ade80;
+        }
+        .obj-status-pending {
+            background: #334155;
+            color: #94a3b8;
+        }
+        .obj-text {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            line-height: 1.45;
+        }
+
         /* KPI Cards Grid */
         .kpi-grid {
             display: grid;
@@ -317,10 +414,74 @@
         
         <!-- Hero Header -->
         <div class="hero-banner">
-            <div class="thesis-tag">🔬 Tesis de Maestría en Patología Computacional &bull; Fase 1</div>
+            <div class="thesis-tag">🔬 Tesis de Maestría en Patología Computacional &bull; Marco Metodológico &amp; Auditoría</div>
             <h1>Matriz Comparativa y Consolidado de Datasets Multimodales</h1>
             <div class="hero-subtitle">
-                Auditoría factual por streaming, verificación de esquemas reales en Hugging Face Hub, clasificación taxonómica de tareas y catálogo de reportes visuales interactivos.
+                Plataforma de auditoría factual, verificación de esquemas multimodales (Hugging Face, NIH GDC, Zenodo), taxonomía de tareas clínicas y catálogo interactivo de reportes.
+            </div>
+
+            <!-- Thesis Title & Objectives Section -->
+            <div class="thesis-context-card">
+                <div class="thesis-title-row">
+                    <div class="thesis-title-label">📖 Título del Proyecto de Tesis</div>
+                    <div class="thesis-title-text">
+                        Evaluación comparativa de modelos de lenguaje multimodal en tareas de análisis de contenido visual y textual de histopatología
+                    </div>
+                </div>
+
+                <div class="thesis-general-obj">
+                    <strong style="color: var(--accent); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 2px;">
+                        🎯 Objetivo General:
+                    </strong>
+                    Evaluar el desempeño de diferentes modelos de lenguaje multimodales preentrenados en tareas de análisis de imágenes y texto de histopatología sobre conjuntos de datos públicos.
+                </div>
+
+                <div>
+                    <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); font-weight: 700; margin-bottom: 8px;">
+                        📌 Objetivos Específicos &bull; Fases Metodológicas:
+                    </div>
+                    <div class="objectives-grid">
+                        <div class="obj-card active-phase">
+                            <div class="obj-header">
+                                <span class="obj-num">Objetivo 1</span>
+                                <span class="obj-status obj-status-active">🟢 Fase Actual (12 Datasets)</span>
+                            </div>
+                            <div class="obj-text">
+                                <strong>Consolidación de Datasets:</strong> Consolidar el conjunto de datos públicos en tareas estandarizadas de análisis de imágenes y texto de histopatología.
+                            </div>
+                        </div>
+
+                        <div class="obj-card">
+                            <div class="obj-header">
+                                <span class="obj-num">Objetivo 2</span>
+                                <span class="obj-status obj-status-pending">⚪ Fase 2</span>
+                            </div>
+                            <div class="obj-text">
+                                <strong>Selección de Modelos:</strong> Seleccionar un conjunto de modelos de lenguaje multimodales preentrenados de patología públicamente disponibles.
+                            </div>
+                        </div>
+
+                        <div class="obj-card">
+                            <div class="obj-header">
+                                <span class="obj-num">Objetivo 3</span>
+                                <span class="obj-status obj-status-pending">⚪ Fase 3</span>
+                            </div>
+                            <div class="obj-text">
+                                <strong>Diseño Experimental:</strong> Establecer un diseño experimental para la evaluación de los modelos adaptados a un mismo marco de trabajo.
+                            </div>
+                        </div>
+
+                        <div class="obj-card">
+                            <div class="obj-header">
+                                <span class="obj-num">Objetivo 4</span>
+                                <span class="obj-status obj-status-pending">⚪ Fase 4</span>
+                            </div>
+                            <div class="obj-text">
+                                <strong>Evaluación Cuantitativa:</strong> Evaluar cuantitativamente el desempeño de los modelos multimodales preentrenados de acuerdo con el diseño experimental.
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
