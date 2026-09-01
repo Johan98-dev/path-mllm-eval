@@ -327,24 +327,24 @@
         <!-- KPI Cards -->
         <div class="kpi-grid">
             <div class="kpi-card">
-                <div class="kpi-label">Datasets Auditados en Hub</div>
-                <div class="kpi-value" style="color: var(--accent);">9 / 9</div>
-                <div class="kpi-subtext">100% de la lista prioritaria en Hugging Face</div>
+                <div class="kpi-label">Datasets Auditados</div>
+                <div class="kpi-value" style="color: var(--accent);">12 Datasets</div>
+                <div class="kpi-subtext">100% con reportes visuales interactivos generados</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">Total Registros Auditados</div>
-                <div class="kpi-value" style="color: var(--accent-green);">2,196,113</div>
-                <div class="kpi-subtext">&gt;2.19 Millones de pares imagen-texto/Q&amp;A</div>
+                <div class="kpi-value" style="color: var(--accent-green);">3,485,274</div>
+                <div class="kpi-subtext">&gt;3.48 Millones de pares imagen-texto/Q&amp;A</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">Tareas Multimodales Formalizadas</div>
                 <div class="kpi-value" style="color: var(--accent-purple);">8 Tareas</div>
-                <div class="kpi-subtext">VQA, SFT, Captioning, Retrieval, WSI-Report</div>
+                <div class="kpi-subtext">VQA, SFT, Captioning, Retrieval, WSI-Report, WSI-VQA</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">Modelos Baselines Vinculados</div>
-                <div class="kpi-value" style="color: var(--accent-amber);">6 Baselines</div>
-                <div class="kpi-subtext">PLIP, PathAsst, Quilt-LLaVA, HistGen, LLaVA-Med, BiomedCLIP</div>
+                <div class="kpi-value" style="color: var(--accent-amber);">7+ Baselines</div>
+                <div class="kpi-subtext">PLIP, PathChat, Quilt-LLaVA, HistGen, W2T, LLaVA-Med, BiomedCLIP</div>
             </div>
         </div>
 
@@ -859,7 +859,7 @@
             </div>
         </td>
         <td>
-            <span class="badge badge-gastric" style="background:#881337; color:#f43f5e;">Captioning / VLP</span>
+            <span class="badge badge-vlp">Captioning / VLP</span>
             <div style="font-size: 0.85rem; font-weight: 600; color: #e2e8f0; margin-top: 4px;">Patch-Level Diagnostic Captioning &amp; Subtyping</div>
             <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Sí (Reportes clínicos reales de biopsias endoscópicas gástricas, JGCA/WHO)</div>
         </td>
@@ -894,12 +894,13 @@
         <div class="insights-grid">
             <div class="insight-card">
                 <div class="insight-header">
-                    <span>📦 1. Arquitecturas de Empaquetado en Hugging Face</span>
+                    <span>📦 1. Arquitecturas de Empaquetado y Acceso Factual</span>
                 </div>
                 <div class="insight-content">
                     <p style="margin-top: 0;"><strong>A. Parquet Nativo con Imágenes Embebidas (PathVQA, Quilt-VQA):</strong> Permite streaming puro fila por fila mediante <code>load_dataset(..., streaming=True)</code> sin necesidad de descargar el dataset completo a disco.</p>
                     <p><strong>B. Contenedor ZIP + JSON de Metadatos (PathMMU, PathCap, PathInstruct):</strong> Las imágenes están empaquetadas en un único archivo ZIP (hasta 12.68 GB). El acceso por streaming se resolvió mediante <em>HTTP Range Requests</em> para extraer exclusivamente las muestras deseadas sin saturar el almacenamiento.</p>
-                    <p style="margin-bottom: 0;"><strong>C. Desacoplamiento de Gran Escala (Quilt-Instruct, HistGen, PathGen):</strong> Separación entre el dato textual (instrucciones, reportes) y los píxeles o embeddings densos (Quilt-1M, DINOv2 Features de 299 GB, o coordenadas en TCGA).</p>
+                    <p><strong>C. Desacoplamiento de Gran Escala (Quilt-Instruct, HistGen, PathGen):</strong> Separación entre el dato textual (instrucciones, reportes) y los píxeles o embeddings densos (Quilt-1M, DINOv2 Features de 299 GB, o coordenadas en TCGA).</p>
+                    <p style="margin-bottom: 0;"><strong>D. Streaming de Láminas Gigapíxel y Zenodo (WSI-VQA, PatchGastricADC22):</strong> Streaming por rangos de bytes sobre archivos SVS en NIH GDC para ensamblar miniaturas de alta resolución ($1024\times 750$ px) con visores $40\times$, y extracción directa de parches y reportes patológicos en Zenodo.</p>
                 </div>
             </div>
 
@@ -912,7 +913,9 @@
                     <p><strong>• VQA Abierta (PathVQA, Quilt-VQA):</strong> Evalúa generación directa de respuestas concisas sobre parches histológicos.</p>
                     <p><strong>• Visual Instruction Tuning (Quilt-Instruct, PathInstruct):</strong> Evalúa la capacidad conversacional y seguimiento de instrucciones complejas en patología.</p>
                     <p><strong>• Zero-Shot &amp; Retrieval (OpenPath / PLIP):</strong> Evalúa la alineación del espacio latente multimodal en 4 benchmarks canónicos.</p>
-                    <p style="margin-bottom: 0;"><strong>• WSI-to-Report Generation (HistGen):</strong> Evalúa la síntesis de reportes quirúrgicos completos a partir de láminas completas.</p>
+                    <p><strong>• WSI-to-Report Generation (HistGen):</strong> Evalúa la síntesis de reportes quirúrgicos completos a partir de láminas gigapíxel.</p>
+                    <p><strong>• Whole Slide Image VQA (WSI-VQA):</strong> Evalúa VQA generativo multimodal a nivel de lámina completa (subtipos, biomarcadores ER/PR/HER2 y supervivencia).</p>
+                    <p style="margin-bottom: 0;"><strong>• Patch-Level Diagnostic Captioning (PatchGastricADC22):</strong> Evalúa la generación de descripciones diagnósticas y subtipificación en biopsias gástricas.</p>
                 </div>
             </div>
 
