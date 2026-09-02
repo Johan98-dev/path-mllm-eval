@@ -489,13 +489,13 @@
         <div class="kpi-grid">
             <div class="kpi-card">
                 <div class="kpi-label">Datasets Auditados</div>
-                <div class="kpi-value" style="color: var(--accent);">12 Datasets</div>
+                <div class="kpi-value" style="color: var(--accent);">13 Datasets</div>
                 <div class="kpi-subtext">100% con reportes visuales interactivos generados</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">Total Registros Auditados</div>
-                <div class="kpi-value" style="color: var(--accent-green);">3,485,274</div>
-                <div class="kpi-subtext">&gt;3.48 Millones de pares imagen-texto/Q&amp;A</div>
+                <div class="kpi-value" style="color: var(--accent-green);">3,494,283</div>
+                <div class="kpi-subtext">&gt;3.49 Millones de pares imagen-texto/Q&amp;A</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">Tareas Multimodales Formalizadas</div>
@@ -516,11 +516,11 @@
                 <input type="text" id="searchInput" class="search-input" placeholder="Buscar por dataset, tarea, repositorio o formato...">
             </div>
             <div class="filter-buttons">
-                <button class="filter-btn active" onclick="filterCategory('all', this)">Todos (12)</button>
+                <button class="filter-btn active" onclick="filterCategory('all', this)">Todos (13)</button>
                 <button class="filter-btn" onclick="filterCategory('VQA', this)">VQA (3)</button>
                 <button class="filter-btn" onclick="filterCategory('Instruction Tuning', this)">Visual Instruction Tuning (2)</button>
                 <button class="filter-btn" onclick="filterCategory('Captioning / VLP', this)">Captioning &amp; VLP (4)</button>
-                <button class="filter-btn" onclick="filterCategory('WSI / Reports', this)">WSI &amp; Reports (2)</button>
+                <button class="filter-btn" onclick="filterCategory('WSI / Reports', this)">WSI &amp; Reports (3)</button>
                 <button class="filter-btn" onclick="filterCategory('Zero-Shot / Retrieval', this)">Zero-Shot &amp; Retrieval (1)</button>
             </div>
         </div>
@@ -1042,6 +1042,48 @@
         </td>
         <td style="text-align: center;">
             <a href="preview_patch_gastric_adc22.html" class="btn-report" title="Ver reporte visual interactivo con 12 muestras de parches gástricos">
+                👁️ Ver Reporte
+            </a>
+        </td>
+    </tr>
+    
+    <tr class="dataset-row" data-category="WSI / Reports" data-access="open">
+        <td style="text-align: center; font-weight: bold; color: var(--accent);">13</td>
+        <td>
+            <div style="font-weight: bold; font-size: 1.05rem; color: #f8fafc;">PathText (WsiCaption)</div>
+            <code style="font-size: 0.75rem; color: #94a3b8;">pathtext</code>
+        </td>
+        <td>
+            <a href="https://github.com/cpystan/Wsi-Caption" target="_blank" class="hf-link">
+                🐙 <code>cpystan/Wsi-Caption</code>
+            </a>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                <strong>Baseline:</strong> MI-Gen / Attention MIL / CLAM-SB
+            </div>
+        </td>
+        <td>
+            <span class="badge badge-wsi">WSI / Reports</span>
+            <div style="font-size: 0.85rem; font-weight: 600; color: #e2e8f0; margin-top: 4px;">Whole Slide Image Captioning &amp; Report Generation</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Sí (MICCAI 2024 Oral / Best Paper Candidate, Chen et al., arXiv:2311.16480)</div>
+        </td>
+        <td style="text-align: right;">
+            <div style="font-weight: bold; color: var(--accent-green); font-size: 1rem;">9,009 pares</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">30 Proyectos TCGA | Split BRCA: 845 train / 98 val / 98 test</div>
+        </td>
+        <td>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">Láminas gigapíxel SVS (GDC) + Reportes OCR/GPT</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;"><code>PathText.json (7.43 MB) + WSIs en NIH GDC</code></div>
+        </td>
+        <td style="font-size: 0.85rem;">
+            <div><strong>Texto:</strong> 7.43 MB</div>
+            <div style="color: var(--text-muted); font-size: 0.75rem;"><strong>SVS:</strong> ~9 TB (NIH GDC)</div>
+        </td>
+        <td>
+            <span class='badge badge-open'>🔓 Abierto</span>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Licencia: <code>MIT / Open</code></div>
+        </td>
+        <td style="text-align: center;">
+            <a href="preview_cpystan_wsi_caption.html" class="btn-report" title="Ver reporte visual interactivo con 8 láminas gigapíxel y reportes patológicos">
                 👁️ Ver Reporte
             </a>
         </td>

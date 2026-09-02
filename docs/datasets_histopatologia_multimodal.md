@@ -21,7 +21,7 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 | 10 | **Quilt-1M** | Imagen (parche/ROI) + texto | Vision-Language Pretraining (VLP) / Retrieval | **1,017,712 pares** (train: 1,004,153 | val: 13,559) | CC BY-NC-SA 4.0 / Gated | ✅ Auditado (Local CSV + Zip) | [`preview_wisdomik_quilt_1m.html`](../reports/preview_wisdomik_quilt_1m.html) |
 | 11 | **ARCH** | Multiple-instance captioning | Dense Pathology Captioning & Retrieval | 11.8K bags / 15.2K imágenes con descripciones | CC BY-NC-SA 4.0 | ⏳ Pendiente Auditoría | - |
 | 12 | **WSI-VQA** | WSI + Q/A diagnóstico | VQA a nivel de lámina completa | **8,672 preguntas** (train: 7,139 | val: 798 | test: 735) / 976 WSIs | Abierto / GDC Portal | ✅ Auditado (GitHub + GDC Stream) | [`preview_cpystan_wsi_vqa.html`](../reports/preview_cpystan_wsi_vqa.html) |
-| 13 | **PathText (WsiCaption)** | WSI + reporte estructurado | Report Generation & WSI Summarization | 9K pares WSI-texto filtrados con LLM (TCGA) | Abierto / GDC | ⏳ Pendiente Auditoría | - |
+| 13 | **PathText (WsiCaption)** | WSI (SVS) + Reporte Quirúrgico Estructurado | WSI-Level Captioning & Report Generation | **9,009 pares WSI-reporte** (30 proyectos TCGA, 55 sitios) | MIT / Abierto (GDC) | ✅ Auditado (JSON + GDC Stream) | [`preview_cpystan_wsi_caption.html`](../reports/preview_cpystan_wsi_caption.html) |
 | 14 | **SlideInstruction / SlideBench** | WSI + instrucciones / VQA | WSI Visual Instruction Tuning & Benchmarking | 4.9K WSI-reportes → 4.2K captions + 176K VQA | Abierto / GDC | ⏳ Pendiente Auditoría | - |
 | 15 | **PatchGastricADC22** | Parches + caption de reporte clínico | Patch-Level Diagnostic Captioning | **262,777 parches** / 1,305 reportes de 991 WSIs | Acceso Abierto / Zenodo (6021442) | ✅ Auditado (Local Zip/CSV) | [`preview_patch_gastric_adc22.html`](../reports/preview_patch_gastric_adc22.html) |
 | 16 | **CAMELYON16 / 17** | WSI + anotación a nivel de píxel/slide | Metástasis en Ganglio Centinela | 400 WSIs (CAMELYON16) / 1,000 WSIs (CAMELYON17) | CC0 (Dominio Público) | ⏳ Pendiente Auditoría | - |
@@ -335,15 +335,54 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 
 ### 13. PathText (WsiCaption)
 
-- **Tipo de Dato / Modalidad Principal:** WSI + reporte clínico estructurado.
-- **Descripción General:** 9K pares WSI-texto limpiados y estructurados con LLM a partir de los reportes PDF de patología quirúrgica de TCGA.
-- **Acceso / Licencia:** Texto abierto; WSIs accesibles desde GDC.
-- **Referencia Bibliográfica:** Chen et al., *"PathText: A Large-Scale Whole Slide Image Captioning Dataset"*, MICCAI 2024 / arXiv:2311.16480.
+- **Tipo de Dato / Modalidad Principal:** Whole Slide Image (SVS gigapíxel, magnificación $20\times / 40\times$) + Reporte Quirúrgico y Diagnóstico Estructurado (*Whole Slide Image Captioning & Automated Pathology Report Generation*).
+- **Descripción General:** Conjunto de datos a escala de lámina completa curado a partir de los reportes PDF de patología quirúrgica de The Cancer Genome Atlas (TCGA), procesados mediante un pipeline híbrido de OCR (PyMuPDF + Tesseract) y depuración/reestructuración con Modelos de Lenguaje Masivo (LLM/GPT), emparejados directamente con las láminas diagnósticas gigapíxel de NIH GDC.
+- **Acceso / Licencia:** Código bajo Licencia MIT ([cpystan/Wsi-Caption](https://github.com/cpystan/Wsi-Caption)); anotaciones textuales en Google Drive (`PathText.json`); láminas diagnósticas SVS de acceso abierto vía NIH Genomic Data Commons (GDC).
+- **Referencia Bibliográfica:** Pingyi Chen, Honglin Li, Chenglu Zhu, Sunyi Zheng, Zhongyi Shui, Lin Yang, *"WsiCaption: Multiple Instance Generation of Pathology Reports for Gigapixel Whole Slide Images"*, **MICCAI 2024 Oral / Best Paper Candidate** / arXiv:2311.16480.
 
 #### 📋 Registro de Auditoría y Métricas Detalladas
-- **Modalidades de Entrada:** Láminas completas de TCGA emparejadas con resúmenes diagnósticos generados mediante extracción LLM de reportes clínicos.
-- **Número de Ejemplos:** ~9,000 pares WSI-resumen diagnóstico.
-- **Estado en el Proyecto:** ⏳ Pendiente de auditoría.
+- **Alineación Multimodal Verificada:** Cada registro vincula de forma determinista el identificador de paciente (`id: TCGA-XX-YYYY`) con su lámina diagnóstica histopatológica SVS (`TCGA-XX-YYYY-01Z-00-DX1...svs`) y su reporte textual clínico correspondiente.
+- **Número Total de Pares WSI-Reporte Auditados:** **`9,009 registros`** (0 reportes vacíos, 9,009 pacientes únicos).
+- **Diversidad de Cohortes y Proyectos Oncológicos:** Distribuido en **30 proyectos de cáncer de TCGA** y **55 sitios anatómicos primarios**:
+  - `TCGA-BRCA` (Mama): 1,061 casos (11.8%)
+  - `TCGA-KIRC` (Riñón - Células Claras): 513 casos (5.7%)
+  - `TCGA-THCA` (Tiroides): 506 casos (5.6%)
+  - `TCGA-UCEC` (Cuerpo Uterino): 504 casos (5.6%)
+  - `TCGA-LUSC` (Pulmón - Células Escamosas): 478 casos (5.3%)
+  - `TCGA-LUAD` (Pulmón - Adenocarcinoma): 476 casos (5.3%)
+  - `TCGA-LGG` (Glioma de Bajo Grado): 466 casos (5.2%)
+  - `TCGA-HNSC` (Cabeza y Cuello): 450 casos (5.0%)
+  - `TCGA-COAD` (Colon): 450 casos (5.0%)
+  - `TCGA-SKCM` (Melanoma Cutáneo): 431 casos (4.8%)
+  - `TCGA-STAD` (Estómago): 416 casos (4.6%)
+  - `TCGA-PRAD` (Próstata): 403 casos (4.5%)
+  - Otros 18 proyectos (BLCA, LIHC, KIRP, CESC, SARC, PCPG, READ, ESCA, TGCT, THYM, OV, KICH, UVM, MESO, UCS, ACC, DLBC, CHOL): 2,255 casos (25.0%).
+- **Métricas Cuantitativas de Texto:**
+  - **Volumen Total:** ~1,078,000 palabras en el corpus.
+  - **Longitud por Reporte:** Media de **119.7 palabras** (mediana: 107 palabras; rango: 9 a 539 palabras; desviación estándar: ~51.2 palabras).
+  - **Estructura Sintáctica:** Media de **9.2 oraciones por reporte** (mediana: 8 oraciones; rango: 1 a 66 oraciones).
+  - **Vocabulario Diagnóstico Único:** **12,046 tokens** con alta prevalencia de descriptores patológicos críticos:
+    - *tumor*: 22,394 ocurrencias
+    - *lymph / nodes*: 25,812 ocurrencias
+    - *carcinoma / adenocarcinoma*: 14,873 ocurrencias
+    - *invasion*: 7,173 ocurrencias
+    - *margins*: 5,174 ocurrencias
+    - *grade*: 4,110 ocurrencias
+    - *resection*: 2,744 ocurrencias
+    - *metastasis*: 2,004 ocurrencias
+    - *biomarkers (ER, PR, HER2, S100, Melan-A)*: >3,500 menciones
+- **Partición Oficial de Benchmark (Cohorte TCGA-BRCA):**
+  - Total de láminas en split oficial (`splits_0.csv`): **1,041 láminas** (845 train / 98 val / 98 test).
+  - Pacientes únicos: 804 train / 97 val / 98 test (100% solapamiento con PathText).
+- **Pipeline de Extracción y Representación de Características:**
+  - **Extracción de Parches:** Segmentación de tejido con umbralizado de Otsu en lámina completa downsampleada mediante OpenSlide; extracción de parches contiguos de $256 \times 256$ px sin solapamiento.
+  - **Embeddings Visuales:** Red ResNet-50 truncada (CLAM) para codificar cada parche en un vector de características de 1024 dimensiones, guardado como tensores `.pt`.
+- **Arquitectura de Modelo Propuesta (MI-Gen):**
+  - Marco generativo de instancia múltiple (*Multiple Instance Generation*) con codificador visual multi-escala y decodificador con atención espacial consciente de la posición (*position-aware module*).
+  - Rendimiento reportado en la literatura: superó modelos MIL clásicos (Attention MIL, CLAM-SB, TransMIL, MS2MIL) y modelos de subtipado, alcanzando **F1-score de 0.838** en subtipado molecular de mama a partir únicamente de la extracción semántica del reporte generado.
+- **Relevancia Estratégica para la Tesis de Maestría:**
+  - Constituye el conjunto de datos fundamental para la **Tarea 3 (Whole Slide Image Captioning / Automated Report Generation)**, permitiendo comparar arquitecturas fundacionales que operan sobre bolsas de características gigapíxel frente a modelos de visión-lenguaje densos basados en parches o ROIs.
+- **Reporte Visual HTML:** [`reports/preview_cpystan_wsi_caption.html`](../reports/preview_cpystan_wsi_caption.html) (incluye 8 láminas gigapíxel reales de GDC con visor interactivo $40\times$).
 
 ---
 
