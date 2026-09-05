@@ -19,7 +19,7 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 | 8 | **PathGen-1.6M** | Coordenadas TCGA + Dense Caption | Dense Captioning & Synthetic Pretraining | **1,620,876 parches** sobre WSIs de TCGA | CC BY-NC 2.0 / Gated | ✅ Auditado (JSON/Coords) | [`preview_jamessyx_pathgen.html`](../reports/preview_jamessyx_pathgen.html) |
 | 9 | **OpenPath** | Parches TIF + CSV + Embeddings NPY | Zero-Shot Classification & Retrieval | **7,180 parches** en 4 suites (Kather, PanNuke, etc.) | Apache-2.0 / Abierto | ✅ Auditado (Parquet/CSV) | [`preview_akshayg08_openpath.html`](../reports/preview_akshayg08_openpath.html) |
 | 10 | **Quilt-1M** | Imagen (parche/ROI) + texto | Vision-Language Pretraining (VLP) / Retrieval | **1,017,712 pares** (train: 1,004,153 | val: 13,559) | CC BY-NC-SA 4.0 / Gated | ✅ Auditado (Local CSV + Zip) | [`preview_wisdomik_quilt_1m.html`](../reports/preview_wisdomik_quilt_1m.html) |
-| 11 | **ARCH** | Multiple-instance captioning | Dense Pathology Captioning & Retrieval | 11.8K bags / 15.2K imágenes con descripciones | CC BY-NC-SA 4.0 | ⏳ Pendiente Auditoría | - |
+| 11 | **ARCH** | Subfigura / Bolsa MIL + Caption Compuesto | Multiple-Instance Captioning & Retrieval | **7,579 imágenes / 7,614 captions** (4,270 libros + 3,309 PubMed) | CC BY-NC-SA 4.0 / Abierto | ✅ Auditado (Local ZIPs) | [`preview_arch.html`](../reports/preview_arch.html) |
 | 12 | **WSI-VQA** | WSI + Q/A diagnóstico | VQA a nivel de lámina completa | **8,672 preguntas** (train: 7,139 | val: 798 | test: 735) / 976 WSIs | Abierto / GDC Portal | ✅ Auditado (GitHub + GDC Stream) | [`preview_cpystan_wsi_vqa.html`](../reports/preview_cpystan_wsi_vqa.html) |
 | 13 | **PathText (WsiCaption)** | WSI (SVS) + Reporte Quirúrgico Estructurado | WSI-Level Captioning & Report Generation | **9,009 pares WSI-reporte** (30 proyectos TCGA, 55 sitios) | MIT / Abierto (GDC) | ✅ Auditado (JSON + GDC Stream) | [`preview_cpystan_wsi_caption.html`](../reports/preview_cpystan_wsi_caption.html) |
 | 14 | **SlideInstruction / SlideBench** | WSI + instrucciones / VQA | WSI Visual Instruction Tuning & Benchmarking | 4.9K WSI-reportes → 4.2K captions + 176K VQA | Abierto / GDC | ⏳ Pendiente Auditoría | - |
@@ -286,18 +286,53 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 
 ---
 
-### 11. ARCH
+### 11. ARCH (Multiple Instance Captioning)
 
-- **Tipo de Dato / Modalidad Principal:** Multiple-instance captioning / Dense Pathology Retrieval
-- **Descripción General:** 11.8K bags / 15.2K imágenes con descripciones diagnósticas densas extraídas de libros de texto de patología y artículos de PubMed.
-- **Acceso / Licencia:** CC BY-NC-SA 4.0.
-- **Referencia Bibliográfica:** Gamper & Rajpoot, *"ARCH: A Multimodal Histopathology Dataset with Dense Descriptions"*, CVPR 2021 / arXiv:2103.05121.
+- **Tipo de Dato / Modalidad Principal:** Subfigura Histopatológica Individual / Bolsas de Instancias Múltiples (MIL) + Caption Diagnóstico Morfológico Compuesto (*Multiple Instance Histopathology Captioning & Dense Retrieval*).
+- **Descripción General:** Conjunto pionero diseñado para el preentrenamiento por supervisión visual densa (*dense supervision*) y aprendizaje de representaciones transferibles en patología computacional. Introduce la tarea de captioning de instancia múltiple sobre figuras compuestas (con múltiples paneles o subfiguras A, B, C...) extraídas de atlas/libros de texto y artículos científicos de libre acceso en PubMed Central.
+- **Acceso / Licencia:** Repositorio oficial en el Tissue Image Analytics (TIA) Centre de la University of Warwick ([TIA Warwick ARCH](https://warwick.ac.uk/fac/cross_fac/tia/data/arch)); Licencia **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)**.
+- **Referencia Bibliográfica:** Jevgenij Gamper & Nasir Rajpoot, *"Multiple Instance Captioning: Learning Representations from Histopathology Textbooks and Articles"*, **CVPR 2021 (Oral)**, pp. 16549–16559 / [arXiv:2103.05121](https://arxiv.org/abs/2103.05121).
 
-#### 📋 Registro de Auditoría y Métricas Detalladas
-- **Modalidades de Entrada:** Bolsas de imágenes de patología con descripciones densas multisentencia.
-- **Número de Ejemplos:** 11,833 bolsas de subfiguras / 15,200 imágenes.
-- **Riesgo de Data Leakage:** Alto solapamiento con PEIR y libros de texto compartidos con PathVQA.
-- **Estado en el Proyecto:** ⏳ Pendiente de auditoría en repositorio específico.
+#### 📋 Registro de Auditoría Factual y Métricas Verificadas
+- **Modalidades de Entrada:**
+  - **Visual:** Imágenes en alta resolución (formato PNG en libros, JPG/PNG en PubMed; dimensiones promedio ~819 × 656 px en libros y ~613 × 473 px en PubMed; resolución máxima >1,540 px). Cubren tinciones diagnósticas estándar (H&E) e inmunohistoquímica (IHC).
+  - **Textual:** Captions densos con descripciones citoarquitectónicas detalladas en lenguaje natural. En libros de texto, los captions describen conjuntos de subfiguras con referencias a letras (ej. *"A, Spindle cell variant of embryonal rhabdomyosarcoma... (B), some of which can show prominent..."*).
+- **Estructura Fáctica y Desglose por Subconjuntos (Archivos ZIP Auditados en Disco):**
+  - **Total Consolidado:** **`7,579 imágenes binarias`** y **`7,614 registros textuales`** en dos archivos ZIP en `Data/raw/arch/` (**5.75 GB** totales en disco):
+    1. `books_set.zip` (4.91 GB / 5,275,751,113 bytes):
+       - **4,270 imágenes PNG** de atlas médicos y libros de histopatología.
+       - **4,305 descripciones en `captions.json`** (4,270 pares válidos con imagen, 35 captions sin imagen binaria física, 0 imágenes huérfanas).
+       - **3,321 bolsas (*figures*) únicas:**
+         - 2,720 bolsas de instancia única (81.9%) con letra `Single`.
+         - 601 bolsas de instancias múltiples (18.1%) compuestas por entre 2 y 9 subfiguras asociadas a letras (A: 568, B: 586, C: 235, D: 106, E: 42, F: 26, G: 9, H: 5, I: 4, J: 2, K: 1).
+    2. `pubmed_set.zip` (456.6 MB / 478,791,695 bytes):
+       - **3,309 imágenes** (3,272 JPG + 37 PNG) de artículos de libre acceso en PubMed Central.
+       - **3,309 descripciones en `captions.json`** (100.0% de alineación determinista 1 a 1).
+- **Métricas Cuantitativas de Texto:**
+  - **Volumen Total:** 214,326 palabras en el corpus.
+  - **Vocabulario Médico Único:** 9,564 tokens léxicos consolidados.
+  - **Longitud Textual por Fuente:**
+    - *books_set:* Media de **36.0 palabras/caption** (mediana: 27 palabras; rango: 0 a 331 palabras; promedio 3.1 oraciones por caption).
+    - *pubmed_set:* Media de **17.9 palabras/caption** (mediana: 15 palabras; rango: 1 a 167 palabras; promedio 1.6 oraciones por caption).
+  - **Prevalencia de Descriptores Patológicos Clave:**
+    - *cells / cell:* 5,926 menciones
+    - *stain / staining:* 2,057 menciones
+    - *tumor / tumour:* 2,013 menciones
+    - *carcinoma / adenocarcinoma:* 1,627 menciones
+    - *nuclei / nuclear:* 1,569 menciones
+    - *glands / gland:* 1,241 menciones
+    - *stroma / stromal:* 890 menciones
+    - *biopsy:* 570 menciones
+    - *malignant / benign:* 722 menciones
+    - *necrosis:* 280 menciones
+    - *IHC:* 263 menciones
+- **Nota Metodológica sobre la Discrepancia de Muestras (Oficial de Warwick TIA):**
+  - En el artículo original de CVPR 2021 se citaron preliminarmente 11,833 bolsas y ~15,200 imágenes en su rastreo inicial. No obstante, el portal oficial del Warwick TIA Centre consigna formalmente: *"There is a disparity between the number of samples within the paper and the dataset available for download due to an error."* Nuestra auditoría certifica la cantidad fáctica disponible en la distribución oficial descargada: **7,579 imágenes y 7,614 captions**.
+- **Riesgo de Data Leakage (Aislamiento con Benchmarks de la Tesis):**
+  - **Riesgo Alto:** Al provenir de atlas médicos clásicos y artículos de PubMed, comparte fuentes y figuras con `PathVQA` (libros de PEIR) y `PathCap` (PMC Open Access). Para evaluaciones en la Fase 3, se debe verificar el aislamiento de identificadores de imagen/texto si ARCH se utiliza en etapas de entrenamiento o fine-tuning.
+- **Relevancia Estratégica para la Tesis de Maestría:**
+  - Constituye el conjunto de datos de referencia para evaluar la capacidad de los modelos de lenguaje multimodal en desambiguar paneles múltiples dentro de una misma figura diagnóstica (*multi-panel figure reasoning*), modelando la formulación de aprendizaje por instancia múltiple (MIL) en la interacción visión-lenguaje.
+- **Reporte Visual HTML:** [`reports/preview_arch.html`](../reports/preview_arch.html) (con 13 casos interactivos de bolsas multi-instancia A/B/C, figuras de atlas y marcaciones IHC de PubMed).
 
 ---
 
