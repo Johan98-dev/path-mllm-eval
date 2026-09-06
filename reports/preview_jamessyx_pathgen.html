@@ -529,19 +529,68 @@
         </div>
     </div>
 
-<div class="field-box" style="margin-top: 32px; border: 1px solid #38bdf8; background: rgba(56, 189, 248, 0.05); padding: 24px; border-radius: 12px;">
-            <div style="font-size: 1.1rem; font-weight: bold; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-                <span>💡 Hallazgo Metodológico Clave (PathGen: Coordenadas TCGA y Enriquecimiento Semántico Masivo)</span>
+<div class="field-box" style="margin-top: 36px; border: 1px solid #38bdf8; background: rgba(15, 23, 42, 0.7); padding: 28px; border-radius: 14px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);">
+            <div style="font-size: 1.25rem; font-weight: bold; color: var(--accent); margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(56, 189, 248, 0.2); padding-bottom: 12px;">
+                <span style="display: flex; align-items: center; gap: 10px;">
+                    <span>🔬</span> Síntesis Metodológica: Tubería Multi-Agente de PathGen-1.6M (ICLR 2025)
+                </span>
+                <span style="font-size: 0.8rem; background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.3);">
+                    arXiv:2407.00203
+                </span>
             </div>
-            <div style="color: var(--text-main); font-size: 0.95rem; line-height: 1.7;">
-                <p style="margin-top: 0;"><strong>1. Naturaleza de los Datos (Coordenadas Espaciales en TCGA):</strong><br>
-                A diferencia de PathCap (que almacena recortes JPEG planos de PubMed Central), <strong>PathGen-1.6M vincula 1,620,876 coordenadas de parches (X, Y) extraídas sobre láminas histopatológicas completas (WSI) del repositorio The Cancer Genome Atlas (TCGA)</strong>.</p>
-                
-                <p><strong>2. Superación del Cuello de Botella de Captions Breves:</strong><br>
-                Las descripciones de figuras clínicas convencionales suelen ser muy breves. PathGen generó <strong>captions sintéticos densos con GPT-4</strong> que detallan pleomorfismo celular, hipercromasia nuclear, arquitectura estromal e hipótesis diagnósticas diferenciales para cada parche.</p>
 
-                <p style="margin-bottom: 0;"><strong>3. Relevancia Metodológica para la Tesis:</strong><br>
-                Permite investigar el impacto de entrenar modelos de lenguaje multimodal con <strong>datos masivos generados por LMMs (*synthetic data pretraining*)</strong> frente a datos anotados exclusivamente por humanos.</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                <div style="background: rgba(30, 41, 59, 0.6); padding: 16px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.05);">
+                    <div style="color: #38bdf8; font-weight: bold; font-size: 0.85rem; margin-bottom: 6px;">1. Fuente Primaria de Imágenes</div>
+                    <div style="font-size: 0.9rem; color: #f1f5f9; line-height: 1.5;">
+                        <strong>~7,300 láminas histopatológicas (WSI)</strong> en formato <code style="color: #cbd5e1;">.svs</code> de The Cancer Genome Atlas (TCGA), abarcando <strong>27 tipos y subtipos de tumores/órganos</strong>.
+                    </div>
+                </div>
+                <div style="background: rgba(30, 41, 59, 0.6); padding: 16px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.05);">
+                    <div style="color: #10b981; font-weight: bold; font-size: 0.85rem; margin-bottom: 6px;">2. Tamaño y Resolución de Parches</div>
+                    <div style="font-size: 0.9rem; color: #f1f5f9; line-height: 1.5;">
+                        Coordenadas almacenadas a <strong>Nivel 0 (máximo aumento, 20&times;/40&times;)</strong>. Parches nativos en streaming a <strong>512&times;512 px</strong> (GDC Tile Server) o recortados a <strong>672&times;672 px</strong> en clúster local con OpenSlide.
+                    </div>
+                </div>
+                <div style="background: rgba(30, 41, 59, 0.6); padding: 16px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.05);">
+                    <div style="color: #f59e0b; font-weight: bold; font-size: 0.85rem; margin-bottom: 6px;">3. Relación Parche &harr; Caption</div>
+                    <div style="font-size: 0.9rem; color: #f1f5f9; line-height: 1.5;">
+                        <strong>Estrictamente 1 a 1:</strong> Cada uno de los <strong>1,620,876 registros</strong> vincula una coordenada espacial única con un caption individualizado enfocado en el microentorno de ese parche.
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <div style="color: #cbd5e1; font-weight: bold; font-size: 0.95rem; margin-bottom: 12px;">
+                    ⚙️ Flujo Operativo de Construcción Multi-Agente (5 Pasos Metodológicos):
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; color: var(--text-main); line-height: 1.6;">
+                    <div style="background: rgba(15, 23, 42, 0.4); border-left: 3px solid #38bdf8; padding: 10px 14px; border-radius: 0 8px 8px 0;">
+                        <strong style="color: #38bdf8;">Paso 1: Muestreo de Parches Representativos (Cross-Modal Retrieval + K-Means):</strong><br>
+                        Para evitar el fondo blanco y tejido irrelevante de las WSIs, se combinan dos técnicas: (a) <em>Prompt Retrieval</em> con PathGen-CLIP usando hallazgos del reporte quirúrgico TCGA y 20 atributos morfológicos potenciales por órgano (top 64 parches cada uno); y (b) <em>K-Means Clustering</em> de características morfológicas muestreando 256 parches uniformemente para asegurar máxima diversidad tisular (hasta 384 candidatos por lámina).
+                    </div>
+                    <div style="background: rgba(15, 23, 42, 0.4); border-left: 3px solid #64748b; padding: 10px 14px; border-radius: 0 8px 8px 0;">
+                        <strong style="color: #cbd5e1;">Paso 2: Filtrado de Redundancia Tisular:</strong><br>
+                        Se calcula la similitud coseno de los embeddings visuales con PathGen-CLIP; parches duplicados con similitud superior a <strong>0.88</strong> se filtran probabilísticamente para evitar sesgos de sobre-representación en el entrenamiento contrastivo.
+                    </div>
+                    <div style="background: rgba(15, 23, 42, 0.4); border-left: 3px solid #10b981; padding: 10px 14px; border-radius: 0 8px 8px 0;">
+                        <strong style="color: #10b981;">Paso 3: Generación del Caption por Inspección Visual (Description LMM Agent):</strong><br>
+                        A cada parche se le aplica el modelo <strong>PathGen-LLaVA<sub>desp</sub></strong> (LLaVA-13B especializado con encoder visual de patología) mediante el prompt <em>"This is a histopathology image from {organ}, describe this image in detail"</em>. El modelo analiza la imagen microscópica y redacta la descripción citológica y morfológica (pleomorfismo, atipia nuclear, arquitectura glandular, estroma reactivo).
+                    </div>
+                    <div style="background: rgba(15, 23, 42, 0.4); border-left: 3px solid #f59e0b; padding: 10px 14px; border-radius: 0 8px 8px 0;">
+                        <strong style="color: #f59e0b;">Paso 4: Autocorrección y Reducción de Alucinaciones (Revise LMM Agent):</strong><br>
+                        Un segundo agente multimodal entrenado en operaciones inversas de edición (adición, eliminación y corrección de contradicciones) revisa la descripción generada y elimina posibles alucinaciones terminológicas.
+                    </div>
+                    <div style="background: rgba(15, 23, 42, 0.4); border-left: 3px solid #818cf8; padding: 10px 14px; border-radius: 0 8px 8px 0;">
+                        <strong style="color: #818cf8;">Paso 5: Resumen Clave para Contrastive Learning (Summarize Agent):</strong><br>
+                        Dado que los modelos CLIP admiten un límite de 77 tokens y los captions generados son muy extensos, un agente basado en LLaMA-2 genera resúmenes concisos preservando la semántica patológica indispensable.
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: rgba(56, 189, 248, 0.08); border: 1px dashed rgba(56, 189, 248, 0.3); padding: 16px; border-radius: 10px; font-size: 0.9rem; color: #f1f5f9; line-height: 1.6;">
+                <strong style="color: var(--accent);">🎯 Relevancia Metodológica para la Tesis de Maestría:</strong><br>
+                PathGen-1.6M resuelve el cuello de botella histórico de las anotaciones en histopatología (captions escuetos o ruido en figuras de PubMed/Twitter). Permite evaluar experimentalmente en la tesis si el <strong>preentrenamiento con descripciones sintéticas densas generadas por agentes LMM (Synthetic Data Pretraining)</strong> supera cuantitativamente el alineamiento visual-textual de modelos entrenados con textos humanos tradicionales.
             </div>
         </div>
 
