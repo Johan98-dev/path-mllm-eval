@@ -16,7 +16,7 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 | 5 | **PathMMU** | Imagen + Opciones + Justificación | Benchmark VQA Multiple-Choice | **10,387 preguntas** (test: 8,521 \| test_tiny: 1,156 \| val: 710) | CC BY-ND 4.0 / Gated | ✅ Auditado (Range Stream) | [`preview_jamessyx_pathmmu.html`](../reports/preview_jamessyx_pathmmu.html) |
 | 6 | **PathCap** | Parche + Caption Clínico | Image Captioning / VLP Pretraining | **223,169 pares** imagen-caption de PMC | CC BY-NC 2.0 / Gated | ✅ Auditado (Range Stream) | [`preview_jamessyx_pathcap.html`](../reports/preview_jamessyx_pathcap.html) |
 | 7 | **PathInstruct** | Parche + Diálogo Multi-turno | Visual Instruction Tuning (SFT en 2 Fases) | **186,194 instrucciones** (con imágenes propias) | CC BY-NC 2.0 / Gated | ✅ Auditado (Range Stream) | [`preview_jamessyx_pathinstruct.html`](../reports/preview_jamessyx_pathinstruct.html) |
-| 8 | **PathGen-1.6M** | Coordenadas TCGA + Dense Caption | Dense Captioning & Synthetic Pretraining | **1,620,876 parches** sobre WSIs de TCGA | CC BY-NC 2.0 / Gated | ✅ Auditado (JSON/Coords) | [`preview_jamessyx_pathgen.html`](../reports/preview_jamessyx_pathgen.html) |
+| 8 | **PathGen-1.6M** | Coordenadas TCGA + Dense Caption | Dense Captioning & Synthetic Pretraining | **1,620,876 parches** sobre WSIs de TCGA | CC BY-NC 2.0 / Gated | ✅ Auditado (Streaming Tiles GDC) | [`preview_jamessyx_pathgen.html`](../reports/preview_jamessyx_pathgen.html) |
 | 9 | **OpenPath** | Parches TIF + CSV + Embeddings NPY | Zero-Shot Classification & Retrieval | **7,180 parches** en 4 suites (Kather, PanNuke, etc.) | Apache-2.0 / Abierto | ✅ Auditado (Parquet/CSV) | [`preview_akshayg08_openpath.html`](../reports/preview_akshayg08_openpath.html) |
 | 10 | **Quilt-1M** | Imagen (parche/ROI) + texto | Vision-Language Pretraining (VLP) / Retrieval | **1,017,712 pares** (train: 1,004,153 | val: 13,559) | CC BY-NC-SA 4.0 / Gated | ✅ Auditado (Local CSV + Zip) | [`preview_wisdomik_quilt_1m.html`](../reports/preview_wisdomik_quilt_1m.html) |
 | 11 | **ARCH** | Subfigura / Bolsa MIL + Caption Compuesto | Multiple-Instance Captioning & Retrieval | **7,579 imágenes / 7,614 captions** (4,270 libros + 3,309 PubMed) | CC BY-NC-SA 4.0 / Abierto | ✅ Auditado (Local ZIPs) | [`preview_arch.html`](../reports/preview_arch.html) |
@@ -220,14 +220,21 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 #### 📋 Registro de Auditoría Factual y Métricas Verificadas
 - **Modalidades de Entrada:**
   - **Visual:** Coordenadas espaciales `position: [X, Y]` y UUIDs de parches (`file_id`) indexados sobre láminas WSI completas de TCGA (`wsi_id`).
-  - **Textual:** Captions sintéticos densos de alta complejidad morfológica (`caption`), describiendo arquitectura glandular, atipia nuclear, infiltración estromal e hipótesis tumorales.
+  - **Textual:** Captions sintéticos densos de alta complejidad morfológica (`caption`), describiendo arquitectura glandular, atipia nuclear, infiltración estromal e hipótesis tumorales generadas por GPT-4.
 - **Número de Ejemplos (Cifras Fácticas en `PathGen-1.6M.json`):**
   - **Total de Pares Coordenada-Caption:** **`1,620,876 registros` (1.62 Millones)**.
   - **Tamaño Total en Hub:** `933.28 MB` (archivo JSON estructurado).
+- **Mecanismos de Acceso y Renderizado de Parches:**
+  1. **Streaming Dinámico de Parches vía NCI GDC Tile Server (Cero Almacenamiento Local):**
+     - El portal GDC expone las pirámides DZI de los WSIs en `https://portal.gdc.cancer.gov/auth/api/v0/tile/{file_id}?level={max_level}&x={tile_x}&y={tile_y}`.
+     - A partir de los metadatos DZI (`/metadata/{file_id}`), se obtiene el nivel de máxima resolución ($L_{max} = \lceil \log_2(\max(W, H)) \rceil$) y se calculan las coordenadas de tile: $x_{tile} = \lfloor X / 512 \rfloor$, $y_{tile} = \lfloor Y / 512 \rfloor$.
+     - Esto permite proyectar y visualizar instantáneamente el parche de $512 \times 512$ px en streaming (<1 seg) sin descargar el archivo `.svs` de 2 a 5 GB.
+  2. **Pipeline de Extracción Local para Entrenamiento (OpenSlide):**
+     - Para experimentos de entrenamiento masivo en cluster GPU, el pipeline oficial (`create_img_txt_pairs_for_pathgen.py`) descarga los WSIs con `gdc-client` y recorta parches de tamaño $672 \times 672$ px a Nivel 0 con `OpenSlide.read_region((x, y), level=0, size=(672, 672))`.
 - **Hallazgo Metodológico Clave:**
   - **Datos Sintéticos vs. Datos Reales:** Permite evaluar experimentalmente en la tesis si los modelos multimodales adquieren mejores representaciones entrenando con descripciones sintéticas densas (PathGen) frente a captions humanos escuetos (PathCap / Quilt-1M).
 - **Notas y Hallazgos del Proyecto:**
-  - **Reporte Visual HTML:** [`reports/preview_jamessyx_pathgen.html`](../reports/preview_jamessyx_pathgen.html).
+  - **Reporte Visual HTML Enriquecido:** [`reports/preview_jamessyx_pathgen.html`](../reports/preview_jamessyx_pathgen.html) — incluye los 7 parches histopatológicos reales renderizados en base64 junto con sus metadatos espaciales y sus captions densos completos.
 
 ---
 
