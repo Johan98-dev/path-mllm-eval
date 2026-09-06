@@ -119,7 +119,7 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 
 #### 📋 Registro de Auditoría Factual y Métricas Verificadas
 - **Modalidades de Entrada:**
-  - **Visual:** Vectores de características densos pre-extraídos con **DINOv2** (`dinov2_cpath_v1.pth`) junto con coordenadas espaciales en formato H5 (`h5_files.zip`), representando la totalidad de cada lámina gigapíxel de TCGA sin requerir transferencias masivas de archivos `.svs`.
+  - **Visual:** Vectores de características densos pre-extraídos con **DINOv2 ViT-L** (`dinov2_cpath_v1.pth`, 1024 dimensiones por parche) junto con coordenadas espaciales en formato H5 (`h5_files.zip`), representando la totalidad de cada lámina gigapíxel de TCGA sin requerir transferencias masivas de archivos `.svs`.
   - **Textual:** Reportes quirúrgicos patológicos completos (*Surgical Pathology Reports* de TCGA), que incluyen diagnóstico principal, descripción microscópica, grado histológico, score mitótico y estado de márgenes.
 - **Número de Ejemplos y Desglose de Particiones (Cifras Fácticas en `annotation.json`):**
   - **Total de Registros WSI &harr; Reporte:** **`7,690 casos clínicos`** de múltiples cohortes de TCGA (mama, próstata, pulmón, colon, etc.).
@@ -127,10 +127,14 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
   - `val`: **769 reportes** (10.0%) — Validación y ajuste de hiperparámetros.
   - `test`: **769 reportes** (10.0%) — Evaluación cuantitativa ciega (BLEU-1/4, ROUGE-L, METEOR, F1-RadGraph).
 - **Tamaño Total en Hub:** **`303.24 GB`** (23 archivos, incluyendo 15 volúmenes ZIP de features DINOv2 de 299.3 GB, `annotation.json` de 26.91 MB y checkpoints del modelo).
+- **Mecanismos de Acceso a las Imágenes (Píxeles vs. Embeddings):**
+  1. **Streaming Ligero para Auditoría e Inspección Visual (GDC Tile Server API):** Cada caso en `annotation.json` contiene el barcode y UUID de TCGA (ej. `TCGA-A7-A6VW-01Z-00-DX1.1BC4790C-DB45-4A3D-9C97-92C92C03FF60`). Mediante el servidor DeepZoom del GDC (`https://portal.gdc.cancer.gov/auth/api/v0/tile/{gdc_file_id}?level={level}&x={x}&y={y}`) es posible transmitir en tiempo real las vistas macroscópicas completas (nivel 9-10, ~300-500 px, ~20-80 KB) o teselas microscópicas a 20x/40x sin descargar terabytes de láminas crudas.
+  2. **Descarga Masiva de Láminas Crudas (.svs):** Disponibles abiertamente en el NCI Genomic Data Commons mediante el endpoint `https://api.gdc.cancer.gov/data/{file_id}` o el `gdc-client` con el manifiesto de casos para re-extraer parches con CLAM (`patching_scripts/tcga-wsi-report.sh`).
+  3. **Tensores Nativos DINOv2 (Uso estándar en la Tesis):** Al descomprimir `DINOv2_Features.zip` se obtiene la carpeta `dinov2_vitl/` con matrices PyTorch `.pt` de dimensión `(N_parches, 1024)` listas para alimentar decodificadores de lenguaje y modelos de reporte.
 - **Hallazgo Metodológico Clave:**
   - **Eficiencia WSI:** Resuelve el cuello de botella computacional de procesar gigapíxeles crudos permitiendo evaluar directamente la capacidad de generación de texto extenso (*Long-form Generation*) a partir de tensores de lámina completa.
 - **Notas y Hallazgos del Proyecto:**
-  - **Reporte Visual HTML:** [`reports/preview_david4real_histgen.html`](../reports/preview_david4real_histgen.html).
+  - **Reporte Visual HTML Actualizado:** [`reports/preview_david4real_histgen.html`](../reports/preview_david4real_histgen.html) (Enriquecido con thumbnails macroscópicos reales de TCGA recuperados vía GDC API y enlaces interactivos al visor gigapíxel de GDC para cada caso).
 
 ---
 
