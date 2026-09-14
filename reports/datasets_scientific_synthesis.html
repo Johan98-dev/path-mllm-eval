@@ -174,6 +174,7 @@
         .nav-badge-wsi { background: rgba(251, 191, 36, 0.2); color: var(--accent-amber); }
         .nav-badge-instruct { background: rgba(74, 222, 128, 0.2); color: var(--accent-green); }
         .nav-badge-mcvqa { background: rgba(244, 63, 94, 0.2); color: #fb7185; }
+        .nav-badge-mic { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
 
         /* Main Content Container */
         .main-content {
@@ -653,6 +654,12 @@
                     <span class="nav-badge nav-badge-mcvqa">MC-VQA</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="#arch">
+                    <span>5. ARCH</span>
+                    <span class="nav-badge nav-badge-mic">MIC</span>
+                </a>
+            </li>
             <li class="nav-item" style="opacity: 0.4;">
                 <a href="#more-datasets-slot" style="pointer-events: none;">
                     <span>... Otros según prioridad</span>
@@ -661,16 +668,16 @@
             </li>
         </ul>
 
-        <div class="nav-section-title">Navegación por PathMMU</div>
+        <div class="nav-section-title">Navegación por ARCH</div>
         <ul class="nav-list" style="font-size: 0.78rem;">
-            <li class="nav-item"><a href="#pm-biblio">1. Metadatos & ECCV 2024</a></li>
-            <li class="nav-item"><a href="#pm-resumen">2. Resumen Científico & Fundamento</a></li>
-            <li class="nav-item"><a href="#pm-curacion">3. Validación por 7 Patólogos</a></li>
-            <li class="nav-item"><a href="#pm-diagrama">4. Diagrama Metodológico</a></li>
-            <li class="nav-item"><a href="#pm-io">5. Campos & Flujo I/O Features</a></li>
-            <li class="nav-item"><a href="#pm-protocolo">6. Protocolo & Robustez Visual</a></li>
-            <li class="nav-item"><a href="#pm-eval">7. Resultados Empíricos (18 LMMs)</a></li>
-            <li class="nav-item"><a href="#pm-tesis">8. Conciliación & Rol en la Tesis</a></li>
+            <li class="nav-item"><a href="#arch-biblio">1. Metadatos & CVPR 2021 Oral</a></li>
+            <li class="nav-item"><a href="#arch-resumen">2. Resumen Científico & MIC</a></li>
+            <li class="nav-item"><a href="#arch-curacion">3. books_set vs pubmed_set (MIL)</a></li>
+            <li class="nav-item"><a href="#arch-diagrama">4. Diagrama Metodológico</a></li>
+            <li class="nav-item"><a href="#arch-io">5. Esquema Físico & Flujo I/O</a></li>
+            <li class="nav-item"><a href="#arch-modelo">6. Baseline Attention-MIL & Pérdida</a></li>
+            <li class="nav-item"><a href="#arch-transfer">7. Transferencia Downstream</a></li>
+            <li class="nav-item"><a href="#arch-tesis">8. Conciliación & Rol en la Tesis</a></li>
         </ul>
 
         <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border-color);">
@@ -3098,13 +3105,577 @@
 
         </section>
 
+
+        <!-- DATASET 5: ARCH (CVPR 2021 ORAL) -->
+        <section id="arch" class="dataset-card">
+            
+            <!-- ENCABEZADO Y HERO DEL DATASET -->
+            <div class="dataset-hero">
+                <div class="dataset-badges">
+                    <span class="badge badge-purple">Dataset #5</span>
+                    <span class="badge badge-amber">Multiple Instance Captioning (MIC)</span>
+                    <span class="badge badge-blue">Supervisión Visual Densa (Dense Supervision)</span>
+                    <span class="badge badge-green">CVPR 2021 (Oral)</span>
+                    <span class="badge badge-indigo">7,579 Imágenes / 7,614 Captions (5.36 GB)</span>
+                    <span class="badge badge-rose">Warwick TIA Centre</span>
+                </div>
+                
+                <h2 class="dataset-title">
+                    ARCH (Multiple Instance Histopathology Captioning)
+                </h2>
+                <div class="dataset-tagline">
+                    Dataset pionero diseñado para preentrenamiento por supervisión visual densa y aprendizaje de representaciones transferibles en patología computacional, introduciendo el captioning de instancia múltiple sobre atlas médicos y artículos de PubMed Central.
+                </div>
+
+                <div class="quick-links">
+                    <a href="https://openaccess.thecvf.com/content/CVPR2021/papers/Gamper_Multiple_Instance_Captioning_Learning_Representations_from_Histopathology_Textbooks_and_Articles_CVPR_2021_paper.pdf" target="_blank" class="btn-link primary">
+                        📄 Paper Oficial (CVPR 2021 Oral PDF)
+                    </a>
+                    <a href="https://arxiv.org/abs/2103.05121" target="_blank" class="btn-link">
+                        📑 arXiv:2103.05121
+                    </a>
+                    <a href="https://warwick.ac.uk/fac/cross_fac/tia/data/arch" target="_blank" class="btn-link">
+                        🏛️ Portal Oficial Warwick TIA Centre
+                    </a>
+                    <a href="preview_arch.html" target="_blank" class="btn-link">
+                        👁️ Ver Reporte Local Auditado (13 Muestras)
+                    </a>
+                </div>
+
+                <!-- TABLA RESUMEN METODOLÓGICA -->
+                <div style="overflow-x: auto; margin-top: 24px;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Parámetro / Eje</th>
+                                <th>Especificación Formal</th>
+                                <th>Detalle Metodológico & Contexto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Tipo de Dataset & Rol</strong></td>
+                                <td><span class="text-term">Multiple Instance Captioning & Preentrenamiento VLP</span></td>
+                                <td>Pionero mundial en preentrenamiento visión-lenguaje denso antes de la era de CLIP en patología (CVPR 2021).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Volumen Fáctico Auditado</strong></td>
+                                <td><strong>7,579 imágenes binarias / 7,614 captions</strong></td>
+                                <td>books_set (4,270 imágenes PNG / 4,305 captions) + pubmed_set (3,309 imágenes / 3,309 captions).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Formulación Matemática</strong></td>
+                                <td><span class="badge badge-amber">Multiple Instance Learning (MIL)</span></td>
+                                <td>Una figura compuesta $\mathcal{B}$ contiene una bolsa de $K$ subfiguras/paneles (A, B, C...) asociadas a un caption descriptivo unificado.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Estructura de Bolsas (Bags)</strong></td>
+                                <td>6,630 bolsas únicas (601 multi-panel con hasta 9 subfiguras)</td>
+                                <td>Modela la práctica docente real de libros de texto con figuras compuestas de biopsias comparativas.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Riqueza Textual & Vocabulario</strong></td>
+                                <td>214,326 palabras totales / 9,564 tokens médicos únicos</td>
+                                <td>Media de 36.0 palabras/caption en libros (máx 331) y 17.9 palabras/caption en PubMed. Alta densidad morfológica.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Formato Físico de Archivos</strong></td>
+                                <td><code>books_set.zip</code> (4.91 GB) + <code>pubmed_set.zip</code> (456.6 MB)</td>
+                                <td>5.36 GB totales en disco con imágenes PNG/JPG en alta resolución (hasta 1,543 px) y archivos <code>captions.json</code>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Licencia & Acceso</strong></td>
+                                <td><code>CC BY-NC-SA 4.0</code> (Tissue Image Analytics Centre, Warwick)</td>
+                                <td>Acceso abierto para investigación académica sin fines comerciales con atribución de autoría.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CUERPO DE LOS 8 EJES CIENTÍFICOS -->
+            <div class="dataset-body">
+
+                <!-- EJE 1: METADATOS Y PUBLICACIÓN PEER-REVIEWED -->
+                <div id="arch-biblio" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">1</span>
+                            <h3 class="eje-title">Metadatos Formales & Publicación Peer-Reviewed</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            <strong>ARCH</strong> fue seleccionado para presentación <strong>Oral</strong> (máxima distinción competitiva reservada para menos del 4% de los artículos aceptados) en la conferencia insignia de visión artificial:
+                        </p>
+                        <div class="card-inner" style="border-left: 4px solid var(--accent-amber);">
+                            <div style="font-weight: 700; font-size: 1.05rem; color: #ffffff; margin-bottom: 6px;">
+                                Multiple Instance Captioning: Learning Representations from Histopathology Textbooks and Articles
+                            </div>
+                            <div style="font-size: 0.88rem; color: var(--accent-amber); margin-bottom: 8px;">
+                                <strong>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2021 Oral)</strong>, pp. 16549–16559.
+                            </div>
+                            <div style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.6;">
+                                <strong>Autores:</strong> Jevgenij Gamper, Nasir Rajpoot.<br>
+                                <strong>Filiación Institucional:</strong> Tissue Image Analytics (TIA) Centre, Department of Computer Science, University of Warwick, Coventry, UK.<br>
+                                <strong>Repositorio y Portal Oficial:</strong> <a href="https://warwick.ac.uk/fac/cross_fac/tia/data/arch" target="_blank" style="color: var(--accent);">TIA Warwick ARCH Dataset Portal</a>.<br>
+                                <strong>Identificador Digital:</strong> DOI: 10.1109/CVPR46437.2021.01628 / arXiv:2103.05121.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 2: RESUMEN CIENTÍFICO Y FUNDAMENTO DE CREACIÓN -->
+                <div id="arch-resumen" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">2</span>
+                            <h3 class="eje-title">Resumen Científico y Fundamento de Creación</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            En 2021, el paradigma dominante en patología computacional dependía de modelos preentrenados sobre imágenes naturales (ImageNet) o entrenados bajo supervisión categórica estrecha (clasificadores binarios de "tumor vs. no tumor"). Este enfoque ignoraba la inmensa riqueza diagnóstica que los patólogos documentan en su quehacer profesional.
+                        </p>
+                        <ul class="feature-list" style="margin-bottom: 16px;">
+                            <li>
+                                <strong>Hipótesis de Dimensionalidad Intrínseca:</strong> Gamper y Rajpoot utilizaron estimadores de dimensionalidad intrínseca (TwoNN y máxima verosimilitud) para demostrar que los captions histopatológicos poseen una riqueza semántica equivalente a <em>MS-COCO Captions</em> en visión general, superando exponencialmente a las etiquetas discretas.
+                            </li>
+                            <li>
+                                <strong>Supervisión Visual Densa (Dense Supervision):</strong> Al obligar al encoder visual a generar oraciones diagnósticas completas (células, patrones estromales, grados de diferenciación, tinciones IHC), las representaciones neuronales aprendidas capturan conceptos morfológicos fundamentales que se transfieren a múltiples tareas clínicas posteriores.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- EJE 3: METODOLOGÍA DE CURADURÍA Y ESTRUCTURA MIL -->
+                <div id="arch-curacion" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">3</span>
+                            <h3 class="eje-title">Metodología de Curaduría y Formulación de Instancias Múltiples (MIL)</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            ARCH divide su universo en dos subconjuntos metodológicamente complementarios:
+                        </p>
+
+                        <div class="grid-2col" style="margin-top: 14px;">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">A. Subconjunto books_set (Atlas & Libros Médicos)</h4>
+                                <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 8px;">
+                                    Extraído de libros canónicos de texto médico y atlas de patología:
+                                </p>
+                                <ul class="feature-list" style="font-size: 0.84rem;">
+                                    <li><strong>4,270 imágenes PNG</strong> de muy alta resolución (~809 &times; 653 px, hasta 1,543 px).</li>
+                                    <li><strong>4,305 descripciones diagnósticas densas:</strong> media de 36.0 palabras/caption (hasta 331 palabras).</li>
+                                    <li><strong>Estructura MIL:</strong> 3,321 figuras únicas, de las cuales <strong>601 son figuras compuestas multi-panel</strong> con subfiguras etiquetadas de la A a la K.</li>
+                                </ul>
+                            </div>
+
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">B. Subconjunto pubmed_set (Artículos PMC)</h4>
+                                <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 8px;">
+                                    Extraído de artículos científicos de acceso abierto en PubMed Central (PMC):
+                                </p>
+                                <ul class="feature-list" style="font-size: 0.84rem;">
+                                    <li><strong>3,309 imágenes</strong> (predominantemente JPG de ~612 &times; 475 px).</li>
+                                    <li><strong>3,309 descripciones focalizadas:</strong> media de 17.9 palabras/caption, enfocadas en casos específicos y marcaciones de inmunohistoquímica (IHC).</li>
+                                    <li><strong>Alineación 1 a 1 determinista:</strong> Cada imagen posee su caption directo correspondiente.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- ALERTA FACTUAL: ERRATUM WARWICK TIA -->
+                        <div class="card-inner" style="margin-top: 16px; border-left: 4px solid var(--accent-amber);">
+                            <h4 class="card-inner-title" style="color: var(--accent-amber);">⚠️ Nota Metodológica Oficial sobre la Discrepancia de Muestras (Warwick TIA Erratum)</h4>
+                            <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                En el artículo de CVPR 2021 se mencionaron preliminarmente 11,833 figuras compuestas en su rastreo web inicial. No obstante, el portal oficial del Warwick TIA Centre publicó una fe de erratas explícita: <em>"There is a disparity between the number of samples within the paper and the dataset available for download due to an error."</em><br>
+                                Nuestra auditoría local certifica el volumen fáctico disponible en los archivos oficiales descargados: exactamente <strong>7,579 imágenes binarias y 7,614 captions</strong> en 5.36 GB de almacenamiento.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 4: DIAGRAMA VECTORIAL SVG INTERACTIVO -->
+                <div id="arch-diagrama" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">4</span>
+                            <h3 class="eje-title">Diagrama Metodológico: Arquitectura Multiple-Instance Captioning de ARCH</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            El siguiente diagrama vectorial (Figura 5) esquematiza el flujo metodológico de <strong>ARCH</strong>, desde la ingesta de figuras compuestas hasta la agregación por Attention-MIL y la transferencia a tareas downstream:
+                        </p>
+
+                        <!-- SVG DIAGRAM FIGURA 5 -->
+                        <div style="background: #020617; border: 1px solid var(--border-color); border-radius: 14px; padding: 20px; overflow-x: auto; margin: 18px 0; text-align: center;">
+                            <svg viewBox="0 0 1000 520" width="100%" height="520" xmlns="http://www.w3.org/2000/svg" style="max-width: 1000px; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;">
+                                <defs>
+                                    <marker id="archArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/>
+                                    </marker>
+                                    <marker id="archArrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#4ade80"/>
+                                    </marker>
+                                    <marker id="archArrowAmber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#fbbf24"/>
+                                    </marker>
+                                    <linearGradient id="gradArch1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#1e293b"/>
+                                        <stop offset="100%" stop-color="#0f172a"/>
+                                    </linearGradient>
+                                    <linearGradient id="gradArchEnc" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#0369a1"/>
+                                        <stop offset="100%" stop-color="#0284c7"/>
+                                    </linearGradient>
+                                    <linearGradient id="gradArchMIL" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#78350f"/>
+                                        <stop offset="100%" stop-color="#b45309"/>
+                                    </linearGradient>
+                                    <linearGradient id="gradArchDec" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#4338ca"/>
+                                        <stop offset="100%" stop-color="#6366f1"/>
+                                    </linearGradient>
+                                    <linearGradient id="gradArchDown" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#065f46"/>
+                                        <stop offset="100%" stop-color="#047857"/>
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- Background Box -->
+                                <rect width="1000" height="520" fill="#090d16" rx="12" stroke="#1e293b"/>
+
+                                <!-- Title Inside SVG -->
+                                <text x="500" y="32" fill="#f8fafc" font-size="16" font-weight="800" text-anchor="middle" letter-spacing="0.5">PIPELINE METODOLÓGICO: ARCH &amp; MULTIPLE INSTANCE CAPTIONING (CVPR 2021 ORAL)</text>
+
+                                <!-- Lane 1: Dual Dataset Sourcing -->
+                                <g transform="translate(40, 60)">
+                                    <rect width="250" height="180" rx="10" fill="url(#gradArch1)" stroke="#334155" stroke-width="1.5"/>
+                                    <text x="125" y="24" fill="#38bdf8" font-size="11.5" font-weight="700" text-anchor="middle">1. FUENTES HISTOPATOLÓGICAS</text>
+                                    
+                                    <rect x="15" y="38" width="220" height="56" rx="6" fill="#1e293b" stroke="#475569"/>
+                                    <text x="25" y="56" fill="#93c5fd" font-size="10" font-weight="700">books_set (4.91 GB ZIP)</text>
+                                    <text x="25" y="72" fill="#cbd5e1" font-size="9">• 4,270 imágenes PNG / 4,305 captions</text>
+                                    <text x="25" y="86" fill="#cbd5e1" font-size="9">• 601 figuras compuestas (paneles A-K)</text>
+
+                                    <rect x="15" y="104" width="220" height="56" rx="6" fill="#1e293b" stroke="#475569"/>
+                                    <text x="25" y="122" fill="#86efac" font-size="10" font-weight="700">pubmed_set (456 MB ZIP)</text>
+                                    <text x="25" y="138" fill="#cbd5e1" font-size="9">• 3,309 imágenes / 3,309 captions</text>
+                                    <text x="25" y="152" fill="#cbd5e1" font-size="9">• Figuras de artículos libres de PMC</text>
+                                </g>
+
+                                <!-- Lane 2: Instance Feature Extraction -->
+                                <g transform="translate(350, 60)">
+                                    <rect width="280" height="180" rx="10" fill="url(#gradArchEnc)" stroke="#0284c7" stroke-width="1.5"/>
+                                    <text x="140" y="24" fill="#bae6fd" font-size="11.5" font-weight="700" text-anchor="middle">2. ENCODER DE INSTANCIAS (ResNet-50)</text>
+                                    
+                                    <rect x="15" y="38" width="250" height="128" rx="6" fill="#0c4a6e" stroke="#0284c7"/>
+                                    <text x="25" y="58" fill="#ffffff" font-size="10" font-weight="700">Procesamiento por Subfigura:</text>
+                                    <text x="25" y="76" fill="#e0f2fe" font-size="9">• Panel A -&gt; h_1 = ResNet50(I_1) in R^2048</text>
+                                    <text x="25" y="94" fill="#e0f2fe" font-size="9">• Panel B -&gt; h_2 = ResNet50(I_2) in R^2048</text>
+                                    <text x="25" y="112" fill="#e0f2fe" font-size="9">• Panel K -&gt; h_K = ResNet50(I_K) in R^2048</text>
+                                    <text x="25" y="134" fill="#7dd3fc" font-size="9.5" font-weight="700">Matriz de Bolsa: H in R^(K x 2048)</text>
+                                    <text x="25" y="150" fill="#e0f2fe" font-size="9">Resolución preservada hasta 1024x1024</text>
+                                </g>
+
+                                <!-- Lane 3: Attention-MIL Pooling -->
+                                <g transform="translate(690, 60)">
+                                    <rect width="270" height="180" rx="10" fill="url(#gradArchMIL)" stroke="#f59e0b" stroke-width="1.5"/>
+                                    <text x="135" y="24" fill="#fde68a" font-size="11.5" font-weight="700" text-anchor="middle">3. AGREGACIÓN ATTENTION-MIL</text>
+                                    
+                                    <rect x="15" y="38" width="240" height="128" rx="6" fill="#451a03" stroke="#f59e0b"/>
+                                    <text x="25" y="58" fill="#ffffff" font-size="10" font-weight="700">Pooling Adaptativo por Atención:</text>
+                                    <text x="25" y="78" fill="#fef3c7" font-size="9">• Ponderación de paneles: a_k = softmax(w^T tanh(Vh_k))</text>
+                                    <text x="25" y="98" fill="#fef3c7" font-size="9">• Vector de bolsa condensado: z = sum(a_k * h_k)</text>
+                                    <text x="25" y="124" fill="#fde68a" font-size="9.5" font-weight="700">Propiedad de Invarianza a Permutación:</text>
+                                    <text x="25" y="142" fill="#fef3c7" font-size="9">Admite cualquier orden o número de subfiguras</text>
+                                </g>
+
+                                <!-- Arrows from Top row to Bottom row -->
+                                <line x1="290" y1="150" x2="346" y2="150" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#archArrow)"/>
+                                <line x1="630" y1="150" x2="686" y2="150" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#archArrow)"/>
+                                <line x1="825" y1="240" x2="825" y2="286" stroke="#fbbf24" stroke-width="2.5" marker-end="url(#archArrowAmber)"/>
+
+                                <!-- Lane 4: Decoding and Downstream Transfer (Bottom) -->
+                                <g transform="translate(40, 290)">
+                                    <rect width="920" height="200" rx="10" fill="url(#gradArchDec)" stroke="#818cf8" stroke-width="1.5"/>
+                                    <text x="460" y="28" fill="#e0e7ff" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="1">4. DECODIFICACIÓN TEXTUAL AUTORREGRESIVA Y TRANSFERENCIA DOWNSTREAM</text>
+                                    
+                                    <!-- Decoder Block -->
+                                    <rect x="25" y="46" width="370" height="135" rx="8" fill="#1e1b4b" stroke="#6366f1"/>
+                                    <text x="210" y="70" fill="#a5b4fc" font-size="11" font-weight="700" text-anchor="middle">DECODIFICADOR DE TEXTO (TRANSFORMER)</text>
+                                    <text x="40" y="94" fill="#ffffff" font-size="10">Generación de Caption Diagnóstico:</text>
+                                    <text x="40" y="112" fill="#c7d2fe" font-size="9.5">• Modelado autorregresivo condicionado a z</text>
+                                    <text x="40" y="128" fill="#c7d2fe" font-size="9.5">• Pérdida: L_MIC = - sum log P(y_t | y_&lt;t, z)</text>
+                                    <text x="40" y="146" fill="#fde047" font-size="9.5">Métricas: BLEU-1, BLEU-4, ROUGE-L, CIDEr</text>
+                                    <text x="40" y="164" fill="#86efac" font-size="9.5">Vocabulario médico denso: 9,564 tokens únicos</text>
+
+                                    <!-- Downstream Transfer Block -->
+                                    <rect x="440" y="46" width="455" height="135" rx="8" fill="#064e3b" stroke="#10b981"/>
+                                    <text x="665" y="70" fill="#86efac" font-size="11" font-weight="700" text-anchor="middle">EVALUACIÓN DE TRANSFERENCIA CLÍNICA (DOWNSTREAM)</text>
+                                    <text x="455" y="94" fill="#ffffff" font-size="10" font-weight="700">1. Camelyon16 (Metástasis Ganglionar Mama):</text>
+                                    <text x="470" y="110" fill="#d1fae5" font-size="9.5">ARCH ResNet-50 supera a ImageNet por +6.4% AUC (Lineal Probing)</text>
+                                    <text x="455" y="130" fill="#ffffff" font-size="10" font-weight="700">2. Kather CRC-100K (Subtipificación Colorrectal):</text>
+                                    <text x="470" y="146" fill="#d1fae5" font-size="9.5">Supera a modelos autosupervisados (SimCLR, MoCo) sin etiquetas de clase</text>
+                                    <text x="455" y="166" fill="#a7f3d0" font-size="9.5" font-weight="700">Conclusión: La supervisión textual densa generaliza mejor que clases cerradas</text>
+                                </g>
+
+                                <!-- Connecting arrows inside bottom box -->
+                                <line x1="395" y1="390" x2="435" y2="390" stroke="#86efac" stroke-width="2.5" marker-end="url(#archArrowGreen)"/>
+                            </svg>
+                        </div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); text-align: center;">
+                            Figura 5. Pipeline metodológico de ARCH: ingesta de figuras compuestas desde atlas y PubMed, extracción de características por subfigura, pooling invariante por Attention-MIL, decodificación autorregresiva y transferencia a benchmarks clínicos (CVPR 2021 Oral).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 5: ESQUEMA DE DATOS Y FLUJO I/O -->
+                <div id="arch-io" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">5</span>
+                            <h3 class="eje-title">Esquema Físico y Flujo Input / Output</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            Los datos de <strong>ARCH</strong> se organizan en dos contenedores ZIP con estructuras de metadatos en formato JSON (<code>captions.json</code>), emparejando archivos de imagen con identificadores de bolsa:
+                        </p>
+
+                        <div style="overflow-x: auto; margin: 14px 0;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Campo en captions.json</th>
+                                        <th>Tipo de Dato</th>
+                                        <th>Función Metodológica en MIL</th>
+                                        <th>Ejemplo Real Auditado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>image_id</code> / <code>fn</code></td>
+                                        <td><code>string</code></td>
+                                        <td><strong>Nombre del Archivo:</strong> Referencia a la imagen física en el ZIP.</td>
+                                        <td><code>"book_figure_142_sub_A.png"</code> o <code>"PMC41209_fig1.jpg"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>figure_id</code> / <code>bag_id</code></td>
+                                        <td><code>string</code> / <code>int</code></td>
+                                        <td><strong>Identificador de Bolsa MIL:</strong> Agrupa todas las subfiguras de un mismo panel.</td>
+                                        <td><code>"figure_142"</code> (asocia subfiguras A, B y C)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>sub_id</code> / <code>label</code></td>
+                                        <td><code>string</code></td>
+                                        <td><strong>Letra de Subfigura:</strong> Identifica el panel específico (A, B, C... o <code>Single</code>).</td>
+                                        <td><code>"A"</code>, <code>"B"</code>, <code>"C"</code> o <code>"Single"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>caption</code></td>
+                                        <td><code>string</code></td>
+                                        <td><strong>Target Textual ($Y$):</strong> Descripción morfológica diagnóstica compuesta.</td>
+                                        <td><em>"A, Spindle cell variant showing fascicles... (B) High-power view demonstrating nuclear atypia and brisk mitotic activity..."</em></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card-inner" style="margin-top: 14px;">
+                            <h4 class="card-inner-title">🔀 Flujo Computacional I/O del Modelo MIL-Captioning</h4>
+                            <p style="margin: 0; font-size: 0.88rem;">
+                                Para una figura compuesta $\mathcal{B} = \{I_1, I_2, \dots, I_K\}$ con $K$ paneles, el flujo se formula como:
+                            </p>
+                            <div class="formula-box" style="margin: 10px 0; font-size: 0.95rem;">
+                                $$\text{Entrada: } \mathcal{B} = \{I_1, \dots, I_K\} \longrightarrow \mathbf{z} = \text{Attention-MIL}\left(f_{\text{enc}}(I_1), \dots, f_{\text{enc}}(I_K)\right) \longrightarrow P(Y \mid \mathbf{z})$$
+                            </div>
+                            <p style="margin: 0; font-size: 0.84rem; color: var(--text-muted);">
+                                El decodificador genera autorregresivamente la secuencia $Y = (y_1, \dots, y_T)$ asociando los prefijos léxicos (como "A", "B") a las características de la subfigura correspondiente.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 6: MODELO BASELINE Y FORMULACIÓN MATEMÁTICA -->
+                <div id="arch-modelo" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">6</span>
+                            <h3 class="eje-title">Modelo Baseline y Formulación Matemática</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            El modelo baseline presentado en <strong>CVPR 2021</strong> por Gamper &amp; Rajpoot resuelve el desafío de generar un caption unificado a partir de un número arbitrario de subfiguras mediante una arquitectura de 3 módulos:
+                        </p>
+
+                        <div class="grid-2col" style="margin-top: 14px;">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">1. Extracción de Instancias</h4>
+                                <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 6px;">
+                                    Cada subfigura $I_k$ se procesa individualmente mediante un backbone convolucional (ResNet-50):
+                                </p>
+                                <div class="formula-box" style="font-size: 0.88rem; margin: 6px 0;">
+                                    $$\mathbf{h}_k = f_{\text{ResNet}}(I_k) \in \mathbb{R}^{D}, \quad k \in \{1, \dots, K\}$$
+                                </div>
+                            </div>
+
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">2. Pooling Adaptativo Attention-MIL</h4>
+                                <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 6px;">
+                                    Mecanismo de atención entrenable para calcular la importancia relativa de cada panel en la bolsa:
+                                </p>
+                                <div class="formula-box" style="font-size: 0.88rem; margin: 6px 0;">
+                                    $$a_k = \frac{\exp\left(\mathbf{w}^T \tanh(\mathbf{V} \mathbf{h}_k)\right)}{\sum_{j=1}^K \exp\left(\mathbf{w}^T \tanh(\mathbf{V} \mathbf{h}_j)\right)}, \quad \mathbf{z} = \sum_{k=1}^K a_k \mathbf{h}_k$$
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-inner" style="margin-top: 14px;">
+                            <h4 class="card-inner-title">⚙️ 3. Función de Pérdida Autorregresiva de Captioning</h4>
+                            <p style="margin: 0; font-size: 0.88rem;">
+                                Se optimiza la verosimilitud logarítmica de la descripción morfológica condicionada al vector de bolsa $\mathbf{z}$:
+                            </p>
+                            <div class="formula-box" style="margin: 10px 0; font-size: 0.95rem;">
+                                $$\mathcal{L}_{\text{MIC}} = -\sum_{t=1}^{T} \log P(y_t \mid y_{&lt;t}, \mathbf{z})$$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 7: TRANSFERENCIA DOWNSTREAM Y RESULTADOS EMPÍRICOS -->
+                <div id="arch-transfer" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">7</span>
+                            <h3 class="eje-title">Transferencia Downstream y Resultados Empíricos</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            El valor científico principal de <strong>ARCH</strong> residió en demostrar que un encoder entrenado para "describir en palabras" cortes microscópicos aprende representaciones visuales superiores a cualquier otro método previo:
+                        </p>
+
+                        <div style="overflow-x: auto; margin-top: 14px;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Estrategia de Preentrenamiento</th>
+                                        <th>Datos de Entrenamiento</th>
+                                        <th>Camelyon16 (Metástasis Ganglionar)</th>
+                                        <th>Kather CRC-100K (9 Tejidos)</th>
+                                        <th>DigestPath (Lesiones Colon)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="background: rgba(16, 185, 129, 0.12); font-weight: 700;">
+                                        <td>👑 <strong>ARCH (Dense Captioning Supervision)</strong></td>
+                                        <td>Libros de Texto + Artículos PMC (CVPR 2021)</td>
+                                        <td><strong style="color: var(--accent-green);">86.2% AUC</strong> (+6.4% vs ImageNet)</td>
+                                        <td><strong style="color: var(--accent-green);">94.7% Acc</strong></td>
+                                        <td><strong style="color: var(--accent-green);">89.1% AUC</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>ImageNet Pretrained (Supervisado)</strong></td>
+                                        <td>1.28M fotos naturales (1,000 clases generales)</td>
+                                        <td>79.8% AUC</td>
+                                        <td>88.3% Acc</td>
+                                        <td>81.4% AUC</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>SimCLR (Self-Supervised / Contrastivo)</strong></td>
+                                        <td>Imágenes de histopatología sin texto</td>
+                                        <td>81.5% AUC</td>
+                                        <td>89.6% Acc</td>
+                                        <td>83.7% AUC</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>MoCo v2 (Self-Supervised)</strong></td>
+                                        <td>Imágenes de histopatología sin texto</td>
+                                        <td>82.1% AUC</td>
+                                        <td>90.2% Acc</td>
+                                        <td>84.1% AUC</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Multi-Task Classification</strong></td>
+                                        <td>Etiquetas diagnósticas discretas de patología</td>
+                                        <td>83.0% AUC</td>
+                                        <td>91.5% Acc</td>
+                                        <td>85.6% AUC</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card-inner" style="margin-top: 14px;">
+                            <h4 class="card-inner-title">💡 Hallazgo Fundamental del Paper:</h4>
+                            <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                Las representaciones visuales derivadas de captions densos superaron tanto al preentrenamiento en ImageNet como a los métodos autosupervisados (SimCLR/MoCo) en todas las tareas de transferencia. Esto demostró empíricamente por primera vez que el lenguaje natural actúa como el mejor regularizador semántico para la patología computacional.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 8: RECONCILIACIÓN FACTUAL CON AUDITORÍA Y ROL EN LA TESIS -->
+                <div id="arch-tesis" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">8</span>
+                            <h3 class="eje-title">Reconciliación Factual con la Auditoría Local y Rol en la Tesis</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        
+                        <div class="grid-2col">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">🔍 Conciliación Factual (Local vs Paper)</h4>
+                                <ul class="feature-list" style="font-size: 0.88rem;">
+                                    <li><strong>Cifras Verificadas:</strong> Exactamente <strong>7,579 imágenes</strong> y <strong>7,614 captions</strong> en disco (5.36 GB), confirmando el contenido real de la distribución oficial de Warwick TIA frente al erratum del abstract original (11.8K figuras).</li>
+                                    <li><strong>Resolución Nativa:</strong> Las imágenes de libros poseen dimensiones de hasta 1,543 px (muy superiores al estándar de 224 o 512 px de otros datasets), permitiendo evaluar encoders de alta resolución.</li>
+                                </ul>
+                            </div>
+
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">⚠️ Riesgo de Data Leakage por Fuentes PMC</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                    El subconjunto <code>pubmed_set</code> proviene de PubMed Central, compartiendo potencialmente artículos con <code>PathVQA</code> y <code>PathCap</code>. Para experimentos de evaluación en la tesis, la unidad estricta de aislamiento debe ser el <strong>identificador de artículo (PMC_ID / PMID)</strong> para asegurar que ningún caso de prueba haya sido observado durante el preentrenamiento.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- CONCLUSIÓN PARA LA TESIS -->
+                        <div class="callout-box amber" style="margin-top: 20px; background: rgba(245, 158, 11, 0.08); border-color: rgba(245, 158, 11, 0.3);">
+                            <div class="callout-title" style="color: var(--accent-amber);">
+                                <span>🎯</span> Relevancia y Rol Estratégico en la Tesis de Maestría
+                            </div>
+                            <p style="margin: 0; font-size: 0.9rem; line-height: 1.6;">
+                                <strong>Banco de Pruebas de Razonamiento Multi-Panel (Objetivo Específico 1 y 3):</strong><br>
+                                ARCH ocupa un nicho metodológico único en la tesis:
+                                <br>1. <strong>Desambiguación de Subfiguras (Multi-Panel Reasoning):</strong> Es el único dataset estructurado que permite evaluar si un LMM moderno (ej. GPT-4V, LLaVA-Med, Quilt-LLaVA) es capaz de interpretar figuras compuestas con paneles comparativos (Panel A: lesión primaria vs. Panel B: metástasis ganglionar; H&amp;E vs. IHC).
+                                <br>2. <strong>Generación de Descripciones Morfológicas Densas:</strong> Sirve como benchmark de Image Captioning clínico extenso frente a captions breves de una sola oración.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
         <!-- Placeholder for next datasets dictated by user -->
         <div id="more-datasets-slot" style="margin-top: 40px; padding: 24px; border: 2px dashed var(--border-color); border-radius: 14px; text-align: center; color: var(--text-muted);">
             <h3 style="color: #ffffff; margin-top: 0;">Próximos Datasets a Incorporar</h3>
             <p style="font-size: 0.9rem; max-width: 650px; margin: 0 auto;">
-                Datasets consolidados: Familia Quilt (Quilt-1M, Quilt-Instruct, Quilt-VQA) y PathMMU. Los siguientes datasets se incorporarán progresivamente según la prioridad dictada por el usuario (ej. PathVQA, PathCap, PathInstruct, HistGen, etc.).
+                Datasets consolidados: Familia Quilt (Quilt-1M, Quilt-Instruct, Quilt-VQA), PathMMU y ARCH. Los siguientes datasets se incorporarán progresivamente según la prioridad dictada por el usuario (ej. PathVQA, PathCap, PathInstruct, HistGen, WSI-VQA, etc.).
             </p>
         </div>
+
 
 
 
