@@ -666,6 +666,12 @@
                     <span class="nav-badge nav-badge-wsi">WSI-Report</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="#wsi-caption">
+                    <span>7. Wsi-Caption</span>
+                    <span class="nav-badge nav-badge-wsi">PathText</span>
+                </a>
+            </li>
             <li class="nav-item" style="opacity: 0.4;">
                 <a href="#more-datasets-slot" style="pointer-events: none;">
                     <span>... Otros según prioridad</span>
@@ -674,16 +680,16 @@
             </li>
         </ul>
 
-        <div class="nav-section-title">Navegación por HistGen</div>
+        <div class="nav-section-title">Navegación por Wsi-Caption</div>
         <ul class="nav-list" style="font-size: 0.78rem;">
-            <li class="nav-item"><a href="#histgen-biblio">1. Metadatos &amp; MICCAI 2024</a></li>
-            <li class="nav-item"><a href="#histgen-resumen">2. Resumen Científico &amp; Desafío WSI</a></li>
-            <li class="nav-item"><a href="#histgen-curacion">3. Curación TCGA &amp; 32 Tipos Tumorales</a></li>
-            <li class="nav-item"><a href="#histgen-diagrama">4. Diagrama Metodológico</a></li>
-            <li class="nav-item"><a href="#histgen-io">5. Esquema Físico &amp; Flujo I/O</a></li>
-            <li class="nav-item"><a href="#histgen-modelo">6. Arquitectura LGH, CMC &amp; Pérdida</a></li>
-            <li class="nav-item"><a href="#histgen-benchmarks">7. Benchmarks NLG &amp; Transferencia</a></li>
-            <li class="nav-item"><a href="#histgen-tesis">8. Conciliación &amp; Rol en la Tesis</a></li>
+            <li class="nav-item"><a href="#wsicaption-biblio">1. Metadatos &amp; MICCAI 2024 Oral</a></li>
+            <li class="nav-item"><a href="#wsicaption-resumen">2. Resumen Científico &amp; MI-Gen</a></li>
+            <li class="nav-item"><a href="#wsicaption-curacion">3. Curación PathText &amp; 30 Proyectos</a></li>
+            <li class="nav-item"><a href="#wsicaption-diagrama">4. Diagrama Metodológico</a></li>
+            <li class="nav-item"><a href="#wsicaption-io">5. Esquema Físico &amp; Flujo I/O</a></li>
+            <li class="nav-item"><a href="#wsicaption-modelo">6. Arquitectura PAM &amp; Pérdida NLL</a></li>
+            <li class="nav-item"><a href="#wsicaption-benchmarks">7. Benchmarks NLG &amp; Extracción Semántica</a></li>
+            <li class="nav-item"><a href="#wsicaption-tesis">8. Conciliación vs HistGen &amp; Tesis</a></li>
         </ul>
 
         <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border-color);">
@@ -4467,11 +4473,738 @@
 
         </section>
 
+
+        <!-- ================================================================= -->
+        <!-- 7. WSI-CAPTION (PATHTEXT): MULTIPLE INSTANCE GENERATION (MICCAI 2024 ORAL) -->
+        <!-- ================================================================= -->
+        <section id="wsi-caption" class="dataset-card" style="margin-top: 40px;">
+            <div class="dataset-card-header">
+                <div class="dataset-title-area">
+                    <div class="dataset-title-row">
+                        <span class="dataset-index-pill" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border-color: rgba(16, 185, 129, 0.4);">Dataset 07</span>
+                        <h2 class="dataset-title">Wsi-Caption (PathText): Generación de Reportes Patológicos por Instancia Múltiple con Consciencia Espacial (PAM)</h2>
+                    </div>
+                    <p class="dataset-subtitle">
+                        <em>"WsiCaption: Multiple Instance Generation of Pathology Reports for Gigapixel Whole Slide Images"</em> &bull; <strong>MICCAI 2024 Oral (Best Paper Candidate)</strong> &bull; Chen, Li, Zhu, Zheng, Shui &amp; Yang (Westlake University &amp; Zhejiang University)
+                    </p>
+                </div>
+                <div class="dataset-badges">
+                    <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-green); border: 1px solid rgba(16, 185, 129, 0.3);">WSI Captioning &amp; Reports</span>
+                    <span class="badge" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.3);">MICCAI 2024 Oral</span>
+                    <span class="badge" style="background: rgba(56, 189, 248, 0.15); color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.3);">Best Paper Candidate</span>
+                    <span class="badge" style="background: rgba(139, 92, 246, 0.15); color: var(--accent-purple); border: 1px solid rgba(139, 92, 246, 0.3);">Position-Aware Module (PAM)</span>
+                    <span class="badge" style="background: rgba(255, 255, 255, 0.08); color: var(--text-muted); border: 1px solid var(--border-color);">MIT License</span>
+                </div>
+            </div>
+
+            <!-- ACTION BAR -->
+            <div class="action-bar" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
+                <a href="https://github.com/cpystan/Wsi-Caption" target="_blank" class="btn-link" style="background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.3); color: var(--accent);">
+                    🐙 Repositorio GitHub (cpystan/Wsi-Caption)
+                </a>
+                <a href="https://arxiv.org/abs/2311.16480" target="_blank" class="btn-link" style="background: rgba(255, 255, 255, 0.05); border-color: var(--border-color); color: var(--text-main);">
+                    📄 Paper MICCAI 2024 Oral (arXiv:2311.16480)
+                </a>
+                <a href="preview_cpystan_wsi_caption.html" class="btn-link" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4); color: var(--accent-green);">
+                    🔬 Auditoría Visual Local &amp; Visor GDC 40× (8 Casos)
+                </a>
+                <a href="https://drive.google.com/file/d/1MLXUaqH5Yuv7RfyKW1hIWqnecHNqgZQR/view?usp=sharing" target="_blank" class="btn-link" style="background: rgba(255, 255, 255, 0.05); border-color: var(--border-color); color: var(--text-muted);">
+                    💾 PathText.json (Google Drive Oficial)
+                </a>
+            </div>
+
+            <div class="eje-container">
+
+                <!-- EJE 1: METADATOS Y BIBLIOGRAFÍA FORMAL -->
+                <div id="wsicaption-biblio" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">1</span>
+                            <h3 class="eje-title">Metadatos, Filiación y Especificaciones Bibliográficas</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <div class="meta-card-grid">
+                            <div class="meta-card">
+                                <div class="meta-card-label">Referencia Bibliográfica</div>
+                                <div class="meta-card-value">Chen, P., Li, H., Zhu, C., Zheng, S., Shui, Z., &amp; Yang, L. (2024). <em>WsiCaption: Multiple Instance Generation of Pathology Reports for Gigapixel Whole Slide Images</em>. In Medical Image Computing and Computer Assisted Intervention (MICCAI 2024 Oral / Best Paper Candidate). arXiv:2311.16480.</div>
+                            </div>
+                            <div class="meta-card">
+                                <div class="meta-card-label">Instituciones Autoras</div>
+                                <div class="meta-card-value">School of Engineering, Westlake University (Hangzhou) &amp; College of Computer Science and Technology, Zhejiang University.</div>
+                            </div>
+                            <div class="meta-card">
+                                <div class="meta-card-label">Tipo de Modalidad Principal</div>
+                                <div class="meta-card-value">Whole Slide Image (SVS gigapíxel, 20× / 40×) &harr; Reporte Quirúrgico y Diagnóstico Estructurado (<em>Whole Slide Image Captioning &amp; Automated Report Generation</em>).</div>
+                            </div>
+                            <div class="meta-card">
+                                <div class="meta-card-label">Licencia &amp; Estado de Acceso</div>
+                                <div class="meta-card-value"><strong>Licencia MIT</strong> (Código abierto en GitHub); anotaciones en Google Drive (<code>PathText.json</code>); láminas diagnósticas SVS abiertas en NIH GDC Portal.</div>
+                            </div>
+                            <div class="meta-card">
+                                <div class="meta-card-label">Volumen Total Auditado</div>
+                                <div class="meta-card-value"><strong>9,009 pares WSI-Reporte</strong> clínicos (9,009 pacientes únicos, 0 reportes vacíos) distribuidos en <strong>30 proyectos de TCGA</strong> y <strong>55 sitios anatómicos</strong> (~1,078,000 palabras en el corpus).</div>
+                            </div>
+                            <div class="meta-card">
+                                <div class="meta-card-label">Extractores Visuales Evaluados</div>
+                                <div class="meta-card-value">ResNet-50 truncada (CLAM) preentrenada en ImageNet, y Vision Transformer (ViT) preentrenado con aprendizaje autosupervisado piramidal (<strong>HIPT</strong>) sobre TCGA.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 2: RESUMEN CIENTÍFICO Y METODOLOGÍA -->
+                <div id="wsicaption-resumen" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">2</span>
+                            <h3 class="eje-title">Resumen Científico y Planteamiento de Multiple Instance Generation (MI-Gen)</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            En el flujo de trabajo de patología diagnóstica, la redacción de informes textuales detallados es el paso clínico concluyente para definir el tratamiento oncológico. Sin embargo, generar reportes estructurados a partir de láminas completas (WSI) impone desafíos únicos que los modelos convencionales de visión-lenguaje no pueden resolver:
+                        </p>
+                        <ol style="margin: 10px 0 16px 20px; font-size: 0.9rem; line-height: 1.6;">
+                            <li><strong>Imposibilidad de Backpropagation Extremo a Extremo:</strong> Una lámina histológica abarca miles de millones de píxeles, dividiéndose en más de 10,000 parches de $256 \times 256$ píxeles ($M_i > 10,000$). Resulta inviable acumular gradientes directamente en un extractor visual estándar acoplado al modelo de lenguaje.</li>
+                            <li><strong>Pérdida de Información Espacial 2D en Modelos Secuenciales:</strong> Los modelos convencionales de captioning (como CNN-RNN, att-LSTM o Mem-Transformer) aplanan los parches en secuencias 1D, destruyendo la topología espacial bidimensional de la lámina, lo cual impide inferir descriptores morfométricos clave (como el tamaño del tumor en centímetros o la proximidad a márgenes quirúrgicos).</li>
+                        </ol>
+
+                        <div class="subgrid-2col" style="margin-top: 14px;">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">🧩 La Arquitectura Generativa MI-Gen</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                    MI-Gen adopta un extractor visual no entrenable ($h$) para codificar la bolsa de parches no superpuestos $\mathbf{E}_0 \in \mathbb{R}^{M_i \times 1024}$. La secuencia pasa por un codificador Transformer de 3 capas acoplado a módulos conscientes de la posición jerárquicos (**Position-Aware Modules - PAM**), los cuales restauran la coherencia espacial 2D antes de alimentar un decodificador Transformer autorregresivo.
+                                </p>
+                            </div>
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">📐 El Módulo Consciente de Posición (PAM)</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                    Para cada capa del codificador, PAM acolcha la secuencia 1D hasta una longitud cuadrada perfecta $T_i$, la reformatea en un tensor espacial 2D $\sqrt{T_i} \times \sqrt{T_i} \times l$, y aplica convoluciones multi-escala en paralelo con kernels de tamaños $3 \times 3$, $7 \times 7$ y $13 \times 13$, sumando los mapas residuales para enriquecer los estados ocultos con semántica posicional continua.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 3: CURACIÓN, FILTRADO Y GOBERNANZA DE DATOS (PATHTEXT) -->
+                <div id="wsicaption-curacion" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">3</span>
+                            <h3 class="eje-title">Curación, Filtrado y Gobernanza de Datos (Dataset PathText)</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            Para construir <strong>PathText</strong>, los autores implementaron un riguroso pipeline híbrido para extraer y curar reportes diagnósticos a partir de copias escaneadas de patología quirúrgica en PDF de The Cancer Genome Atlas (TCGA):
+                        </p>
+
+                        <div class="grid-2col" style="margin-top: 12px;">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">🛡️ Pipeline Híbrido OCR + LLM + Clasificador Anti-Alucinación</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                    1. <strong>Extracción Óptica:</strong> Transformación de PDFs clínicos escaneados mediante PyMuPDF y Tesseract OCR.<br>
+                                    2. <strong>Filtrado y Resumen con LLM:</strong> Limpieza y estandarización del texto con modelos masivos de lenguaje bajo el prompt <em>"Please summarize the following pathology report:"</em>.<br>
+                                    3. <strong>Filtro Discriminativo Anti-Alucinación:</strong> Para eliminar alucinaciones sintéticas de los LLMs o reportes con OCR defectuoso, patólogos expertos anotaron 88 pares de prueba para entrenar un clasificador discriminativo que descartó cualquier caso con calidad comprometida.
+                                </p>
+                            </div>
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">📈 Estadísticas y Riqueza Textual Auditada</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                    • <strong>9,009 Casos Verificados:</strong> 9,009 pares WSI-reporte únicos sin reportes vacíos.<br>
+                                    • <strong>Longitud Media:</strong> <strong>119.7 palabras</strong> por reporte (mediana: 107; rango: 9 a 539 palabras; desviación estándar: 51.2).<br>
+                                    • <strong>Estructura Oracional:</strong> Media de 9.2 oraciones por reporte (mediana: 8 oraciones).<br>
+                                    • <strong>Vocabulario Especializado:</strong> <strong>12,046 tokens únicos</strong> con alta densidad de términos patológicos (<em>tumor</em>: 22,394; <em>lymph/nodes</em>: 25,812; <em>carcinoma</em>: 14,873; <em>invasion</em>: 7,173; <em>margins</em>: 5,174; <em>grade</em>: 4,110).
+                                </p>
+                            </div>
+                        </div>
+
+                        <h4 style="margin: 18px 0 10px; font-size: 0.95rem; color: #f8fafc;">Distribución por Cohorte y Proyecto TCGA en PathText (Top 12 de 30 Proyectos)</h4>
+                        <div style="overflow-x: auto; margin-bottom: 14px;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Proyecto TCGA</th>
+                                        <th>Sitio Anatómico Primario</th>
+                                        <th>Casos Auditados</th>
+                                        <th>Proporción (%)</th>
+                                        <th>Patologías Principales</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="font-weight: bold; color: var(--accent);">
+                                        <td><code>TCGA-BRCA</code></td><td>Mama</td><td>1,061</td><td>11.8%</td><td>Carcinoma Ductal Invasivo (IDC), Lobular (ILC), Receptores Hormonales</td>
+                                    </tr>
+                                    <tr><td><code>TCGA-KIRC</code></td><td>Riñón</td><td>513</td><td>5.7%</td><td>Carcinoma Renal de Células Claras, Grado Fuhrman, Invasión Vascular</td></tr>
+                                    <tr><td><code>TCGA-THCA</code></td><td>Tiroides</td><td>506</td><td>5.6%</td><td>Carcinoma Papilar / Folicular, Invasión Capsular, Metástasis Ganglionar</td></tr>
+                                    <tr><td><code>TCGA-UCEC</code></td><td>Endometrio</td><td>504</td><td>5.6%</td><td>Adenocarcinoma Endometroide, Grado FIGO, Invasión Miometrial</td></tr>
+                                    <tr><td><code>TCGA-LUSC</code></td><td>Pulmón (Escamoso)</td><td>478</td><td>5.3%</td><td>Carcinoma Epidermoide de Células Escamosas, Queratinización</td></tr>
+                                    <tr><td><code>TCGA-LUAD</code></td><td>Pulmón (Adeno)</td><td>476</td><td>5.3%</td><td>Adenocarcinoma Pulmonar Acinar / Lepídico / Sólido, Márgenes Bronquiales</td></tr>
+                                    <tr><td><code>TCGA-LGG</code></td><td>Cerebro (Bajo Grado)</td><td>466</td><td>5.2%</td><td>Astrocitoma, Oligodendroglioma Grado II/III, Células Gemistocíticas</td></tr>
+                                    <tr><td><code>TCGA-HNSC</code></td><td>Cabeza y Cuello</td><td>450</td><td>5.0%</td><td>Carcinoma de Células Escamosas Laríngeo/Faríngeo, Estatus p16/HPV</td></tr>
+                                    <tr><td><code>TCGA-COAD</code></td><td>Colon</td><td>450</td><td>5.0%</td><td>Adenocarcinoma Tubular de Colon, Invasión Serosa, Score Ganglionar</td></tr>
+                                    <tr><td><code>TCGA-SKCM</code></td><td>Piel (Melanoma)</td><td>431</td><td>4.8%</td><td>Melanoma Cutáneo de Extensión Superficial / Nodular, Nivel Breslow</td></tr>
+                                    <tr><td><code>TCGA-STAD</code></td><td>Estómago</td><td>416</td><td>4.6%</td><td>Adenocarcinoma Gástrico Intestinal / Difuso de Lauren, Anillo de Sello</td></tr>
+                                    <tr><td><code>TCGA-PRAD</code></td><td>Próstata</td><td>403</td><td>4.5%</td><td>Adenocarcinoma Acinar de Próstata, Score Gleason (3+4, 4+5), Márgenes</td></tr>
+                                    <tr style="opacity: 0.85;">
+                                        <td><code>Otros 18 Cohortes</code></td><td>Múltiples Órganos</td><td>2,255</td><td>25.0%</td><td>BLCA, LIHC, KIRP, CESC, SARC, PCPG, READ, ESCA, TGCT, THYM, OV, KICH, etc.</td>
+                                    </tr>
+                                    <tr style="font-weight: bold; background: rgba(255,255,255,0.05);">
+                                        <td>TOTAL CORPUS</td><td>55 Sitios Primarios</td><td>9,009</td><td>100.0%</td><td>30 Proyectos TCGA Consolidados</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card-inner" style="margin-top: 10px;">
+                            <h4 class="card-inner-title">🧪 Partición Oficial de Benchmark (Cohorte TCGA-BRCA)</h4>
+                            <p style="margin: 0; font-size: 0.88rem;">
+                                Para evaluar de forma justa los modelos generativos frente a tareas de subtipado molecular y clasificación clínica, el repositorio oficial distribuye la partición <code>splits_0.csv</code> sobre la cohorte de mama (<strong>1,041 láminas WSI</strong>):<br>
+                                • <strong style="color: var(--accent-green);">train:</strong> 845 láminas (804 pacientes únicos).<br>
+                                • <strong>val:</strong> 98 láminas (97 pacientes únicos).<br>
+                                • <strong>test:</strong> 98 láminas (98 pacientes únicos) para evaluación ciega en NLG y tareas clínicas.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 4: DIAGRAMA METODOLÓGICO INTERACTIVO (SVG) -->
+                <div id="wsicaption-diagrama" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">4</span>
+                            <h3 class="eje-title">Diagrama Metodológico y Arquitectura MI-Gen (Vector SVG)</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <div style="background: #070c18; padding: 16px; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 8px;">
+                            <svg viewBox="0 0 1150 560" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="background: #0b1329; border-radius: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+    <defs>
+        <linearGradient id="grad-wsi" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0284c7" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#0369a1" stop-opacity="0.1"/>
+        </linearGradient>
+        <linearGradient id="grad-enc" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#6d28d9" stop-opacity="0.1"/>
+        </linearGradient>
+        <linearGradient id="grad-pam" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#10b981" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#047857" stop-opacity="0.1"/>
+        </linearGradient>
+        <linearGradient id="grad-dec" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#b45309" stop-opacity="0.1"/>
+        </linearGradient>
+        <linearGradient id="grad-down" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ec4899" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#be185d" stop-opacity="0.1"/>
+        </linearGradient>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/>
+        </marker>
+        <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#a855f7"/>
+        </marker>
+        <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#34d399"/>
+        </marker>
+        <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#fbbf24"/>
+        </marker>
+        <marker id="arrow-pink" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f472b6"/>
+        </marker>
+    </defs>
+
+    <!-- Header Section -->
+    <rect x="30" y="20" width="1090" height="45" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="50" y="48" font-size="16" font-weight="bold" fill="#f8fafc">
+        ARQUITECTURA WSI-CAPTION (MI-GEN): GENERACIÓN DE INSTANCIA MÚLTIPLE CON MÓDULO CONSCIENTE DE POSICIÓN (PAM)
+    </text>
+    <text x="960" y="48" font-size="12" fill="#38bdf8" font-weight="bold">MICCAI 2024 Oral</text>
+
+    <!-- Stage 1: Visual Extractor & Bag of Instances -->
+    <rect x="30" y="85" width="230" height="330" rx="10" fill="url(#grad-wsi)" stroke="#0284c7" stroke-width="1.5"/>
+    <rect x="45" y="100" width="200" height="28" rx="6" fill="#0369a1"/>
+    <text x="145" y="119" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">1. Bolsa de Instancias (WSI)</text>
+
+    <rect x="45" y="140" width="200" height="65" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="55" y="160" font-size="11" font-weight="bold" fill="#38bdf8">Lámina Gigapíxel SVS</text>
+    <text x="55" y="178" font-size="10" fill="#94a3b8">9,009 casos en 30 proyectos TCGA</text>
+    <text x="55" y="194" font-size="10" fill="#94a3b8">Segmentación Otsu + 20×/40×</text>
+
+    <path d="M 145 205 L 145 225" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <rect x="45" y="225" width="200" height="80" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="55" y="245" font-size="11" font-weight="bold" fill="#38bdf8">Extractor Visual Congelado</text>
+    <text x="55" y="263" font-size="10" fill="#94a3b8">• ResNet-50 truncada (CLAM)</text>
+    <text x="55" y="279" font-size="10" fill="#94a3b8">• ViT con HIPT (In-domain TCGA)</text>
+    <text x="55" y="295" font-size="10" fill="#4ade80">Sin gradientes en extractor</text>
+
+    <rect x="45" y="320" width="200" height="80" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="55" y="340" font-size="11" font-weight="bold" fill="#38bdf8">Bolsa E_0 in R^(M_i × l)</text>
+    <text x="55" y="358" font-size="10" fill="#94a3b8">M_i &gt; 10,000 parches (256×256)</text>
+    <text x="55" y="374" font-size="10" fill="#94a3b8">Dimensión por parche l = 1024</text>
+    <text x="55" y="390" font-size="10" fill="#f59e0b">Tensores guardados como .pt</text>
+
+    <!-- Arrow 1 to 2 -->
+    <path d="M 260 250 L 290 250" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Stage 2: Transformer Encoder Layers -->
+    <rect x="290" y="85" width="250" height="330" rx="10" fill="url(#grad-enc)" stroke="#8b5cf6" stroke-width="1.5"/>
+    <rect x="305" y="100" width="220" height="28" rx="6" fill="#6d28d9"/>
+    <text x="415" y="119" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">2. Encoder Transformer (3L)</text>
+
+    <rect x="305" y="140" width="220" height="75" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="315" y="160" font-size="11" font-weight="bold" fill="#c084fc">Capa 1: E_1 = f_1(E_0)</text>
+    <text x="315" y="178" font-size="10" fill="#94a3b8">Self-Attention Multi-cabeza (4 heads)</text>
+    <text x="315" y="194" font-size="10" fill="#94a3b8">Dimensión oculta d = 512</text>
+    <text x="315" y="208" font-size="9" fill="#a78bfa">Interacción entre parches de la bolsa</text>
+
+    <path d="M 415 215 L 415 233" stroke="#a855f7" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
+
+    <rect x="305" y="233" width="220" height="75" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="315" y="253" font-size="11" font-weight="bold" fill="#c084fc">Capa 2: E_2 = f_2(E_1)</text>
+    <text x="315" y="271" font-size="10" fill="#94a3b8">Representación intermedia refinada</text>
+    <text x="315" y="287" font-size="10" fill="#94a3b8">Atención de largo alcance</text>
+    <text x="315" y="301" font-size="9" fill="#a78bfa">Captura correlaciones tisulares</text>
+
+    <path d="M 415 308 L 415 324" stroke="#a855f7" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
+
+    <rect x="305" y="324" width="220" height="75" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="315" y="344" font-size="11" font-weight="bold" fill="#c084fc">Capa 3: E_3 = f_3(E_2)</text>
+    <text x="315" y="362" font-size="10" fill="#94a3b8">Capa superior de abstracción visual</text>
+    <text x="315" y="378" font-size="10" fill="#94a3b8">Cada capa alimenta su propio PAM_i</text>
+    <text x="315" y="392" font-size="9" fill="#4ade80">Estructura jerárquica multi-nivel</text>
+
+    <!-- Arrow 2 to 3 -->
+    <path d="M 540 250 L 570 250" stroke="#a855f7" stroke-width="2" marker-end="url(#arrow-purple)"/>
+
+    <!-- Stage 3: Position-Aware Module (PAM) -->
+    <rect x="570" y="85" width="280" height="330" rx="10" fill="url(#grad-pam)" stroke="#10b981" stroke-width="1.5"/>
+    <rect x="585" y="100" width="250" height="28" rx="6" fill="#047857"/>
+    <text x="710" y="119" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">3. Position-Aware Module (PAM)</text>
+
+    <rect x="585" y="140" width="250" height="60" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="595" y="160" font-size="11" font-weight="bold" fill="#34d399">Padding Cuadrático y Reshape 2D</text>
+    <text x="595" y="178" font-size="10" fill="#94a3b8">Secuencia 1D acolchada a longitud T_i</text>
+    <text x="595" y="194" font-size="10" fill="#a7f3d0">Reshape 2D: sqrt(T_i) × sqrt(T_i) × l</text>
+
+    <path d="M 710 200 L 710 218" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+
+    <rect x="585" y="218" width="250" height="78" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="595" y="238" font-size="11" font-weight="bold" fill="#34d399">Convoluciones Multi-Escala</text>
+    <text x="595" y="254" font-size="10" fill="#94a3b8">• Conv_1: Kernel 3 × 3 (Detalle local)</text>
+    <text x="595" y="268" font-size="10" fill="#94a3b8">• Conv_2: Kernel 7 × 7 (Región media)</text>
+    <text x="595" y="282" font-size="10" fill="#94a3b8">• Conv_3: Kernel 13 × 13 (Contexto macro)</text>
+
+    <path d="M 710 296 L 710 314" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+
+    <rect x="585" y="314" width="250" height="85" rx="6" fill="#1e1b4b" stroke="#10b981" stroke-width="1"/>
+    <text x="595" y="334" font-size="11" font-weight="bold" fill="#6ee7b7">Suma Residual &amp; Agregación H</text>
+    <text x="595" y="352" font-size="10" fill="#e0e7ff">PAM_i(E_i) = sum Conv_k(E_pad) + E_pad</text>
+    <text x="595" y="370" font-size="10" font-weight="bold" fill="#34d399">H = sum_i PAM_i(E_i) (d = 512)</text>
+    <text x="595" y="386" font-size="9" fill="#94a3b8">Captura semántica espacial 2D de la WSI</text>
+
+    <!-- Arrow 3 to 4 -->
+    <path d="M 850 250 L 880 250" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+    <!-- Stage 4: Transformer Decoder & Pathology Report -->
+    <rect x="880" y="85" width="240" height="330" rx="10" fill="url(#grad-dec)" stroke="#f59e0b" stroke-width="1.5"/>
+    <rect x="895" y="100" width="210" height="28" rx="6" fill="#b45309"/>
+    <text x="1000" y="119" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">4. Decoder &amp; Reporte</text>
+
+    <rect x="895" y="140" width="210" height="65" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="905" y="160" font-size="11" font-weight="bold" fill="#fbbf24">Transformer Decoder (3L)</text>
+    <text x="905" y="178" font-size="10" fill="#94a3b8">4 attention heads, d = 512</text>
+    <text x="905" y="194" font-size="10" fill="#94a3b8">Atención cruzada sobre H</text>
+
+    <path d="M 1000 205 L 1000 225" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
+
+    <rect x="895" y="225" width="210" height="75" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="905" y="245" font-size="11" font-weight="bold" fill="#fbbf24">Generación Autorregresiva</text>
+    <text x="905" y="263" font-size="10" fill="#94a3b8">Loss: NLL conditional language</text>
+    <text x="905" y="279" font-size="10" fill="#94a3b8">Beam Search (k = 3)</text>
+    <text x="905" y="293" font-size="9" fill="#4ade80">Vocabulario: 12,046 tokens</text>
+
+    <rect x="895" y="310" width="210" height="92" rx="6" fill="#1e1b4b" stroke="#f59e0b" stroke-width="1"/>
+    <text x="905" y="330" font-size="11" font-weight="bold" fill="#fde68a">Reporte Diagnóstico Generado</text>
+    <text x="905" y="346" font-size="9" fill="#94a3b8">• Tamaño: "2.6 cm", "1.3 × 1.2 cm"</text>
+    <text x="905" y="360" font-size="9" fill="#94a3b8">• Tipo: Invasive Ductal Carcinoma</text>
+    <text x="905" y="374" font-size="9" fill="#94a3b8">• Biomarcadores: ER+, PR-, HER2-</text>
+    <text x="905" y="390" font-size="10" font-weight="bold" fill="#4ade80">BLEU-1: 0.446 | Fact_ent: 0.532</text>
+
+    <!-- Lower Branch: Slide-Level Tasks via Semantic Extraction -->
+    <rect x="30" y="430" width="1090" height="110" rx="10" fill="url(#grad-down)" stroke="#ec4899" stroke-width="1.5"/>
+    <rect x="45" y="442" width="300" height="24" rx="5" fill="#be185d"/>
+    <text x="195" y="458" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">5. TAREAS A NIVEL DE LÁMINA VÍA EXTRACCIÓN SEMÁNTICA</text>
+
+    <!-- Branch Connector Arrow -->
+    <path d="M 1000 402 L 1000 440" stroke="#ec4899" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrow-pink)"/>
+
+    <rect x="45" y="474" width="300" height="52" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="55" y="492" font-size="11" font-weight="bold" fill="#f472b6">Extracción Semántica del Reporte</text>
+    <text x="55" y="508" font-size="10" fill="#94a3b8">Parsing determinista de entidades clínicas</text>
+    <text x="55" y="520" font-size="9" fill="#4ade80">Sin entrenar cabezas de clasificación separadas</text>
+
+    <!-- Arrow to subtyping -->
+    <path d="M 345 500 L 375 500" stroke="#f472b6" stroke-width="1.5" marker-end="url(#arrow-pink)"/>
+
+    <rect x="375" y="442" width="350" height="84" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="385" y="462" font-size="11" font-weight="bold" fill="#f472b6">A. Subtipado de Mama (IDC vs ILC)</text>
+    <text x="385" y="480" font-size="10" fill="#94a3b8">• Precisión: 0.805 | Recall: 0.865</text>
+    <text x="385" y="496" font-size="10" fill="#94a3b8">• F1-Score: <tspan font-weight="bold" fill="#4ade80">0.838</tspan> (SOTA absoluto)</text>
+    <text x="385" y="512" font-size="9" fill="#fde68a">Supera a TransMIL (0.806), CLAM-SB (0.823) y DS-MIL (0.775)</text>
+
+    <!-- Arrow to HER2 -->
+    <path d="M 725 500 L 755 500" stroke="#f472b6" stroke-width="1.5" marker-end="url(#arrow-pink)"/>
+
+    <rect x="755" y="442" width="350" height="84" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="765" y="462" font-size="11" font-weight="bold" fill="#f472b6">B. Predicción del Estado de Her2</text>
+    <text x="765" y="480" font-size="10" fill="#94a3b8">• Precisión: 0.655 | Recall: 0.710</text>
+    <text x="765" y="496" font-size="10" fill="#94a3b8">• F1-Score: <tspan font-weight="bold" fill="#4ade80">0.678</tspan> (SOTA en WSI-Reports)</text>
+    <text x="765" y="512" font-size="9" fill="#fde68a">Supera a TransMIL (0.670), DS-MIL (0.652) y AB-MIL (0.645)</text>
+</svg>
+                        </div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); text-align: center;">
+                            Figura 7. Arquitectura generativa MI-Gen de Wsi-Caption: Extracción visual congelada sobre bolsas de parches gigapíxel, codificador Transformer acoplado a módulos conscientes de la posición (PAM) con bancos convolucionales multi-escala ($3\times 3, 7\times 7, 13\times 13$), agregación jerárquica multi-nivel, decodificación autorregresiva de reportes y transferencia clínica directa a subtipado tumoral y predicción de Her2 vía extracción semántica (MICCAI 2024 Oral).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 5: ESQUEMA DE DATOS Y FLUJO I/O -->
+                <div id="wsicaption-io" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">5</span>
+                            <h3 class="eje-title">Esquema Físico y Flujo Input / Output</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            El corpus se distribuye en formato JSON (<code>PathText.json</code>) emparejado determinísticamente con los archivos de características visuales extraídas con CLAM (<code>.pt</code>):
+                        </p>
+
+                        <div style="overflow-x: auto; margin: 14px 0;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Campo en PathText.json</th>
+                                        <th>Tipo de Dato</th>
+                                        <th>Función Metodológica</th>
+                                        <th>Ejemplo Real Auditado en PathText</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>id</code> / <code>case_id</code></td>
+                                        <td><code>string</code></td>
+                                        <td>Identificador unívoco del paciente en TCGA (unidad de partición).</td>
+                                        <td><code>"TCGA-BH-A202"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>slide_id</code> / <code>wsi_name</code></td>
+                                        <td><code>string</code></td>
+                                        <td>Nombre del archivo diagnóstico SVS escaneado a 20×/40×.</td>
+                                        <td><code>"TCGA-BH-A202-01Z-00-DX1.8CECDB74-5E6F-4CE8-B52C-A89E574F38FB.svs"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>project_id</code></td>
+                                        <td><code>string</code></td>
+                                        <td>Cohorte oncológica de origen en TCGA.</td>
+                                        <td><code>"TCGA-BRCA"</code>, <code>"TCGA-KIRC"</code>, <code>"TCGA-LUAD"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>caption</code> / <code>report</code></td>
+                                        <td><code>string</code></td>
+                                        <td>Texto diagnóstico quirúrgico curado por OCR + GPT-4.</td>
+                                        <td><em>"Left breast, modified radical mastectomy: Invasive ductal carcinoma, histological grade 3. Tumor size 2.6 cm... Margins uninvolved. 0 of 15 lymph nodes positive... ER positive, PR negative, HER2 negative."</em></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>features_pt</code></td>
+                                        <td><code>string</code></td>
+                                        <td>Tensor PyTorch de parches no solapados ($256 \times 256$ px).</td>
+                                        <td><code>"TCGA-Slide-Features/TCGA_BRCA/TCGA-BH-A202-01Z-00-DX1.pt"</code> ($[M_i, 1024]$)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="subgrid-2col" style="margin-top: 14px;">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">📥 ¿Qué Entradas Recibe el Modelo? (Inputs)</h4>
+                                <p style="margin: 0; font-size: 0.88rem;">
+                                    <strong>1. Entrada Visual (Bolsa de Instancias WSI):</strong><br>
+                                    Tensor de bolsa de parches no solapados $\text{Bag}(X_i) = \{x_i^1, \dots, x_i^{M_i}\}$ codificado por el extractor visual congelado (ResNet-50 o ViT-HIPT) en una matriz de características:
+                                    $$\mathbf{E}_0 = h(\{x_i^j\}) \in \mathbb{R}^{M_i \times 1024}$$
+                                    Donde $M_i$ frecuentemente excede los 10,000 parches por lámina.<br><br>
+                                    <strong>2. Entrada Textual / Contextual:</strong><br>
+                                    • Secuencia autorregresiva de tokens generados previamente $\{y_i^j\}_{j &lt; t}$ en modo teacher forcing.<br>
+                                    • Token especial de inicio de secuencia <code>[BOS]</code> durante inferencia ciega con beam search ($k=3$).
+                                </p>
+                            </div>
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">📤 ¿Qué Salidas Genera el Modelo? (Outputs)</h4>
+                                <p style="margin: 0; font-size: 0.88rem;">
+                                    <strong>1. En Generación de Texto Patológico (NLG Primaria):</strong><br>
+                                    Distribución de probabilidad categórica sobre el vocabulario médico en cada paso temporal $t$:
+                                    $$P(y_t \mid h(\{x_i^j\}), \{y_i^j\}_{j &lt; t}) \in \mathbb{R}^{|V|}$$
+                                    Generando secuencialmente el reporte quirúrgico completo $Y_i = (y_i^1, \dots, y_i^{N_i})$ con métricas morfológicas (tamaño en cm, márgenes, grado, estado ganglionar).<br><br>
+                                    <strong>2. En Tareas a Nivel de Lámina (Extracción Semántica Directa):</strong><br>
+                                    • <em>Subtipado Histológico Tumoral:</em> Predicción de Carcinoma Ductal Invasivo (IDC) vs. Carcinoma Lobular Invasivo (ILC) extraído directamente del texto generado (F1-score: <strong>0.838</strong>).<br>
+                                    • <em>Estatus de Biomarcador HER2:</em> Clasificación binaria (Positivo / Negativo) derivada del reporte (F1-score: <strong>0.678</strong>).
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card-inner" style="margin-top: 14px;">
+                            <h4 class="card-inner-title">🔀 Flujo Computacional Extremo a Extremo (Pipeline I/O)</h4>
+                            <p style="margin: 0; font-size: 0.88rem;">
+                                La formulación matemática del pipeline generativo MI-Gen se sintetiza como:
+                            </p>
+                            <div class="formula-box" style="margin: 10px 0; font-size: 0.95rem;">
+                                $$\underbrace{\text{Bag}(X_i) = \{x_i^j\}_{j=1}^{M_i}}_{\text{Lámina Gigapíxel Cruda}} \xrightarrow{h(\cdot)} \underbrace{\mathbf{E}_0 \in \mathbb{R}^{M_i \times 1024}}_{\text{Bolsa de Características}} \xrightarrow{\text{Transformer Enc } (f_1..f_3)} \{\mathbf{E}_1, \mathbf{E}_2, \mathbf{E}_3\} \xrightarrow{\text{PAM Hierarchical}} \underbrace{\mathbf{H} \in \mathbb{R}^{M_i \times 512}}_{\text{Estado Oculto Espacial}} \xrightarrow{\text{Transformer Dec}} \underbrace{Y_i = (y_i^1..y_i^{N_i})}_{\text{Reporte Quirúrgico Generado}}$$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 6: MODELO BASELINE Y FORMULACIÓN MATEMÁTICA -->
+                <div id="wsicaption-modelo" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">6</span>
+                            <h3 class="eje-title">Modelo Baseline y Formulación Matemática (MI-Gen y PAM)</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            El modelo <strong>MI-Gen</strong> resuelve la incorporación de información geométrica 2D mediante dos componentes matemáticos principales:
+                        </p>
+
+                        <div class="grid-2col" style="margin-top: 14px;">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">1. Módulo Consciente de Posición (PAM) Multi-Escala</h4>
+                                <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 6px;">
+                                    Para cada capa $i$, la secuencia $\mathbf{E}_i$ se acolcha hasta una longitud cuadrática $T_i$ para reestructurarla en un mapa 2D $\mathbf{E}_i^{\text{pad}} \in \mathbb{R}^{\sqrt{T_i} \times \sqrt{T_i} \times l}$:
+                                </p>
+                                <div class="formula-box" style="font-size: 0.88rem; margin: 8px 0;">
+                                    $$\mathbf{E}_i = f_i(\mathbf{E}_{i-1}), \quad i \in \{1, 2, 3\}$$
+                                    $$\text{PAM}_i(\mathbf{E}_i) = \sum_{k \in \{3, 7, 13\}} \text{Conv}_k(\mathbf{E}_i^{\text{pad}}) + \mathbf{E}_i^{\text{pad}}$$
+                                    $$\mathbf{H} = \sum_{i=1}^{3} \text{PAM}_i(\mathbf{E}_i)$$
+                                </div>
+                                <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0;">
+                                    Los kernels de $3\times 3$, $7\times 7$ y $13\times 13$ capturan simultáneamente micro-patrones nucleares, arquitectura glandular y márgenes tisulares macroscópicos.
+                                </p>
+                            </div>
+
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">2. Función de Pérdida de Verosimilitud (NLL Loss)</h4>
+                                <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 6px;">
+                                    El decodificador autorregresivo se optimiza maximizando la probabilidad logarítmica condicional de los tokens diagnósticos:
+                                </p>
+                                <div class="formula-box" style="font-size: 0.88rem; margin: 8px 0;">
+                                    $$\mathcal{L}_{\text{NLL}} = -\sum_{i} \sum_{t=1}^{N_i} \log P_\theta\left(y_t \mid h(\{x_i^j\}), \{y_i^j\}_{j &lt; t}; \phi\right)$$
+                                </div>
+                                <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0;">
+                                    Optimizador Adam ($lr = 1 \times 10^{-4}$, weight decay $5 \times 10^{-5}$). Inferencia mediante Beam Search con tamaño de haz $k=3$ sobre 4 GPUs NVIDIA A100 (80GB).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 7: EVALUACIÓN COMPARATIVA, MÉTRICAS Y RESULTADOS EMPÍRICOS -->
+                <div id="wsicaption-benchmarks" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">7</span>
+                            <h3 class="eje-title">Evaluación Comparativa, Métricas y Resultados Empíricos</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            MI-Gen fue evaluado frente a 4 familias de modelos generativos utilizando métricas estándar de NLG (BLEU-1 a BLEU-4, METEOR, ROUGE) junto a la métrica clínica $\text{Fact}_{\text{ent}}$ (completitud y consistencia fáctica de entidades biomédicas):
+                        </p>
+
+                        <div style="overflow-x: auto; margin-top: 12px;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Extractor Visual &amp; Preentrenamiento</th>
+                                        <th>Arquitectura Generadora</th>
+                                        <th>BLEU-1</th>
+                                        <th>BLEU-2</th>
+                                        <th>BLEU-3</th>
+                                        <th>BLEU-4</th>
+                                        <th>METEOR</th>
+                                        <th>ROUGE</th>
+                                        <th>$\text{Fact}_{\text{ent}}$</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="opacity: 0.75;">
+                                        <td rowspan="5"><strong>ResNet-50</strong><br><span style="font-size: 0.75rem; color: var(--text-muted);">(ImageNet Out-of-domain)</span></td>
+                                        <td>CNN-RNN (CVPR'15)</td><td>0.334</td><td>0.209</td><td>0.122</td><td>0.074</td><td>0.137</td><td>0.248</td><td>0.396</td>
+                                    </tr>
+                                    <tr style="opacity: 0.75;">
+                                        <td>att-LSTM (ICML'15)</td><td>0.367</td><td>0.234</td><td>0.128</td><td>0.085</td><td>0.151</td><td>0.262</td><td>0.442</td>
+                                    </tr>
+                                    <tr style="opacity: 0.75;">
+                                        <td>Vanilla Transformer (NeurIPS'17)</td><td>0.395</td><td>0.230</td><td>0.135</td><td>0.089</td><td>0.145</td><td>0.254</td><td>0.453</td>
+                                    </tr>
+                                    <tr style="opacity: 0.75;">
+                                        <td>Mem-Transformer (EMNLP'20)</td><td>0.317</td><td>0.207</td><td>0.136</td><td>0.091</td><td>0.129</td><td>0.270</td><td>0.467</td>
+                                    </tr>
+                                    <tr style="background: rgba(56, 189, 248, 0.08); font-weight: bold;">
+                                        <td style="color: var(--accent);">MI-Gen (Ours - ResNet)</td>
+                                        <td style="color: var(--accent);">0.403</td><td>0.254</td><td>0.168</td><td>0.117</td><td>0.163</td><td>0.280</td><td>0.498</td>
+                                    </tr>
+                                    <tr style="opacity: 0.85;">
+                                        <td rowspan="5"><strong>Vision Transformer (ViT)</strong><br><span style="font-size: 0.75rem; color: var(--text-muted);">(ImageNet Out-of-domain)</span></td>
+                                        <td>CNN-RNN</td><td>0.328</td><td>0.201</td><td>0.127</td><td>0.082</td><td>0.142</td><td>0.253</td><td>0.380</td>
+                                    </tr>
+                                    <tr style="opacity: 0.85;">
+                                        <td>att-LSTM</td><td>0.341</td><td>0.211</td><td>0.132</td><td>0.083</td><td>0.145</td><td>0.265</td><td>0.425</td>
+                                    </tr>
+                                    <tr style="opacity: 0.85;">
+                                        <td>Vanilla Transformer</td><td>0.346</td><td>0.216</td><td>0.137</td><td>0.091</td><td>0.149</td><td>0.273</td><td>0.443</td>
+                                    </tr>
+                                    <tr style="opacity: 0.85;">
+                                        <td>Mem-Transformer</td><td>0.332</td><td>0.216</td><td>0.144</td><td>0.100</td><td>0.147</td><td>0.268</td><td>0.449</td>
+                                    </tr>
+                                    <tr style="background: rgba(56, 189, 248, 0.08); font-weight: bold;">
+                                        <td style="color: var(--accent);">MI-Gen (Ours - ViT ImageNet)</td>
+                                        <td style="color: var(--accent);">0.380</td><td>0.252</td><td>0.169</td><td>0.110</td><td>0.157</td><td>0.279</td><td>0.474</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="5"><strong>ViT + HIPT</strong><br><span style="font-size: 0.75rem; color: var(--accent-green);">(In-domain TCGA WSI)</span></td>
+                                        <td>CNN-RNN</td><td>0.342</td><td>0.215</td><td>0.141</td><td>0.084</td><td>0.148</td><td>0.260</td><td>0.403</td>
+                                    </tr>
+                                    <tr>
+                                        <td>att-LSTM</td><td>0.372</td><td>0.230</td><td>0.135</td><td>0.090</td><td>0.150</td><td>0.269</td><td>0.466</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Vanilla Transformer</td><td>0.383</td><td>0.237</td><td>0.151</td><td>0.096</td><td>0.152</td><td>0.264</td><td>0.488</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mem-Transformer</td><td>0.344</td><td>0.218</td><td>0.150</td><td>0.103</td><td>0.151</td><td>0.268</td><td>0.501</td>
+                                    </tr>
+                                    <tr style="background: rgba(16, 185, 129, 0.12); font-weight: bold;">
+                                        <td style="color: var(--accent-green);">MI-Gen (Ours - ViT HIPT)</td>
+                                        <td style="color: var(--accent-green);">0.446</td>
+                                        <td style="color: var(--accent-green);">0.286</td>
+                                        <td style="color: var(--accent-green);">0.183</td>
+                                        <td style="color: var(--accent-green);">0.120</td>
+                                        <td style="color: var(--accent-green);">0.171</td>
+                                        <td style="color: var(--accent-green);">0.271</td>
+                                        <td style="color: var(--accent-green);">0.532</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- DOWNSTREAM SLIDE-LEVEL TASKS -->
+                        <div class="card-inner" style="margin-top: 14px;">
+                            <h4 class="card-inner-title">🏆 Tareas a Nivel de Lámina: Extracción Semántica vs. Modelos MIL Especializados</h4>
+                            <p style="margin: 0; font-size: 0.88rem; color: var(--text-muted); margin-bottom: 8px;">
+                                En lugar de entrenar cabezas de clasificación supervisada, los autores evaluaron si el texto del reporte generado por MI-Gen contenía la información diagnóstica exacta mediante un parser semántico simple:
+                            </p>
+                            <div style="overflow-x: auto;">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2">Método de Clasificación</th>
+                                            <th colspan="3" style="text-align: center; border-bottom: 1px solid var(--border-color);">Predicción de HER2 (Her2 Testing)</th>
+                                            <th colspan="3" style="text-align: center; border-bottom: 1px solid var(--border-color);">Subtipado de Mama (IDC vs. ILC)</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Precisión</th><th>Recall</th><th>F1-Score</th>
+                                            <th>Precisión</th><th>Recall</th><th>F1-Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>Max-pooling MIL</td><td>0.545</td><td>0.601</td><td>0.570</td><td>0.612</td><td>0.662</td><td>0.644</td></tr>
+                                        <tr><td>AB-MIL (Ilse et al., ICML'18)</td><td>0.622</td><td>0.670</td><td>0.645</td><td>0.730</td><td>0.823</td><td>0.771</td></tr>
+                                        <tr><td>DS-MIL (Li et al., CVPR'21)</td><td>0.629</td><td>0.684</td><td>0.652</td><td>0.727</td><td>0.821</td><td>0.775</td></tr>
+                                        <tr><td>CLAM-SB (Lu et al., Nat Biomed Eng'21)</td><td>0.605</td><td>0.668</td><td>0.632</td><td>0.781</td><td>0.879</td><td>0.823</td></tr>
+                                        <tr><td>TransMIL (Shao et al., NeurIPS'21)</td><td>0.649</td><td>0.701</td><td>0.670</td><td>0.782</td><td>0.834</td><td>0.806</td></tr>
+                                        <tr style="background: rgba(16, 185, 129, 0.12); font-weight: bold;">
+                                            <td style="color: var(--accent-green);">MI-Gen (Semantic Extraction)</td>
+                                            <td style="color: var(--accent-green);">0.655</td>
+                                            <td style="color: var(--accent-green);">0.710</td>
+                                            <td style="color: var(--accent-green);">0.678</td>
+                                            <td style="color: var(--accent-green);">0.805</td>
+                                            <td style="color: var(--accent-green);">0.865</td>
+                                            <td style="color: var(--accent-green);">0.838</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p style="margin: 8px 0 0; font-size: 0.84rem; color: var(--accent-green);">
+                                <strong>Hallazgo Trascendental:</strong> La extracción semántica del reporte generado superó a todos los modelos de clasificación supervisada especializada (F1 de <strong>0.838 vs 0.806</strong> de TransMIL y <strong>0.823</strong> de CLAM-SB), demostrando que la generación de lenguaje libre retiene más riqueza diagnóstica que un vector de logits de clase.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 8: CONCILIACIÓN FACTUAL, AISLAMIENTO DE FUGAS Y ROL ESTRATÉGICO -->
+                <div id="wsicaption-tesis" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">8</span>
+                            <h3 class="eje-title">Conciliación Factual, Aislamiento de Fugas y Rol Estratégico en la Tesis</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <div class="grid-2col">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">⚖️ HistGen vs. Wsi-Caption (Diferenciación Metodológica)</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                    Ambos datasets fueron presentados en <strong>MICCAI 2024</strong> y representan los dos estándares de oro de reportes WSI:<br>
+                                    • <strong>HistGen (MICCAI 2024, HKUST):</strong> 7,690 casos en 32 cohortes; codificación jerárquica Local-Global por clusters de 96 parches (LGH) y memoria de contexto compartida (CMC) con extractor DINOv2 ViT-L.<br>
+                                    • <strong>Wsi-Caption / PathText (MICCAI 2024 Oral, Westlake):</strong> 9,009 casos en 30 proyectos; modelado de continuidad geométrica 2D mediante padding cuadrático y bancos convolucionales multi-escala ($3\times 3, 7\times 7, 13\times 13$) con extractores ResNet y ViT-HIPT.<br>
+                                    En la tesis de maestría, contrastar ambos enfoques permite evaluar si la modelación espacial continua 2D (PAM) supera a la agregación regional atencional (LGH).
+                                </p>
+                            </div>
+
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">⚠️ Control Obligatorio de Data Leakage</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                    Al igual que con HistGen y PathGen-1.6M, PathText utiliza identificadores de TCGA:<br>
+                                    • <strong>Aislamiento por Paciente:</strong> Las particiones deben aislarse estrictamente por <strong><code>Patient ID</code></strong> (<code>TCGA-XX-XXXX</code>). Ninguna lámina diagnóstica (DX1 o DX2) de un paciente evaluado en test puede estar en entrenamiento.<br>
+                                    • <strong>Aislamiento Inter-Dataset:</strong> Si un modelo se preentrena o ajusta sobre HistGen, no debe evaluarse sobre casos compartidos de PathText sin verificación cruzada de barcodes de TCGA.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- CONCLUSIÓN PARA LA TESIS -->
+                        <div class="callout-box amber" style="margin-top: 20px; background: rgba(245, 158, 11, 0.08); border-color: rgba(245, 158, 11, 0.3);">
+                            <div class="callout-title" style="color: var(--accent-amber);">
+                                <span>🎯</span> Relevancia y Rol Estratégico en la Tesis de Maestría
+                            </div>
+                            <p style="margin: 0; font-size: 0.9rem; line-height: 1.6;">
+                                <strong>Benchmark Fundacional para Evaluación de Razonamiento Espacial Clínico (Objetivos 1, 3 y 4):</strong><br>
+                                Wsi-Caption / PathText es el benchmark idóneo para investigar cómo los Modelos de Lenguaje Multimodal capturan parámetros volumétricos y espaciales:
+                                <br>1. <strong>Morfometría Diagnóstica:</strong> Permite evaluar cuantitativamente si un modelo puede inferir diámetros tumorales en centímetros (ej. <em>"2.6 cm"</em>) y porcentajes de afectación celular únicamente a partir de la bolsa de parches.
+                                <br>2. <strong>Generación de Texto como Clasificador Clínico:</strong> Demuestra el potencial de evaluar LMMs generativos como sustitutos de cabezas de clasificación MIL ad-hoc, permitiendo extraer simultáneamente subtipos tumorales, márgenes y biomarcadores desde un único reporte generado.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
         <!-- Placeholder for next datasets dictated by user -->
         <div id="more-datasets-slot" style="margin-top: 40px; padding: 24px; border: 2px dashed var(--border-color); border-radius: 14px; text-align: center; color: var(--text-muted);">
             <h3 style="color: #ffffff; margin-top: 0;">Próximos Datasets a Incorporar</h3>
             <p style="font-size: 0.9rem; max-width: 650px; margin: 0 auto;">
-                Datasets consolidados: Familia Quilt (Quilt-1M, Quilt-Instruct, Quilt-VQA), PathMMU, ARCH e HistGen. Los siguientes datasets se incorporarán progresivamente según la prioridad dictada por el usuario (ej. PathVQA, PathCap, PathInstruct, WSI-VQA, PatchGastricADC22, etc.).
+                Datasets consolidados: Familia Quilt (Quilt-1M, Quilt-Instruct, Quilt-VQA), PathMMU, ARCH, HistGen y Wsi-Caption (PathText). Los siguientes datasets se incorporarán progresivamente según la prioridad dictada por el usuario (ej. PathVQA, PathCap, PathInstruct, WSI-VQA, SlideInstruction, PatchGastricADC22, etc.).
             </p>
         </div>
 
