@@ -672,6 +672,12 @@
                     <span class="nav-badge nav-badge-wsi">PathText</span>
                 </a>
             </li>
+                        <li class="nav-item">
+                <a href="#pathgen">
+                    <span>8. PathGen-1.6M</span>
+                    <span class="nav-badge nav-badge-vlp">VLP-1.6M</span>
+                </a>
+            </li>
             <li class="nav-item" style="opacity: 0.4;">
                 <a href="#more-datasets-slot" style="pointer-events: none;">
                     <span>... Otros según prioridad</span>
@@ -690,6 +696,18 @@
             <li class="nav-item"><a href="#wsicaption-modelo">6. Arquitectura PAM &amp; Pérdida NLL</a></li>
             <li class="nav-item"><a href="#wsicaption-benchmarks">7. Benchmarks NLG &amp; Extracción Semántica</a></li>
             <li class="nav-item"><a href="#wsicaption-tesis">8. Conciliación vs HistGen &amp; Tesis</a></li>
+        </ul>
+
+        <div class="nav-section-title">Navegación por PathGen-1.6M</div>
+        <ul class="nav-list" style="font-size: 0.78rem;">
+            <li class="nav-item"><a href="#pathgen-biblio">1. Metadatos &amp; ICLR 2025</a></li>
+            <li class="nav-item"><a href="#pathgen-resumen">2. Resumen Científico &amp; Paradigma</a></li>
+            <li class="nav-item"><a href="#pathgen-curacion">3. Pipeline Multi-Agente &amp; Filtros</a></li>
+            <li class="nav-item"><a href="#pathgen-diagrama">4. Diagrama Metodológico SVG</a></li>
+            <li class="nav-item"><a href="#pathgen-io">5. Esquema Físico &amp; Flujo I/O</a></li>
+            <li class="nav-item"><a href="#pathgen-modelo">6. Arquitectura CLIP/LLaVA &amp; InfoNCE</a></li>
+            <li class="nav-item"><a href="#pathgen-benchmarks">7. Benchmarks Zero-Shot &amp; PathMMU</a></li>
+            <li class="nav-item"><a href="#pathgen-tesis">8. Conciliación TCGA &amp; Tesis</a></li>
         </ul>
 
         <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border-color);">
@@ -5200,11 +5218,893 @@
 
         </section>
 
+        
+        <!-- ==================================================================== -->
+        <!-- DATASET 8: PATHGEN-1.6M (ICLR 2025)                                 -->
+        <!-- ==================================================================== -->
+        <section id="pathgen" class="dataset-card">
+            
+            <!-- Encabezado del Dataset -->
+            <div class="dataset-header">
+                <span class="dataset-order-pill">Dataset #8 &bull; Preentrenamiento VLP Sintético Multi-Agente</span>
+                <h2 class="dataset-name">PathGen-1.6M</h2>
+                <div class="dataset-repo-sub">jamessyx/PathGen &bull; ICLR 2025 &bull; Westlake University / Zhejiang University</div>
+                <div class="badges-wrapper">
+                    <span class="badge badge-cyan">1,620,876 Pares Parche-Texto</span>
+                    <span class="badge badge-green">TCGA 7,300 WSIs (27 Tejidos)</span>
+                    <span class="badge badge-purple">ICLR 2025</span>
+                    <span class="badge badge-amber">Multi-Agent AI Collaboration</span>
+                    <span class="badge badge-indigo">PathGen-CLIP-L (ViT-L/14@336)</span>
+                    <span class="badge badge-rose">PathGen-LLaVA (58.4% PathMMU)</span>
+                </div>
+            </div>
+
+            <div class="ejes-grid">
+
+                <!-- EJE 1: METADATOS Y ENLACES DIRECTOS -->
+                <div id="pathgen-biblio" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">1</span>
+                            <h3 class="eje-title">Metadatos, Autoría y Enlaces Directos</h3>
+                        </div>
+                        <span class="eje-badge">Bibliografía Primaria</span>
+                    </div>
+                    <div class="eje-content">
+                        <div class="meta-dataset-grid">
+                            <div class="meta-item">
+                                <span class="meta-item-label">Repositorio Hugging Face</span>
+                                <span class="meta-item-value"><code>jamessyx/PathGen</code></span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-item-label">Conferencia / Venue</span>
+                                <span class="meta-item-value"><strong>ICLR 2025</strong> (The Thirteenth International Conference on Learning Representations)</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-item-label">Identificador de Paper</span>
+                                <span class="meta-item-value">arXiv:2407.00203 [cs.CV, eess.IV]</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-item-label">Autores Principales</span>
+                                <span class="meta-item-value">Yuxuan Sun, Chenglu Zhu, Sunyi Zheng, Kai Zhang, Lin Sun, Yunlong Zhang, Honglin Li, Lin Yang</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-item-label">Instituciones Líderes</span>
+                                <span class="meta-item-value">Westlake University &bull; Zhejiang University &bull; RCIF</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-item-label">Licencia &amp; Modalidad</span>
+                                <span class="meta-item-value">CC BY-NC 2.0 (Gated Hub Access &bull; 933.28 MB)</span>
+                            </div>
+                        </div>
+
+                        <div class="pub-links-bar">
+                            <a href="https://arxiv.org/abs/2407.00203" target="_blank" class="btn-link btn-primary-pub">
+                                📄 Artículo en arXiv (2407.00203)
+                            </a>
+                            <a href="https://arxiv.org/pdf/2407.00203" target="_blank" class="btn-link">
+                                📥 Descargar PDF Oficial
+                            </a>
+                            <a href="https://github.com/sun-yuxuan/PathGen" target="_blank" class="btn-link">
+                                🐙 Código Oficial GitHub (PathGen)
+                            </a>
+                            <a href="https://huggingface.co/datasets/jamessyx/PathGen" target="_blank" class="btn-link">
+                                🤗 Dataset en Hugging Face Hub
+                            </a>
+                            <a href="preview_jamessyx_pathgen.html" target="_blank" class="btn-link" style="border-color: var(--accent-green); color: var(--accent-green);">
+                                🔬 Reporte Local de Auditoría (7 Muestras)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 2: RESUMEN CIENTÍFICO Y PLANTEAMIENTO DEL PROBLEMA -->
+                <div id="pathgen-resumen" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">2</span>
+                            <h3 class="eje-title">Resumen Científico y Cambio de Paradigma en Preentrenamiento VLP</h3>
+                        </div>
+                        <span class="eje-badge">Planteamiento &amp; Aporte</span>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            Los Modelos de Visión y Lenguaje (VLM), fundamentalmente basados en el paradigma de <span class="text-term">Contrastive Language-Image Pretraining (CLIP)</span>, han transformado el aprendizaje representacional en histopatología al permitir tareas de clasificación sin entrenamiento previo (<span class="text-term">zero-shot image classification</span>), búsqueda multimodal cross-modal y servir de codificadores visuales congelados para Modelos Grandes Multimodales (<span class="text-term">LMMs</span>). No obstante, en la patología computacional existía un <strong>cuello de botella crítico de escasez y calidad de datos</strong> que impedía escalar los modelos al nivel de la visión natural (ej. LAION-5B, WIT-400M).
+                        </p>
+                        <p>
+                            Hasta la publicación de <strong>PathGen-1.6M en ICLR 2025</strong>, los esfuerzos de la comunidad dependían exclusivamente de recolectar pares texto-imagen mediante web scraping de tres fuentes públicas con severas limitaciones:
+                            <br>1. <strong>Artículos Académicos (PubMed / PMC):</strong> Datasets como PathCap (207K) o PMC-CLIP ofrecen pares con degradación por compresión raster y leyendas con frecuencia indirectas o centradas en gráficos estadísticos.
+                            <br>2. <strong>Redes Sociales (Twitter/X):</strong> OpenPath / PLIP (208K) contiene abundante ruido coloquial, comentarios estéticos no clínicos y desalineaciones semánticas.
+                            <br>3. <strong>Videos Educativos (YouTube):</strong> Quilt-1M (768K fotogramas) sufre de compresión de video a 1080p, baja resolución efectiva por captura de diapositivas y ausencia de detalles citoarquitectónicos de aumentos diagnósticos reales.
+                        </p>
+                        <p>
+                            <strong>El Aporte y Cambio de Paradigma de PathGen-1.6M:</strong> Sun et al. abandonan el web scraping y demuestran que es posible utilizar los repositorios públicos de láminas histopatológicas completas (<span class="text-term">Whole Slide Images, WSIs</span>) de The Cancer Genome Atlas (TCGA) —que albergan tejido humano sin compresión a aumentos diagnósticos de $20\times$ y $40\times$— y resolver la carencia de textos locales mediante una <strong>tubería de colaboración multi-agente de modelos fundacionales</strong>. Esta estrategia genera <strong>1.62 millones de pares parche-texto densos de alta fidelidad</strong>, permitiendo entrenar por primera vez un modelo CLIP de escala grande (<span class="text-term">PathGen-CLIP-L</span> con ViT-L/14@336) y un asistente clínico (<span class="text-term">PathGen-LLaVA</span>) que bate a GPT-4V en razonamiento patológico experto.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- EJE 3: CURACIÓN, FILTRADO Y TUBERÍA MULTI-AGENTE -->
+                <div id="pathgen-curacion" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">3</span>
+                            <h3 class="eje-title">Sourcing, Curación y Tubería Colaborativa Multi-Agente</h3>
+                        </div>
+                        <span class="eje-badge">Metodología de Curación</span>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            La construcción de PathGen-1.6M parte de aproximadamente <strong>7,300 láminas WSI y sus reportes quirúrgicos asociados en TCGA</strong>, abarcando <strong>27 tipos anatómicos de tejidos</strong> (pulmón, colon, mama, riñón, piel, encéfalo, etc.). Para transformar gigapíxeles desestructurados en 1.6 millones de pares densos sin alucinaciones, los autores diseñaron una arquitectura de 5 fases operada por agentes especializados:
+                        </p>
+                        
+                        <div class="grid-2col">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">🤖 Agentes Fundacionales Preparados</h4>
+                                <ul style="margin: 0; padding-left: 18px; font-size: 0.88rem; line-height: 1.6;">
+                                    <li><strong>PathGen-CLIP-Linit (Agente de Recuperación):</strong> Modelo CLIP entrenado sobre 700K pares humanos consolidados (<span class="text-term">PathGeninit</span>: 200K PathCap + 400K Quilt-1M + 100K OpenPath) en OpenCLIP con resolución $336\times 336$.</li>
+                                    <li><strong>PathGen-LLaVAdesp (Agente Descriptor):</strong> LLaVA-1.5-13B con backbone visual PathGen-CLIP-Linit, ajustado con 30K leyendas hiperdetalladas generadas por GPT-4V a partir de muestras de PubMed y Quilt.</li>
+                                    <li><strong>Revise LMM Agent (Agente Revisor):</strong> Modelo LMM entrenado con operaciones inversas (additions, deletions, edits) para detectar y revertir alucinaciones patológicas generadas por el LMM base.</li>
+                                    <li><strong>Summarize Agent (Agente Resumidor):</strong> Llama-2 adaptado con instruction tuning para comprimir reportes extensos al límite de 77 tokens BPE de CLIP preservando entidades morfológicas.</li>
+                                </ul>
+                            </div>
+
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">⚙️ Pipeline de Extracción y Depuración</h4>
+                                <ul style="margin: 0; padding-left: 18px; font-size: 0.88rem; line-height: 1.6;">
+                                    <li><strong>Paso 1: Muestreo Dual de Parches:</strong>
+                                        <br>&bull; <em>Prompt Retrieval:</em> Top 64 parches por WSI según hallazgos morfológicos del reporte TCGA y 20 atributos citoarquitectónicos derivados de GPT-4 (atipia nuclear, mitosis, estroma).
+                                        <br>&bull; <em>K-Means Clustering:</em> $k = \sqrt{N}$ clústeres de embeddings visuales, muestreando 256 parches uniformemente para evitar sesgos a solo zonas neoplásicas (Total: 320~384 candidatos/WSI).
+                                    </li>
+                                    <li><strong>Paso 2: Filtrado Probabilístico Coseno:</strong> Se calcula la similitud coseno entre parches. Todo par con $\text{sim} &gt; 0.88$ se filtra probabilísticamente para eliminar estroma repetitivo y fondo.</li>
+                                    <li><strong>Pasos 3, 4 y 5: Generación, Revisión y Resumen:</strong> PathGen-LLaVAdesp describe el parche, el Agente Revisor corrige inconsistencias y el Agente Resumidor emite la versión $\le 77$ tokens.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- EJE 4: DIAGRAMA METODOLÓGICO EN FORMATO VECTORIAL SVG -->
+                <div id="pathgen-diagrama" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">4</span>
+                            <h3 class="eje-title">Diagrama Metodológico en Formato Vectorial (SVG)</h3>
+                        </div>
+                        <span class="eje-badge">Arquitectura &amp; Flujo</span>
+                    </div>
+                    <div class="eje-content">
+                        <div class="diagram-container">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1150 780" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGradPg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090e17" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="wsiGradPg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="agentGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="agentGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+    <linearGradient id="agentGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    <linearGradient id="agentGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="cardGradPg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#161e2e" />
+    </linearGradient>
+    <linearGradient id="amberGradPg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d97706" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="shadowPg" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrowPgBlue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 1 L 7 4 L 0 7 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrowPgIndigo" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 1 L 7 4 L 0 7 z" fill="#818cf8" />
+    </marker>
+    <marker id="arrowPgPurple" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 1 L 7 4 L 0 7 z" fill="#c084fc" />
+    </marker>
+    <marker id="arrowPgGreen" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 1 L 7 4 L 0 7 z" fill="#34d399" />
+    </marker>
+    <marker id="arrowPgAmber" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 1 L 7 4 L 0 7 z" fill="#fbbf24" />
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1150" height="780" rx="14" fill="url(#bgGradPg)" stroke="#334155" stroke-width="1.5" />
+
+  <!-- Diagram Title Header -->
+  <g transform="translate(40, 32)">
+    <rect x="0" y="0" width="1070" height="48" rx="8" fill="#111827" stroke="#1f2937" />
+    <text x="20" y="30" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="16" font-weight="700">
+      FIGURA 8. PIPELINE MULTI-AGENTE DE CURACIÓN SINTÉTICA Y PREENTRENAMIENTO VLP (PATHGEN-1.6M, ICLR 2025)
+    </text>
+    <rect x="910" y="10" width="145" height="28" rx="6" fill="rgba(56, 189, 248, 0.15)" stroke="#38bdf8" stroke-width="1" />
+    <text x="982" y="28" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="700" text-anchor="middle">
+      1,620,876 PARES VLP
+    </text>
+  </g>
+
+  <!-- FAZA 1: EXTRACCIÓN Y MUESTREO DE PARCHES (TCGA) -->
+  <g transform="translate(40, 95)">
+    <!-- Container Box -->
+    <rect x="0" y="0" width="310" height="425" rx="10" fill="url(#cardGradPg)" stroke="#0284c7" stroke-width="1.5" filter="url(#shadowPg)" />
+    <rect x="0" y="0" width="310" height="34" rx="10" fill="url(#agentGrad1)" />
+    <text x="155" y="22" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle">
+      1. EXTRACCIÓN DUAL DE PARCHES (WSI)
+    </text>
+
+    <!-- Source TCGA Box -->
+    <rect x="15" y="46" width="280" height="66" rx="8" fill="#0f172a" stroke="#334155" />
+    <text x="25" y="66" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="700">
+      Fuente de Datos: TCGA Repository
+    </text>
+    <text x="25" y="84" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="10">
+      &#8226; ~7,300 Láminas WSI (27 Tipos de Tejidos)
+    </text>
+    <text x="25" y="100" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="10">
+      &#8226; Reportes Clínicos Diagnósticos TCGA
+    </text>
+
+    <!-- Sampling Method A: Prompt Retrieval -->
+    <rect x="15" y="122" width="280" height="110" rx="8" fill="#090e17" stroke="#0284c7" stroke-dasharray="3,3" />
+    <text x="25" y="142" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="700">
+      Método A: Prompt-based Retrieval
+    </text>
+    <text x="25" y="160" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9.5">
+      &#8226; Prompts de Hallazgos Morfológicos (Reporte)
+    </text>
+    <text x="25" y="176" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9.5">
+      &#8226; 20 Atributos Citoarquitectónicos (GPT-4)
+    </text>
+    <text x="25" y="192" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      &#8226; Ranking con PathGen-CLIP-Linit
+    </text>
+    <rect x="25" y="202" width="260" height="22" rx="4" fill="rgba(56, 189, 248, 0.15)" />
+    <text x="155" y="217" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="10" font-weight="700" text-anchor="middle">
+      Top 64 Parches Relevantes / WSI
+    </text>
+
+    <!-- Sampling Method B: K-Means Clustering -->
+    <rect x="15" y="242" width="280" height="98" rx="8" fill="#090e17" stroke="#0284c7" stroke-dasharray="3,3" />
+    <text x="25" y="262" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="700">
+      Método B: Clustering K-Means
+    </text>
+    <text x="25" y="280" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9.5">
+      &#8226; Embeddings Visuales PathGen-CLIP-Linit
+    </text>
+    <text x="25" y="296" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9.5">
+      &#8226; Clústeres k = &#8730;N_patches (Diversidad Tisular)
+    </text>
+    <rect x="25" y="308" width="260" height="22" rx="4" fill="rgba(56, 189, 248, 0.15)" />
+    <text x="155" y="323" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="10" font-weight="700" text-anchor="middle">
+      256 Parches Muestreados Uniformemente
+    </text>
+
+    <!-- Candidate Pool Box -->
+    <rect x="15" y="352" width="280" height="58" rx="6" fill="#1e293b" stroke="#38bdf8" />
+    <text x="155" y="373" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="10.5" font-weight="700" text-anchor="middle">
+      Pool de Candidatos por Lámina WSI
+    </text>
+    <text x="155" y="394" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle">
+      64 (Prompt) + 256 (K-Means) = 320~384 Parches
+    </text>
+  </g>
+
+  <!-- Arrow 1 -> 2: Deduplication & Filtering -->
+  <path d="M 350 307 L 390 307" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrowPgBlue)" fill="none" />
+  <rect x="352" y="280" width="36" height="18" rx="4" fill="#0f172a" stroke="#334155" />
+  <text x="370" y="293" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="8.5" text-anchor="middle">Pool</text>
+
+  <!-- FASE 2: FILTRADO Y DEDUPLICACIÓN PROBABILÍSTICA -->
+  <g transform="translate(400, 95)">
+    <rect x="0" y="0" width="330" height="425" rx="10" fill="url(#cardGradPg)" stroke="#6366f1" stroke-width="1.5" filter="url(#shadowPg)" />
+    <rect x="0" y="0" width="330" height="34" rx="10" fill="url(#agentGrad2)" />
+    <text x="165" y="22" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle">
+      2. COLABORACIÓN MULTI-AGENTE LMM
+    </text>
+
+    <!-- Sub-step 2.1: Cosine Deduplication -->
+    <rect x="15" y="46" width="300" height="74" rx="8" fill="#0f172a" stroke="#4f46e5" />
+    <text x="25" y="66" fill="#818cf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="10.5" font-weight="700">
+      Filtrado de Similitud Coseno (CLIP)
+    </text>
+    <text x="25" y="84" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9.5">
+      &#8226; Comparación de embeddings de parches
+    </text>
+    <text x="25" y="102" fill="#fca5a5" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9.5">
+      &#8226; Umbral &#964; = 0.88 (Descarte probabilístico estroma/fondo)
+    </text>
+
+    <!-- Sub-step 2.2: Description LMM Agent -->
+    <rect x="15" y="130" width="300" height="98" rx="8" fill="#090e17" stroke="#6366f1" />
+    <text x="25" y="150" fill="#a5b4fc" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="10.5" font-weight="700">
+      Agente Generador: PathGen-LLaVAdesp
+    </text>
+    <text x="25" y="168" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      &#8226; LLaVA-13B + PathGen-CLIP-Linit Encoder
+    </text>
+    <text x="25" y="184" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      &#8226; Entrenado con 30K pares detallados GPT-4V
+    </text>
+    <rect x="25" y="194" width="280" height="24" rx="4" fill="rgba(99, 102, 241, 0.15)" />
+    <text x="165" y="210" fill="#818cf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9.5" font-weight="600" text-anchor="middle">
+      Genera Descripciones Citoarquitectónicas Densas
+    </text>
+
+    <!-- Sub-step 2.3: Revise LMM Agent -->
+    <rect x="15" y="238" width="300" height="82" rx="8" fill="#090e17" stroke="#8b5cf6" />
+    <text x="25" y="258" fill="#c084fc" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="10.5" font-weight="700">
+      Agente Revisor: Revise LMM Agent
+    </text>
+    <text x="25" y="276" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      &#8226; Corrección de alucinaciones y contradicciones
+    </text>
+    <text x="25" y="292" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      &#8226; Entrenado con operaciones inversas (add, del, edit)
+    </text>
+    <text x="25" y="308" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9" font-weight="600">
+      &#10003; Depura errores morfológicos y diagnósticos
+    </text>
+
+    <!-- Sub-step 2.4: Summarize Agent -->
+    <rect x="15" y="330" width="300" height="80" rx="8" fill="#0f172a" stroke="#10b981" />
+    <text x="25" y="350" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="10.5" font-weight="700">
+      Agente Resumidor: Llama-2 Summarizer
+    </text>
+    <text x="25" y="368" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      &#8226; Condensa descripciones extensas a &#8804; 77 tokens
+    </text>
+    <text x="25" y="386" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      &#8226; Preserva entidades y glosario anatomopatológico
+    </text>
+    <text x="25" y="402" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9" font-weight="600">
+      Alineación estricta con límite BPE de CLIP
+    </text>
+  </g>
+
+  <!-- Arrow 2 -> 3: PathGen-1.6M Dataset -->
+  <path d="M 730 307 L 770 307" stroke="#818cf8" stroke-width="2.5" marker-end="url(#arrowPgIndigo)" fill="none" />
+
+  <!-- FASE 3: DATASET SINTÉTICO PATHGEN-1.6M Y DUAL PRETRAINING -->
+  <g transform="translate(780, 95)">
+    <rect x="0" y="0" width="330" height="425" rx="10" fill="url(#cardGradPg)" stroke="#10b981" stroke-width="1.5" filter="url(#shadowPg)" />
+    <rect x="0" y="0" width="330" height="34" rx="10" fill="url(#agentGrad4)" />
+    <text x="165" y="22" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="12" font-weight="700" text-anchor="middle">
+      3. PATHGEN-1.6M &amp; DUAL TRAINING
+    </text>
+
+    <!-- Consolidated Dataset Box -->
+    <rect x="15" y="46" width="300" height="82" rx="8" fill="#090e17" stroke="#059669" />
+    <text x="25" y="66" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="700">
+      Dataset Consolidado: PathGen-1.6M
+    </text>
+    <text x="25" y="84" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9.5">
+      &#8226; 1,620,876 Pares Parche 672&#215;672 - Dense Caption
+    </text>
+    <text x="25" y="100" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9.5">
+      &#8226; 7,300 Láminas WSI | 27 Órganos y Subtipos TCGA
+    </text>
+    <text x="25" y="118" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9" font-weight="700">
+      Almacenamiento Desacoplado: Barcode + Coordenadas (X,Y)
+    </text>
+
+    <!-- Training Stream A: PathGen-CLIP (2-Stage Curriculum) -->
+    <rect x="15" y="138" width="300" height="132" rx="8" fill="#0f172a" stroke="#38bdf8" />
+    <text x="25" y="158" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="10.5" font-weight="700">
+      Stream A: PathGen-CLIP (2-Stage Curriculum)
+    </text>
+    <text x="25" y="176" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      1. Preentrenamiento: PathGen-1.6M (Sintético)
+    </text>
+    <text x="35" y="190" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="8.5">
+      &#8594; Aprende citoarquitectura densa y atipia celular
+    </text>
+    <text x="25" y="208" fill="#f1f5f9" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      2. Fine-Tuning: PathGeninit (700K Pares Humanos)
+    </text>
+    <text x="35" y="222" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="8.5">
+      &#8594; PathCap + Quilt-1M + OpenPath (Nomenclatura diagnóstica)
+    </text>
+    <rect x="25" y="234" width="280" height="26" rx="4" fill="rgba(56, 189, 248, 0.15)" stroke="#38bdf8" stroke-width="0.8" />
+    <text x="165" y="251" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">
+      PathGen-CLIP &amp; PathGen-CLIP-L (ViT-L/14@336)
+    </text>
+
+    <!-- Training Stream B: PathGen-LLaVA (Instruction Tuning) -->
+    <rect x="15" y="280" width="300" height="130" rx="8" fill="#0f172a" stroke="#a855f7" />
+    <text x="25" y="300" fill="#c084fc" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="10.5" font-weight="700">
+      Stream B: PathGen-LLaVA (Visual Assistant)
+    </text>
+    <text x="25" y="318" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      &#8226; Visual Backbone: PathGen-CLIP-L + Proyección Lineal
+    </text>
+    <text x="25" y="334" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      &#8226; LLM Decoder: Vicuna-13B
+    </text>
+    <text x="25" y="350" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      &#8226; 200K Datos SFT: 95K MC-QA + 105K Diálogos
+    </text>
+    <rect x="25" y="364" width="280" height="26" rx="4" fill="rgba(192, 132, 252, 0.15)" stroke="#c084fc" stroke-width="0.8" />
+    <text x="165" y="381" fill="#c084fc" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">
+      PathGen-LLaVA (58.4% Acc en PathMMU)
+    </text>
+  </g>
+
+  <!-- BOTTOM SECTION: DOWNSTREAM BENCHMARK EVALUATIONS -->
+  <g transform="translate(40, 540)">
+    <!-- Container -->
+    <rect x="0" y="0" width="1070" height="205" rx="10" fill="#0b1329" stroke="#334155" stroke-width="1.5" />
+    <rect x="0" y="0" width="1070" height="30" rx="10" fill="#1e293b" />
+    <text x="20" y="20" fill="#f8fafc" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11.5" font-weight="700">
+      4. EVALUACIÓN Y TRANSFERENCIA DOWNSTREAM (RESULTADOS EMPÍRICOS SOTA)
+    </text>
+
+    <!-- Grid 1: Zero-shot Classification -->
+    <rect x="20" y="42" width="325" height="145" rx="8" fill="#0f172a" stroke="#0284c7" />
+    <text x="32" y="62" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="700">
+      Zero-Shot Image Classification (9 Benchmarks)
+    </text>
+    <text x="32" y="80" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      Datasets: Pcam, CRC-100K, BACH, SkinCancer, Osteo, etc.
+    </text>
+    <text x="32" y="98" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      QuiltNet: 58.9% | PathCLIP: 66.2% | BiomedCLIP: 52.9%
+    </text>
+    <rect x="32" y="110" width="300" height="26" rx="4" fill="rgba(56, 189, 248, 0.15)" stroke="#38bdf8" />
+    <text x="182" y="127" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle">
+      PathGen-CLIP-L: 79.7% (+13.5% sobre SOTA)
+    </text>
+    <text x="32" y="152" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="8.5">
+      &#8226; Pcam: 88.2% (+29.5% vs QuiltNet) | BACH: 71.5% (+24.7%)
+    </text>
+    <text x="32" y="168" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="8.5">
+      &#8226; SkinCancer: 70.6% (+24.2% vs QuiltNet) | Colon: 99.3%
+    </text>
+
+    <!-- Grid 2: Whole Slide Classification -->
+    <rect x="372" y="42" width="325" height="145" rx="8" fill="#0f172a" stroke="#10b981" />
+    <text x="384" y="62" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="700">
+      Whole Slide Image Classification (MIL)
+    </text>
+    <text x="384" y="80" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      Datasets: CAMELYON-16, CAMELYON-17, BRACS
+    </text>
+    <text x="384" y="98" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      ABMIL Promedio AUC: PLIP 83.8% | QuiltNet 84.5%
+    </text>
+    <rect x="384" y="110" width="300" height="26" rx="4" fill="rgba(74, 222, 128, 0.15)" stroke="#34d399" />
+    <text x="534" y="127" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle">
+      PathGen-CLIP-L: 92.6% AUC (ACMIL)
+    </text>
+    <text x="384" y="152" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="8.5">
+      &#8226; CAMELYON-16: 97.4% AUC (ACMIL) / 95.8% AUC (ABMIL)
+    </text>
+    <text x="384" y="168" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="8.5">
+      &#8226; BRACS (Subtipos Mama): 88.4% AUC | F1-Score: 73.3%
+    </text>
+
+    <!-- Grid 3: Expert VQA (PathMMU) -->
+    <rect x="725" y="42" width="325" height="145" rx="8" fill="#0f172a" stroke="#8b5cf6" />
+    <text x="737" y="62" fill="#c084fc" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="700">
+      Razonamiento Multimodal Experto (PathMMU)
+    </text>
+    <text x="737" y="80" fill="#cbd5e1" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      Benchmark PathMMU Test Overall (9,677 Preguntas)
+    </text>
+    <text x="737" y="98" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="9">
+      GPT-4V: 49.8% | Gemini Pro: 42.7% | Quilt-LLaVA: 41.5%
+    </text>
+    <rect x="737" y="110" width="300" height="26" rx="4" fill="rgba(192, 132, 252, 0.15)" stroke="#c084fc" />
+    <text x="887" y="127" fill="#c084fc" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="11" font-weight="800" text-anchor="middle">
+      PathGen-LLaVA: 58.4% Acc (+8.6% vs GPT-4V)
+    </text>
+    <text x="737" y="152" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="8.5">
+      &#8226; PubMed: 60.1% | SocialPath: 58.8% | EduContent: 60.7%
+    </text>
+    <text x="737" y="168" fill="#34d399" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif" font-size="8.5">
+      &#8226; Atlas: 64.9% | PathCLS (Subtipado Clínico): 48.9%
+    </text>
+  </g>
+
+  <!-- Connectors from Stage 3 to Downstream -->
+  <path d="M 945 520 L 945 535" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrowPgBlue)" fill="none" />
+</svg>
+                            <div class="diagram-caption">
+                                <strong>Figura 8:</strong> Arquitectura colaborativa multi-agente de PathGen-1.6M (ICLR 2025). Ilustra la extracción dual de parches en WSIs de TCGA (Prompt Retrieval top-64 + K-Means 256), el filtrado probabilístico de similitud coseno (&gt; 0.88), la generación descriptiva con PathGen-LLaVAdesp, la revisión de alucinaciones, el resumen a 77 tokens, y el downstream curriculum dual: PathGen-CLIP (2 etapas) y PathGen-LLaVA (PathMMU benchmark).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 5: ESQUEMA FÍSICO Y FLUJO INPUT / OUTPUT (I/O) -->
+                <div id="pathgen-io" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">5</span>
+                            <h3 class="eje-title">Esquema Físico y Flujo Input / Output ($I/O$)</h3>
+                        </div>
+                        <span class="eje-badge">Estructura &amp; Tensores</span>
+                    </div>
+                    <div class="eje-content">
+                        <div class="subgrid-2col">
+                            
+                            <!-- Columna 1: Esquema Físico -->
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">📦 Esquema Físico y Almacenamiento Desacoplado</h4>
+                                <p style="font-size: 0.88rem; line-height: 1.6; margin-bottom: 12px;">
+                                    El repositorio oficial en Hugging Face (<code>jamessyx/PathGen</code>, 933.28 MB) utiliza un esquema de <strong>almacenamiento desacoplado</strong> para evitar distribuir terabytes de píxeles redundantes:
+                                </p>
+                                <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 12px;">
+                                    <span class="schema-field">slide_id (TCGA Barcode)</span>
+                                    <span class="schema-field">patch_coordinate [X, Y]</span>
+                                    <span class="schema-field">caption (Dense Synthetic)</span>
+                                    <span class="schema-field">source (Tissue Type)</span>
+                                    <span class="schema-field">prompt_type (Sampling Origin)</span>
+                                </div>
+                                <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin: 0;">
+                                    &bull; <strong>Resolución de Parches:</strong> $672 \times 672$ píxeles a Nivel 0 (máximo aumento diagnóstico, $20\times / 40\times$).
+                                    <br>&bull; <strong>Extracción Dinámica:</strong> Recuperable bajo demanda con OpenSlide:<br>
+                                    <code>wsi.read_region((x, y), level=0, size=(672, 672)).convert("RGB")</code>
+                                    <br>&bull; <strong>Vistas Previas Streamed:</strong> Comprobadas en la auditoría local mediante deep zoom tiles en <code>reports/preview_jamessyx_pathgen.html</code>.
+                                </p>
+                            </div>
+
+                            <!-- Columna 2: Flujo I/O por Tarea -->
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">🔄 Flujo Input / Output ($I/O$) por Tarea</h4>
+                                <ul style="margin: 0; padding-left: 18px; font-size: 0.85rem; line-height: 1.6;">
+                                    <li><strong>1. Preentrenamiento VLP (PathGen-CLIP):</strong>
+                                        <br>&bull; <em>Entrada Visual ($X_V$):</em> Parche histopatológico $I \in \mathbb{R}^{3 \times 336 \times 336}$.
+                                        <br>&bull; <em>Entrada Texto ($X_T$):</em> Caption sintético resumido $T \in \mathbb{R}^{77 \times d_{\text{text}}}$ (tokens BPE).
+                                        <br>&bull; <em>Salida ($\hat{Y}$):</em> Embeddings proyectados $\mathbf{v}, \mathbf{t} \in \mathbb{R}^{768}$ maximizando similitud coseno.
+                                    </li>
+                                    <li><strong>2. Clasificación Zero-Shot:</strong>
+                                        <br>&bull; <em>Entrada:</em> Parche $I$ y $C$ prompts textuales $T_c$ (ej. <em>"a H&amp;E image of [Class]"</em>).
+                                        <br>&bull; <em>Salida:</em> Clase predicha $\hat{y} = \arg\max_c \text{sim}(\mathbf{v}, \mathbf{t}_c)$.
+                                    </li>
+                                    <li><strong>3. Clasificación WSI (Multiple Instance Learning):</strong>
+                                        <br>&bull; <em>Entrada:</em> Bolsa de $K$ embeddings congelados $\{\mathbf{v}_k\}_{k=1}^K$.
+                                        <br>&bull; <em>Salida:</em> Predicción diagnóstica a nivel de lámina (ABMIL / ACMIL).
+                                    </li>
+                                    <li><strong>4. Diálogo e Instrucción Multimodal (PathGen-LLaVA):</strong>
+                                        <br>&bull; <em>Entrada:</em> Parche $I$ proyectado linealmente + Pregunta clínica $X_Q$.
+                                        <br>&bull; <em>Salida:</em> Respuesta explicada autorregresiva $\hat{Y}_A$ (formato PathMMU).
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 6: MODELO BASELINE Y FORMULACIÓN MATEMÁTICA -->
+                <div id="pathgen-modelo" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">6</span>
+                            <h3 class="eje-title">Modelo Baseline y Formulación Matemática</h3>
+                        </div>
+                        <span class="eje-badge">CLIP InfoNCE &amp; SFT Curriculum</span>
+                    </div>
+                    <div class="eje-content">
+                        
+                        <p>
+                            El preentrenamiento de <strong>PathGen-CLIP</strong> se basa en la optimización contrastiva simétrica <span class="text-term">InfoNCE</span> sobre lotes de pares $(I_i, T_i)$ de tamaño $B$, con hiperparámetro de temperatura aprendible $\tau$:
+                        </p>
+
+                        <div class="formula-box">
+                            $$\mathcal{L}_{\text{CLIP}} = \frac{1}{2} \left( \mathcal{L}_{I \to T} + \mathcal{L}_{T \to I} \right)$$
+                            $$\mathcal{L}_{I \to T} = -\frac{1}{B} \sum_{i=1}^B \log \frac{\exp\left(\text{sim}(\mathbf{v}_i, \mathbf{t}_i)/\tau\right)}{\sum_{j=1}^B \exp\left(\text{sim}(\mathbf{v}_i, \mathbf{t}_j)/\tau\right)}, \quad \mathcal{L}_{T \to I} = -\frac{1}{B} \sum_{i=1}^B \log \frac{\exp\left(\text{sim}(\mathbf{v}_i, \mathbf{t}_i)/\tau\right)}{\sum_{j=1}^B \exp\left(\text{sim}(\mathbf{v}_j, \mathbf{t}_i)/\tau\right)}$$
+                        </div>
+
+                        <div class="callout-box blue" style="margin: 18px 0; background: rgba(2, 132, 199, 0.08); border-color: rgba(2, 132, 199, 0.3);">
+                            <div class="callout-title" style="color: var(--accent);">
+                                <span>💡</span> Justificación Científica del Curriculum de Entrenamiento en Dos Etapas
+                            </div>
+                            <p style="margin: 0; font-size: 0.9rem; line-height: 1.6;">
+                                En el artículo de ICLR 2025, Sun et al. demuestran empíricamente que <strong>mezclar directamente los datos sintéticos de PathGen-1.6M con datos humanos en una sola etapa produce resultados subóptimos</strong>. Esto obedece a dos razones ontológicas identificadas en la auditoría local:
+                                <br>1. <strong>Sesgo de Prudencia y Disclaimers del LLM:</strong> El modelo generador (Vicuna) posee alineación de seguridad que añade sistemáticamente advertencias de consulta diagnóstica (ej. <em>"Further evaluation by a pathologist is recommended with clinical correlation for a definitive diagnosis"</em>).
+                                <br>2. <strong>Enfoque Exclusivamente Morfológico:</strong> Los datos sintéticos describen minuciosamente atipias, cromatina y patrones glandulares, pero carecen de la terminología de subtipado oncológico definitivo.
+                                <br><strong>Estrategia en Dos Etapas:</strong>
+                                <br>&bull; <em>Etapa 1 (Preentrenamiento Morfológico):</em> PathGen-CLIP se preentrena sobre los 1.62M de pares sintéticos de PathGen-1.6M para consolidar representaciones estructurales citoarquitectónicas de grano fino.
+                                <br>&bull; <em>Etapa 2 (Ajuste Diagnóstico):</em> El modelo se afina sobre los 700K pares humanos de PathGeninit (PathCap + Quilt-1M + OpenPath) para incorporar la nosología y el vocabulario diagnóstico formal de patología médica.
+                            </p>
+                        </div>
+
+                        <p style="margin-top: 16px;">
+                            <strong>Alineación e Instrucción de PathGen-LLaVA:</strong> Para construir el asistente multimodal, se proyecta el codificador visual congelado $\mathbf{E}_v(\cdot)$ (PathGen-CLIP-Linit) al espacio de incrustación de Vicuna-13B mediante una matriz totalmente conectada $\mathbf{W} \in \mathbb{R}^{d_{\text{vis}} \times d_{\text{LLM}}}$. El entrenamiento sigue dos fases:
+                            <br>1. <em>Alineamiento de Rasgos:</em> Se entrena únicamente $\mathbf{W}$ manteniendo congelados el codificador visual y el LLM con pares de PathGeninit.
+                            <br>2. <em>Supervised Fine-Tuning (SFT):</em> Se ajustan conjuntamente $\mathbf{W}$ y los parámetros del LLM $\theta$ sobre un corpus de <strong>200,000 pares instruccionales</strong> (95K preguntas de opción múltiple de patología y 105K diálogos clínicos) mediante entropía cruzada autorregresiva:
+                        </p>
+
+                        <div class="formula-box">
+                            $$\mathcal{L}_{\text{SFT}}(\theta) = -\sum_{t=1}^L \log P\left(y_t \mid y_{&lt;t}, \mathbf{X}_v, \mathbf{X}_q; \theta\right)$$
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- EJE 7: EVALUACIÓN COMPARATIVA, MÉTRICAS Y RESULTADOS EMPÍRICOS -->
+                <div id="pathgen-benchmarks" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">7</span>
+                            <h3 class="eje-title">Evaluación Comparativa, Métricas y Resultados Empíricos</h3>
+                        </div>
+                        <span class="eje-badge">Benchmarks Oficiales ICLR 2025</span>
+                    </div>
+                    <div class="eje-content">
+                        
+                        <h4 style="color: var(--accent); margin-top: 0; margin-bottom: 12px;">
+                            Tabla 1: Clasificación Zero-Shot sobre 9 Benchmarks de Patología (Exactitud %)
+                        </h4>
+                        <div style="overflow-x: auto; margin-bottom: 24px;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Modelo</th>
+                                        <th>LC-Lung</th>
+                                        <th>LC-Colon</th>
+                                        <th>CRC100K</th>
+                                        <th>SkinCancer</th>
+                                        <th>Pcam</th>
+                                        <th>BACH</th>
+                                        <th>Osteo</th>
+                                        <th>WSSSLUAD</th>
+                                        <th>SICAPv2</th>
+                                        <th style="background: rgba(56, 189, 248, 0.2); color: #ffffff;">Average</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>OpenAI-CLIP (ViT-B)</td>
+                                        <td>33.1</td><td>75.7</td><td>26.2</td><td>9.6</td><td>53.9</td><td>21.7</td><td>46.9</td><td>64.6</td><td>32.8</td>
+                                        <td>40.6</td>
+                                    </tr>
+                                    <tr>
+                                        <td>OpenAI-CLIP-L</td>
+                                        <td>70.4</td><td>81.1</td><td>40.3</td><td>19.4</td><td>55.5</td><td>34.3</td><td>53.9</td><td>81.2</td><td>25.4</td>
+                                        <td>51.3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PLIP (Nature Med 2023)</td>
+                                        <td>87.9</td><td>90.2</td><td>52.8</td><td>42.5</td><td>51.8</td><td>34.3</td><td>52.9</td><td>73.1</td><td>42.5</td>
+                                        <td>58.6</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PubMedCLIP (EACL 2023)</td>
+                                        <td>33.3</td><td>80.5</td><td>31.5</td><td>11.3</td><td>65.4</td><td>34.8</td><td>30.0</td><td>65.4</td><td>7.0</td>
+                                        <td>39.8</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PMC-CLIP (MICCAI 2023)</td>
+                                        <td>33.3</td><td>51.9</td><td>8.7</td><td>11.4</td><td>53.8</td><td>21.3</td><td>29.2</td><td>65.2</td><td>31.5</td>
+                                        <td>34.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>QuiltNet (NeurIPS 2023 Oral)</td>
+                                        <td>80.0</td><td>91.0</td><td>49.5</td><td>46.4</td><td>58.7</td><td>43.8</td><td>53.8</td><td>70.5</td><td>37.3</td>
+                                        <td>58.9</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BiomedCLIP (Microsoft 2023)</td>
+                                        <td>48.8</td><td>94.3</td><td>29.9</td><td>31.7</td><td>84.0</td><td>39.8</td><td>36.7</td><td>73.7</td><td>32.2</td>
+                                        <td>52.9</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PathCLIP (AAAI 2024)</td>
+                                        <td>88.9</td><td>94.3</td><td>55.3</td><td>35.1</td><td>72.5</td><td>46.8</td><td>69.2</td><td>85.1</td><td>48.3</td>
+                                        <td>66.2</td>
+                                    </tr>
+                                    <tr style="background: rgba(2, 132, 199, 0.15); font-weight: 700;">
+                                        <td style="color: var(--accent);">PathGen-CLIP (ViT-B, Ours)</td>
+                                        <td>90.0</td><td>97.5</td><td>63.3</td><td>65.6</td><td>89.2</td><td>59.5</td><td>73.5</td><td>82.9</td><td>50.3</td>
+                                        <td style="color: var(--accent); font-weight: 900;">74.3</td>
+                                    </tr>
+                                    <tr style="background: rgba(56, 189, 248, 0.25); font-weight: 800;">
+                                        <td style="color: #ffffff;">PathGen-CLIP-L (ViT-L@336, Ours)</td>
+                                        <td style="color: var(--accent-green);">89.8</td>
+                                        <td style="color: var(--accent-green);">99.3</td>
+                                        <td style="color: var(--accent-green);">78.0</td>
+                                        <td style="color: var(--accent-green);">70.6</td>
+                                        <td style="color: var(--accent-green);">88.2</td>
+                                        <td style="color: var(--accent-green);">71.5</td>
+                                        <td style="color: var(--accent-green);">74.6</td>
+                                        <td style="color: var(--accent-green);">82.2</td>
+                                        <td style="color: var(--accent-green);">63.5</td>
+                                        <td style="color: var(--accent-green); font-size: 1.05rem; font-weight: 900;">79.7</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="grid-2col" style="margin-top: 20px;">
+                            
+                            <!-- Tabla 2: WSI Classification -->
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">🔬 Tabla 2: Clasificación WSI (CAMELYON / BRACS)</h4>
+                                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">
+                                    Evaluación en láminas completas no pertenecientes a TCGA mediante arquitecturas ABMIL y ACMIL:
+                                </p>
+                                <table class="data-table" style="font-size: 0.8rem;">
+                                    <thead>
+                                        <tr>
+                                            <th>Modelo + MIL</th>
+                                            <th>CAM-17 (AUC)</th>
+                                            <th>CAM-16 (AUC)</th>
+                                            <th>BRACS (AUC)</th>
+                                            <th style="color: var(--accent);">Avg AUC</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>PLIP + ABMIL</td>
+                                            <td>82.8</td><td>90.0</td><td>78.5</td><td>83.8</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Quilt-Net + ABMIL</td>
+                                            <td>84.2</td><td>87.1</td><td>82.3</td><td>84.5</td>
+                                        </tr>
+                                        <tr>
+                                            <td>BiomedCLIP + ABMIL</td>
+                                            <td>84.1</td><td>83.6</td><td>80.6</td><td>82.8</td>
+                                        </tr>
+                                        <tr style="background: rgba(2, 132, 199, 0.15); font-weight: 700;">
+                                            <td>PathGen-CLIP-L + ABMIL</td>
+                                            <td>87.9</td><td>95.8</td><td>87.2</td><td style="color: var(--accent);">90.3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>PLIP + ACMIL</td>
+                                            <td>86.1</td><td>94.8</td><td>80.8</td><td>87.2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Quilt-Net + ACMIL</td>
+                                            <td>86.0</td><td>90.5</td><td>82.0</td><td>86.2</td>
+                                        </tr>
+                                        <tr style="background: rgba(74, 222, 128, 0.15); font-weight: 800;">
+                                            <td style="color: var(--accent-green);">PathGen-CLIP-L + ACMIL</td>
+                                            <td style="color: var(--accent-green);">92.0</td>
+                                            <td style="color: var(--accent-green);">97.4</td>
+                                            <td style="color: var(--accent-green);">88.4</td>
+                                            <td style="color: var(--accent-green); font-weight: 900;">92.6</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Tabla 3: PathMMU Expert Benchmark -->
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">🧠 Tabla 3: Razonamiento Experto en PathMMU</h4>
+                                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">
+                                    Exactitud (%) en Test Overall (9,677 QAs) y Tiny Split (1,156 QAs):
+                                </p>
+                                <table class="data-table" style="font-size: 0.8rem;">
+                                    <thead>
+                                        <tr>
+                                            <th>Modelo LMM</th>
+                                            <th>Test All (9.6K)</th>
+                                            <th>PubMed</th>
+                                            <th>Social</th>
+                                            <th>Atlas</th>
+                                            <th>PathCLS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>LLaVA-Med</td>
+                                            <td>26.2</td><td>27.7</td><td>27.3</td><td>30.7</td><td>20.3</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Quilt-LLaVA</td>
+                                            <td>41.5</td><td>42.6</td><td>46.6</td><td>42.7</td><td>29.2</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gemini Pro Vision</td>
+                                            <td>42.7</td><td>44.9</td><td>42.0</td><td>49.4</td><td>34.7</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Qwen-VL-Max</td>
+                                            <td>45.9</td><td>50.9</td><td>49.3</td><td>49.8</td><td>29.6</td>
+                                        </tr>
+                                        <tr style="font-weight: 700; color: #fca5a5;">
+                                            <td>GPT-4V-1106</td>
+                                            <td>49.8</td><td>53.5</td><td>53.9</td><td>52.8</td><td>33.8</td>
+                                        </tr>
+                                        <tr style="background: rgba(192, 132, 252, 0.2); font-weight: 800; color: var(--accent-purple);">
+                                            <td>PathGen-LLaVA (Ours)</td>
+                                            <td style="font-size: 0.95rem; font-weight: 900;">58.4</td>
+                                            <td>60.1</td><td>58.8</td><td>64.9</td><td>48.9</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- EJE 8: CONCILIACIÓN FACTUAL, AISLAMIENTO DE FUGAS Y ROL ESTRATÉGICO -->
+                <div id="pathgen-tesis" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">8</span>
+                            <h3 class="eje-title">Conciliación Factual, Aislamiento de Fugas y Rol Estratégico en la Tesis</h3>
+                        </div>
+                        <span class="eje-badge">Alineación Metodológica</span>
+                    </div>
+                    <div class="eje-content">
+                        <div class="grid-2col">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">🔍 Conciliación Factual con Auditoría Local</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                    La inspección visual y textual en <code>reports/preview_jamessyx_pathgen.html</code> corrobora al 100% las propiedades del paper:
+                                    <br>&bull; <strong>Almacenamiento Desacoplado:</strong> El archivo <code>PathGen-1.6M.json</code> (933.28 MB) almacena las tuplas $(x, y)$ de 1,620,876 parches sin binarios de imagen pesados, vinculados a los identificadores de TCGA.
+                                    <br>&bull; <strong>Presencia de Disclaimers en Captions Brutos:</strong> Las muestras auditadas revelan que el LMM generador incluye de forma recurrente cláusulas de prudencia diagnóstica (<em>"Further evaluation by a pathologist is recommended"</em>), validando plenamente la necesidad científica del ajuste en segunda etapa con datos humanos (<span class="text-term">PathGeninit</span>).
+                                </p>
+                            </div>
+
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">⚠️ Control Obligatorio de Fugas de Datos (Data Leakage)</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                    Dado que PathGen-1.6M extrae parches de 7,300 láminas de TCGA, comparte la misma fuente primaria con HistGen, WSI-VQA y PathText:
+                                    <br>&bull; <strong>Aislamiento Estricto por Patient ID:</strong> Ningún paciente (código <code>TCGA-XX-XXXX</code>) presente en el entrenamiento de PathGen puede utilizarse en los conjuntos de evaluación de HistGen o Wsi-Caption.
+                                    <br>&bull; <strong>Protocolo Metodológico Recomendado:</strong> Los autores de ICLR 2025 demostraron las mejores prácticas al evaluar láminas completas exclusivamente sobre cohortes externas independientes (<strong>CAMELYON-16, CAMELYON-17 y BRACS</strong>), excluyendo todo WSI derivado de TCGA.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- ROL EN LA TESIS -->
+                        <div class="callout-box amber" style="margin-top: 20px; background: rgba(245, 158, 11, 0.08); border-color: rgba(245, 158, 11, 0.3);">
+                            <div class="callout-title" style="color: var(--accent-amber);">
+                                <span>🎯</span> Relevancia y Rol Estratégico en la Tesis de Maestría
+                            </div>
+                            <p style="margin: 0; font-size: 0.9rem; line-height: 1.6;">
+                                <strong>Hipótesis Central de Preentrenamiento Sintético (Objetivos 1, 2, 3 y 4):</strong><br>
+                                PathGen-1.6M permite responder a una de las preguntas de investigación más trascendentales de la tesis: <em>¿Supera el preentrenamiento con leyendas sintéticas densas generadas por agentes IA al aprendizaje con textos humanos ruidosos de la literatura médica?</em>
+                                <br>1. <strong>Línea Base SOTA de VLM Especializado:</strong> PathGen-CLIP-L y PathGen-LLaVA deben incluirse obligatoriamente en el marco experimental como los representantes más potentes de modelos fundacionales específicos de patología para compararlos contra LLMs multimodales generalistas comerciales (GPT-4o, Gemini 1.5 Pro, Claude 3.5 Sonnet).
+                                <br>2. <strong>Evaluación de Transferencia Zero-Shot:</strong> Permite utilizar la suite de 9 tareas estandarizadas de PathGen (Pcam, CRC-100K, BACH, SkinCancer) como banco de pruebas unificado para contrastar alineación multimodal en parches sin necesidad de reentrenar cabezas de clasificación.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
         <!-- Placeholder for next datasets dictated by user -->
         <div id="more-datasets-slot" style="margin-top: 40px; padding: 24px; border: 2px dashed var(--border-color); border-radius: 14px; text-align: center; color: var(--text-muted);">
             <h3 style="color: #ffffff; margin-top: 0;">Próximos Datasets a Incorporar</h3>
             <p style="font-size: 0.9rem; max-width: 650px; margin: 0 auto;">
-                Datasets consolidados: Familia Quilt (Quilt-1M, Quilt-Instruct, Quilt-VQA), PathMMU, ARCH, HistGen y Wsi-Caption (PathText). Los siguientes datasets se incorporarán progresivamente según la prioridad dictada por el usuario (ej. PathVQA, PathCap, PathInstruct, WSI-VQA, SlideInstruction, PatchGastricADC22, etc.).
+                Datasets consolidados: Familia Quilt (Quilt-1M, Quilt-Instruct, Quilt-VQA), PathMMU, ARCH, HistGen, Wsi-Caption (PathText) y PathGen-1.6M. Los siguientes datasets se incorporarán progresivamente según la prioridad dictada por el usuario (ej. PathVQA, PathCap, PathInstruct, WSI-VQA, SlideInstruction, PatchGastricADC22, etc.).
             </p>
         </div>
 
