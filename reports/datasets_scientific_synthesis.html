@@ -3486,16 +3486,44 @@
                             </table>
                         </div>
 
+                        <div class="subgrid-2col" style="margin-top: 14px;">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">📥 ¿Qué Entradas Recibe el Modelo? (Inputs)</h4>
+                                <p style="margin: 0; font-size: 0.88rem;">
+                                    <strong>1. Entrada Visual (Bolsa de Instancias / Subfiguras):</strong><br>
+                                    Tensor de bolsa $\mathcal{B} = \{I_1, I_2, \dots, I_K\}$, donde cada elemento $I_k \in \mathbb{R}^{3 \times H \times W}$ corresponde a una subfigura recortada de un panel histopatológico.<br>
+                                    • En <code>books_set</code>: $K \in [1, 9]$ paneles simultáneos agrupados bajo un mismo <code>bag_id</code> (resolución media $826 \times 798$ px).<br>
+                                    • En <code>pubmed_set</code>: $K = 1$ panel individual ($512 \times 512$ px).<br>
+                                    Todas las imágenes se normalizan según los canales estándar RGB de ImageNet ($\mu = [0.485, 0.456, 0.406]$, $\sigma = [0.229, 0.224, 0.225]$).<br><br>
+                                    <strong>2. Entrada Textual / Estructural (Contexto Autorregresivo):</strong><br>
+                                    • <em>Tokens previos generados:</em> Secuencia autorregresiva condicionante $y_{&lt;t} = (y_1, \dots, y_{t-1})$ suministrada vía <em>teacher forcing</em> durante el entrenamiento.<br>
+                                    • <em>Identificadores de Subfigura:</em> Letras de panel ($A, B, C, \dots$ o <code>Single</code>) integradas en el flujo secuencial, que sirven como anclajes léxicos para que los mecanismos de atención interna alineen cada fragmento descriptivo con su subfigura respectiva.
+                                </p>
+                            </div>
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">📤 ¿Qué Salidas Genera el Modelo? (Outputs)</h4>
+                                <p style="margin: 0; font-size: 0.88rem;">
+                                    <strong>1. En Tarea Generativa Primaria (MIC - Captioning):</strong><br>
+                                    Distribución de probabilidad categórica sobre el vocabulario médico ($|V| = 9,564$ tokens) en cada paso temporal $t$:
+                                    $$P(y_t \mid y_{&lt;t}, \mathbf{z}) = \text{Softmax}\left(\mathbf{W}_v \mathbf{h}_t^{\text{dec}}\right) \in \mathbb{R}^{|V|}$$
+                                    El decodificador genera secuencialmente la descripción morfológica multiorgánica completa $Y = (y_1, y_2, \dots, y_T)$ que sintetiza los hallazgos de toda la bolsa.<br><br>
+                                    <strong>2. En Transferencia Downstream (Linear Probing / Zero-Shot MIL):</strong><br>
+                                    • <em>Vector de Bolsa Condensado:</em> Embebido global $\mathbf{z} \in \mathbb{R}^{2048}$ obtenido mediante el operador de agregación invariante Attention-MIL: $\mathbf{z} = \sum_{k=1}^K a_k \mathbf{h}_k$.<br>
+                                    • <em>Predicción Clínica / Diagnóstica:</em> Vector de probabilidades de clase para clasificación supervisada o detección de patología (e.g., probabilidad de metástasis ganglionar en <strong>Camelyon16</strong> con AUC 0.835, o clasificación de 9 tejidos en <strong>CRC-100K</strong> con Accuracy 94.6%).
+                                </p>
+                            </div>
+                        </div>
+
                         <div class="card-inner" style="margin-top: 14px;">
-                            <h4 class="card-inner-title">🔀 Flujo Computacional I/O del Modelo MIL-Captioning</h4>
+                            <h4 class="card-inner-title">🔀 Flujo Computacional Extremo a Extremo (Pipeline I/O)</h4>
                             <p style="margin: 0; font-size: 0.88rem;">
-                                Para una figura compuesta $\mathcal{B} = \{I_1, I_2, \dots, I_K\}$ con $K$ paneles, el flujo se formula como:
+                                La transformación formal de entradas a salidas en el esquema Multiple Instance Captioning se sintetiza matemáticamente como:
                             </p>
                             <div class="formula-box" style="margin: 10px 0; font-size: 0.95rem;">
-                                $$\text{Entrada: } \mathcal{B} = \{I_1, \dots, I_K\} \longrightarrow \mathbf{z} = \text{Attention-MIL}\left(f_{\text{enc}}(I_1), \dots, f_{\text{enc}}(I_K)\right) \longrightarrow P(Y \mid \mathbf{z})$$
+                                $$\underbrace{\mathcal{B} = \{I_1, \dots, I_K\}}_{\text{Entrada Visual (Bolsa de Paneles)}} \xrightarrow{\text{ResNet-50}} \{\mathbf{h}_1, \dots, \mathbf{h}_K\} \xrightarrow{\text{Attention-MIL}} \underbrace{\mathbf{z} \in \mathbb{R}^{2048}}_{\text{Vector de Bolsa}} \xrightarrow{\text{LSTM / Transformer}} \underbrace{P(Y \mid \mathbf{z})}_{\text{Salida Textual Generada}}$$
                             </div>
                             <p style="margin: 0; font-size: 0.84rem; color: var(--text-muted);">
-                                El decodificador genera autorregresivamente la secuencia $Y = (y_1, \dots, y_T)$ asociando los prefijos léxicos (como "A", "B") a las características de la subfigura correspondiente.
+                                En modo downstream (benchmarks clínicos), el decodificador de texto se desacopla y el vector latente $\mathbf{z}$ alimenta directamente una capa lineal $\mathbf{W}_{\text{cls}} \mathbf{z} + \mathbf{b}$ para predecir las etiquetas de diagnóstico clínico.
                             </p>
                         </div>
                     </div>
