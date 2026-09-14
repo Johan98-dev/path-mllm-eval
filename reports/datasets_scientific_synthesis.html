@@ -640,30 +640,30 @@
                     <span class="nav-badge nav-badge-instruct">SFT</span>
                 </a>
             </li>
-            <li class="nav-item" style="opacity: 0.6;">
-                <a href="#quilt-vqa-slot" style="pointer-events: none;">
-                    <span>3. Quilt-VQA (Próximo)</span>
+            <li class="nav-item">
+                <a href="#quilt-vqa">
+                    <span>3. Quilt-VQA</span>
                     <span class="nav-badge nav-badge-vqa">VQA</span>
                 </a>
             </li>
             <li class="nav-item" style="opacity: 0.4;">
-                <a href="#more-datasets" style="pointer-events: none;">
+                <a href="#more-datasets-slot" style="pointer-events: none;">
                     <span>... Otros según prioridad</span>
                     <span class="nav-badge">Pendiente</span>
                 </a>
             </li>
         </ul>
 
-        <div class="nav-section-title">Secciones de Quilt-Instruct</div>
+        <div class="nav-section-title">Navegación por Quilt-VQA</div>
         <ul class="nav-list" style="font-size: 0.78rem;">
-            <li class="nav-item"><a href="#qi-biblio">1. Metadatos & CVPR 2024</a></li>
-            <li class="nav-item"><a href="#qi-relacion">2. Relación Quilt-1M ↔ Instruct</a></li>
-            <li class="nav-item"><a href="#qi-resumen">3. Resumen Científico</a></li>
-            <li class="nav-item"><a href="#qi-curacion">4. Curación de Cursores & Prompts</a></li>
-            <li class="nav-item"><a href="#qi-diagrama">5. Diagrama Metodológico</a></li>
-            <li class="nav-item"><a href="#qi-io">6. Campos & Flujo I/O</a></li>
-            <li class="nav-item"><a href="#qi-baseline">7. Quilt-LLaVA (2 Fases)</a></li>
-            <li class="nav-item"><a href="#qi-eval">8. Evaluaciones & Benchmarks</a></li>
+            <li class="nav-item"><a href="#qv-biblio">1. Metadatos & CVPR 2024</a></li>
+            <li class="nav-item"><a href="#qv-resumen">2. Resumen Científico & Fundamento</a></li>
+            <li class="nav-item"><a href="#qv-curacion">3. Validación por Patólogos</a></li>
+            <li class="nav-item"><a href="#qv-diagrama">4. Diagrama Metodológico</a></li>
+            <li class="nav-item"><a href="#qv-io">5. Campos & Flujo I/O Parquet</a></li>
+            <li class="nav-item"><a href="#qv-protocolo">6. Protocolo & Ablación Visual</a></li>
+            <li class="nav-item"><a href="#qv-eval">7. Resultados Empíricos LMMs</a></li>
+            <li class="nav-item"><a href="#qv-tesis">8. Conciliación & Rol en la Tesis</a></li>
         </ul>
 
         <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border-color);">
@@ -1863,13 +1863,601 @@
 
         </section>
 
+
+        <!-- DATASET 3: QUILT-VQA (CVPR 2024) -->
+        <section id="quilt-vqa" class="dataset-card">
+            
+            <!-- ENCABEZADO Y HERO DEL DATASET -->
+            <div class="dataset-hero">
+                <div class="dataset-badges">
+                    <span class="badge badge-purple">Dataset #3</span>
+                    <span class="badge badge-blue">Benchmark VQA (Evaluación Multimodal)</span>
+                    <span class="badge badge-green">Validado por Patólogos Clínicos</span>
+                    <span class="badge badge-amber">CVPR 2024 (Main Conference)</span>
+                    <span class="badge badge-indigo">Parquet Nativo con Imágenes Embebidas (215 MB)</span>
+                </div>
+                
+                <h2 class="dataset-title">
+                    Quilt-VQA (985 Pares)
+                </h2>
+                <div class="dataset-tagline">
+                    Benchmark independiente de Visual Question Answering extraído de videos educativos clínicos, validado por patólogos expertos y diseñado para evaluar visión histopatológica estricta frente a conocimiento general.
+                </div>
+
+                <div class="quick-links">
+                    <a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Seyfioglu_Quilt-LLaVA_Visual_Instruction_Tuning_by_Extracting_Visual_Knowledge_from_CVPR_2024_paper.pdf" target="_blank" class="btn-link primary">
+                        📄 Paper Oficial (CVPR 2024 PDF)
+                    </a>
+                    <a href="https://arxiv.org/abs/2312.03817" target="_blank" class="btn-link">
+                        📑 arXiv:2312.03817
+                    </a>
+                    <a href="https://huggingface.co/datasets/wisdomik/Quilt_VQA" target="_blank" class="btn-link">
+                        🤗 Hugging Face (wisdomik/Quilt_VQA)
+                    </a>
+                    <a href="preview_wisdomik_quilt_vqa.html" target="_blank" class="btn-link">
+                        👁️ Ver Reporte Local Auditado (7 Muestras)
+                    </a>
+                </div>
+
+                <!-- TABLA RESUMEN METODOLÓGICA -->
+                <div style="overflow-x: auto; margin-top: 24px;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Parámetro / Eje</th>
+                                <th>Especificación Formal</th>
+                                <th>Detalle Metodológico & Contexto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Tipo de Dataset & Rol</strong></td>
+                                <td><span class="text-term">Benchmark Ciego de Evaluación (Test Suite)</span></td>
+                                <td>Diseñado como estándar de oro (*gold standard*) para medir capacidades de razonamiento y diagnóstico multimodal.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Volumen de Preguntas</strong></td>
+                                <td><strong>985 preguntas clínicas curadas</strong></td>
+                                <td>Extraídas de sesiones docentes de patología y revisadas manualmente por médicos patólogos.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Taxonomía de Preguntas</strong></td>
+                                <td><span class="badge badge-blue">Image-Dependent</span> vs <span class="badge badge-purple">General Knowledge</span></td>
+                                <td>Permite aislar si el modelo realmente "ve" el parche o si responde por sesgo léxico memorizado.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tipos de Respuesta</strong></td>
+                                <td><span class="text-term">Open-ended</span> (respuestas abiertas) y <span class="text-term">Yes/No</span> (binarias cerradas)</td>
+                                <td>Evaluadas mediante métricas de clasificación y jueceo estructurado con LLM (*GPT-4 Judge*).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Formato Físico de Archivos</strong></td>
+                                <td><strong>Apache Parquet nativo con imágenes embebidas</strong></td>
+                                <td>215.13 MB descomprimido (1 solo shard). Soporta streaming puro sin descarga total a disco.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Licencia & Gobernanza</strong></td>
+                                <td><code>CC BY-NC-ND 3.0</code> (Gated en Hugging Face)</td>
+                                <td>Uso estrictamente de investigación y no comercial. Requiere solicitud formal en Hugging Face.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CUERPO DE LOS 8 EJES CIENTÍFICOS -->
+            <div class="dataset-body">
+
+                <!-- EJE 1: METADATOS Y PUBLICACIÓN PEER-REVIEWED -->
+                <div id="qv-biblio" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">1</span>
+                            <h3 class="eje-title">Metadatos Formales & Publicación Peer-Reviewed</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            <strong>Quilt-VQA</strong> fue presentado y formalizado en la conferencia principal de visión computacional de mayor impacto a nivel mundial:
+                        </p>
+                        <div class="card-inner" style="border-left: 4px solid var(--accent-purple);">
+                            <div style="font-weight: 700; font-size: 1.05rem; color: #ffffff; margin-bottom: 6px;">
+                                Quilt-LLaVA: Visual Instruction Tuning by Extracting Visual Knowledge from Complex Educational Videos
+                            </div>
+                            <div style="font-size: 0.88rem; color: var(--accent-purple); margin-bottom: 8px;">
+                                <strong>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2024)</strong>, pp. 13247–13256.
+                            </div>
+                            <div style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.6;">
+                                <strong>Autores:</strong> Neslihan Kose Seyfioglu, Wisdom O. Ikezogwo, Fatemeh Ghezloo, Ranjay Krishna, Linda Shapiro.<br>
+                                <strong>Afiliación Institucional:</strong> Paul G. Allen School of Computer Science & Engineering, Department of Electrical & Computer Engineering, University of Washington, Seattle, WA, USA.<br>
+                                <strong>Sección en el Paper:</strong> Sección 4.2 (<em>"Quilt-VQA Benchmark"</em>), Sección 5.2 (<em>"Experimental Evaluation"</em>) y Apéndice Metodológico.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 2: RESUMEN CIENTÍFICO Y FUNDAMENTO DE CREACIÓN -->
+                <div id="qv-resumen" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">2</span>
+                            <h3 class="eje-title">Resumen Científico y Fundamento de Creación</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            Hasta la publicación de CVPR 2024, la evaluación de modelos multimodales en histopatología dependía predominantemente de conjuntos derivados de libros de texto (como <em>PathVQA</em>, derivado de libros de texto con pipelines NLP basados en reglas sintácticas). Estos benchmarks heredan dos fallas metodológicas críticas:
+                        </p>
+                        <ul class="feature-list" style="margin-bottom: 16px;">
+                            <li>
+                                <strong>Sesgo Lingüístico Prematuro (*Language Hallucination & Shortcuts*):</strong> Muchos modelos de lenguaje multimodal pueden predecir la respuesta correcta evaluando únicamente la pregunta textual sin procesar la imagen histológica, debido a dependencias contextuales cerradas.
+                            </li>
+                            <li>
+                                <strong>Falta de Naturalidad Clínica:</strong> Las preguntas de libros son estáticas y sintéticas, desconectadas del flujo de razonamiento espontáneo que un patólogo experimenta al enfrentarse a una lámina microscópica.
+                            </li>
+                        </ul>
+                        <p>
+                            <strong>La solución de Quilt-VQA:</strong> Extraer preguntas espontáneas formuladas oralmente por patólogos mientras examinan cortes en video y clasificarlas estrictamente en preguntas que <em>exigen inspección visual del parche</em> (<span class="text-term">Image-Dependent</span>) y preguntas de <em>conocimiento general de la patología</em> (<span class="text-term">General Knowledge</span>). De este modo, se cuantifica con precisión quirúrgica el beneficio real aportado por el módulo de visión del modelo.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- EJE 3: METODOLOGÍA DE CURADURÍA Y VALIDACIÓN EXPERTA -->
+                <div id="qv-curacion" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">3</span>
+                            <h3 class="eje-title">Metodología de Curaduría, Limpieza y Validación Humana por Patólogos</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            El pipeline de construcción de <strong>Quilt-VQA</strong> sigue un riguroso protocolo de aislamiento y validación clínica:
+                        </p>
+                        
+                        <div class="grid-2col" style="margin-top: 14px;">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">1. Aislamiento Ciego de Videos</h4>
+                                <p style="margin: 0; font-size: 0.88rem;">
+                                    Se seleccionó un conjunto de videos educativos de histopatología en YouTube que fue <strong>completamente excluido del entrenamiento</strong> de Quilt-1M y de Quilt-Instruct. Esto previene cualquier fuga de datos (*data leakage*) o memorización de cortes histológicos.
+                                </p>
+                            </div>
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">2. Detección Interrogativa por ASR</h4>
+                                <p style="margin: 0; font-size: 0.88rem;">
+                                    Utilizando <em>Whisper ASR</em>, se filtraron las oraciones del discurso del patólogo que terminaban en signo de interrogación (<code>?</code>). Cada pregunta se sincronizó con el instante temporal exacto y con el parche enfocado por el cursor microscópico.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card-inner" style="margin-top: 16px; border-left: 4px solid var(--accent-green);">
+                            <h4 class="card-inner-title" style="color: var(--accent-green);">🩺 3. Validación Humana por Patólogos Expertos (Doctor-in-the-Loop)</h4>
+                            <p style="margin-bottom: 8px; font-size: 0.9rem;">
+                                Médicos patólogos revisaron individualmente cada par pregunta-imagen para garantizar el estándar de oro clínico:
+                            </p>
+                            <ul class="feature-list" style="font-size: 0.88rem;">
+                                <li><strong>Eliminación de Ambigüedades:</strong> Descartaron preguntas retóricas, triviales o incompletas derivadas de silencios de habla.</li>
+                                <li><strong>Corrección Textual & Ground Truth:</strong> Escribieron o validaron la respuesta médica correcta para cada ítem, corrigiendo cualquier error léxico del transcriptor.</li>
+                                <li><strong>Bifurcación Taxonómica:</strong>
+                                    Etiquetaron manualmente si la pregunta correspondía a:
+                                    <br>• <strong>Image-Dependent:</strong> Imposible de resolver sin ver el parche (ej. <em>"What architectural pattern is seen here?"</em>, <em>"Are there mitotic figures present?"</em>).
+                                    <br>• <strong>General Knowledge:</strong> Conceptos teóricos asociados al caso (ej. <em>"What immunohistochemical stain is diagnostic for this entity?"</em>).
+                                </li>
+                                <li><strong>Total Consolidado:</strong> <strong>985 preguntas de alta fidelidad clínica</strong> acompañadas de sus parches histológicos nativos correspondientes.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 4: DIAGRAMA VECTORIAL SVG INTERACTIVO -->
+                <div id="qv-diagrama" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">4</span>
+                            <h3 class="eje-title">Diagrama Metodológico: Curaduría, Taxonomía y Evaluación de Quilt-VQA</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            La siguiente figura esquematiza el ciclo de vida completo de <strong>Quilt-VQA</strong>, desde la extracción del discurso docente en video, pasando por la validación por patólogos, hasta el protocolo de evaluación de modelos multimodales:
+                        </p>
+
+                        <!-- SVG DIAGRAM FIGURA 3 -->
+                        <div style="background: #020617; border: 1px solid var(--border-color); border-radius: 14px; padding: 20px; overflow-x: auto; margin: 18px 0; text-align: center;">
+                            <svg viewBox="0 0 1000 520" width="100%" height="520" xmlns="http://www.w3.org/2000/svg" style="max-width: 1000px; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;">
+                                <defs>
+                                    <marker id="qvArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/>
+                                    </marker>
+                                    <marker id="qvArrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#4ade80"/>
+                                    </marker>
+                                    <marker id="qvArrowPurple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#c084fc"/>
+                                    </marker>
+                                    <linearGradient id="gradQV1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#1e293b"/>
+                                        <stop offset="100%" stop-color="#0f172a"/>
+                                    </linearGradient>
+                                    <linearGradient id="gradQVPatch" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#0369a1"/>
+                                        <stop offset="100%" stop-color="#0284c7"/>
+                                    </linearGradient>
+                                    <linearGradient id="gradQVExpert" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#065f46"/>
+                                        <stop offset="100%" stop-color="#047857"/>
+                                    </linearGradient>
+                                    <linearGradient id="gradQVBench" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#4338ca"/>
+                                        <stop offset="100%" stop-color="#6366f1"/>
+                                    </linearGradient>
+                                    <linearGradient id="gradQVEval" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#701a75"/>
+                                        <stop offset="100%" stop-color="#a21caf"/>
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- Background Box -->
+                                <rect width="1000" height="520" fill="#090d16" rx="12" stroke="#1e293b"/>
+
+                                <!-- Title Inside SVG -->
+                                <text x="500" y="32" fill="#f8fafc" font-size="16" font-weight="800" text-anchor="middle" letter-spacing="0.5">PIPELINE METODOLÓGICO: GENERACIÓN Y EVALUACIÓN CON QUILT-VQA (CVPR 2024)</text>
+
+                                <!-- Lane 1: Extraction from Held-out Videos -->
+                                <g transform="translate(40, 60)">
+                                    <rect width="260" height="180" rx="10" fill="url(#gradQV1)" stroke="#334155" stroke-width="1.5"/>
+                                    <text x="130" y="26" fill="#38bdf8" font-size="12" font-weight="700" text-anchor="middle">FASE 1: FUENTE & AISLAMIENTO</text>
+                                    <rect x="15" y="42" width="230" height="42" rx="6" fill="#1e293b" stroke="#475569"/>
+                                    <text x="25" y="58" fill="#e2e8f0" font-size="10" font-weight="600">Videos Pedagógicos YouTube</text>
+                                    <text x="25" y="74" fill="#94a3b8" font-size="9">Conjunto ciego (Held-out, sin solapamiento)</text>
+                                    <rect x="15" y="96" width="230" height="68" rx="6" fill="#1e293b" stroke="#475569"/>
+                                    <text x="25" y="114" fill="#38bdf8" font-size="10" font-weight="600">Detección de Preguntas (Whisper ASR)</text>
+                                    <text x="25" y="130" fill="#cbd5e1" font-size="9.5">• Filtrado de oraciones que terminan en '?'</text>
+                                    <text x="25" y="146" fill="#cbd5e1" font-size="9.5">• Timestamping y alineación con cursor</text>
+                                </g>
+
+                                <!-- Lane 2: Doctor-in-the-Loop Validation -->
+                                <g transform="translate(370, 60)">
+                                    <rect width="280" height="180" rx="10" fill="url(#gradQVExpert)" stroke="#059669" stroke-width="1.5"/>
+                                    <text x="140" y="26" fill="#86efac" font-size="12" font-weight="700" text-anchor="middle">FASE 2: VALIDACIÓN POR PATÓLOGOS</text>
+                                    <rect x="15" y="42" width="250" height="122" rx="6" fill="#064e3b" stroke="#10b981"/>
+                                    <text x="25" y="62" fill="#ffffff" font-size="10.5" font-weight="700">🩺 Revisión Manual por Expertos:</text>
+                                    <text x="25" y="80" fill="#d1fae5" font-size="9.5">✔ Corrección de transcripciones ASR ruidosas</text>
+                                    <text x="25" y="98" fill="#d1fae5" font-size="9.5">✔ Formulación de respuestas Ground Truth</text>
+                                    <text x="25" y="116" fill="#d1fae5" font-size="9.5">✔ Descarte de preguntas ambiguas / retóricas</text>
+                                    <text x="25" y="138" fill="#a7f3d0" font-size="10" font-weight="700">★ 985 Preguntas Validadas Clínicamente</text>
+                                </g>
+
+                                <!-- Lane 3: Benchmark Packaging & Split Taxonomy -->
+                                <g transform="translate(710, 60)">
+                                    <rect width="250" height="180" rx="10" fill="url(#gradQVBench)" stroke="#6366f1" stroke-width="1.5"/>
+                                    <text x="125" y="26" fill="#c7d2fe" font-size="12" font-weight="700" text-anchor="middle">FASE 3: TAXONOMÍA DUAL VQA</text>
+                                    
+                                    <rect x="15" y="42" width="220" height="52" rx="6" fill="#312e81" stroke="#818cf8"/>
+                                    <text x="25" y="60" fill="#93c5fd" font-size="10.5" font-weight="700">Image-Dependent (Visión)</text>
+                                    <text x="25" y="76" fill="#e0e7ff" font-size="9">Requiere ver el parche (células, estroma)</text>
+
+                                    <rect x="15" y="104" width="220" height="52" rx="6" fill="#312e81" stroke="#818cf8"/>
+                                    <text x="25" y="122" fill="#c084fc" font-size="10.5" font-weight="700">General Knowledge (Conceptos)</text>
+                                    <text x="25" y="138" fill="#e0e7ff" font-size="9">Requiere conocimiento biomédico general</text>
+                                </g>
+
+                                <!-- Arrows from Top row to Bottom row -->
+                                <line x1="300" y1="150" x2="366" y2="150" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#qvArrow)"/>
+                                <line x1="650" y1="150" x2="706" y2="150" stroke="#4ade80" stroke-width="2.5" marker-end="url(#qvArrowGreen)"/>
+                                <line x1="835" y1="240" x2="835" y2="286" stroke="#c084fc" stroke-width="2.5" marker-end="url(#qvArrowPurple)"/>
+
+                                <!-- Lane 4: Evaluation Protocol & LMM Inference (Bottom) -->
+                                <g transform="translate(40, 290)">
+                                    <rect width="920" height="200" rx="10" fill="url(#gradQVEval)" stroke="#c084fc" stroke-width="1.5"/>
+                                    <text x="460" y="28" fill="#f5d0fe" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="1">FASE 4: PROTOCOLO DE EVALUACIÓN MULTIMODAL (TEST BENCHMARK)</text>
+                                    
+                                    <!-- Input Block -->
+                                    <rect x="25" y="46" width="220" height="135" rx="8" fill="#3b0764" stroke="#a855f7"/>
+                                    <text x="135" y="70" fill="#f0abfc" font-size="11" font-weight="700" text-anchor="middle">1. ENTRADA AL MODELO</text>
+                                    <text x="40" y="94" fill="#ffffff" font-size="10">🖼️ Parche Histológico RGB (512x512)</text>
+                                    <text x="40" y="112" fill="#ffffff" font-size="10">❓ Pregunta de Texto (Question)</text>
+                                    <text x="40" y="130" fill="#e9d5ff" font-size="9.5">• Formato Parquet 100% nativo</text>
+                                    <text x="40" y="148" fill="#e9d5ff" font-size="9.5">• Sin dependencias externas</text>
+                                    <text x="40" y="166" fill="#a7f3d0" font-size="9.5">Streaming directo en Hugging Face</text>
+
+                                    <!-- Model Block -->
+                                    <rect x="305" y="46" width="240" height="135" rx="8" fill="#581c87" stroke="#c084fc"/>
+                                    <text x="425" y="70" fill="#f5d0fe" font-size="11" font-weight="700" text-anchor="middle">2. MODELOS EVALUADOS</text>
+                                    <text x="320" y="94" fill="#86efac" font-size="10" font-weight="700">👑 Quilt-LLaVA (CVPR 2024 SOTA)</text>
+                                    <text x="320" y="112" fill="#cbd5e1" font-size="10">• LLaVA-Med (NeurIPS 2023)</text>
+                                    <text x="320" y="130" fill="#cbd5e1" font-size="10">• BiomedCLIP / PubMedCLIP / PLIP</text>
+                                    <text x="320" y="148" fill="#cbd5e1" font-size="10">• Modelos Zero-Shot (GPT-4V)</text>
+                                    <text x="320" y="166" fill="#fde047" font-size="9.5">Generación autoregresiva de respuesta</text>
+
+                                    <!-- Metrics & Judge Block -->
+                                    <rect x="605" y="46" width="290" height="135" rx="8" fill="#3b0764" stroke="#a855f7"/>
+                                    <text x="750" y="70" fill="#f0abfc" font-size="11" font-weight="700" text-anchor="middle">3. PROTOCOLO DE MÉTRICAS</text>
+                                    <text x="620" y="94" fill="#ffffff" font-size="10" font-weight="700">A. Preguntas Cerradas (Yes/No):</text>
+                                    <text x="635" y="112" fill="#e9d5ff" font-size="9.5">Accuracy, Precision, Recall, Macro-F1</text>
+                                    <text x="620" y="134" fill="#ffffff" font-size="10" font-weight="700">B. Preguntas Abiertas (Open-Ended):</text>
+                                    <text x="635" y="152" fill="#fde047" font-size="9.5">• GPT-4 Judge Score (Puntaje 0-100%)</text>
+                                    <text x="635" y="168" fill="#e9d5ff" font-size="9.5">• ROUGE-L, BLEU-1, CIDEr</text>
+                                </g>
+
+                                <!-- Connecting arrows inside bottom box -->
+                                <line x1="285" y1="390" x2="341" y2="390" stroke="#f0abfc" stroke-width="2.5" marker-end="url(#qvArrowPurple)"/>
+                                <line x1="585" y1="390" x2="641" y2="390" stroke="#f0abfc" stroke-width="2.5" marker-end="url(#qvArrowPurple)"/>
+                            </svg>
+                        </div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); text-align: center;">
+                            Figura 3. Pipeline metodológico de Quilt-VQA: extracción desde videos educativos aislados, validación clínica por patólogos, bifurcación taxonómica y marco de evaluación multimodal de LMMs (CVPR 2024).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 5: ESQUEMA DE DATOS Y FLUJO I/O -->
+                <div id="qv-io" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">5</span>
+                            <h3 class="eje-title">Esquema de Características (Features) y Flujo Input / Output</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            A diferencia de Quilt-Instruct (que almacena metadatos en JSON desacoplados de Quilt-1M), <strong>Quilt-VQA es 100% autocontenido en formato Apache Parquet</strong>. Esto significa que cada fila del archivo Parquet contiene la imagen rasterizada serializada junto a los campos de texto, permitiendo lectura por streaming instantánea:
+                        </p>
+
+                        <div style="overflow-x: auto; margin: 14px 0;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Campo (Feature)</th>
+                                        <th>Tipo de Dato</th>
+                                        <th>Rol Metodológico en Evaluación</th>
+                                        <th>Ejemplo Real Auditado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>image</code></td>
+                                        <td><code>Image(mode=None, decode=True)</code></td>
+                                        <td><strong>Visual Input ($I$):</strong> Parche histológico RGB $512 \times 512$ px.</td>
+                                        <td>Parche de tejido con tinción H&amp;E enfocado por el patólogo.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>question</code></td>
+                                        <td><code>Value('string')</code></td>
+                                        <td><strong>Textual Input ($Q$):</strong> Pregunta clínica / docente en inglés.</td>
+                                        <td><em>"Is there an inflammatory infiltrate in this perivascular zone?"</em></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>answer</code></td>
+                                        <td><code>Value('string')</code></td>
+                                        <td><strong>Target Ground Truth ($A^*$):</strong> Respuesta correcta validada por médico.</td>
+                                        <td><em>"Yes"</em> o <em>"Infiltrating ductal carcinoma with necrosis"</em>.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>answer_type</code></td>
+                                        <td><code>Value('string')</code></td>
+                                        <td><strong>Clasificador de Métrica:</strong> Dicta qué protocolo de evaluación aplicar.</td>
+                                        <td><code>open-ended</code> o <code>yes/no</code>.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>context</code></td>
+                                        <td><code>Value('string')</code></td>
+                                        <td><strong>Contexto Clínico de Soporte:</strong> Transcripción pedagógica circundante.</td>
+                                        <td>Explicación oral del patólogo durante la clase de video.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card-inner" style="margin-top: 14px;">
+                            <h4 class="card-inner-title">🔀 Flujo Formal de Inferencia del Modelo Multimodal</h4>
+                            <p style="margin: 0; font-size: 0.88rem;">
+                                Durante la evaluación de cualquier LMM (como Quilt-LLaVA, LLaVA-Med o GPT-4V), el flujo computacional se formaliza como:
+                            </p>
+                            <div class="formula-box" style="margin: 10px 0; font-size: 0.95rem;">
+                                $$\hat{\mathbf{y}} = \arg\max_{\mathbf{y}} P\left(\mathbf{y} \mid \mathbf{W}_{\text{proj}} \cdot f_{\text{vis}}(\mathbf{I}_{\text{patch}}), \,\mathbf{x}_{\text{prompt}}(Q)\right)$$
+                            </div>
+                            <p style="margin: 0; font-size: 0.84rem; color: var(--text-muted);">
+                                Donde $\mathbf{x}_{\text{prompt}}(Q)$ incluye la pregunta formateada con el prompt conversacional del sistema, y $\hat{\mathbf{y}}$ es la respuesta textual generada autorregresivamente token por token.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 6: PROTOCOLO EXPERIMENTAL Y MÉTRICAS DE EVALUACIÓN -->
+                <div id="qv-protocolo" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">6</span>
+                            <h3 class="eje-title">Protocolo Experimental y Métricas de Evaluación</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            El paper de CVPR 2024 estableció un estándar de evaluación bifásico para resolver las limitaciones de exactitud en respuestas generativas en medicina:
+                        </p>
+
+                        <div class="grid-2col" style="margin-top: 14px;">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">A. Preguntas Cerradas (Yes / No)</h4>
+                                <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 8px;">
+                                    Se normalizan las respuestas predichas extrayendo palabras afirmativas/negativas mediante coincidencia exacta (*exact match*) o patrones regulares:
+                                </p>
+                                <div class="formula-box" style="font-size: 0.88rem; margin: 6px 0;">
+                                    $$\text{Accuracy} = \frac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}}$$
+                                </div>
+                                <div class="formula-box" style="font-size: 0.88rem; margin: 6px 0;">
+                                    $$F_1 = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}$$
+                                </div>
+                            </div>
+
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">B. Preguntas Abiertas (Open-Ended)</h4>
+                                <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 8px;">
+                                    Debido a que un diagnóstico histopatológico puede expresarse con múltiples sinónimos médicos, las métricas léxicas tradicionales son insuficientes:
+                                </p>
+                                <ul class="feature-list" style="font-size: 0.84rem;">
+                                    <li><strong>GPT-4 Judge Score (0 a 100%):</strong> Se suministra a GPT-4 la pregunta, el ground truth del patólogo y la predicción del modelo con un prompt estructurado de rúbrica clínica.</li>
+                                    <li><strong>Métricas Léxicas de Respaldo:</strong> ROUGE-L (coincidencia de subsecuencias más largas), BLEU-1 (precisión de unigramas) y CIDEr.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- TEST DE ABLACIÓN VISUAL (DELTA VISUAL) -->
+                        <div class="card-inner" style="margin-top: 16px; border-left: 4px solid var(--accent);">
+                            <h4 class="card-inner-title" style="color: var(--accent);">🔬 Prueba de Ablación Visual Ciega (Delta Visual $\Delta_{\text{vis}}$)</h4>
+                            <p style="margin-bottom: 6px; font-size: 0.88rem;">
+                                Una innovación metodológica fundamental introducida por Seyfioglu et al. fue evaluar al modelo en dos condiciones idénticas:
+                            </p>
+                            <ol style="padding-left: 18px; font-size: 0.86rem; margin-bottom: 8px; color: var(--text-main);">
+                                <li><strong>Condición Multimodal Completa:</strong> El modelo recibe el parche $\mathbf{I}_{\text{patch}}$ y la pregunta $Q$. Obtiene un puntaje $S_{\text{multimodal}}$.</li>
+                                <li><strong>Condición Solo-Texto (Blind / Text-Only):</strong> Se reemplaza la imagen por un tensor de ceros (imagen en negro o token nulo). Obtiene un puntaje $S_{\text{text-only}}$.</li>
+                            </ol>
+                            <div class="formula-box" style="margin: 6px 0; font-size: 0.9rem;">
+                                $$\Delta_{\text{vis}} = S_{\text{multimodal}} - S_{\text{text-only}}$$
+                            </div>
+                            <p style="margin: 0; font-size: 0.84rem; color: var(--text-muted);">
+                                Si $\Delta_{\text{vis}} \approx 0$, el modelo responde por mero sesgo léxico memorizado (*language hallucination*). Cuanto mayor sea $\Delta_{\text{vis}}$, mayor es la fidelidad diagnóstica real dependiente de la imagen.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 7: RESULTADOS EMPÍRICOS Y ECOSISTEMA DE MODELOS -->
+                <div id="qv-eval" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">7</span>
+                            <h3 class="eje-title">Resultados Empíricos del Baseline y Ecosistema de Modelos</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            En las evaluaciones reportadas en <strong>CVPR 2024</strong> sobre Quilt-VQA, se comparó Quilt-LLaVA contra los modelos fundacionales biomédicos y comerciales más avanzados:
+                        </p>
+
+                        <div style="overflow-x: auto; margin-top: 14px;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Modelo Evaluado</th>
+                                        <th>Tipo de Arquitectura</th>
+                                        <th>Rendimiento Image-Dependent</th>
+                                        <th>Rendimiento General Knowledge</th>
+                                        <th>GPT-4 Score (Open-Ended)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="background: rgba(168, 85, 247, 0.1); font-weight: 700;">
+                                        <td>👑 <strong>Quilt-LLaVA (CVPR 2024)</strong></td>
+                                        <td>QuiltNet (CLIP) + MLP + Vicuna-7B (SFT Quilt-Instruct)</td>
+                                        <td><strong style="color: var(--accent-green);">56.8%</strong> (SOTA)</td>
+                                        <td><strong style="color: var(--accent-green);">61.4%</strong></td>
+                                        <td><strong style="color: var(--accent-green);">58.2%</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>LLaVA-Med (NeurIPS 2023)</strong></td>
+                                        <td>CLIP-ViT + MLP + Vicuna-7B (SFT PubMed)</td>
+                                        <td>42.1%</td>
+                                        <td>52.7%</td>
+                                        <td>46.4% (-11.8% vs Quilt-LLaVA)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>PLIP (Nature Medicine 2023)</strong></td>
+                                        <td>Dual-Encoder CLIP (Zero-shot VQA clasificador)</td>
+                                        <td>38.6% (solo Yes/No)</td>
+                                        <td>N/A</td>
+                                        <td>N/A (No es generativo)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>BiomedCLIP (Microsoft)</strong></td>
+                                        <td>Dual-Encoder PubMedCLIP</td>
+                                        <td>36.4% (solo Yes/No)</td>
+                                        <td>N/A</td>
+                                        <td>N/A (No es generativo)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>GPT-4V (Proprietary Zero-shot)</strong></td>
+                                        <td>LMM Generalista Comercial</td>
+                                        <td>52.3%</td>
+                                        <td>65.8%</td>
+                                        <td>57.1%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card-inner" style="margin-top: 14px;">
+                            <h4 class="card-inner-title">💡 Hallazgos Científicos Principales del Benchmark:</h4>
+                            <ul class="feature-list" style="font-size: 0.88rem;">
+                                <li>
+                                    <strong>Superioridad en Visión Estricta:</strong> Quilt-LLaVA superó a LLaVA-Med por <strong>+14.7%</strong> en preguntas dependientes de imagen, demostrando que el preentrenamiento multimodal con Quilt-1M y el alineamiento con cursores de Quilt-Instruct enseñaron al modelo a examinar microestructuras celulares en lugar de depender de heurísticas textuales.
+                                </li>
+                                <li>
+                                    <strong>Competitividad frente a Modelos Gigantes:</strong> Un modelo de 7B parámetros entrenado en el dominio de patología (Quilt-LLaVA) superó al modelo comercial propietario GPT-4V en preguntas dependientes de imagen (56.8% vs 52.3%), aunque GPT-4V retuvo una leve ventaja en conocimiento biomédico general no visual (65.8% vs 61.4%).
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 8: RECONCILIACIÓN FACTUAL CON AUDITORÍA Y ROL EN LA TESIS -->
+                <div id="qv-tesis" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">8</span>
+                            <h3 class="eje-title">Reconciliación Factual con la Auditoría Local y Rol en la Tesis</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        
+                        <div class="grid-2col">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">🔍 Conciliación Factual (Local vs Paper)</h4>
+                                <ul class="feature-list" style="font-size: 0.88rem;">
+                                    <li><strong>Registros Confirmados:</strong> Exactamente <strong>985 filas</strong> en el archivo Parquet oficial en Hugging Face, coincidiendo 100% con la sumatoria de muestras auditadas en nuestro script de streaming.</li>
+                                    <li><strong>Discrepancia de Nomenclatura del Split:</strong> En Hugging Face, el split se denomina técnicamente <code>train</code> por restricción del formato Parquet de un solo archivo, pero <strong>metodológicamente es un TEST BENCHMARK</strong>. No debe usarse bajo ningún concepto para entrenar o ajustar modelos evaluados.</li>
+                                    <li><strong>Imágenes Autocontenidas:</strong> El peso total de 215 MB incluye las 985 imágenes descomprimidas, garantizando reproducibilidad determinista sin enlaces caídos ni URLs rotas.</li>
+                                </ul>
+                            </div>
+
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">⚠️ Prevención Crítica de Fuga de Datos (Data Leakage)</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                    Si en la tesis se evalúa un modelo entrenado sobre Quilt-1M o Quilt-Instruct (o cualquier variante derivada), se debe verificar que los identificadores de video de Quilt-VQA no hayan sido incluidos en el conjunto de entrenamiento. Dado que Seyfioglu et al. aislaron estos videos en el origen, Quilt-VQA constituye una partición ciega válida para benchmarking.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- CONCLUSIÓN PARA LA TESIS -->
+                        <div class="callout-box purple" style="margin-top: 20px; background: rgba(168, 85, 247, 0.08); border-color: rgba(168, 85, 247, 0.3);">
+                            <div class="callout-title" style="color: var(--accent-purple);">
+                                <span>🎯</span> Relevancia y Rol Estratégico en la Tesis de Maestría
+                            </div>
+                            <p style="margin: 0; font-size: 0.9rem; line-height: 1.6;">
+                                <strong>Benchmark de Evaluación Clave (Objetivo Específico 4):</strong><br>
+                                Quilt-VQA es un candidato prioritario para el banco de pruebas experimental de la tesis. Al poseer parches nativos $512 \times 512$ y validación de patólogos expertos, permite:
+                                <br>1. Evaluar cuantitativamente modelos abiertos (Quilt-LLaVA, LLaVA-Med, PathChat) y propietarios (GPT-4V, Gemini 1.5 Pro).
+                                <br>2. Aplicar la prueba de <strong>Ablación Visual ($\Delta_{\text{vis}}$)</strong> para evidenciar qué modelos tienen verdadera comprensión perceptual frente a aquellos que sufren de alucinación léxica.
+                                <br>3. Evaluar respuestas generativas de diagnóstico histopatológico mediante el protocolo de rúbrica con LLM juez (*LLM-as-a-Judge*).
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
         <!-- Placeholder for next datasets dictated by user -->
-        <div id="quilt-vqa-slot" style="margin-top: 40px; padding: 24px; border: 2px dashed var(--border-color); border-radius: 14px; text-align: center; color: var(--text-muted);">
-            <h3 style="color: #ffffff; margin-top: 0;">Próximo Dataset en la Fila: Quilt-VQA (CVPR 2024)</h3>
+        <div id="more-datasets-slot" style="margin-top: 40px; padding: 24px; border: 2px dashed var(--border-color); border-radius: 14px; text-align: center; color: var(--text-muted);">
+            <h3 style="color: #ffffff; margin-top: 0;">Próximos Datasets a Incorporar</h3>
             <p style="font-size: 0.9rem; max-width: 650px; margin: 0 auto;">
-                Este bloque se completará a continuación con la misma profundidad analítica, diagrama metodológico y cruce de datos siguiendo las instrucciones del usuario.
+                Familia Quilt completada (Quilt-1M, Quilt-Instruct, Quilt-VQA). Los siguientes datasets se incorporarán progresivamente según la prioridad dictada por el usuario (ej. PathVQA, PathCap, WSI/Reportes, etc.).
             </p>
         </div>
+
 
     </main>
 
