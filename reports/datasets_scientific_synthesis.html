@@ -628,6 +628,16 @@
             <p class="sidebar-sub">Evaluación Comparativa de LMMs en Histopatología</p>
         </div>
 
+        <div class="nav-section-title">Navegación General</div>
+        <ul class="nav-list" style="margin-bottom: 16px;">
+            <li class="nav-item">
+                <a href="#sintesis-general" style="border-left-color: var(--accent); background: rgba(56, 189, 248, 0.12);">
+                    <span style="font-weight: 800; color: var(--accent);">📊 Síntesis General (8 Datasets)</span>
+                    <span class="nav-badge" style="background: var(--accent); color: #0b1120;">Meta-Análisis</span>
+                </a>
+            </li>
+        </ul>
+
         <div class="nav-section-title">Navegación por Datasets</div>
         <ul class="nav-list">
             <li class="nav-item">
@@ -6090,6 +6100,398 @@
                                 <br>1. <strong>Línea Base SOTA de VLM Especializado:</strong> PathGen-CLIP-L y PathGen-LLaVA deben incluirse obligatoriamente en el marco experimental como los representantes más potentes de modelos fundacionales específicos de patología para compararlos contra LLMs multimodales generalistas comerciales (GPT-4o, Gemini 1.5 Pro, Claude 3.5 Sonnet).
                                 <br>2. <strong>Evaluación de Transferencia Zero-Shot:</strong> Permite utilizar la suite de 9 tareas estandarizadas de PathGen (Pcam, CRC-100K, BACH, SkinCancer) como banco de pruebas unificado para contrastar alineación multimodal en parches sin necesidad de reentrenar cabezas de clasificación.
                             </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        
+        <!-- ==================================================================== -->
+        <!-- SÍNTESIS GENERAL Y ANÁLISIS TRANSVERSAL DE LOS 8 DATASETS            -->
+        <!-- ==================================================================== -->
+        <section id="sintesis-general" class="dataset-card" style="border: 2px solid var(--accent); background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(9, 14, 23, 0.98) 100%); margin-top: 50px;">
+            
+            <!-- Encabezado de la Síntesis General -->
+            <div class="dataset-header" style="border-bottom: 2px solid rgba(56, 189, 248, 0.3); padding-bottom: 24px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                    <span class="dataset-order-pill" style="background: linear-gradient(135deg, rgba(56, 189, 248, 0.25) 0%, rgba(99, 102, 241, 0.25) 100%); border-color: var(--accent); color: #ffffff; font-size: 0.85rem; padding: 4px 14px;">
+                        📊 Meta-Análisis Científico Consolidado
+                    </span>
+                    <span class="badge badge-purple" style="font-size: 0.8rem;">8 Datasets &bull; 2021 &ndash; 2025</span>
+                    <span class="badge badge-green" style="font-size: 0.8rem;">Fase 1: Consolidación &amp; Auditoría</span>
+                </div>
+                <h2 class="dataset-name" style="font-size: 2.2rem; background: linear-gradient(135deg, #ffffff 0%, #38bdf8 50%, #818cf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    Síntesis General, Patrones Emergentes y Análisis Transversal
+                </h2>
+                <div class="dataset-repo-sub" style="font-size: 0.95rem; color: #cbd5e1; max-width: 950px; line-height: 1.6; margin-top: 8px;">
+                    Integración comparativa sistemática de los 8 datasets primarios auditados (Quilt-1M, Quilt-Instruct, Quilt-VQA, PathMMU, ARCH, HistGen, Wsi-Caption y PathGen-1.6M). Identificación de transiciones paradigmáticas, evolución de arquitecturas visual-textuales, funciones de pérdida, trampas de fuga de datos en TCGA y directrices estratégicas para la Tesis de Maestría.
+                </div>
+            </div>
+
+            <div class="ejes-grid" style="margin-top: 28px;">
+
+                <!-- SECCIÓN 1: MATRIZ COMPARATIVA MAESTRA DE LOS 8 DATASETS -->
+                <div class="eje-block" style="background: rgba(15, 23, 42, 0.85);">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number" style="background: var(--accent); color: #0b1120;">M1</span>
+                            <h3 class="eje-title">Matriz Comparativa Transversal de los 8 Datasets Consolidados</h3>
+                        </div>
+                        <span class="eje-badge" style="border-color: var(--accent); color: var(--accent);">Cuadro de Mando Integral</span>
+                    </div>
+                    <div class="eje-content">
+                        <p style="margin-bottom: 16px;">
+                            La siguiente tabla condensa las dimensiones clave extraídas del cruce entre las publicaciones primarias de alto impacto (NeurIPS, CVPR, ECCV, MICCAI, ICLR) y las inspecciones fácticas locales:
+                        </p>
+
+                        <div style="overflow-x: auto; margin-bottom: 16px;">
+                            <table class="data-table" style="font-size: 0.78rem; line-height: 1.45;">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Dataset &amp; Conferencia</th>
+                                        <th>Tarea Multimodal Principal</th>
+                                        <th>Escala &amp; Registros</th>
+                                        <th>Modalidad &amp; Resolución</th>
+                                        <th>Naturaleza del Texto</th>
+                                        <th>Baseline Oficial</th>
+                                        <th>Función de Pérdida</th>
+                                        <th>Métrica / Hallazgo Clave</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight: 800; color: var(--accent);">1</td>
+                                        <td><strong>Quilt-1M</strong><br><span style="color: var(--text-muted);">NeurIPS 2023 Oral</span></td>
+                                        <td><span class="badge badge-cyan" style="font-size: 0.68rem;">VLP Contrastivo</span></td>
+                                        <td>768,826 pares extraídos<br>(1M potenciales)</td>
+                                        <td>Fotogramas de video YouTube<br>(capturas 1080p comprimidas)</td>
+                                        <td>Subtítulos narrados ASR y transcripciones orales</td>
+                                        <td><strong>QuiltNet</strong><br>(ViT-B/16 / ResNet-50)</td>
+                                        <td>$$\mathcal{L}_{	ext{InfoNCE}}$$ simétrica</td>
+                                        <td>Zero-Shot 58.9% prom.<br>Supera a PLIP en retrieval</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 800; color: var(--accent);">2</td>
+                                        <td><strong>Quilt-Instruct</strong><br><span style="color: var(--text-muted);">CVPR 2024</span></td>
+                                        <td><span class="badge badge-purple" style="font-size: 0.68rem;">Visual Instruction (SFT)</span></td>
+                                        <td>107,131 pares instrucción<br>(narrativa localizada)</td>
+                                        <td>Parches $224	imes 224$ px con bounding boxes y puntero</td>
+                                        <td>Instrucciones Q/A, diálogos clínicos y razonamiento</td>
+                                        <td><strong>Quilt-LLaVA</strong><br>(LLaVA-v1.5 + CLIP)</td>
+                                        <td>$$\mathcal{L}_{	ext{SFT}}$$ autorregresiva (2 fases)</td>
+                                        <td>Anclaje espacial dinámico;<br>supera a LLaVA-Med en QA</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 800; color: var(--accent);">3</td>
+                                        <td><strong>Quilt-VQA</strong><br><span style="color: var(--text-muted);">CVPR 2024</span></td>
+                                        <td><span class="badge badge-rose" style="font-size: 0.68rem;">Expert-Validated VQA</span></td>
+                                        <td>985 pares validados por patólogos expertos</td>
+                                        <td>Imágenes microscópicas de YouTube seleccionadas</td>
+                                        <td>Preguntas clínicas abiertas con respuestas verificadas</td>
+                                        <td>Evaluación de LMMs (Quilt-LLaVA, GPT-4V)</td>
+                                        <td>Métrica de dependencia multimodal $$\Delta_{	ext{vis}}$$</td>
+                                        <td>Alucinación del LMM: responde por atajos textuales sin ver imagen</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 800; color: var(--accent);">4</td>
+                                        <td><strong>PathMMU</strong><br><span style="color: var(--text-muted);">ECCV 2024</span></td>
+                                        <td><span class="badge badge-amber" style="font-size: 0.68rem;">MC-VQA Experto</span></td>
+                                        <td>10,387 preguntas / 33K imágenes / 5 fuentes</td>
+                                        <td>Subfiguras microscópicas de libros, PubMed y atlas</td>
+                                        <td>Opción múltiple con explicación diagnóstica estructurada</td>
+                                        <td>Benchmark suite (26 modelos evaluados)</td>
+                                        <td>Exactitud ponderada + consistencia en explicación</td>
+                                        <td>Brecha masiva: Humanos 71.8% vs GPT-4V 49.8% vs Open LMMs 30-40%</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 800; color: var(--accent);">5</td>
+                                        <td><strong>ARCH</strong><br><span style="color: var(--text-muted);">CVPR 2021 Oral</span></td>
+                                        <td><span class="badge badge-cyan" style="font-size: 0.68rem;">Multiple Instance Captioning</span></td>
+                                        <td>7,579 imágenes / 7,614 captions / 3,321 bolsas</td>
+                                        <td>Paneles multi-figura de libros y artículos médicos</td>
+                                        <td>Leyendas compuestas con sub-etiquetas (A, B, C)</td>
+                                        <td><strong>Attention-MIL + VirTex</strong><br>(ResNet-50 + Transformer)</td>
+                                        <td>$$\mathcal{L}_{	ext{NLL}}$$ con atención MIL</td>
+                                        <td>Pionero en desambiguar paneles visuales histológicos</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 800; color: var(--accent);">6</td>
+                                        <td><strong>HistGen</strong><br><span style="color: var(--text-muted);">MICCAI 2024</span></td>
+                                        <td><span class="badge badge-green" style="font-size: 0.68rem;">WSI Report Generation</span></td>
+                                        <td>7,690 casos auditados en 32 cohortes TCGA</td>
+                                        <td>Embeddings DINOv2 ViT-L<br>(299 GB / 55K WSIs)</td>
+                                        <td>Reportes sinópticos completos depurados con GPT-4</td>
+                                        <td><strong>HistGen (LGH + CMC)</strong><br>(Clusters $S=96$, Memoria $512	imes 2048$)</td>
+                                        <td>$$\mathcal{L}_{	ext{CE}} + lpha \mathcal{L}_{	ext{R-Drop}} + eta \mathcal{L}_{	ext{con}}$$</td>
+                                        <td>SOTA en reporte WSI: BLEU-1 0.446, METEOR 0.283, GreenScore 0.428</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 800; color: var(--accent);">7</td>
+                                        <td><strong>Wsi-Caption (PathText)</strong><br><span style="color: var(--text-muted);">MICCAI 2024 Oral</span></td>
+                                        <td><span class="badge badge-green" style="font-size: 0.68rem;">WSI Captioning &amp; Geometry</span></td>
+                                        <td>9,009 casos en 30 proyectos TCGA</td>
+                                        <td>Láminas gigapíxel SVS con coordenadas espaciales $(X, Y)$</td>
+                                        <td>Reportes quirúrgicos sinópticos estructurados</td>
+                                        <td><strong>MI-Gen (PAM)</strong><br>(Convoluciones 2D $3	imes 3, 7	imes 7, 13	imes 13$)</td>
+                                        <td>$$\mathcal{L}_{	ext{NLL}}$$ condicionada espacialmente</td>
+                                        <td>Modelado geométrico 2D continuo; reporte extrae subtipos mejor que MIL (F1 0.838)</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 800; color: var(--accent);">8</td>
+                                        <td><strong>PathGen-1.6M</strong><br><span style="color: var(--text-muted);">ICLR 2025</span></td>
+                                        <td><span class="badge badge-indigo" style="font-size: 0.68rem;">Preentrenamiento Sintético Denso</span></td>
+                                        <td>1,620,876 pares parche-texto densos</td>
+                                        <td>Parches nativos Nivel 0 ($672	imes 672$ px) de 7,300 WSIs</td>
+                                        <td>Descripciones citoarquitectónicas hiperdensas generadas por IA</td>
+                                        <td><strong>PathGen-CLIP-L</strong> (ViT-L@336)<br>&amp; <strong>PathGen-LLaVA</strong></td>
+                                        <td>$$\mathcal{L}_{	ext{CLIP}}$$ simétrica + Curriculum en 2 fases</td>
+                                        <td>Supera a todo VLM previo: 79.7% Zero-Shot prom., 92.6% AUC WSI, 58.4% PathMMU</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN 2: TRES TRANSICIONES PARADIGMÁTICAS FUNDAMENTALES -->
+                <div class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number" style="background: var(--accent-cyan); color: #0b1120;">M2</span>
+                            <h3 class="eje-title">Análisis de Patrones y Tres Transiciones Paradigmáticas (2021 &ndash; 2025)</h3>
+                        </div>
+                        <span class="eje-badge">Evolución Metodológica</span>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            Al analizar de forma holística la literatura y los artefactos de estos 8 datasets, se identifican <strong>tres grandes saltos paradigmáticos</strong> que redefinieron el procesamiento multimodal en patología computacional:
+                        </p>
+
+                        <div class="grid-2col">
+                            
+                            <!-- Transición 1 -->
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">🔄 Paradigma 1: Del Web Scraping Ruidoso al Preentrenamiento Sintético Basado en Agentes</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                    • <strong>La Fase del Raspado Web (2021&ndash;2024 - ARCH, Quilt-1M, OpenPath):</strong> La primera generación creía que el cuello de botella era únicamente la cantidad de pares. Se raspó PubMed, libros y videos de YouTube. No obstante, se chocó contra un <em>techo de calidad</em>: los fotogramas de YouTube sufren compresión de video y no alcanzan aumento celular; las figuras de PubMed mezclan gráficos estadísticos; y las leyendas humanas de Twitter carecen de terminología diagnóstica.<br>
+                                    • <strong>El Quiebre Sintético (2025 - PathGen-1.6M):</strong> Sun et al. demostraron que los modelos preentrenados con <strong>descripciones morfológicas sintéticas generadas por agentes IA sobre parches clínicos prístinos de TCGA</strong> superan holgadamente (+15% a +20%) a los modelos entrenados con textos humanos recopilados de la web. La clave fue diseñar un pipeline con agentes revisores para suprimir alucinaciones.
+                                </p>
+                            </div>
+
+                            <!-- Transición 2 -->
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">📐 Paradigma 2: Del Parche Aislado a la Modelación Espacial Continua de la Lámina Gigapíxel</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                    • <strong>La Limitación del Parche Independiente (2021&ndash;2023):</strong> Los primeros VLMs (QuiltNet, PLIP, ARCH) trataban cada imagen o subfigura como una entidad diagnóstica aislada. Sin embargo, en patología clínica ningún diagnóstico definitivo se emite con un solo parche.<br>
+                                    • <strong>La Emergencia del Reporte WSI (2024 - HistGen y Wsi-Caption):</strong> Ambos artículos de MICCAI 2024 resolvieron cómo resumir bolsas de miles de parches en reportes sinópticos de 150 palabras. Mientras que HistGen optó por clustering atencional regional (LGH) y memorias de contexto compartidas (CMC), Wsi-Caption (MI-Gen) introdujo la <strong>preservación geométrica 2D</strong> (PAM), demostrando que la adyacencia espacial euclidiana entre parches es indispensable para predecir diámetros tumorales e invasión vascular.
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <!-- Transición 3 -->
+                        <div class="card-inner" style="margin-top: 18px;">
+                            <h4 class="card-inner-title">📦 Paradigma 3: Revolución en la Infraestructura de Almacenamiento (Desacoplamiento Físico)</h4>
+                            <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                Una de las conclusiones más relevantes de la auditoría local es la superación de la barrera del almacenamiento masivo:
+                                <br>&bull; <strong>Formatos Tradicionales Pesados:</strong> ARCH o PathVQA distribuyen imágenes binarias en Parquet o archivos zip locales, lo cual es inmanejable a escala gigapíxel (una sola lámina WSI pesa de 1 a 3 GB, y 7,000 láminas superan los 10 Terabytes).
+                                <br>&bull; <strong>La Solución Moderna (HistGen, Wsi-Caption, PathGen):</strong> Desacoplan completamente el texto de la imagen. <code>PathGen-1.6M.json</code> pesa <strong>solo 933 MB</strong> porque únicamente guarda códigos de barras de TCGA y coordenadas $(X,Y)$. HistGen distribuye únicamente <strong>embeddings extraídos congelados con DINOv2</strong> (299 GB para 55K láminas), permitiendo entrenar generadores de texto en GPUs estándar sin decodificar imágenes gigapíxel en tiempo real.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SECCIÓN 3: COMPARATIVA DE ARQUITECTURAS, BACKBONES Y PÉRDIDAS -->
+                <div class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number" style="background: var(--accent-purple); color: #0b1120;">M3</span>
+                            <h3 class="eje-title">Análisis Cruzado de Arquitecturas, Extractores Visuales y Funciones de Pérdida</h3>
+                        </div>
+                        <span class="eje-badge">Ingeniería &amp; Optimización</span>
+                    </div>
+                    <div class="eje-content">
+                        
+                        <div class="grid-2col">
+                            
+                            <!-- Extractores Visuales -->
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">👁️ Evolución de los Extractores Visuales (Encoders)</h4>
+                                <ul style="margin: 0; padding-left: 18px; font-size: 0.88rem; line-height: 1.6;">
+                                    <li><strong>ResNet-50 / ResNet-101 (ARCH, baselines iniciales):</strong> Convoluciones estándar con campo receptivo limitado; sensibles a artefactos de tinción y poco adaptables a relaciones de largo alcance.</li>
+                                    <li><strong>ViT-B/16 @ 224 (QuiltNet, PathCLIP):</strong> Modelo estándar de 86M parámetros. Buena capacidad de atención global, pero resolución $224	imes 224$ insuficiente para capturar nucléolos y mitosis diminutas.</li>
+                                    <li><strong>DINOv2 ViT-L/14 (HistGen):</strong> Preentrenado mediante aprendizaje auto-supervisado en 55K WSIs. Sus representaciones de 1024 dimensiones son el estándar de oro en invariancia tisular sin supervisión de texto.</li>
+                                    <li><strong>OpenCLIP ViT-L/14 @ 336 (PathGen-CLIP-L):</strong> Rompe el techo de exactitud en patología. La resolución de $336	imes 336$ px incrementa el número de parches de atención del ViT en un 125%, permitiendo resolver rasgos de 40x.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Funciones de Pérdida -->
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">📉 Taxonomía de Objetivos y Funciones de Pérdida</h4>
+                                <ul style="margin: 0; padding-left: 18px; font-size: 0.88rem; line-height: 1.6;">
+                                    <li><strong>InfoNCE Simétrica (Preentrenamiento VLP):</strong> Alinea espacios bimodales maximizando el producto punto entre parches y textos del mismo par frente a $B-1$ negativos. Usada en Quilt-1M y PathGen-CLIP.</li>
+                                    <li><strong>NLL Autoregresiva de Próxima Palabra:</strong> Genera texto clínico paso a paso: $\mathcal{L} = -\sum \log P(w_t \mid w_{&lt;t}, \mathbf{X}_v)$. Empleada en ARCH, Wsi-Caption y Quilt-LLaVA.</li>
+                                    <li><strong>Pérdida Híbrida Compuesta (HistGen):</strong> Combina entropía cruzada, regularización de consistencia simétrica R-Drop ($\mathcal{L}_{	ext{R-Drop}}$) y contrastiva cruzada multimodal ($\mathcal{L}_{	ext{con}}$), evitando colapso modal en secuencias largas.</li>
+                                    <li><strong>Curriculum en Dos Etapas (SFT &amp; CLIP):</strong> Demostrado como indispensable tanto en LMMs (Quilt-LLaVA: primero alinear proyector $\mathbf{W}$, luego afinar LLM) como en CLIP (PathGen: primero datos sintéticos morfológicos, luego datos humanos diagnósticos).</li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SECCIÓN 4: DIAGNÓSTICO DE RAZONAMIENTO Y ALUCINACIÓN (HUMANO VS LMM) -->
+                <div class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number" style="background: var(--accent-rose); color: #0b1120;">M4</span>
+                            <h3 class="eje-title">Diagnóstico de la Brecha de Razonamiento Clínico y Alucinaciones Multimodales</h3>
+                        </div>
+                        <span class="eje-badge">Evaluación Cognitiva</span>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            El análisis conjunto de los benchmarks de razonamiento diagnóstico (<span class="text-term">PathMMU</span>, ECCV 2024) y alineación visual experta (<span class="text-term">Quilt-VQA</span>, CVPR 2024) revela conclusiones contundentes sobre el estado real de la Inteligencia Artificial Multimodal en histopatología:
+                        </p>
+
+                        <div class="grid-2col">
+                            
+                            <!-- Brecha Humana -->
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">🩺 1. La Brecha Crítica con el Patólogo Experto</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                    En PathMMU (9,677 preguntas diagnósticas de opción múltiple):<br>
+                                    &bull; <strong>Patólogos Médicos Humanos:</strong> <strong>71.8% &ndash; 78.9%</strong> de exactitud.<br>
+                                    &bull; <strong>PathGen-LLaVA (SOTA Especializado):</strong> <strong>58.4%</strong> (el mejor modelo existente, pero a 13.4% de la precisión humana).<br>
+                                    &bull; <strong>GPT-4V-1106 (Líder Comercial):</strong> <strong>49.8%</strong> (apenas 1 de cada 2 preguntas resueltas correctamente).<br>
+                                    &bull; <strong>Quilt-LLaVA:</strong> <strong>41.5%</strong> | <strong>LLaVA-1.5-13B:</strong> <strong>37.6%</strong>.<br>
+                                    &bull; <strong>LLaVA-Med:</strong> <strong>26.2%</strong> (prácticamente igual al azar puro: <strong>23.7%</strong>).<br>
+                                    <em>Conclusión:</em> Los modelos no especializados o ajustados con poco volumen fracasan estrepitosamente en tareas que demandan correlación clínico-patológica y exclusión diferencial.
+                                </p>
+                            </div>
+
+                            <!-- Alucinación Visual y Atajos Textuales -->
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">👁️❌ 2. La Falacia del "Razonamiento Visual" ($\Delta_{	ext{vis}}$)</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                    Quilt-VQA demostró un fenómeno alarmante en los LMMs biomédicos: <strong>la dependencia desproporcionada de atajos lingüísticos</strong>.<br>
+                                    • Al evaluar a los LMMs proporcionando únicamente la pregunta de texto y <em>ocultando por completo la imagen microscópica</em> (input ciego), muchos modelos retienen hasta el <strong>80% &ndash; 90% de su rendimiento</strong>.<br>
+                                    • La métrica de ganancia visual:
+                                    $$\Delta_{	ext{vis}} = 	ext{Score}(	ext{Imagen} + 	ext{Pregunta}) - 	ext{Score}(	ext{Solo Pregunta})$$
+                                    es con frecuencia muy baja o incluso negativa en modelos genéricos. Esto demuestra que los modelos a menudo <em>alucinan basándose en correlaciones sintácticas del prompt</em> en lugar de detectar la verdadera atipia nuclear o mitosis en el tejido histológico.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SECCIÓN 5: CONTROL CRÍTICO DE DATA LEAKAGE EN EL ECOSISTEMA TCGA -->
+                <div class="eje-block" style="border-left: 4px solid var(--accent-amber);">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number" style="background: var(--accent-amber); color: #0b1120;">M5</span>
+                            <h3 class="eje-title">Matriz Crítica de Riesgos Metodológicos: La Trampa de Fuga de Datos en TCGA</h3>
+                        </div>
+                        <span class="eje-badge" style="border-color: var(--accent-amber); color: var(--accent-amber);">Gobernanza de Datos</span>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            El análisis comparativo descubrió una interdependencia crítica que debe ser estrictamente regulada en el diseño experimental de la tesis: <strong>la reutilización masiva del repositorio público TCGA</strong>.
+                        </p>
+
+                        <div class="callout-box amber" style="margin: 14px 0; background: rgba(245, 158, 11, 0.08); border-color: rgba(245, 158, 11, 0.3);">
+                            <div class="callout-title" style="color: var(--accent-amber);">
+                                <span>⚠️</span> Alerta de Contaminación Cruzada (Data Contamination) entre Datasets
+                            </div>
+                            <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                <strong>Cuatro de los ocho datasets analizados comparten las mismas láminas histológicas de TCGA:</strong>
+                                <br>&bull; <strong>HistGen:</strong> 7,690 casos en 32 cohortes de TCGA.
+                                <br>&bull; <strong>Wsi-Caption (PathText):</strong> 9,009 casos en 30 proyectos de TCGA.
+                                <br>&bull; <strong>PathGen-1.6M:</strong> 1,620,876 parches extraídos de 7,300 láminas de TCGA.
+                                <br>&bull; <strong>WSI-VQA:</strong> Preguntas basadas en la cohorte TCGA-BRCA.
+                                <br><strong>Peligro Experimental:</strong> Si un modelo se preentrena o ajusta sobre los parches de PathGen-1.6M y posteriormente se evalúa sobre HistGen o Wsi-Caption sin verificar los identificadores de paciente, <strong>las métricas estarán severamente falseadas por memorización visual de cortes del mismo tumor</strong>.
+                            </p>
+                        </div>
+
+                        <div class="grid-2col" style="margin-top: 14px;">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">🛡️ Regla 1: Aislamiento por Patient ID</h4>
+                                <p style="margin: 0; font-size: 0.85rem; line-height: 1.6;">
+                                    La partición de datos (train / val / test) <strong>nunca debe realizarse a nivel de parche ni a nivel de lámina (slide)</strong>. La unidad atómica obligatoria es el <code>Patient ID</code> de TCGA (ej. <code>TCGA-XX-XXXX</code>). Ningún corte diagnóstico (DX1, DX2) ni tejido congelado de un paciente en prueba puede haber sido visto durante el entrenamiento.
+                                </p>
+                            </div>
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">🏆 Regla 2: Evaluación en Cohortes Externas (Out-of-Distribution)</h4>
+                                <p style="margin: 0; font-size: 0.85rem; line-height: 1.6;">
+                                    El estándar de oro metodológico adoptado por Sun et al. en ICLR 2025 para validar PathGen-CLIP fue <strong>prohibir evaluar en TCGA</strong>, utilizando exclusivamente cohortes clínicas multicéntricas independientes: <strong>CAMELYON-16</strong>, <strong>CAMELYON-17</strong>, <strong>BRACS</strong>, <strong>BACH</strong>, <strong>CRC-100K</strong> y <strong>SICAPv2</strong>. Este protocolo debe ser replicado en la tesis.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SECCIÓN 6: IMPLICACIONES ESTRATÉGICAS Y PLAN DE ACCIÓN PARA LA TESIS -->
+                <div class="eje-block" style="border: 1px solid rgba(74, 222, 128, 0.4); background: rgba(6, 95, 70, 0.08);">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number" style="background: var(--accent-green); color: #0b1120;">M6</span>
+                            <h3 class="eje-title">Directrices Estratégicas y Recomendaciones para la Tesis de Maestría</h3>
+                        </div>
+                        <span class="eje-badge" style="border-color: var(--accent-green); color: var(--accent-green);">Alineación con Objetivos</span>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            La síntesis científica profunda de estos 8 datasets proporciona la base teórica y experimental para ejecutar con máxima rigurosidad los cuatro objetivos de la investigación:
+                        </p>
+
+                        <div class="grid-2col">
+                            
+                            <!-- Objetivo 1 y 2 -->
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">🎯 Objetivos Específicos 1 y 2: Consolidación &amp; Selección de Modelos</h4>
+                                <ul style="margin: 0; padding-left: 18px; font-size: 0.88rem; line-height: 1.6;">
+                                    <li><strong>Estandarización en 4 Macro-Tareas:</strong>
+                                        <br>1. <em>Zero-Shot &amp; Retrieval en Parches:</em> Suite de 9 datasets (Pcam, CRC-100K, BACH, SkinCancer).
+                                        <br>2. <em>Generación de Reportes en WSI:</em> HistGen vs. Wsi-Caption sobre cohortes balanceadas.
+                                        <br>3. <em>Instruction Tuning &amp; VQA Clínico:</em> Quilt-Instruct / Quilt-VQA.
+                                        <br>4. <em>Razonamiento Médico Experto:</em> Benchmark PathMMU (5 dominios).
+                                    </li>
+                                    <li><strong>Baselines Obligatorios de Patología:</strong>
+                                        <br>&bull; <em>Encoders / CLIP:</em> PathGen-CLIP-L (ViT-L@336), QuiltNet (ViT-B), PLIP, BiomedCLIP.
+                                        <br>&bull; <em>Generadores WSI:</em> HistGen (LGH+CMC), MI-Gen (PAM).
+                                        <br>&bull; <em>LMMs Multimodales:</em> PathGen-LLaVA (13B), Quilt-LLaVA (7B/13B).
+                                    </li>
+                                    <li><strong>Modelos Fundacionales Generales a Contrastar:</strong> GPT-4o, Gemini 1.5 Pro, Claude 3.5 Sonnet, LLaVA-1.5-13B, Qwen-2-VL.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Objetivo 3 y 4 -->
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">🧪 Objetivos Específicos 3 y 4: Diseño Experimental &amp; Evaluación</h4>
+                                <ul style="margin: 0; padding-left: 18px; font-size: 0.88rem; line-height: 1.6;">
+                                    <li><strong>Diseño Experimental Anti-Sesgo:</strong>
+                                        <br>&bull; Evaluación con y sin imagen microscópica para calcular la ganancia visual real ($\Delta_{	ext{vis}}$) y reportar el porcentaje de alucinación sintáctica del LLM.
+                                        <br>&bull; Prompts diagnósticos estandarizados idénticos para modelos especializados y comerciales.
+                                    </li>
+                                    <li><strong>Batería de Métricas Multicriterio:</strong>
+                                        <br>&bull; <em>Calidad NLG de Reportes:</em> BLEU-1/4, ROUGE-L, METEOR.
+                                        <br>&bull; <em>Alineación Clínica Semántica:</em> GreenScore (precisión clínica con LLM evaluador), F1-score de extracción de entidades (biomarcadores ER/PR/HER2, tipo histológico, grado de Gleason).
+                                        <br>&bull; <em>Poder Discriminativo:</em> AUC-ROC en agregación MIL sobre láminas completas de CAMELYON y BRACS.
+                                    </li>
+                                </ul>
+                            </div>
+
                         </div>
 
                     </div>
