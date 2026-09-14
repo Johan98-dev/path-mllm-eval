@@ -913,7 +913,7 @@
                             <text x="30" y="42" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="1">FASE 1: FUENTES DE DATOS</text>
 
                             <rect x="295" y="15" width="310" height="470" rx="10" fill="#0f172a" stroke="#334155" stroke-dasharray="4"/>
-                            <text x="310" y="42" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="1">FASE 2: CURACIÓN & DENOISING</text>
+                            <text x="310" y="42" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="1">FASE 2: CURACIÓN &amp; DENOISING</text>
 
                             <rect x="625" y="15" width="540" height="470" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
                             <text x="640" y="42" fill="#38bdf8" font-size="11" font-weight="800" letter-spacing="1">FASE 3: MODELO QUILTNET (LATE FUSION CLIP)</text>
@@ -977,11 +977,11 @@
                             <!-- Text Stream -->
                             <g transform="translate(310, 230)">
                                 <rect width="280" height="175" rx="8" fill="#1e293b" stroke="#6366f1" stroke-width="1.5"/>
-                                <text x="12" y="22" fill="#c084fc" font-size="11" font-weight="800">CANAL TEXTUAL (AUDIO & ASR)</text>
+                                <text x="12" y="22" fill="#c084fc" font-size="11" font-weight="800">CANAL TEXTUAL (AUDIO &amp; ASR)</text>
                                 <text x="12" y="42" fill="#cbd5e1" font-size="10">• Transcripción ASR: Whisper Large-V2</text>
                                 <text x="12" y="58" fill="#cbd5e1" font-size="10">• Extracción RAKE + SciSpacy Entity Linker</text>
                                 <text x="12" y="74" fill="#cbd5e1" font-size="10">• Spellchecker con diccionario de patología</text>
-                                <text x="12" y="90" fill="#cbd5e1" font-size="10">• Denoising & Extracción con GPT-3.5 (T=0)</text>
+                                <text x="12" y="90" fill="#cbd5e1" font-size="10">• Denoising &amp; Extracción con GPT-3.5 (T=0)</text>
                                 <text x="12" y="106" fill="#cbd5e1" font-size="10">• Doble verificación contra Ontologías UMLS</text>
                                 <text x="12" y="122" fill="#cbd5e1" font-size="10">• Extracción de Texto de ROI ("look here...")</text>
                                 <rect x="10" y="136" width="260" height="28" rx="4" fill="#312e81"/>
@@ -1042,8 +1042,8 @@
                             <!-- Output Tasks -->
                             <g transform="translate(650, 400)">
                                 <rect width="495" height="70" rx="8" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
-                                <text x="14" y="22" fill="#4ade80" font-size="11" font-weight="800">INFERENCIA & TAREAS DE EVALUACIÓN EXTERNA (OUTPUTS)</text>
-                                <text x="14" y="40" fill="#cbd5e1" font-size="10">1. Zero-Shot Classification: Logits de similitud con plantillas de texto ("An H&E image patch of...")</text>
+                                <text x="14" y="22" fill="#4ade80" font-size="11" font-weight="800">INFERENCIA &amp; TAREAS DE EVALUACIÓN EXTERNA (OUTPUTS)</text>
+                                <text x="14" y="40" fill="#cbd5e1" font-size="10">1. Zero-Shot Classification: Logits de similitud con plantillas de texto ("An H&amp;E image patch of...")</text>
                                 <text x="14" y="56" fill="#cbd5e1" font-size="10">2. Cross-Modal Retrieval (Text-to-Image / Image-to-Text) • 3. Linear Probing con frozen features z_I</text>
                             </g>
 
@@ -1547,7 +1547,7 @@
 
                             <!-- Background Zones -->
                             <rect x="15" y="15" width="280" height="530" rx="10" fill="#0f172a" stroke="#334155" stroke-dasharray="4"/>
-                            <text x="30" y="42" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="1">ETAPA A: CURACIÓN DE CURSORES & PROMPTS</text>
+                            <text x="30" y="42" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="1">ETAPA A: CURACIÓN DE CURSORES &amp; PROMPTS</text>
 
                             <rect x="315" y="15" width="360" height="530" rx="10" fill="#0f172a" stroke="#334155" stroke-dasharray="4"/>
                             <text x="330" y="42" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="1">ETAPA B: DATASET QUILT-INSTRUCT (107K)</text>
@@ -2113,7 +2113,7 @@
                                 <!-- Lane 1: Extraction from Held-out Videos -->
                                 <g transform="translate(40, 60)">
                                     <rect width="260" height="180" rx="10" fill="url(#gradQV1)" stroke="#334155" stroke-width="1.5"/>
-                                    <text x="130" y="26" fill="#38bdf8" font-size="12" font-weight="700" text-anchor="middle">FASE 1: FUENTE & AISLAMIENTO</text>
+                                    <text x="130" y="26" fill="#38bdf8" font-size="12" font-weight="700" text-anchor="middle">FASE 1: FUENTE &amp; AISLAMIENTO</text>
                                     <rect x="15" y="42" width="230" height="42" rx="6" fill="#1e293b" stroke="#475569"/>
                                     <text x="25" y="58" fill="#e2e8f0" font-size="10" font-weight="600">Videos Pedagógicos YouTube</text>
                                     <text x="25" y="74" fill="#94a3b8" font-size="9">Conjunto ciego (Held-out, sin solapamiento)</text>
@@ -2135,7 +2135,7 @@
                                     <text x="25" y="138" fill="#a7f3d0" font-size="10" font-weight="700">★ 985 Preguntas Validadas Clínicamente</text>
                                 </g>
 
-                                <!-- Lane 3: Benchmark Packaging & Split Taxonomy -->
+                                <!-- Lane 3: Benchmark Packaging &amp; Split Taxonomy -->
                                 <g transform="translate(710, 60)">
                                     <rect width="250" height="180" rx="10" fill="url(#gradQVBench)" stroke="#6366f1" stroke-width="1.5"/>
                                     <text x="125" y="26" fill="#c7d2fe" font-size="12" font-weight="700" text-anchor="middle">FASE 3: TAXONOMÍA DUAL VQA</text>
@@ -2154,7 +2154,7 @@
                                 <line x1="650" y1="150" x2="706" y2="150" stroke="#4ade80" stroke-width="2.5" marker-end="url(#qvArrowGreen)"/>
                                 <line x1="835" y1="240" x2="835" y2="286" stroke="#c084fc" stroke-width="2.5" marker-end="url(#qvArrowPurple)"/>
 
-                                <!-- Lane 4: Evaluation Protocol & LMM Inference (Bottom) -->
+                                <!-- Lane 4: Evaluation Protocol &amp; LMM Inference (Bottom) -->
                                 <g transform="translate(40, 290)">
                                     <rect width="920" height="200" rx="10" fill="url(#gradQVEval)" stroke="#c084fc" stroke-width="1.5"/>
                                     <text x="460" y="28" fill="#f5d0fe" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="1">FASE 4: PROTOCOLO DE EVALUACIÓN MULTIMODAL (TEST BENCHMARK)</text>
@@ -2177,7 +2177,7 @@
                                     <text x="320" y="148" fill="#cbd5e1" font-size="10">• Modelos Zero-Shot (GPT-4V)</text>
                                     <text x="320" y="166" fill="#fde047" font-size="9.5">Generación autoregresiva de respuesta</text>
 
-                                    <!-- Metrics & Judge Block -->
+                                    <!-- Metrics &amp; Judge Block -->
                                     <rect x="605" y="46" width="290" height="135" rx="8" fill="#3b0764" stroke="#a855f7"/>
                                     <text x="750" y="70" fill="#f0abfc" font-size="11" font-weight="700" text-anchor="middle">3. PROTOCOLO DE MÉTRICAS</text>
                                     <text x="620" y="94" fill="#ffffff" font-size="10" font-weight="700">A. Preguntas Cerradas (Yes/No):</text>
@@ -2715,18 +2715,18 @@
                                     <text x="130" y="24" fill="#38bdf8" font-size="11.5" font-weight="700" text-anchor="middle">1. INGESTA DE 5 FUENTES</text>
                                     
                                     <rect x="15" y="38" width="230" height="128" rx="6" fill="#1e293b" stroke="#475569"/>
-                                    <text x="25" y="56" fill="#cbd5e1" font-size="9.5">• <strong>PubMed:</strong> 3,301 casos clínicos (31.8%)</text>
-                                    <text x="25" y="74" fill="#cbd5e1" font-size="9.5">• <strong>EduContent:</strong> 2,084 material docente (20.1%)</text>
-                                    <text x="25" y="92" fill="#cbd5e1" font-size="9.5">• <strong>SocialPath:</strong> 2,010 foros/PathTwitter (19.4%)</text>
-                                    <text x="25" y="110" fill="#cbd5e1" font-size="9.5">• <strong>PathCLS:</strong> 1,905 subclasificación (18.3%)</text>
-                                    <text x="25" y="128" fill="#cbd5e1" font-size="9.5">• <strong>Atlas:</strong> 1,087 atlas patológicos (10.5%)</text>
-                                    <text x="25" y="152" fill="#38bdf8" font-size="10" font-weight="700">Total: >30,000 pares imagen-caption</text>
+                                    <text x="25" y="56" fill="#cbd5e1" font-size="9.5">• <tspan fill="#38bdf8" font-weight="700">PubMed:</tspan> 3,301 casos clínicos (31.8%)</text>
+                                    <text x="25" y="74" fill="#cbd5e1" font-size="9.5">• <tspan fill="#4ade80" font-weight="700">EduContent:</tspan> 2,084 material docente (20.1%)</text>
+                                    <text x="25" y="92" fill="#cbd5e1" font-size="9.5">• <tspan fill="#fb7185" font-weight="700">SocialPath:</tspan> 2,010 foros/PathTwitter (19.4%)</text>
+                                    <text x="25" y="110" fill="#cbd5e1" font-size="9.5">• <tspan fill="#c084fc" font-weight="700">PathCLS:</tspan> 1,905 subclasificación (18.3%)</text>
+                                    <text x="25" y="128" fill="#cbd5e1" font-size="9.5">• <tspan fill="#fbbf24" font-weight="700">Atlas:</tspan> 1,087 atlas patológicos (10.5%)</text>
+                                    <text x="25" y="152" fill="#38bdf8" font-size="10" font-weight="700">Total: &gt;30,000 pares imagen-caption</text>
                                 </g>
 
-                                <!-- Lane 2: Cascading Generation & Pathologist Scrutiny -->
+                                <!-- Lane 2: Cascading Generation and Pathologist Scrutiny -->
                                 <g transform="translate(360, 60)">
                                     <rect width="300" height="180" rx="10" fill="url(#gradPMDoc)" stroke="#059669" stroke-width="1.5"/>
-                                    <text x="150" y="24" fill="#86efac" font-size="11.5" font-weight="700" text-anchor="middle">2. CURADURÍA & 7 PATÓLOGOS</text>
+                                    <text x="150" y="24" fill="#86efac" font-size="11.5" font-weight="700" text-anchor="middle">2. CURADURÍA Y 7 PATÓLOGOS</text>
                                     
                                     <rect x="15" y="38" width="270" height="128" rx="6" fill="#064e3b" stroke="#10b981"/>
                                     <text x="25" y="56" fill="#ffffff" font-size="10" font-weight="700">A. Pipeline en Cascada (GPT-4V):</text>
@@ -2759,7 +2759,7 @@
                                 <line x1="660" y1="150" x2="706" y2="150" stroke="#4ade80" stroke-width="2.5" marker-end="url(#pmArrowGreen)"/>
                                 <line x1="835" y1="240" x2="835" y2="286" stroke="#fb7185" stroke-width="2.5" marker-end="url(#pmArrowRose)"/>
 
-                                <!-- Lane 4: Evaluation Protocol & Models (Bottom) -->
+                                <!-- Lane 4: Evaluation Protocol and Models (Bottom) -->
                                 <g transform="translate(40, 290)">
                                     <rect width="920" height="200" rx="10" fill="url(#gradPMEval)" stroke="#818cf8" stroke-width="1.5"/>
                                     <text x="460" y="28" fill="#e0e7ff" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="1">4. PROTOCOLO DE EVALUACIÓN MULTIMODAL (TEST BENCHMARK)</text>
@@ -2767,8 +2767,8 @@
                                     <!-- Input Block -->
                                     <rect x="25" y="46" width="230" height="135" rx="8" fill="#1e1b4b" stroke="#6366f1"/>
                                     <text x="140" y="70" fill="#a5b4fc" font-size="11" font-weight="700" text-anchor="middle">ENTRADA AL MODELO</text>
-                                    <text x="40" y="94" fill="#ffffff" font-size="10">🖼️ Parche Histológico ($I$)</text>
-                                    <text x="40" y="112" fill="#ffffff" font-size="10">❓ Pregunta Clínica ($Q$)</text>
+                                    <text x="40" y="94" fill="#ffffff" font-size="10">🖼️ Parche Histológico (Imagen)</text>
+                                    <text x="40" y="112" fill="#ffffff" font-size="10">❓ Pregunta Clínica (Texto)</text>
                                     <text x="40" y="130" fill="#ffffff" font-size="10">🔤 4 Opciones: A, B, C, D</text>
                                     <text x="40" y="152" fill="#c7d2fe" font-size="9.5">• Split test: 8,521 (82.0%)</text>
                                     <text x="40" y="168" fill="#86efac" font-size="9.5">• Split test_tiny: 1,156 (11.1%)</text>
@@ -2782,7 +2782,7 @@
                                     <text x="325" y="148" fill="#cbd5e1" font-size="10">• PathAsst / LLaVA-Med / BiomedCLIP</text>
                                     <text x="325" y="166" fill="#cbd5e1" font-size="10">• Open-source Zero-shot: 30% - 38%</text>
 
-                                    <!-- Metrics & Judge Block -->
+                                    <!-- Metrics and Judge Block -->
                                     <rect x="635" y="46" width="260" height="135" rx="8" fill="#1e1b4b" stroke="#6366f1"/>
                                     <text x="765" y="70" fill="#a5b4fc" font-size="11" font-weight="700" text-anchor="middle">MÉTRICAS DEL BENCHMARK</text>
                                     <text x="650" y="94" fill="#ffffff" font-size="10" font-weight="700">1. Precisión Opción Múltiple:</text>
