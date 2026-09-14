@@ -4,6 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Síntesis Científica y Metodológica de Datasets Multimodales | Tesis de Maestría</title>
+    
+    <!-- KaTeX for Rendering LaTeX Mathematical Formulas and Expressions -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function renderMath() {
+                if (window.renderMathInElement) {
+                    renderMathInElement(document.body, {
+                        delimiters: [
+                            {left: "$$", right: "$$", display: true},
+                            {left: "$", right: "$", display: false}
+                        ],
+                        throwOnError: false
+                    });
+                } else {
+                    setTimeout(renderMath, 100);
+                }
+            }
+            renderMath();
+        });
+    </script>
+
     <style>
         :root {
             --bg-color: #0b1120;
@@ -554,13 +578,28 @@
             background: #090e17;
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 14px 18px;
-            font-family: "Cambria Math", "Times New Roman", serif;
+            padding: 16px 20px;
             font-size: 1.05rem;
             color: #f1f5f9;
             text-align: center;
-            margin: 14px 0;
+            margin: 16px 0;
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+            overflow-x: auto;
+        }
+
+        /* KaTeX Math Dark Theme Custom Styling */
+        .katex {
+            font-size: 1.06em;
+            color: #f8fafc;
+        }
+        .katex-display {
+            margin: 0.5em 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 4px 0;
+        }
+        .katex-display > .katex {
+            white-space: normal;
         }
 
         /* Schema Field Pill */
@@ -996,7 +1035,7 @@
                             <!-- Output Tasks -->
                             <g transform="translate(650, 400)">
                                 <rect width="495" height="70" rx="8" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
-                                <text x="14" y="22" fill="#4ade80" font-size="11" font-weight="800">INFERENCIA & TAREAS DE EVALUACIÓN EXTERNA ($OUTPUTS$)</text>
+                                <text x="14" y="22" fill="#4ade80" font-size="11" font-weight="800">INFERENCIA & TAREAS DE EVALUACIÓN EXTERNA (OUTPUTS)</text>
                                 <text x="14" y="40" fill="#cbd5e1" font-size="10">1. Zero-Shot Classification: Logits de similitud con plantillas de texto ("An H&E image patch of...")</text>
                                 <text x="14" y="56" fill="#cbd5e1" font-size="10">2. Cross-Modal Retrieval (Text-to-Image / Image-to-Text) • 3. Linear Probing con frozen features z_I</text>
                             </g>
@@ -1014,7 +1053,7 @@
                     <div class="eje-header">
                         <div class="eje-title-group">
                             <span class="eje-number">5</span>
-                            <h3 class="eje-title">Organización de Campos y Flujo Entrada/Salida ($I/O$)</h3>
+                            <h3 class="eje-title">Organización de Campos y Flujo Entrada/Salida (I/O)</h3>
                         </div>
                         <span class="eje-badge">Arquitectura de Datos</span>
                     </div>
@@ -1094,14 +1133,14 @@
 
                     <div class="subgrid-2col">
                         <div class="card-inner">
-                            <h4 class="card-inner-title">📥 ¿Qué Entradas Recibe el Modelo? ($Inputs$)</h4>
+                            <h4 class="card-inner-title">📥 ¿Qué Entradas Recibe el Modelo? (Inputs)</h4>
                             <p style="margin: 0; font-size: 0.88rem;">
                                 <strong>1. Entrada Visual:</strong> Tensor de parche RGB de dimensiones $[B, 3, 224, 224]$, normalizado con la media y desviación estándar de ImageNet/OpenCLIP. En el preentrenamiento de ViT-B/32, los parches se redimensionaron inicialmente a 512 y se recortaron aleatoriamente a 224.<br><br>
                                 <strong>2. Entrada Textual:</strong> Tensor de tokens $[B, L]$ ($L=77$ para GPT-2, o $L=256$ para PubMedBERT) obtenido tras muestrear aleatoriamente entre <code>caption</code> o <code>roi_text</code> con probabilidad $p$ parametrizada.
                             </p>
                         </div>
                         <div class="card-inner">
-                            <h4 class="card-inner-title">📤 ¿Qué Salidas Genera el Modelo? ($Outputs$)</h4>
+                            <h4 class="card-inner-title">📤 ¿Qué Salidas Genera el Modelo? (Outputs)</h4>
                             <p style="margin: 0; font-size: 0.88rem;">
                                 <strong>1. En Preentrenamiento:</strong> Dos vectores normalizados de dimensión latente $d=512$: $\mathbf{z}_I = f_{\text{img}}(x_{\text{img}})$ y $\mathbf{z}_T = f_{\text{txt}}(x_{\text{txt}})$, donde $\|\mathbf{z}_I\|_2 = \|\mathbf{z}_T\|_2 = 1$.<br><br>
                                 <strong>2. En Evaluación Zero-Shot:</strong> Distribución de probabilidades de clase vía Softmax:
