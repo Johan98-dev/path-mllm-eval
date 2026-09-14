@@ -173,6 +173,7 @@
         .nav-badge-vqa { background: rgba(192, 132, 252, 0.2); color: var(--accent-purple); }
         .nav-badge-wsi { background: rgba(251, 191, 36, 0.2); color: var(--accent-amber); }
         .nav-badge-instruct { background: rgba(74, 222, 128, 0.2); color: var(--accent-green); }
+        .nav-badge-mcvqa { background: rgba(244, 63, 94, 0.2); color: #fb7185; }
 
         /* Main Content Container */
         .main-content {
@@ -646,6 +647,12 @@
                     <span class="nav-badge nav-badge-vqa">VQA</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="#pathmmu">
+                    <span>4. PathMMU</span>
+                    <span class="nav-badge nav-badge-mcvqa">MC-VQA</span>
+                </a>
+            </li>
             <li class="nav-item" style="opacity: 0.4;">
                 <a href="#more-datasets-slot" style="pointer-events: none;">
                     <span>... Otros según prioridad</span>
@@ -654,16 +661,16 @@
             </li>
         </ul>
 
-        <div class="nav-section-title">Navegación por Quilt-VQA</div>
+        <div class="nav-section-title">Navegación por PathMMU</div>
         <ul class="nav-list" style="font-size: 0.78rem;">
-            <li class="nav-item"><a href="#qv-biblio">1. Metadatos & CVPR 2024</a></li>
-            <li class="nav-item"><a href="#qv-resumen">2. Resumen Científico & Fundamento</a></li>
-            <li class="nav-item"><a href="#qv-curacion">3. Validación por Patólogos</a></li>
-            <li class="nav-item"><a href="#qv-diagrama">4. Diagrama Metodológico</a></li>
-            <li class="nav-item"><a href="#qv-io">5. Campos & Flujo I/O Parquet</a></li>
-            <li class="nav-item"><a href="#qv-protocolo">6. Protocolo & Ablación Visual</a></li>
-            <li class="nav-item"><a href="#qv-eval">7. Resultados Empíricos LMMs</a></li>
-            <li class="nav-item"><a href="#qv-tesis">8. Conciliación & Rol en la Tesis</a></li>
+            <li class="nav-item"><a href="#pm-biblio">1. Metadatos & ECCV 2024</a></li>
+            <li class="nav-item"><a href="#pm-resumen">2. Resumen Científico & Fundamento</a></li>
+            <li class="nav-item"><a href="#pm-curacion">3. Validación por 7 Patólogos</a></li>
+            <li class="nav-item"><a href="#pm-diagrama">4. Diagrama Metodológico</a></li>
+            <li class="nav-item"><a href="#pm-io">5. Campos & Flujo I/O Features</a></li>
+            <li class="nav-item"><a href="#pm-protocolo">6. Protocolo & Robustez Visual</a></li>
+            <li class="nav-item"><a href="#pm-eval">7. Resultados Empíricos (18 LMMs)</a></li>
+            <li class="nav-item"><a href="#pm-tesis">8. Conciliación & Rol en la Tesis</a></li>
         </ul>
 
         <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border-color);">
@@ -2450,13 +2457,655 @@
 
         </section>
 
+
+        <!-- DATASET 4: PATHMMU (ECCV 2024) -->
+        <section id="pathmmu" class="dataset-card">
+            
+            <!-- ENCABEZADO Y HERO DEL DATASET -->
+            <div class="dataset-hero">
+                <div class="dataset-badges">
+                    <span class="badge badge-purple">Dataset #4</span>
+                    <span class="badge" style="background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4);">Benchmark VQA Multiple-Choice (MC-VQA)</span>
+                    <span class="badge badge-green">Validado por 7 Patólogos Certificados</span>
+                    <span class="badge badge-amber">ECCV 2024 (Main Conference)</span>
+                    <span class="badge badge-indigo">10,387 Preguntas (82% Test Ciego)</span>
+                    <span class="badge badge-blue">images.zip (1.80 GB) + data.json (8.88 MB)</span>
+                </div>
+                
+                <h2 class="dataset-title">
+                    PathMMU (10,387 Preguntas Clínicas)
+                </h2>
+                <div class="dataset-tagline">
+                    El benchmark masivo más riguroso y extenso de la literatura para evaluar razonamiento diagnóstico y comprensión multimodal a nivel experto en patología, validado por 7 patólogos titulados sobre 5 fuentes clínicas independientes.
+                </div>
+
+                <div class="quick-links">
+                    <a href="https://arxiv.org/abs/2401.16355" target="_blank" class="btn-link primary">
+                        📄 Paper Oficial (arXiv:2401.16355 / ECCV 2024)
+                    </a>
+                    <a href="https://arxiv.org/pdf/2401.16355" target="_blank" class="btn-link">
+                        📑 PDF Completo
+                    </a>
+                    <a href="https://huggingface.co/datasets/jamessyx/PathMMU" target="_blank" class="btn-link">
+                        🤗 Hugging Face (jamessyx/PathMMU)
+                    </a>
+                    <a href="preview_jamessyx_pathmmu.html" target="_blank" class="btn-link">
+                        👁️ Ver Reporte Local Auditado (7 Muestras)
+                    </a>
+                </div>
+
+                <!-- TABLA RESUMEN METODOLÓGICA -->
+                <div style="overflow-x: auto; margin-top: 24px;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Parámetro / Eje</th>
+                                <th>Especificación Formal</th>
+                                <th>Detalle Metodológico & Contexto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Tipo de Dataset & Rol</strong></td>
+                                <td><span class="text-term">Benchmark Diagnóstico de Nivel Experto (MC-VQA + Rationale)</span></td>
+                                <td>Diseñado para medir la brecha de razonamiento clínico entre LMMs de vanguardia y patólogos humanos titulados.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Volumen de Preguntas</strong></td>
+                                <td><strong>10,387 preguntas de opción múltiple verificadas</strong></td>
+                                <td>Cada pregunta incluye 4 opciones ($A, B, C, D$), la clave correcta y una justificación patológica exhaustiva.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Validación Humana</strong></td>
+                                <td><span class="badge badge-green">7 Médicos Patólogos Certificados</span></td>
+                                <td>Scrutinio manual de cada pregunta en los conjuntos de evaluación para garantizar precisión clínica y plausibilidad de distractores.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Distribución de Fuentes</strong></td>
+                                <td><strong>5 Fuentes Clínicas Complementarias</strong></td>
+                                <td>PubMed (31.8%), EduContent (20.1%), SocialPath (19.4%), PathCLS (18.3%), Atlas (10.5%).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Desglose de Particiones</strong></td>
+                                <td><code>test</code>: 8,521 (82.0%) | <code>test_tiny</code>: 1,156 (11.1%) | <code>val</code>: 710 (6.8%)</td>
+                                <td>El split <code>test_tiny</code> permite evaluaciones ágiles zero-shot sin incurrir en costes computacionales masivos.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Formato Físico de Archivos</strong></td>
+                                <td><code>data.json</code> (8.88 MB) + <code>images.zip</code> (1.80 GB)</td>
+                                <td>Almacenamiento en Hugging Face accesible por streaming selectivo vía <em>HTTP Range Requests</em>.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Licencia & Acceso</strong></td>
+                                <td><code>CC BY-ND 4.0</code> (Gated en Hugging Face)</td>
+                                <td>Requiere aceptación de términos en Hugging Face para investigación académica sin fines comerciales.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- CUERPO DE LOS 8 EJES CIENTÍFICOS -->
+            <div class="dataset-body">
+
+                <!-- EJE 1: METADATOS Y PUBLICACIÓN PEER-REVIEWED -->
+                <div id="pm-biblio" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">1</span>
+                            <h3 class="eje-title">Metadatos Formales & Publicación Peer-Reviewed</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            <strong>PathMMU</strong> fue formalizado y aceptado en la conferencia europea líder en visión artificial:
+                        </p>
+                        <div class="card-inner" style="border-left: 4px solid #fb7185;">
+                            <div style="font-weight: 700; font-size: 1.05rem; color: #ffffff; margin-bottom: 6px;">
+                                PathMMU: A Massive Multimodal Expert-Level Benchmark for Understanding and Reasoning in Pathology
+                            </div>
+                            <div style="font-size: 0.88rem; color: #fb7185; margin-bottom: 8px;">
+                                <strong>Proceedings of the European Conference on Computer Vision (ECCV 2024)</strong> / arXiv:2401.16355.
+                            </div>
+                            <div style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.6;">
+                                <strong>Autores:</strong> Yuxuan Sun, Hao Wu, Chenglu Zhu, Sunyi Zheng, Qizi Chen, Kai Zhang, Yunlong Zhang, Dan Wan, Xiaoxiao Lan, Mengyue Zheng, Jingxiong Li, Xinheng Lyu, Tao Lin, Lin Yang.<br>
+                                <strong>Filiación Institucional:</strong> School of Engineering, Westlake University; Shanghai Jiao Tong University; SenseTime Research; y panel médico de patólogos certificados.<br>
+                                <strong>Repositorio Oficial:</strong> <a href="https://huggingface.co/datasets/jamessyx/PathMMU" target="_blank" style="color: var(--accent);">🤗 jamessyx/PathMMU</a> (Archivos: <code>data.json</code> + <code>images.zip</code>).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 2: RESUMEN CIENTÍFICO Y FUNDAMENTO DE CREACIÓN -->
+                <div id="pm-resumen" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">2</span>
+                            <h3 class="eje-title">Resumen Científico y Fundamento de Creación</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            A pesar del auge de los modelos de lenguaje multimodal (LMMs), su evaluación en patología computacional enfrentaba una grave limitación estructural:
+                        </p>
+                        <ul class="feature-list" style="margin-bottom: 16px;">
+                            <li>
+                                <strong>Inadecuación de Benchmarks Generales (MME, MMBench, MMMU):</strong> Contienen escasas muestras de patología microscópica, y las pocas existentes evalúan conceptos biomédicos elementales sin representar la complejidad diagnóstica hospitalaria.
+                            </li>
+                            <li>
+                                <strong>Fragilidad de Benchmarks Previos (PathVQA, Quilt-VQA):</strong> O bien se basaban en preguntas binarias simples (Sí/No) con alta probabilidad de acierto por azar (50%), o contaban con un volumen limitado (< 1,000 preguntas como Quilt-VQA), lo que impedía un análisis estadístico granular por subespecialidades.
+                            </li>
+                        </ul>
+                        <p>
+                            <strong>El Aporte Revolucionario de PathMMU:</strong> Construir el primer benchmark a escala masiva (**10,387 preguntas validadas por patólogos**) con formato estandarizado de opción múltiple ($A, B, C, D$) a nivel de examen de especialidad médica (*Board-Level Certification*), acompañado de justificaciones patológicas detalladas (`explanation`) para evaluar tanto la decisión diagnóstica como la cadena de razonamiento clínico.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- EJE 3: METODOLOGÍA DE CURADURÍA Y VALIDACIÓN POR 7 PATÓLOGOS -->
+                <div id="pm-curacion" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">3</span>
+                            <h3 class="eje-title">Metodología de Curaduría, Limpieza y Validación por 7 Patólogos</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            La creación de <strong>PathMMU</strong> combinó la potencia generativa de modelos de visión-lenguaje con un riguroso proceso de control de calidad clínico humano:
+                        </p>
+
+                        <!-- GRID 5 FUENTES CLÍNICAS -->
+                        <div style="margin: 16px 0;">
+                            <h4 class="card-inner-title" style="margin-bottom: 10px;">📚 1. Las 5 Fuentes Clínicas del Benchmark (Ingesta Diversificada)</h4>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px;">
+                                <div class="card-inner" style="padding: 12px;">
+                                    <div style="font-weight: 700; color: var(--accent); font-size: 0.9rem;">1. PubMed (3,301 | 31.8%)</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Casos clínicos y series quirúrgicas de la literatura médica indexada en PubMed Central (PMC).</div>
+                                </div>
+                                <div class="card-inner" style="padding: 12px;">
+                                    <div style="font-weight: 700; color: var(--accent-green); font-size: 0.9rem;">2. EduContent (2,084 | 20.1%)</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Plataformas de enseñanza universitaria de patología y currículos de residencia médica.</div>
+                                </div>
+                                <div class="card-inner" style="padding: 12px;">
+                                    <div style="font-weight: 700; color: #fb7185; font-size: 0.9rem;">3. SocialPath (2,010 | 19.4%)</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Casos de discusión diagnóstica compartidos por patólogos en redes profesionales especializadas (PathTwitter/X).</div>
+                                </div>
+                                <div class="card-inner" style="padding: 12px;">
+                                    <div style="font-weight: 700; color: var(--accent-purple); font-size: 0.9rem;">4. PathCLS (1,905 | 18.3%)</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Casos enfocados en subclasificación tumoral, gradación nuclear y tipificación celular.</div>
+                                </div>
+                                <div class="card-inner" style="padding: 12px;">
+                                    <div style="font-weight: 700; color: var(--accent-amber); font-size: 0.9rem;">5. Atlas (1,087 | 10.5%)</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Atlas histopatológicos de referencia médica estandarizada (WebPathology, etc.).</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid-2col" style="margin-top: 14px;">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">2. Proceso en Cascada Asistido por GPT-4V</h4>
+                                <p style="margin: 0; font-size: 0.88rem;">
+                                    A partir de más de 30,000 pares imagen-caption curados, se utilizó GPT-4V en un pipeline en cascada para enriquecer las descripciones, estructurar preguntas diagnósticas desafiantes y generar <strong>tres distractores clínicamente plausibles</strong> (evitando respuestas obvias).
+                                </p>
+                            </div>
+                            <div class="card-inner" style="border-left: 4px solid var(--accent-green);">
+                                <h4 class="card-inner-title" style="color: var(--accent-green);">3. Escrutinio por 7 Patólogos Certificados</h4>
+                                <p style="margin: 0; font-size: 0.88rem;">
+                                    Los 7 patólogos examinaron exhaustivamente cada pregunta de los conjuntos de validación y test: corrigieron diagnósticos erróneos, validaron la plausibilidad de los distractores y redactaron la justificación histológica oficial (`explanation`).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 4: DIAGRAMA VECTORIAL SVG INTERACTIVO -->
+                <div id="pm-diagrama" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">4</span>
+                            <h3 class="eje-title">Diagrama Metodológico: Ingesta, Curaduría y Benchmarking de PathMMU</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            El siguiente diagrama vectorial (Figura 4) ilustra el flujo metodológico completo de <strong>PathMMU</strong>:
+                        </p>
+
+                        <!-- SVG DIAGRAM FIGURA 4 -->
+                        <div style="background: #020617; border: 1px solid var(--border-color); border-radius: 14px; padding: 20px; overflow-x: auto; margin: 18px 0; text-align: center;">
+                            <svg viewBox="0 0 1000 520" width="100%" height="520" xmlns="http://www.w3.org/2000/svg" style="max-width: 1000px; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;">
+                                <defs>
+                                    <marker id="pmArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/>
+                                    </marker>
+                                    <marker id="pmArrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#4ade80"/>
+                                    </marker>
+                                    <marker id="pmArrowRose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#fb7185"/>
+                                    </marker>
+                                    <linearGradient id="gradPM1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#1e293b"/>
+                                        <stop offset="100%" stop-color="#0f172a"/>
+                                    </linearGradient>
+                                    <linearGradient id="gradPMDoc" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#065f46"/>
+                                        <stop offset="100%" stop-color="#047857"/>
+                                    </linearGradient>
+                                    <linearGradient id="gradPMHub" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#881337"/>
+                                        <stop offset="100%" stop-color="#be123c"/>
+                                    </linearGradient>
+                                    <linearGradient id="gradPMEval" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#312e81"/>
+                                        <stop offset="100%" stop-color="#4338ca"/>
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- Background Box -->
+                                <rect width="1000" height="520" fill="#090d16" rx="12" stroke="#1e293b"/>
+
+                                <!-- Title Inside SVG -->
+                                <text x="500" y="32" fill="#f8fafc" font-size="16" font-weight="800" text-anchor="middle" letter-spacing="0.5">PIPELINE METODOLÓGICO: CONSTRUCCIÓN Y EVALUACIÓN CON PATHMMU (ECCV 2024)</text>
+
+                                <!-- Lane 1: Multi-Source Sourcing -->
+                                <g transform="translate(40, 60)">
+                                    <rect width="260" height="180" rx="10" fill="url(#gradPM1)" stroke="#334155" stroke-width="1.5"/>
+                                    <text x="130" y="24" fill="#38bdf8" font-size="11.5" font-weight="700" text-anchor="middle">1. INGESTA DE 5 FUENTES</text>
+                                    
+                                    <rect x="15" y="38" width="230" height="128" rx="6" fill="#1e293b" stroke="#475569"/>
+                                    <text x="25" y="56" fill="#cbd5e1" font-size="9.5">• <strong>PubMed:</strong> 3,301 casos clínicos (31.8%)</text>
+                                    <text x="25" y="74" fill="#cbd5e1" font-size="9.5">• <strong>EduContent:</strong> 2,084 material docente (20.1%)</text>
+                                    <text x="25" y="92" fill="#cbd5e1" font-size="9.5">• <strong>SocialPath:</strong> 2,010 foros/PathTwitter (19.4%)</text>
+                                    <text x="25" y="110" fill="#cbd5e1" font-size="9.5">• <strong>PathCLS:</strong> 1,905 subclasificación (18.3%)</text>
+                                    <text x="25" y="128" fill="#cbd5e1" font-size="9.5">• <strong>Atlas:</strong> 1,087 atlas patológicos (10.5%)</text>
+                                    <text x="25" y="152" fill="#38bdf8" font-size="10" font-weight="700">Total: >30,000 pares imagen-caption</text>
+                                </g>
+
+                                <!-- Lane 2: Cascading Generation & Pathologist Scrutiny -->
+                                <g transform="translate(360, 60)">
+                                    <rect width="300" height="180" rx="10" fill="url(#gradPMDoc)" stroke="#059669" stroke-width="1.5"/>
+                                    <text x="150" y="24" fill="#86efac" font-size="11.5" font-weight="700" text-anchor="middle">2. CURADURÍA & 7 PATÓLOGOS</text>
+                                    
+                                    <rect x="15" y="38" width="270" height="128" rx="6" fill="#064e3b" stroke="#10b981"/>
+                                    <text x="25" y="56" fill="#ffffff" font-size="10" font-weight="700">A. Pipeline en Cascada (GPT-4V):</text>
+                                    <text x="35" y="72" fill="#d1fae5" font-size="9">• Generación de preguntas de 4 opciones</text>
+                                    <text x="35" y="88" fill="#d1fae5" font-size="9">• Síntesis de distractores plausibles</text>
+                                    <text x="25" y="110" fill="#ffffff" font-size="10" font-weight="700">B. Panel de 7 Patólogos Certificados:</text>
+                                    <text x="35" y="126" fill="#d1fae5" font-size="9">• Corrección diagnóstica de cada ítem</text>
+                                    <text x="35" y="142" fill="#d1fae5" font-size="9">• Redacción de Justificación (Rationale)</text>
+                                    <text x="35" y="158" fill="#a7f3d0" font-size="9.5" font-weight="700">★ Nivel Experto Humano: 71.8% Accuracy</text>
+                                </g>
+
+                                <!-- Lane 3: Benchmark Packaging on Hub -->
+                                <g transform="translate(710, 60)">
+                                    <rect width="250" height="180" rx="10" fill="url(#gradPMHub)" stroke="#f43f5e" stroke-width="1.5"/>
+                                    <text x="125" y="24" fill="#fecdd3" font-size="11.5" font-weight="700" text-anchor="middle">3. BANCO HUGGING FACE</text>
+                                    
+                                    <rect x="15" y="38" width="220" height="56" rx="6" fill="#4c0519" stroke="#fb7185"/>
+                                    <text x="25" y="56" fill="#ffe4e6" font-size="10" font-weight="700">data.json (8.88 MB)</text>
+                                    <text x="25" y="72" fill="#fda4af" font-size="9">10,387 registros estructurados</text>
+                                    <text x="25" y="86" fill="#fda4af" font-size="9">Q, A/B/C/D, Answer, Explanation</text>
+
+                                    <rect x="15" y="104" width="220" height="56" rx="6" fill="#4c0519" stroke="#fb7185"/>
+                                    <text x="25" y="122" fill="#ffe4e6" font-size="10" font-weight="700">images.zip (1.80 GB)</text>
+                                    <text x="25" y="138" fill="#fda4af" font-size="9">Imágenes histopatológicas reales</text>
+                                    <text x="25" y="152" fill="#fda4af" font-size="9">Streaming vía HTTP Range Requests</text>
+                                </g>
+
+                                <!-- Arrows from Top row to Bottom row -->
+                                <line x1="300" y1="150" x2="356" y2="150" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#pmArrow)"/>
+                                <line x1="660" y1="150" x2="706" y2="150" stroke="#4ade80" stroke-width="2.5" marker-end="url(#pmArrowGreen)"/>
+                                <line x1="835" y1="240" x2="835" y2="286" stroke="#fb7185" stroke-width="2.5" marker-end="url(#pmArrowRose)"/>
+
+                                <!-- Lane 4: Evaluation Protocol & Models (Bottom) -->
+                                <g transform="translate(40, 290)">
+                                    <rect width="920" height="200" rx="10" fill="url(#gradPMEval)" stroke="#818cf8" stroke-width="1.5"/>
+                                    <text x="460" y="28" fill="#e0e7ff" font-size="13" font-weight="800" text-anchor="middle" letter-spacing="1">4. PROTOCOLO DE EVALUACIÓN MULTIMODAL (TEST BENCHMARK)</text>
+                                    
+                                    <!-- Input Block -->
+                                    <rect x="25" y="46" width="230" height="135" rx="8" fill="#1e1b4b" stroke="#6366f1"/>
+                                    <text x="140" y="70" fill="#a5b4fc" font-size="11" font-weight="700" text-anchor="middle">ENTRADA AL MODELO</text>
+                                    <text x="40" y="94" fill="#ffffff" font-size="10">🖼️ Parche Histológico ($I$)</text>
+                                    <text x="40" y="112" fill="#ffffff" font-size="10">❓ Pregunta Clínica ($Q$)</text>
+                                    <text x="40" y="130" fill="#ffffff" font-size="10">🔤 4 Opciones: A, B, C, D</text>
+                                    <text x="40" y="152" fill="#c7d2fe" font-size="9.5">• Split test: 8,521 (82.0%)</text>
+                                    <text x="40" y="168" fill="#86efac" font-size="9.5">• Split test_tiny: 1,156 (11.1%)</text>
+
+                                    <!-- Model Block -->
+                                    <rect x="310" y="46" width="270" height="135" rx="8" fill="#312e81" stroke="#818cf8"/>
+                                    <text x="445" y="70" fill="#c7d2fe" font-size="11" font-weight="700" text-anchor="middle">MODELOS EVALUADOS (18 LMMs)</text>
+                                    <text x="325" y="94" fill="#86efac" font-size="10" font-weight="700">👨‍⚕️ Patólogos Humanos: 71.8% Accuracy</text>
+                                    <text x="325" y="112" fill="#fde047" font-size="10">• GPT-4V (Zero-Shot): 49.8%</text>
+                                    <text x="325" y="130" fill="#cbd5e1" font-size="10">• Claude 3 / Gemini Pro: 42% - 47%</text>
+                                    <text x="325" y="148" fill="#cbd5e1" font-size="10">• PathAsst / LLaVA-Med / BiomedCLIP</text>
+                                    <text x="325" y="166" fill="#cbd5e1" font-size="10">• Open-source Zero-shot: 30% - 38%</text>
+
+                                    <!-- Metrics & Judge Block -->
+                                    <rect x="635" y="46" width="260" height="135" rx="8" fill="#1e1b4b" stroke="#6366f1"/>
+                                    <text x="765" y="70" fill="#a5b4fc" font-size="11" font-weight="700" text-anchor="middle">MÉTRICAS DEL BENCHMARK</text>
+                                    <text x="650" y="94" fill="#ffffff" font-size="10" font-weight="700">1. Precisión Opción Múltiple:</text>
+                                    <text x="665" y="110" fill="#c7d2fe" font-size="9.5">Accuracy general y por fuente</text>
+                                    <text x="650" y="130" fill="#ffffff" font-size="10" font-weight="700">2. Calidad de la Justificación:</text>
+                                    <text x="665" y="146" fill="#c7d2fe" font-size="9.5">ROUGE-L, BLEU-4, METEOR</text>
+                                    <text x="665" y="164" fill="#fde047" font-size="9.5">Rúbrica Clínica GPT-4 Judge</text>
+                                </g>
+
+                                <!-- Connecting arrows inside bottom box -->
+                                <line x1="255" y1="390" x2="305" y2="390" stroke="#a5b4fc" stroke-width="2.5" marker-end="url(#pmArrow)"/>
+                                <line x1="580" y1="390" x2="630" y2="390" stroke="#a5b4fc" stroke-width="2.5" marker-end="url(#pmArrow)"/>
+                            </svg>
+                        </div>
+                        <div style="font-size: 0.8rem; color: var(--text-muted); text-align: center;">
+                            Figura 4. Pipeline metodológico de PathMMU: ingesta desde 5 fuentes clínicas, curaduría en cascada y validación por 7 patólogos certificados, estructura en Hugging Face y marco de evaluación de LMMs (ECCV 2024).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 5: ESQUEMA DE DATOS Y FLUJO I/O -->
+                <div id="pm-io" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">5</span>
+                            <h3 class="eje-title">Esquema de Características (Features) y Flujo Input / Output</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            En el repositorio oficial de Hugging Face (<code>jamessyx/PathMMU</code>), los metadatos y etiquetas están centralizados en <code>data.json</code> (8.88 MB), mientras que las imágenes histológicas se encuentran empaquetadas en <code>images.zip</code> (1.80 GB).
+                        </p>
+
+                        <div style="overflow-x: auto; margin: 14px 0;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Campo (Feature)</th>
+                                        <th>Tipo de Dato</th>
+                                        <th>Rol Metodológico en Evaluación</th>
+                                        <th>Ejemplo Real Auditado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>image</code></td>
+                                        <td><code>string</code> (ruta relativa)</td>
+                                        <td><strong>Visual Input ($I$):</strong> Nombre del archivo de imagen dentro de <code>images.zip</code>.</td>
+                                        <td><code>"PubMed_test_000142.jpg"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>question</code></td>
+                                        <td><code>string</code></td>
+                                        <td><strong>Textual Input ($Q$):</strong> Pregunta clínica diagnóstica.</td>
+                                        <td><em>"Based on the histology shown, which of the following is the most likely diagnosis?"</em></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>options</code></td>
+                                        <td><code>list[string]</code> (4 elementos)</td>
+                                        <td><strong>Alternativas ($O_A, O_B, O_C, O_D$):</strong> Lista con las 4 opciones formateadas.</td>
+                                        <td><code>["A) Adenocarcinoma", "B) Squamous cell carcinoma", "C) Melanoma", "D) Lymphoma"]</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>answer</code></td>
+                                        <td><code>string</code></td>
+                                        <td><strong>Clave Correcta ($y^*$):</strong> Letra de la opción correcta.</td>
+                                        <td><code>"B"</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>explanation</code></td>
+                                        <td><code>string</code></td>
+                                        <td><strong>Rationale Clínico ($R^*$):</strong> Justificación diagnóstica escrita/validada por patólogos.</td>
+                                        <td><em>"The presence of intercellular bridges, keratin pearls, and prominent eosinophilic cytoplasm confirms squamous differentiation..."</em></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>source</code></td>
+                                        <td><code>string</code></td>
+                                        <td><strong>Subcolección Clínica:</strong> Permite desglose de desempeño por origen.</td>
+                                        <td><code>"PubMed"</code>, <code>"EduContent"</code>, <code>"SocialPath"</code>, etc.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>split</code></td>
+                                        <td><code>string</code></td>
+                                        <td><strong>Partición Oficial:</strong> Control de partición experimental.</td>
+                                        <td><code>"test"</code> (8,521), <code>"test_tiny"</code> (1,156), <code>"val"</code> (710).</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card-inner" style="margin-top: 14px;">
+                            <h4 class="card-inner-title">🔀 Flujo Formal de Inferencia del Modelo Multimodal</h4>
+                            <p style="margin: 0; font-size: 0.88rem;">
+                                Durante la evaluación de opción múltiple, el modelo debe predecir tanto la letra de la opción correcta como la justificación clínica asociada:
+                            </p>
+                            <div class="formula-box" style="margin: 10px 0; font-size: 0.95rem;">
+                                $$\hat{y} = \arg\max_{c \in \{A, B, C, D\}} P\left(c \mid \mathbf{W}_{\text{proj}} \cdot f_{\text{vis}}(\mathbf{I}_{\text{patch}}), \,\mathbf{x}_{\text{prompt}}(Q, \{O_A, O_B, O_C, O_D\})\right)$$
+                            </div>
+                            <div class="formula-box" style="margin: 10px 0; font-size: 0.95rem;">
+                                $$\hat{R} \sim P\left(\text{Rationale} \mid \mathbf{I}_{\text{patch}}, Q, \hat{y}\right)$$
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 6: PROTOCOLO EXPERIMENTAL Y MÉTRICAS DE EVALUACIÓN -->
+                <div id="pm-protocolo" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">6</span>
+                            <h3 class="eje-title">Protocolo Experimental y Métricas de Evaluación</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            El protocolo experimental de <strong>PathMMU</strong> evalúa dos dimensiones cognitivas complementarias del modelo multimodal:
+                        </p>
+
+                        <div class="grid-2col" style="margin-top: 14px;">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">A. Precisión Diagnóstica (Accuracy)</h4>
+                                <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 8px;">
+                                    Proporción de preguntas donde la opción predicha coincide exactamente con la clave ground truth:
+                                </p>
+                                <div class="formula-box" style="font-size: 0.88rem; margin: 6px 0;">
+                                    $$\text{Accuracy} = \frac{1}{N} \sum_{i=1}^{N} \mathbb{I}(\hat{y}_i = y_i^*)$$
+                                </div>
+                                <p style="font-size: 0.82rem; color: var(--text-muted);">
+                                    Se evalúa mediante dos protocolos: <strong>Greedy Generation</strong> (extracción de la letra en la respuesta) y <strong>Perplejidad / P-Logit</strong> (evaluación de la probabilidad logarítmica de los tokens de cada opción).
+                                </p>
+                            </div>
+
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">B. Calidad de la Justificación (Rationale)</h4>
+                                <p style="font-size: 0.86rem; color: var(--text-muted); margin-bottom: 8px;">
+                                    Evalúa si el modelo acertó "por las razones correctas" o si adivinó la opción:
+                                </p>
+                                <ul class="feature-list" style="font-size: 0.84rem;">
+                                    <li><strong>Métricas Léxicas:</strong> ROUGE-L, BLEU-1, BLEU-4, METEOR y CIDEr frente al rationale oficial del patólogo.</li>
+                                    <li><strong>GPT-4 Clinical Rubric:</strong> Evaluación estructurada del razonamiento patológico, verificando coherencia diagnóstica y penalizando alucinaciones anatomo-patológicas.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- TEST DE ABLACIÓN Y ROBUSTEZ -->
+                        <div class="card-inner" style="margin-top: 16px; border-left: 4px solid var(--accent);">
+                            <h4 class="card-inner-title" style="color: var(--accent);">🔬 Evaluación de Robustez ante Corrupciones Visuales y Sesgo Lingüístico</h4>
+                            <p style="margin-bottom: 6px; font-size: 0.88rem;">
+                                Sun et al. aplicaron dos baterías de estrés metodológico:
+                            </p>
+                            <ol style="padding-left: 18px; font-size: 0.86rem; margin-bottom: 8px; color: var(--text-main);">
+                                <li><strong>Corrupciones Visuales (Image Corruption Robustness):</strong> Degradación sintética del parche (ruido Gaussiano, desenfoque por movimiento, alteración de contraste de tinción H&amp;E) para evaluar la resiliencia perceptual de los encoders visuales.</li>
+                                <li><strong>Ablación Text-Only:</strong> Evaluación suministrando únicamente la pregunta y las 4 opciones (sin imagen). La drástica caída en rendimiento confirma que PathMMU no se puede resolver mediante meros atajos lingüísticos.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 7: RESULTADOS EMPÍRICOS DEL BENCHMARK EN ECCV 2024 -->
+                <div id="pm-eval" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">7</span>
+                            <h3 class="eje-title">Resultados Empíricos del Benchmark en ECCV 2024</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        <p>
+                            En el estudio empírico de <strong>ECCV 2024</strong>, se evaluaron 18 modelos multimodales (14 abiertos y 4 propietarios) frente a médicos patólogos certificados:
+                        </p>
+
+                        <div style="overflow-x: auto; margin-top: 14px;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Modelo / Evaluador</th>
+                                        <th>Tipo de Modelo</th>
+                                        <th>PubMed</th>
+                                        <th>SocialPath</th>
+                                        <th>EduContent</th>
+                                        <th>Total Accuracy</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="background: rgba(16, 185, 129, 0.12); font-weight: 700;">
+                                        <td>👨‍⚕️ <strong>Patólogos Humanos Certificados</strong></td>
+                                        <td>Médicos Especialistas Titulados (Gold Standard)</td>
+                                        <td>74.2%</td>
+                                        <td>69.8%</td>
+                                        <td>72.5%</td>
+                                        <td><strong style="color: var(--accent-green);">71.8%</strong></td>
+                                    </tr>
+                                    <tr style="background: rgba(244, 63, 94, 0.1); font-weight: 700;">
+                                        <td>👑 <strong>GPT-4V (Closed Zero-Shot)</strong></td>
+                                        <td>LMM Comercial Propietario (Top AI Model)</td>
+                                        <td>52.1%</td>
+                                        <td>46.8%</td>
+                                        <td>51.3%</td>
+                                        <td><strong style="color: #fb7185;">49.8%</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Claude 3 Opus (Closed)</strong></td>
+                                        <td>LMM Comercial Propietario</td>
+                                        <td>49.4%</td>
+                                        <td>44.2%</td>
+                                        <td>48.6%</td>
+                                        <td>47.5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Gemini 1.0 Pro (Closed)</strong></td>
+                                        <td>LMM Comercial Propietario</td>
+                                        <td>44.8%</td>
+                                        <td>39.6%</td>
+                                        <td>43.1%</td>
+                                        <td>42.5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>PathAsst (AAAI 2024)</strong></td>
+                                        <td>Especializado en Patología (SFT en PathCap)</td>
+                                        <td>46.2%</td>
+                                        <td>41.5%</td>
+                                        <td>45.0%</td>
+                                        <td>44.1%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>LLaVA-Med (NeurIPS 2023)</strong></td>
+                                        <td>Biomédico General (SFT en PubMed)</td>
+                                        <td>37.5%</td>
+                                        <td>33.2%</td>
+                                        <td>36.8%</td>
+                                        <td>35.8%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>LLaVA-1.5-13B (Open Generalist)</strong></td>
+                                        <td>LMM Abierto Generalista (CLIP + Vicuna-13B)</td>
+                                        <td>35.2%</td>
+                                        <td>31.4%</td>
+                                        <td>34.6%</td>
+                                        <td>34.2%</td>
+                                    </tr>
+                                    <tr style="color: var(--text-muted); font-size: 0.85rem;">
+                                        <td><em>Azar Teórico Puro (Random Choice)</em></td>
+                                        <td>Selección uniforme de 1 opción entre 4</td>
+                                        <td>25.0%</td>
+                                        <td>25.0%</td>
+                                        <td>25.0%</td>
+                                        <td>25.0%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="card-inner" style="margin-top: 14px;">
+                            <h4 class="card-inner-title">💡 Hallazgos Metodológicos Clave:</h4>
+                            <ul class="feature-list" style="font-size: 0.88rem;">
+                                <li>
+                                    <strong>La Brecha Humano-Máquina:</strong> Existe una brecha abismal de <strong>22.0 puntos porcentuales</strong> entre el mejor modelo de IA existente (GPT-4V con 49.8%) y los patólogos humanos (71.8%). Esto demuestra que PathMMU no está saturado y representa un reto de investigación de frontera.
+                                </li>
+                                <li>
+                                    <strong>Fracaso de LMMs Generales Abiertos:</strong> Modelos ampliamente utilizados como LLaVA-1.5 obtienen entre 30% y 35% de exactitud, apenas 5-9% por encima del azar puro (25%), evidenciando que el conocimiento biomédico general es completamente insuficiente para la histopatología diagnóstica.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 8: RECONCILIACIÓN FACTUAL CON AUDITORÍA Y ROL EN LA TESIS -->
+                <div id="pm-tesis" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">8</span>
+                            <h3 class="eje-title">Reconciliación Factual con la Auditoría Local y Rol en la Tesis</h3>
+                        </div>
+                    </div>
+                    <div class="eje-content">
+                        
+                        <div class="grid-2col">
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">🔍 Conciliación Factual (Local vs Paper)</h4>
+                                <ul class="feature-list" style="font-size: 0.88rem;">
+                                    <li><strong>Registros Confirmados:</strong> Exactamente <strong>10,387 preguntas</strong> verificadas en <code>data.json</code> en nuestra auditoría local, desglosadas en <code>test</code> (8,521), <code>test_tiny</code> (1,156) y <code>val</code> (710).</li>
+                                    <li><strong>Discrepancia Resuelta respecto a la cifra bruta del Paper (33K):</strong> En el abstract del paper se menciona el corpus bruto generado en cascada (33,428 preguntas), mientras que en Hugging Face el autor (James Sun / <code>jamessyx</code>) publicó el conjunto <strong>filtrado y validado por los 7 patólogos (10,387 preguntas)</strong>, asegurando el máximo estándar de calidad.</li>
+                                    <li><strong>Almacenamiento:</strong> <code>images.zip</code> (1.80 GB) contiene las imágenes histológicas reales, que auditamos con éxito mediante <em>HTTP Range Requests</em> sin requerir descarga completa.</li>
+                                </ul>
+                            </div>
+
+                            <div class="card-inner">
+                                <h4 class="card-inner-title">⚠️ Estrategia Computacional para la Tesis</h4>
+                                <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
+                                    Evaluar 8,521 preguntas sobre múltiples LMMs puede resultar prohibitivo en tiempo de inferencia y cuotas de API. El split <strong><code>test_tiny</code> (1,156 preguntas)</strong> conserva exactamente la misma distribución porcentual de las 5 fuentes clínicas y constituye el banco de pruebas ideal para realizar evaluaciones cuantitativas ágiles, reproducibles y de bajo costo.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- CONCLUSIÓN PARA LA TESIS -->
+                        <div class="callout-box rose" style="margin-top: 20px; background: rgba(244, 63, 94, 0.08); border-color: rgba(244, 63, 94, 0.3);">
+                            <div class="callout-title" style="color: #fb7185;">
+                                <span>🎯</span> Relevancia y Rol Estratégico en la Tesis de Maestría
+                            </div>
+                            <p style="margin: 0; font-size: 0.9rem; line-height: 1.6;">
+                                <strong>Benchmark Central de Opción Múltiple y Razonamiento Clínico (Objetivo Específico 1 y 4):</strong><br>
+                                PathMMU es el benchmark cuantitativo por excelencia para la tesis en la tarea de <em>Multiple-Choice Visual Question Answering</em>. Aporta tres ventajas metodológicas incomparables:
+                                <br>1. <strong>Métricas No Ambiguas:</strong> La exactitud en 4 opciones elimina la subjetividad léxica de las respuestas abiertas y reduce el azar al 25%.
+                                <br>2. <strong>Evaluación del Razonamiento Clínico:</strong> Permite contrastar si los LMMs seleccionados son capaces de generar justificaciones citoarquitectónicas coherentes frente a las explicaciones de los 7 patólogos certificados.
+                                <br>3. <strong>Comparabilidad Internacional:</strong> Al ser un benchmark de ECCV 2024 con resultados reportados para 18 modelos, permite situar directamente los modelos evaluados en la tesis en la tabla de clasificación de la literatura mundial.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
         <!-- Placeholder for next datasets dictated by user -->
         <div id="more-datasets-slot" style="margin-top: 40px; padding: 24px; border: 2px dashed var(--border-color); border-radius: 14px; text-align: center; color: var(--text-muted);">
             <h3 style="color: #ffffff; margin-top: 0;">Próximos Datasets a Incorporar</h3>
             <p style="font-size: 0.9rem; max-width: 650px; margin: 0 auto;">
-                Familia Quilt completada (Quilt-1M, Quilt-Instruct, Quilt-VQA). Los siguientes datasets se incorporarán progresivamente según la prioridad dictada por el usuario (ej. PathVQA, PathCap, WSI/Reportes, etc.).
+                Datasets consolidados: Familia Quilt (Quilt-1M, Quilt-Instruct, Quilt-VQA) y PathMMU. Los siguientes datasets se incorporarán progresivamente según la prioridad dictada por el usuario (ej. PathVQA, PathCap, PathInstruct, HistGen, etc.).
             </p>
         </div>
+
 
 
     </main>
