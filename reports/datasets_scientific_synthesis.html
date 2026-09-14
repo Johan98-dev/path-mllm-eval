@@ -628,22 +628,22 @@
 
         <div class="nav-section-title">Navegación por Datasets</div>
         <ul class="nav-list">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a href="#quilt-1m">
                     <span>1. Quilt-1M</span>
                     <span class="nav-badge nav-badge-vlp">VLP</span>
                 </a>
             </li>
-            <li class="nav-item" style="opacity: 0.6;">
-                <a href="#quilt-vqa-slot" style="pointer-events: none;">
-                    <span>2. Quilt-VQA (Próximo)</span>
-                    <span class="nav-badge nav-badge-vqa">VQA</span>
+            <li class="nav-item active">
+                <a href="#quilt-instruct">
+                    <span>2. Quilt-Instruct (107K)</span>
+                    <span class="nav-badge nav-badge-instruct">SFT</span>
                 </a>
             </li>
             <li class="nav-item" style="opacity: 0.6;">
-                <a href="#quilt-instruct-slot" style="pointer-events: none;">
-                    <span>3. Quilt-Instruct (Próximo)</span>
-                    <span class="nav-badge nav-badge-instruct">SFT</span>
+                <a href="#quilt-vqa-slot" style="pointer-events: none;">
+                    <span>3. Quilt-VQA (Próximo)</span>
+                    <span class="nav-badge nav-badge-vqa">VQA</span>
                 </a>
             </li>
             <li class="nav-item" style="opacity: 0.4;">
@@ -654,16 +654,16 @@
             </li>
         </ul>
 
-        <div class="nav-section-title">Secciones de Quilt-1M</div>
+        <div class="nav-section-title">Secciones de Quilt-Instruct</div>
         <ul class="nav-list" style="font-size: 0.78rem;">
-            <li class="nav-item"><a href="#q1m-biblio">1. Metadatos & Paper Base</a></li>
-            <li class="nav-item"><a href="#q1m-resumen">2. Resumen Científico</a></li>
-            <li class="nav-item"><a href="#q1m-curacion">3. Curación & Calidad Textual</a></li>
-            <li class="nav-item"><a href="#q1m-diagrama">4. Diagrama Metodológico</a></li>
-            <li class="nav-item"><a href="#q1m-io">5. Campos & Flujo I/O</a></li>
-            <li class="nav-item"><a href="#q1m-baseline">6. Baseline QuiltNet & Fusión</a></li>
-            <li class="nav-item"><a href="#q1m-eval">7. Evaluaciones & Benchmarks</a></li>
-            <li class="nav-item"><a href="#q1m-ecosistema">8. Ecosistema & Auditoría</a></li>
+            <li class="nav-item"><a href="#qi-biblio">1. Metadatos & CVPR 2024</a></li>
+            <li class="nav-item"><a href="#qi-relacion">2. Relación Quilt-1M ↔ Instruct</a></li>
+            <li class="nav-item"><a href="#qi-resumen">3. Resumen Científico</a></li>
+            <li class="nav-item"><a href="#qi-curacion">4. Curación de Cursores & Prompts</a></li>
+            <li class="nav-item"><a href="#qi-diagrama">5. Diagrama Metodológico</a></li>
+            <li class="nav-item"><a href="#qi-io">6. Campos & Flujo I/O</a></li>
+            <li class="nav-item"><a href="#qi-baseline">7. Quilt-LLaVA (2 Fases)</a></li>
+            <li class="nav-item"><a href="#qi-eval">8. Evaluaciones & Benchmarks</a></li>
         </ul>
 
         <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border-color);">
@@ -1301,9 +1301,571 @@
 
         </section>
 
+        <!-- DATASET 2: QUILT-INSTRUCT (107K) -->
+        <section id="quilt-instruct" class="dataset-card">
+            
+            <!-- Header Dataset -->
+            <div class="dataset-header">
+                <div class="dataset-title-area">
+                    <div class="dataset-order-pill">Dataset #2 • Familia Quilt</div>
+                    <h2 class="dataset-name">
+                        Quilt-Instruct (107K)
+                        <span style="font-size: 1.1rem; color: var(--text-muted); font-weight: 500;">(QUILT-LLaVA-Instruct-107K)</span>
+                    </h2>
+                    <div class="dataset-repo-sub">Repositorio oficial: wisdomik/QUILT-LLaVA-Instruct-107K • Hugging Face & GitHub</div>
+                </div>
+                <div class="badges-wrapper">
+                    <span class="badge badge-green">Tarea: Visual Instruction Tuning (SFT)</span>
+                    <span class="badge badge-purple">Entrada: Parches Anclados + Bounding Boxes</span>
+                    <span class="badge badge-indigo">Fusión: Projector-based (MLP Soft-Prompting)</span>
+                    <span class="badge badge-amber">Escala: 107,131 Diálogos</span>
+                    <span class="badge badge-rose">Licencia: CC BY-NC-ND 3.0</span>
+                </div>
+            </div>
+
+            <!-- Ejes de Análisis Científico -->
+            <div class="ejes-grid">
+
+                <!-- EJE 1: BIBLIOGRAFÍA & ENLACES FORMALES -->
+                <div id="qi-biblio" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">1</span>
+                            <h3 class="eje-title">Metadatos Bibliográficos y Enlaces Oficiales</h3>
+                        </div>
+                        <span class="eje-badge">CVPR 2024 (Top Conference)</span>
+                    </div>
+
+                    <p>
+                        <strong>Publicación Oficial:</strong> Artículo publicado en los <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em> (<strong>CVPR 2024</strong>), pp. 13247–13256:
+                        <em>"Quilt-LLaVA: Visual Instruction Tuning by Extracting Visual Knowledge from Complex Educational Videos"</em> (versión preliminar: <em>"Extracting Localized Narratives from Open-Source Histopathology Videos"</em>).
+                    </p>
+                    <p style="margin-bottom: 6px;">
+                        <strong>Autores:</strong> Mehmet Saygin Seyfioglu, Wisdom O. Ikezogwo, Fatemeh Ghezloo, Ranjay Krishna, Linda Shapiro (University of Washington).
+                    </p>
+
+                    <div class="pub-links-bar">
+                        <a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Seyfioglu_Quilt-LLaVA_Visual_Instruction_Tuning_by_Extracting_Visual_Knowledge_from_Complex_CVPR_2024_paper.pdf" target="_blank" class="btn-link btn-primary-pub">
+                            📄 Paper Oficial en CVPR 2024 OpenAccess (PDF)
+                        </a>
+                        <a href="https://arxiv.org/abs/2312.04746" target="_blank" class="btn-link">
+                            📑 arXiv:2312.04746 (v3)
+                        </a>
+                        <a href="https://github.com/wisdomikezogwo/quilt-llava" target="_blank" class="btn-link">
+                            💻 GitHub Oficial (Quilt-LLaVA Codebase)
+                        </a>
+                        <a href="https://huggingface.co/datasets/wisdomik/QUILT-LLaVA-Instruct-107K" target="_blank" class="btn-link">
+                            🤗 Hugging Face Dataset Hub
+                        </a>
+                        <a href="preview_wisdomik_quilt_llava_instruct_107k.html" target="_blank" class="btn-link" style="border-color: rgba(74, 222, 128, 0.4); color: var(--accent-green);">
+                            👁️ Ver Auditoría Visual Local del Proyecto
+                        </a>
+                    </div>
+                </div>
+
+                <!-- EJE 2: RELACIÓN ORGÁNICA ENTRE QUILT-1M Y QUILT-INSTRUCT -->
+                <div id="qi-relacion" class="eje-block" style="border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(15, 23, 42, 0.85);">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number" style="background: rgba(56, 189, 248, 0.3); color: var(--accent);">2</span>
+                            <h3 class="eje-title">Relación Metodológica y Arquitectónica: Quilt-1M ⟷ Quilt-Instruct</h3>
+                        </div>
+                        <span class="eje-badge" style="background: rgba(56, 189, 248, 0.2); color: var(--accent); border-color: var(--accent);">Conexión Crítica de la Tesis</span>
+                    </div>
+
+                    <p>
+                        Ambos datasets provienen del mismo laboratorio (University of Washington) y forman una <strong>jerarquía de entrenamiento en dos etapas sucesivas (Curriculum Learning)</strong> para modelos multimodales:
+                    </p>
+
+                    <div class="subgrid-2col">
+                        <div class="card-inner" style="border-color: rgba(56, 189, 248, 0.3);">
+                            <h4 class="card-inner-title">
+                                <span style="color: var(--accent);">🔗</span> 1. Desacoplamiento de Almacenamiento (Píxeles vs Diálogos)
+                            </h4>
+                            <p style="margin: 0; font-size: 0.88rem;">
+                                <strong>Quilt-Instruct NO duplica imágenes en su repositorio:</strong> El repositorio en Hugging Face (<code>QUILT-LLaVA-Instruct-107K</code>) almacena únicamente los archivos JSON con las conversaciones, las preguntas/respuestas de GPT-4 y los metadatos de las cajas delimitadoras de cursores (<span class="text-term">cursor_boxes</span>).<br><br>
+                                Cada registro contiene la clave de imagen: <code>"image": "_KJZm1orOvU_roi_1.jpg"</code>. Los píxeles binarios físicos residen en el repositorio madre <strong>Quilt-1M</strong>. Para el entrenamiento o evaluación local, ambos datasets se enlazan mediante esta clave identificadora de video y ROI.
+                            </p>
+                        </div>
+
+                        <div class="card-inner" style="border-color: rgba(74, 222, 128, 0.3);">
+                            <h4 class="card-inner-title">
+                                <span style="color: var(--accent-green);">🏗️</span> 2. El Rol de Cada Dataset en el Modelo Quilt-LLaVA
+                            </h4>
+                            <p style="margin: 0; font-size: 0.88rem;">
+                                El modelo <strong>Quilt-LLaVA utilizó AMBOS datasets</strong> bajo roles claramente diferenciados:
+                            </p>
+                            <ul style="margin: 6px 0 0 0; padding-left: 18px; font-size: 0.86rem;">
+                                <li>
+                                    <strong>Etapa 1 (Preentrenamiento / Feature Alignment):</strong> Usó <strong>Quilt-1M</strong> (723,000 pares imagen-texto convertidos a formato pregunta-respuesta simple). En esta fase, <em>el Vision Encoder y el LLM se congelaron</em>, y <strong>solo se entrenó el proyector MLP</strong> para proyectar las características visuales de patología al espacio de incrustación del lenguaje.
+                                </li>
+                                <li>
+                                    <strong>Etapa 2 (Instruction Tuning / SFT):</strong> Usó <strong>Quilt-Instruct</strong> (107,131 secuencias conversacionales). Se mantuvo congelado el encoder visual, pero <strong>se descongelaron y entrenaron conjuntamente el proyector MLP y el LLM (Vicuna-7B)</strong> para aprender seguimiento de instrucciones y razonamiento abductivo.
+                                </li>
+                                <li>
+                                    <strong>Backbone Visual Heredado:</strong> Quilt-LLaVA adoptó como su mejor codificador visual a <strong>QuiltNet</strong> (el modelo entrenado previamente en Quilt-1M), superando sustancialmente a modelos que usaban CLIP general o PLIP.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 3: RESUMEN CIENTÍFICO DEL PAPER BASE -->
+                <div id="qi-resumen" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">3</span>
+                            <h3 class="eje-title">Resumen Científico del Paper Base (CVPR 2024)</h3>
+                        </div>
+                        <span class="eje-badge">Síntesis Académica</span>
+                    </div>
+
+                    <p>
+                        <strong>El Desafío Clínico de Lámina Completa:</strong> El diagnóstico patológico real rara vez se emite analizando un parche histopatológico aislado; requiere evaluar holísticamente la lámina gigapíxel (<span class="text-term">WSI</span>), acumulando evidencias morfológicas dispersas a través de múltiples focos. Por ejemplo, en hígado, esteatosis aislada no define esteatohepatitis no alcohólica (NASH); se requiere buscar hepatocitos balonizados e inflamación lobulillar en otros sectores para confirmar la patología. Los modelos LMM anteriores (como LLaVA-Med) se entrenaban sobre pares aislados de PubMed sin anclaje espacial ni continuidad diagnóstica global, lo que inducía severas <strong>alucinaciones</strong> cuando el modelo intentaba extrapolar diagnósticos.
+                    </p>
+
+                    <p>
+                        <strong>Las Dos Innovaciones de Quilt-Instruct:</strong>
+                    </p>
+                    <ol style="padding-left: 20px; font-size: 0.92rem;">
+                        <li>
+                            <strong>Anclaje Visual Espacial Dinámico (<span class="text-term">Spatial Visual Grounding</span>):</strong> Rastrean automáticamente la trayectoria del cursor del mouse del patólogo en videos educativos y aplican agrupamiento espacio-temporal para generar cajas delimitadoras ($[x_1, y_1, x_2, y_2]$) sincronizadas exactamente con los conceptos médicos que el narrador verbaliza.
+                        </li>
+                        <li>
+                            <strong>Razonamiento Abductivo Guiado por el WSI:</strong> A partir de 2,066 videos que analizan una única lámina de un paciente, extraen mediante GPT-4 el diagnóstico global definitivo ($d_j^v$) y sus hechos probatorios ($f_j^v$). Con esto diseñan una técnica llamada <em>"Inyección de Conocimiento Subconsciente"</em> y un protocolo de <em>"Razonamiento Abductivo Iterativo"</em> (simulando una interconsulta entre dos agentes: un patólogo humano y un asistente IA). Si el parche no basta para diagnosticar, el modelo aprende a indicar explícitamente: <em>"Busque evidencia de mitosis en otros parches para confirmar la sospecha"</em>.
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- EJE 4: METODOLOGÍA DE OBTENCIÓN, CURACIÓN DE CURSORES Y PROMPTS -->
+                <div id="qi-curacion" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">4</span>
+                            <h3 class="eje-title">Metodología de Obtención, Curación de Cursores y Generación de Prompts</h3>
+                        </div>
+                        <span class="eje-badge">Tracking Espacio-Temporal & GPT-4</span>
+                    </div>
+
+                    <div class="subgrid-2col">
+                        <div class="card-inner">
+                            <h4 class="card-inner-title">
+                                <span style="color: var(--accent);">🖱️</span> Algoritmo de Detección y Tracking de Cursores
+                            </h4>
+                            <ul style="margin: 0; padding-left: 18px; font-size: 0.88rem;">
+                                <li>
+                                    <strong>Detección de Chunks Estables:</strong> En los videos de patología, el narrador pausa el desplazamiento de la lámina antes de señalar con el mouse. Mediante diferencias absolutas de fotogramas, un filtro Gaussiano y verificación perceptual con <strong>SSIM</strong> (Structural Similarity Index Measure), aíslan intervalos estables de $\ge 3$ segundos.
+                                </li>
+                                <li>
+                                    <strong>Sustracción de Fondo:</strong> Calculan el fotograma mediano en el espacio de píxeles (que contiene el tejido estático sin el mouse) y lo restan de cada cuadro. El valor máximo tras el umbralizado aísla las coordenadas $(x_j^t, y_j^t)$ del cursor.
+                                </li>
+                                <li>
+                                    <strong>Filtrado Facial:</strong> Integran un modelo de detección de rostros para enmascarar la cámara web del presentador y evitar falsos positivos de movimiento.
+                                </li>
+                                <li>
+                                    <strong>Spatio-Temporal Clustering:</strong> Transforman cada punto a $(x_j^t, y_j^t, t, w_j^t)$, incorporando el conteo de palabras habladas $w_j^t$ y un decaimiento temporal exponencial:
+                                    $$w_{\text{coord}}(t) = (x_j^t, y_j^t) \cdot e^{-\lambda t}, \quad \lambda = 0.05$$
+                                    Esto fuerza a que los puntos cercanos en el tiempo se agrupen con las palabras que se pronunciaban en ese segundo, generando cajas delimitadoras normalizadas $[x_1, y_1, x_2, y_2] \in [0, 1]^4$.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card-inner">
+                            <h4 class="card-inner-title">
+                                <span style="color: var(--accent-green);">💬</span> Taxonomía de Prompts con GPT-4 (107K)
+                            </h4>
+                            <ul style="margin: 0; padding-left: 18px; font-size: 0.88rem;">
+                                <li>
+                                    <strong>1. Prompts Independientes (a nivel de parche):</strong>
+                                    <ul style="padding-left: 14px; margin-top: 4px;">
+                                        <li><em>Conversation:</em> Diálogos multi-turno (3 a 4 preguntas y respuestas) donde el asistente describe citoarquitectura y posiciones relativas de estructuras usando las coordenadas de las cajas.</li>
+                                        <li><em>Detailed Descriptions:</em> Descripciones minuciosas de la morfología del parche a partir de preguntas clínicas estándar.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>2. Prompts de Razonamiento Global (a nivel de WSI):</strong>
+                                    <ul style="padding-left: 14px; margin-top: 4px;">
+                                        <li><em>Complex Medical Reasoning:</em> GPT-4 analiza el parche condicionado por el diagnóstico final de la lámina ($d_j^v$) y sus hechos ($f_j^v$). Si el parche es insuficiente, indica qué buscar en el resto del WSI para confirmar o descartar la sospecha.</li>
+                                        <li><em>Iterative Abductive Reasoning:</em> Simulación de interconsulta entre <strong>Human-GPT</strong> (que hace preguntas complejas sobre el parche) y <strong>AI-Assistant GPT</strong> (que conoce el caso completo y da pistas pedagógicas o sugiere explorar otros parches sin revelar de golpe la respuesta).</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>¿Quién generó el texto?</strong> El contenido factual y los conceptos médicos provienen de los **patólogos humanos narradores en los videos**. La estructuración conversacional y el diálogo multi-turno fue sintetizada por **GPT-4** estrictamente anclado en las evidencias del video para mitigar alucinaciones.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 5: DIAGRAMA METODOLÓGICO Y DE ARQUITECTURA -->
+                <div id="qi-diagrama" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">5</span>
+                            <h3 class="eje-title">Diagrama Metodológico: Del Tracking de Cursor a Quilt-LLaVA</h3>
+                        </div>
+                        <span class="eje-badge">Pipeline Visual Integrado</span>
+                    </div>
+
+                    <p>
+                        A continuación se presenta el esquema metodológico completo de <strong>Quilt-Instruct</strong> y el marco de entrenamiento en dos etapas del modelo <strong>Quilt-LLaVA</strong> (CVPR 2024), mostrando cómo se integran Quilt-1M y Quilt-Instruct:
+                    </p>
+
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 1180 560" width="100%" height="560" xmlns="http://www.w3.org/2000/svg" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                            <defs>
+                                <linearGradient id="gradQI1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1e293b"/>
+                                    <stop offset="100%" stop-color="#0f172a"/>
+                                </linearGradient>
+                                <linearGradient id="gradCursor" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#065f46"/>
+                                    <stop offset="100%" stop-color="#047857"/>
+                                </linearGradient>
+                                <linearGradient id="gradLLaVA" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#312e81"/>
+                                    <stop offset="100%" stop-color="#4338ca"/>
+                                </linearGradient>
+                                <linearGradient id="gradVicuna" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#831843"/>
+                                    <stop offset="100%" stop-color="#9d174d"/>
+                                </linearGradient>
+                                <marker id="arrow-qi" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8"/>
+                                </marker>
+                                <marker id="arrow-qi-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 1 L 8 5 L 0 9 z" fill="#4ade80"/>
+                                </marker>
+                            </defs>
+
+                            <!-- Background Zones -->
+                            <rect x="15" y="15" width="280" height="530" rx="10" fill="#0f172a" stroke="#334155" stroke-dasharray="4"/>
+                            <text x="30" y="42" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="1">ETAPA A: CURACIÓN DE CURSORES & PROMPTS</text>
+
+                            <rect x="315" y="15" width="360" height="530" rx="10" fill="#0f172a" stroke="#334155" stroke-dasharray="4"/>
+                            <text x="330" y="42" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="1">ETAPA B: DATASET QUILT-INSTRUCT (107K)</text>
+
+                            <rect x="695" y="15" width="470" height="530" rx="10" fill="#0f172a" stroke="#4ade80" stroke-width="1.5"/>
+                            <text x="710" y="42" fill="#4ade80" font-size="11" font-weight="800" letter-spacing="1">ETAPA C: MODELO QUILT-LLAVA (2 FASES)</text>
+
+                            <!-- Stage A Blocks -->
+                            <g transform="translate(30, 60)">
+                                <rect width="250" height="85" rx="8" fill="url(#gradQI1)" stroke="#475569"/>
+                                <text x="12" y="22" fill="#38bdf8" font-size="11.5" font-weight="700">Videos de Quilt (YouTube)</text>
+                                <text x="12" y="40" fill="#cbd5e1" font-size="10">• 4,149 Videos de Patología</text>
+                                <text x="12" y="56" fill="#cbd5e1" font-size="10">• 2,066 Videos de WSI Única</text>
+                                <text x="12" y="72" fill="#4ade80" font-size="10" font-weight="600">Continuidad diagnóstica global</text>
+                            </g>
+
+                            <g transform="translate(30, 160)">
+                                <rect width="250" height="115" rx="8" fill="url(#gradCursor)" stroke="#10b981"/>
+                                <text x="12" y="22" fill="#ffffff" font-size="11.5" font-weight="800">Tracking del Cursor del Patólogo</text>
+                                <text x="12" y="42" fill="#d1fae5" font-size="10">• Detección de Chunks Estables (SSIM)</text>
+                                <text x="12" y="58" fill="#d1fae5" font-size="10">• Resta de Imagen Mediana (Pixel-space)</text>
+                                <text x="12" y="74" fill="#d1fae5" font-size="10">• Enmascaramiento facial del presentador</text>
+                                <text x="12" y="92" fill="#ffffff" font-size="10" font-weight="700">44,163 Segmentos con Cursor Activo</text>
+                            </g>
+
+                            <g transform="translate(30, 290)">
+                                <rect width="250" height="110" rx="8" fill="#1e293b" stroke="#6366f1"/>
+                                <text x="12" y="22" fill="#c084fc" font-size="11.5" font-weight="800">Spatio-Temporal Clustering</text>
+                                <text x="12" y="42" fill="#cbd5e1" font-size="10">• Decaimiento temporal exp(-λt), λ=0.05</text>
+                                <text x="12" y="58" fill="#cbd5e1" font-size="10">• Conteo acumulativo de palabras w_j^t</text>
+                                <text x="12" y="74" fill="#cbd5e1" font-size="10">• Bounding Boxes normalizadas:</text>
+                                <text x="22" y="92" fill="#38bdf8" font-size="10" font-weight="700">[x1, y1, x2, y2] por concepto clínico</text>
+                            </g>
+
+                            <g transform="translate(30, 415)">
+                                <rect width="250" height="110" rx="8" fill="#1e293b" stroke="#f59e0b"/>
+                                <text x="12" y="22" fill="#fbbf24" font-size="11.5" font-weight="800">Extracción Diagnóstica WSI</text>
+                                <text x="12" y="42" fill="#cbd5e1" font-size="10">• Transcripción de la lámina completa</text>
+                                <text x="12" y="58" fill="#cbd5e1" font-size="10">• GPT-4 infiere diagnóstico global (d_j^v)</text>
+                                <text x="12" y="74" fill="#cbd5e1" font-size="10">• GPT-4 aísla hechos de soporte (f_j^v)</text>
+                                <text x="12" y="92" fill="#4ade80" font-size="10" font-weight="700">Evita alucinaciones en extrapolación</text>
+                            </g>
+
+                            <!-- Arrows A -> B -->
+                            <line x1="280" y1="345" x2="330" y2="200" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-qi)"/>
+                            <line x1="280" y1="470" x2="330" y2="350" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrow-qi)"/>
+
+                            <!-- Stage B Blocks (Quilt-Instruct Data) -->
+                            <g transform="translate(330, 60)">
+                                <rect width="330" height="100" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+                                <text x="14" y="22" fill="#38bdf8" font-size="12" font-weight="800">1. Prompts Independientes (Parche)</text>
+                                <text x="14" y="42" fill="#cbd5e1" font-size="10.5">▪ Conversations: Diálogos de 3-4 turnos sobre el parche</text>
+                                <text x="14" y="58" fill="#cbd5e1" font-size="10.5">▪ Detailed Descriptions: Morfología basada en cajas</text>
+                                <text x="14" y="80" fill="#94a3b8" font-size="10">Entrada a GPT-4: Imagen caption + Bounding Boxes</text>
+                            </g>
+
+                            <g transform="translate(330, 180)">
+                                <rect width="330" height="150" rx="8" fill="#1e293b" stroke="#c084fc" stroke-width="1.5"/>
+                                <text x="14" y="22" fill="#c084fc" font-size="12" font-weight="800">2. Prompts de Razonamiento WSI</text>
+                                <text x="14" y="44" fill="#e2e8f0" font-size="10.5" font-weight="700">A. Complex Medical Reasoning:</text>
+                                <text x="24" y="60" fill="#cbd5e1" font-size="10">Inyección de conocimiento subconsciente (d_j^v, f_j^v)</text>
+                                <text x="14" y="82" fill="#e2e8f0" font-size="10.5" font-weight="700">B. Iterative Abductive Reasoning:</text>
+                                <text x="24" y="98" fill="#cbd5e1" font-size="10">Interconsulta Human-GPT ⟷ AI-Assistant GPT</text>
+                                <text x="24" y="114" fill="#cbd5e1" font-size="10">Sugiere: "Buscar mitosis en otros parches del WSI"</text>
+                                <text x="14" y="136" fill="#4ade80" font-size="10" font-weight="700">Total: 107,131 Instrucciones Multimodales</text>
+                            </g>
+
+                            <!-- Visual Linkage Note -->
+                            <g transform="translate(330, 350)">
+                                <rect width="330" height="175" rx="8" fill="#0f2942" stroke="#38bdf8"/>
+                                <text x="14" y="22" fill="#38bdf8" font-size="11.5" font-weight="800">VÍNCULO VISUAL CON QUILT-1M</text>
+                                <text x="14" y="44" fill="#cbd5e1" font-size="10">• Los archivos JSON de Quilt-Instruct guardan claves:</text>
+                                <text x="22" y="62" fill="#22d3ee" font-size="10" font-family="monospace">"image": "_KJZm1orOvU_roi_1.jpg"</text>
+                                <text x="14" y="82" fill="#cbd5e1" font-size="10">• Los píxeles binarios se extraen de:</text>
+                                <text x="22" y="100" fill="#4ade80" font-size="10" font-weight="700">wisdomik/Quilt-1M (Subconjunto YouTube)</text>
+                                <text x="14" y="122" fill="#e2e8f0" font-size="10">Cero duplicación de imágenes en Hugging Face.</text>
+                                <text x="14" y="142" fill="#fbbf24" font-size="9.5" font-weight="600">Ambos datasets son interdependientes en código.</text>
+                            </g>
+
+                            <!-- Arrows B -> C -->
+                            <line x1="660" y1="110" x2="715" y2="110" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-qi)"/>
+                            <line x1="660" y1="255" x2="715" y2="290" stroke="#4ade80" stroke-width="2" marker-end="url(#arrow-qi-green)"/>
+
+                            <!-- Stage C: Quilt-LLaVA Architecture -->
+                            <!-- Phase 1 Alignment -->
+                            <g transform="translate(715, 60)">
+                                <rect width="430" height="140" rx="8" fill="url(#gradLLaVA)" stroke="#818cf8"/>
+                                <text x="14" y="22" fill="#ffffff" font-size="11.5" font-weight="800">FASE 1: ALINEACIÓN DE DOMINIO (USA QUILT-1M)</text>
+                                <text x="14" y="42" fill="#c7d2fe" font-size="10">• Datos: 723K pares de Quilt-1M convertidos a Q/A simple</text>
+                                <text x="14" y="58" fill="#e0e7ff" font-size="10">▪ Vision Encoder (QuiltNet ViT-B/16): <tspan fill="#fca5a5" font-weight="700">CONGELADO</tspan></text>
+                                <text x="14" y="74" fill="#e0e7ff" font-size="10">▪ Language Model (Vicuna-7B): <tspan fill="#fca5a5" font-weight="700">CONGELADO</tspan></text>
+                                <text x="14" y="90" fill="#e0e7ff" font-size="10">▪ Proyector MLP 2-Capas: <tspan fill="#86efac" font-weight="800">ENTRENABLE (Trained)</tspan></text>
+                                <rect x="12" y="104" width="406" height="24" rx="4" fill="#1e1b4b"/>
+                                <text x="18" y="120" fill="#38bdf8" font-size="9.5" font-weight="700">Mapea tokens visuales H_v al espacio léxico del LLM</text>
+                            </g>
+
+                            <!-- Phase 2 SFT -->
+                            <g transform="translate(715, 220)">
+                                <rect width="430" height="155" rx="8" fill="url(#gradVicuna)" stroke="#fb7185"/>
+                                <text x="14" y="22" fill="#ffffff" font-size="11.5" font-weight="800">FASE 2: INSTRUCTION TUNING (USA QUILT-INSTRUCT)</text>
+                                <text x="14" y="42" fill="#fce7f3" font-size="10">• Datos: 107K diálogos multi-turno de Quilt-Instruct</text>
+                                <text x="14" y="58" fill="#ffe4e6" font-size="10">▪ Vision Encoder (QuiltNet ViT-B/16): <tspan fill="#fca5a5" font-weight="700">CONGELADO</tspan></text>
+                                <text x="14" y="74" fill="#ffe4e6" font-size="10">▪ Proyector MLP 2-Capas: <tspan fill="#86efac" font-weight="800">ENTRENABLE (Trained)</tspan></text>
+                                <text x="14" y="90" fill="#ffe4e6" font-size="10">▪ Language Model (Vicuna-7B): <tspan fill="#86efac" font-weight="800">DESCONGELADO (Fine-tuned)</tspan></text>
+                                <rect x="12" y="108" width="406" height="34" rx="4" fill="#500724"/>
+                                <text x="18" y="124" fill="#ffffff" font-size="9.5" font-weight="700">Ajuste de extremo a extremo para razonamiento abductivo,</text>
+                                <text x="18" y="136" fill="#fbcfe8" font-size="9">seguimiento de instrucciones clínicas y visual prompting (ROI)</text>
+                            </g>
+
+                            <!-- Inference Card -->
+                            <g transform="translate(715, 395)">
+                                <rect width="430" height="130" rx="8" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+                                <text x="14" y="22" fill="#4ade80" font-size="11" font-weight="800">INFERENCIA CLÍNICA DE QUILT-LLAVA (OUTPUTS)</text>
+                                <text x="14" y="42" fill="#cbd5e1" font-size="10">1. Localización espacial de lesiones señaladas en la pregunta.</text>
+                                <text x="14" y="58" fill="#cbd5e1" font-size="10">2. Soporte de Visual Prompting (elipses rojas delimitando ROIs).</text>
+                                <text x="14" y="74" fill="#cbd5e1" font-size="10">3. Razonamiento Abductivo: emite hipótesis y sugiere qué otros</text>
+                                <text x="24" y="90" fill="#cbd5e1" font-size="10">parches del WSI deben examinarse para validar el diagnóstico.</text>
+                                <rect x="12" y="98" width="406" height="22" rx="4" fill="#14532d"/>
+                                <text x="18" y="113" fill="#ffffff" font-size="9.5" font-weight="700">Supera a LLaVA-Med en +10.8% relativo en score de GPT-4</text>
+                            </g>
+                        </svg>
+                        <div class="diagram-caption">
+                            Figura 2. Metodología de tracking de cursor, generación de Quilt-Instruct y entrenamiento curricular en 2 fases de Quilt-LLaVA (CVPR 2024).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 6: ORGANIZACIÓN DE CAMPOS Y FLUJO I/O -->
+                <div id="qi-io" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">6</span>
+                            <h3 class="eje-title">Organización de Campos y Flujo Entrada/Salida (I/O)</h3>
+                        </div>
+                        <span class="eje-badge">Arquitectura de Datos JSON</span>
+                    </div>
+
+                    <p>
+                        El repositorio se estructura en archivos JSON nativos del formato LLaVA (`conversations`) enriquecidos con geometrías espaciales:
+                    </p>
+
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Campo del Dataset</th>
+                                    <th>Tipo de Dato</th>
+                                    <th>Rol en el Pipeline</th>
+                                    <th>Descripción y Ejemplos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="schema-field">id</span></td>
+                                    <td>String</td>
+                                    <td>Clave Primaria</td>
+                                    <td>Identificador único del diálogo (ej. <code>quilt_instruct_002849</code>).</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="schema-field">image</span></td>
+                                    <td>String (Filename)</td>
+                                    <td><strong style="color: var(--accent);">INPUT VISUAL (LINK)</strong></td>
+                                    <td>Nombre del archivo de imagen en <strong>Quilt-1M</strong> (ej. <code>_KJZm1orOvU_roi_1.jpg</code>). Alimenta el encoder visual tras cargar el binario físico.</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="schema-field">conversations</span></td>
+                                    <td>Lista de Objetos JSON</td>
+                                    <td><strong style="color: var(--accent-purple);">INPUT & TARGET SFT</strong></td>
+                                    <td>Secuencia multi-turno: <code>[{"from": "human", "value": "..."}, {"from": "gpt", "value": "..."}]</code>.</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="schema-field">cursor_boxes</span></td>
+                                    <td>Lista de Coordenadas</td>
+                                    <td>Grounding Espacial</td>
+                                    <td>BBoxes de cursores asociados a los conceptos verbalizados: <code>[x1, y1, x2, y2]</code> con valores normalizados entre 0 y 1.</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="schema-field">diagnosis</span> / <span class="schema-field">clues</span></td>
+                                    <td>Metadata Clínica</td>
+                                    <td>Ground Truth WSI</td>
+                                    <td>Diagnóstico final extraído del WSI completo ($d_j^v$) y hechos probatorios ($f_j^v$) utilizados para condicionar las respuestas.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="subgrid-2col">
+                        <div class="card-inner">
+                            <h4 class="card-inner-title">📥 ¿Qué Entradas Recibe el Modelo? (Inputs)</h4>
+                            <p style="margin: 0; font-size: 0.88rem;">
+                                <strong>1. Entrada Visual:</strong> Parche RGB $224\times 224$ px, procesado por el Vision Encoder congelado (QuiltNet ViT-B/16). Opcionalmente incluye un <em>Visual Prompt</em> (un círculo o elipse roja trazada directamente sobre el parche en el área de interés $[x_1, y_1, x_2, y_2]$).<br><br>
+                                <strong>2. Entrada Textual:</strong> Prompt del usuario en lenguaje natural: <code>&lt;image&gt;\n¿Qué alteración citoarquitectónica se observa en el área señalada y qué sugiere en este paciente?</code>.
+                            </p>
+                        </div>
+                        <div class="card-inner">
+                            <h4 class="card-inner-title">📤 ¿Qué Salidas Genera el Modelo? (Outputs)</h4>
+                            <p style="margin: 0; font-size: 0.88rem;">
+                                <strong>Generación Autorregresiva de Texto Libre:</strong> La secuencia de tokens de respuesta generada palabra por palabra por Vicuna-7B. No se limita a una etiqueta cerrada: describe la atipia celular, indica el grado histológico probable y <strong>proporciona recomendaciones diagnósticas activas</strong> sobre qué regiones adicionales del WSI deben ser inspeccionadas para confirmar el caso.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 7: BASELINE QUILT-LLAVA Y METODOLOGÍA DE ARQUITECTURA -->
+                <div id="qi-baseline" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">7</span>
+                            <h3 class="eje-title">Baseline Quilt-LLaVA y Metodología de Arquitectura</h3>
+                        </div>
+                        <span class="eje-badge">LMM Autorregresivo Projector-based</span>
+                    </div>
+
+                    <div class="subgrid-2col">
+                        <div class="card-inner">
+                            <h4 class="card-inner-title">🔍 Respuestas a Preguntas Metodológicas</h4>
+                            <ul style="margin: 0; padding-left: 18px; font-size: 0.88rem;">
+                                <li>
+                                    <strong>¿Usa Pre-embeddings o Píxeles Crudos?:</strong> 
+                                    <strong style="color: var(--accent-green);">HÍBRIDO / PÍXELES CON VISION ENCODER CONGELADO.</strong> Como el Vision Encoder (QuiltNet ViT-B/16) se mantiene totalmente congelado durante las dos fases de entrenamiento de Quilt-LLaVA, los embeddings visuales pueden pre-extraerse fuera de línea o calcularse al vuelo en streaming a partir de los píxeles crudos sin afectar los gradientes.
+                                </li>
+                                <li>
+                                    <strong>¿Es Nativamente Multimodal o Adaptado?:</strong> 
+                                    <strong style="color: var(--accent-amber);">ADAPTADO (Arquitectura Tipo LLaVA).</strong> Acopla un encoder de visión preentrenado (QuiltNet/CLIP) con un modelo de lenguaje autorregresivo (Vicuna-7B v1.5 basado en LLaMA-2) mediante un proyector intermedio.
+                                </li>
+                                <li>
+                                    <strong>Estrategia de Fusión Multimodal:</strong> 
+                                    <strong style="color: var(--accent-indigo);">PROJECTOR-BASED / PREFIX SOFT-PROMPTING.</strong> El proyector MLP convierte la matriz de $N_v$ tokens de parche en vectores $\mathbf{H}_v \in \mathbb{R}^{N_v \times D_l}$ de dimensión equivalente a los tokens de lenguaje ($D_l = 4096$). Estos tokens visuales se anteponen (*prefix*) a la secuencia de texto, permitiendo que las capas de atención causal del LLM atiendan sobre la imagen.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card-inner">
+                            <h4 class="card-inner-title">⚙️ Función de Pérdida de Supervised Fine-Tuning (SFT)</h4>
+                            <p style="margin: 0; font-size: 0.88rem;">
+                                Durante la Fase 2, se optimiza la probabilidad logarítmica de los tokens de la respuesta generada por el asistente humano, condicionada a la historia previa y los tokens visuales proyectados:
+                            </p>
+                            <div class="formula-box" style="margin: 10px 0; font-size: 0.95rem;">
+                                $$\mathcal{L}_{\text{SFT}} = -\sum_{t=1}^{T} \log P(w_t \mid w_{<t}, \mathbf{H}_v)$$
+                            </div>
+                            <p style="margin: 0; font-size: 0.84rem; color: var(--text-muted);">
+                                Donde $\mathbf{H}_v = \mathbf{W}_{\text{MLP}} \cdot f_{\text{vis}}(I_{\text{patch}})$ representa el conjunto de tokens visuales proyectados desde el parche.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 8: EVALUACIONES, BENCHMARKS Y AUDITORÍA -->
+                <div id="qi-eval" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">8</span>
+                            <h3 class="eje-title">Evaluaciones Experimentales y Cruce Factual con la Auditoría</h3>
+                        </div>
+                        <span class="eje-badge">Validación CVPR 2024</span>
+                    </div>
+
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Evaluación / Benchmark</th>
+                                    <th>Modelos Competidores</th>
+                                    <th>Métricas Reportadas</th>
+                                    <th>Resultado Obtenido por Quilt-LLaVA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Oracle GPT-4 Judge Score</strong> (Instruction Following Test Set)</td>
+                                    <td>LLaVA-Med, LLaVA 1.5 general</td>
+                                    <td>Puntaje de 1 a 10 evaluado por GPT-4 (normalizado relativo)</td>
+                                    <td>Superó a LLaVA-Med en <strong>+10.8%</strong> y a LLaVA general en <strong>+16.2%</strong> en seguimiento de instrucciones clínicas en 14 subpatologías.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Visual Question Answering</strong> (PathVQA y Quilt-VQA)</td>
+                                    <td>LLaVA, LLaVA-Med</td>
+                                    <td>Closed-set Accuracy (Yes/No, Multi-choice) y Open-set Recall</td>
+                                    <td>Superó a los baselines por <strong>+9% en preguntas cerradas</strong> y <strong>+4% en preguntas abiertas</strong>. Mostró habilidad para seguir opciones A/B/C/D donde LLaVA-Med fallaba.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Visual Prompting (ROI con Elipse Roja)</strong></td>
+                                    <td>LLaVA, LLaVA-Med</td>
+                                    <td>Accuracy / Recall localizado</td>
+                                    <td>Superó por <strong>+10% en closed-set</strong> y <strong>+4% en open-set</strong> al evaluar regiones marcadas con círculos rojos en Quilt-VQA.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="subgrid-2col" style="margin-top: 16px;">
+                        <div class="card-inner">
+                            <h4 class="card-inner-title">⚖️ Cifras Fácticas de la Auditoría Local</h4>
+                            <ul style="margin: 0; padding-left: 18px; font-size: 0.88rem;">
+                                <li><strong>Volumen Total Auditado:</strong> <strong>107,000 diálogos multi-turno</strong> estructurados en 9 archivos Parquet/JSON.</li>
+                                <li><strong>Subconjuntos Oficiales:</strong> <code>quilt_instruct_107k.json</code> (conjunto completo), <code>quilt_instruct_ablation_40k.json</code> (subconjunto balanceado óptimo para SFT rápido), <code>cursor.parquet</code> y <code>diagnosis_and_clues.parquet</code>.</li>
+                                <li><strong>Tamaño en Hub:</strong> 855.79 MB (exclusivamente texto y metadatos).</li>
+                            </ul>
+                        </div>
+
+                        <div class="card-inner">
+                            <h4 class="card-inner-title">⚠️ Aislamiento Metodológico y Data Leakage</h4>
+                            <p style="margin: 0; font-size: 0.88rem;">
+                                <strong>Riesgo Crítico con Quilt-VQA:</strong> Como Quilt-VQA se extrajo de los mismos videos de YouTube, los autores aislaron rigurosamente los videos utilizados para Quilt-VQA (985 preguntas) para que ninguna imagen ni diálogo derivado de ellos forme parte de Quilt-Instruct. Para experimentos de evaluación en la tesis, se debe respetar estrictamente esta partición ciega.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="callout-box green" style="margin-top: 20px;">
+                        <div class="callout-title">
+                            <span>🎯</span> Conclusión para la Tesis de Maestría
+                        </div>
+                        <p style="margin: 0;">
+                            <strong>Rol Recomendado:</strong> Quilt-Instruct es el dataset de referencia de la literatura para evaluar la capacidad de <em>Visual Instruction Tuning (SFT)</em>. Permite contrastar cómo un modelo multimodal preentrenado (ej. mediante Quilt-1M) adquiere capacidades dialógicas y de razonamiento clínico fino cuando es supervisado con instrucciones estructuradas en lugar de simples captions descriptivos.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
         <!-- Placeholder for next datasets dictated by user -->
         <div id="quilt-vqa-slot" style="margin-top: 40px; padding: 24px; border: 2px dashed var(--border-color); border-radius: 14px; text-align: center; color: var(--text-muted);">
-            <h3 style="color: #ffffff; margin-top: 0;">Próximo Dataset en la Fila: Quilt-VQA / Quilt-Instruct</h3>
+            <h3 style="color: #ffffff; margin-top: 0;">Próximo Dataset en la Fila: Quilt-VQA (CVPR 2024)</h3>
             <p style="font-size: 0.9rem; max-width: 650px; margin: 0 auto;">
                 Este bloque se completará a continuación con la misma profundidad analítica, diagrama metodológico y cruce de datos siguiendo las instrucciones del usuario.
             </p>
