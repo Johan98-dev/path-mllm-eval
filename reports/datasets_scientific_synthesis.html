@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Síntesis Científica y Metodológica de Datasets Multimodales | Tesis de Maestría</title>
+    <style>
+        :root {
+            --bg-color: #0b1120;
+            --sidebar-bg: #0f172a;
+            --card-bg: #1e293b;
+            --card-subtle: #141f32;
+            --card-hover: #27354f;
+            --border-color: #334155;
+            --border-light: #475569;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dark: #64748b;
+            
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.25);
+            --accent-green: #4ade80;
+            --accent-amber: #fbbf24;
+            --accent-purple: #c084fc;
+            --accent-rose: #fb7185;
+            --accent-cyan: #22d3ee;
+            --accent-indigo: #818cf8;
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 320px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 24px 18px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar-header {
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0 0 6px 0;
+            line-height: 1.3;
+        }
+
+        .sidebar-sub {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .nav-section-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-dark);
+            font-weight: 800;
+            margin: 12px 8px 6px 8px;
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.84rem;
+            font-weight: 600;
+            transition: all 0.15s ease;
+            border: 1px solid transparent;
+        }
+
+        .nav-item a:hover {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border-color: var(--border-color);
+        }
+
+        .nav-item.active a {
+            background-color: rgba(56, 189, 248, 0.12);
+            color: var(--accent);
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        .nav-badge {
+            font-size: 0.65rem;
+            padding: 2px 7px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .nav-badge-vlp { background: rgba(56, 189, 248, 0.2); color: var(--accent); }
+        .nav-badge-vqa { background: rgba(192, 132, 252, 0.2); color: var(--accent-purple); }
+        .nav-badge-wsi { background: rgba(251, 191, 36, 0.2); color: var(--accent-amber); }
+        .nav-badge-instruct { background: rgba(74, 222, 128, 0.2); color: var(--accent-green); }
+
+        /* Main Content Container */
+        .main-content {
+            flex-grow: 1;
+            padding: 36px 48px;
+            overflow-y: auto;
+            max-width: 1440px;
+        }
+
+        /* Hero Banner */
+        .hero-card {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 55%, #0c4a6e 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 36px;
+            margin-bottom: 36px;
+            box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::after {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -15%;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 10px 0;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-desc {
+            font-size: 0.98rem;
+            color: var(--text-muted);
+            max-width: 980px;
+            line-height: 1.65;
+            margin-bottom: 20px;
+        }
+
+        .hero-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .hero-meta-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .hero-meta-val {
+            font-size: 0.95rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Dataset Section Card */
+        .dataset-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 48px;
+            box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.35);
+        }
+
+        .dataset-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 28px;
+        }
+
+        .dataset-title-area {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .dataset-order-pill {
+            align-self: flex-start;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 6px;
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .dataset-name {
+            font-size: 1.85rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dataset-repo-sub {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .badges-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .badge-cyan { background: rgba(34, 211, 238, 0.15); color: var(--accent-cyan); border: 1px solid rgba(34, 211, 238, 0.3); }
+        .badge-green { background: rgba(74, 222, 128, 0.15); color: var(--accent-green); border: 1px solid rgba(74, 222, 128, 0.3); }
+        .badge-purple { background: rgba(192, 132, 252, 0.15); color: var(--accent-purple); border: 1px solid rgba(192, 132, 252, 0.3); }
+        .badge-amber { background: rgba(251, 191, 36, 0.15); color: var(--accent-amber); border: 1px solid rgba(251, 191, 36, 0.3); }
+        .badge-indigo { background: rgba(129, 140, 248, 0.15); color: var(--accent-indigo); border: 1px solid rgba(129, 140, 248, 0.3); }
+        .badge-rose { background: rgba(251, 113, 133, 0.15); color: var(--accent-rose); border: 1px solid rgba(251, 113, 133, 0.3); }
+
+        /* Scientific Grid Sections */
+        .ejes-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 28px;
+        }
+
+        .eje-block {
+            background-color: var(--card-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+        }
+
+        .eje-block:hover {
+            border-color: var(--border-light);
+        }
+
+        .eje-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.7);
+        }
+
+        .eje-title-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .eje-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(56, 189, 248, 0.2);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 800;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+        }
+
+        .eje-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .eje-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: rgba(148, 163, 184, 0.12);
+            color: var(--text-muted);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+        }
+
+        /* Content Styles */
+        p, li {
+            color: #cbd5e1;
+            font-size: 0.92rem;
+            line-height: 1.65;
+        }
+
+        strong {
+            color: #ffffff;
+        }
+
+        .text-term {
+            color: var(--accent);
+            font-family: ui-monospace, monospace;
+            font-size: 0.85em;
+            background: rgba(56, 189, 248, 0.1);
+            padding: 1px 5px;
+            border-radius: 4px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .pub-links-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #1e293b;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+
+        .btn-link:hover {
+            background: #283750;
+            color: #ffffff;
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary-pub {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(129, 140, 248, 0.25));
+            border-color: rgba(56, 189, 248, 0.5);
+            color: var(--accent);
+        }
+
+        .btn-primary-pub:hover {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(129, 140, 248, 0.4));
+            color: #ffffff;
+        }
+
+        /* Method Diagram SVG Container */
+        .diagram-container {
+            background: #090e17;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .diagram-caption {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 12px;
+            font-style: italic;
+        }
+
+        /* Tables */
+        .data-table-wrapper {
+            overflow-x: auto;
+            margin: 16px 0;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+
+        table.data-table th {
+            background-color: #0f172a;
+            color: var(--text-main);
+            font-weight: 700;
+            padding: 12px 14px;
+            border-bottom: 2px solid var(--border-color);
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 0.05em;
+        }
+
+        table.data-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-color);
+            color: #cbd5e1;
+        }
+
+        table.data-table tr:hover td {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Callout Cards */
+        .callout-box {
+            background: rgba(15, 23, 42, 0.7);
+            border-left: 4px solid var(--accent);
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+            border-top: 1px solid rgba(56, 189, 248, 0.2);
+            border-right: 1px solid rgba(56, 189, 248, 0.2);
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .callout-box.amber {
+            border-left-color: var(--accent-amber);
+            border-top-color: rgba(251, 191, 36, 0.2);
+            border-right-color: rgba(251, 191, 36, 0.2);
+            border-bottom-color: rgba(251, 191, 36, 0.2);
+        }
+
+        .callout-box.green {
+            border-left-color: var(--accent-green);
+            border-top-color: rgba(74, 222, 128, 0.2);
+            border-right-color: rgba(74, 222, 128, 0.2);
+            border-bottom-color: rgba(74, 222, 128, 0.2);
+        }
+
+        .callout-title {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Two Column Subgrid */
+        .subgrid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 18px;
+            margin: 16px 0;
+        }
+
+        .card-inner {
+            background: #0f172a;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .card-inner-title {
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-top: 0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Math formula display */
+        .formula-box {
+            background: #090e17;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px 18px;
+            font-family: "Cambria Math", "Times New Roman", serif;
+            font-size: 1.05rem;
+            color: #f1f5f9;
+            text-align: center;
+            margin: 14px 0;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Schema Field Pill */
+        .schema-field {
+            display: inline-block;
+            background: #1e293b;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-family: ui-monospace, monospace;
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            margin: 3px 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-tag">Tesis de Maestría</div>
+            <h2 class="sidebar-title">Síntesis Científica de Datasets</h2>
+            <p class="sidebar-sub">Evaluación Comparativa de LMMs en Histopatología</p>
+        </div>
+
+        <div class="nav-section-title">Navegación por Datasets</div>
+        <ul class="nav-list">
+            <li class="nav-item active">
+                <a href="#quilt-1m">
+                    <span>1. Quilt-1M</span>
+                    <span class="nav-badge nav-badge-vlp">VLP</span>
+                </a>
+            </li>
+            <li class="nav-item" style="opacity: 0.6;">
+                <a href="#quilt-vqa-slot" style="pointer-events: none;">
+                    <span>2. Quilt-VQA (Próximo)</span>
+                    <span class="nav-badge nav-badge-vqa">VQA</span>
+                </a>
+            </li>
+            <li class="nav-item" style="opacity: 0.6;">
+                <a href="#quilt-instruct-slot" style="pointer-events: none;">
+                    <span>3. Quilt-Instruct (Próximo)</span>
+                    <span class="nav-badge nav-badge-instruct">SFT</span>
+                </a>
+            </li>
+            <li class="nav-item" style="opacity: 0.4;">
+                <a href="#more-datasets" style="pointer-events: none;">
+                    <span>... Otros según prioridad</span>
+                    <span class="nav-badge">Pendiente</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-section-title">Secciones de Quilt-1M</div>
+        <ul class="nav-list" style="font-size: 0.78rem;">
+            <li class="nav-item"><a href="#q1m-biblio">1. Metadatos & Paper Base</a></li>
+            <li class="nav-item"><a href="#q1m-resumen">2. Resumen Científico</a></li>
+            <li class="nav-item"><a href="#q1m-curacion">3. Curación & Calidad Textual</a></li>
+            <li class="nav-item"><a href="#q1m-diagrama">4. Diagrama Metodológico</a></li>
+            <li class="nav-item"><a href="#q1m-io">5. Campos & Flujo I/O</a></li>
+            <li class="nav-item"><a href="#q1m-baseline">6. Baseline QuiltNet & Fusión</a></li>
+            <li class="nav-item"><a href="#q1m-eval">7. Evaluaciones & Benchmarks</a></li>
+            <li class="nav-item"><a href="#q1m-ecosistema">8. Ecosistema & Auditoría</a></li>
+        </ul>
+
+        <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border-color);">
+            <a href="index.html" class="btn-link" style="width: 100%; justify-content: center; font-size: 0.78rem;">
+                ← Volver a Matriz Comparativa
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+        <!-- Hero Header -->
+        <header class="hero-card">
+            <span class="sidebar-tag">Marco Teórico & Metodológico Consolidado</span>
+            <h1 class="hero-title">Catálogo Científico y Análisis Profundo de Datasets</h1>
+            <p class="hero-desc">
+                Cruce sistemático entre los artículos científicos fundacionales (conferencias y revistas de alto impacto) y las auditorías fácticas locales de datos. Este documento sintetiza los esquemas de entrada/salida ($I/O$), métodos de curación multimodal, arquitecturas de modelos baseline, estrategias de fusión e idoneidad experimental para la evaluación comparativa de Modelos de Lenguaje Multimodal (LMM) en histopatología.
+            </p>
+            <div class="hero-meta-grid">
+                <div class="hero-meta-item">
+                    <span class="hero-meta-label">Fase del Proyecto</span>
+                    <span class="hero-meta-val">Fase 1: Consolidación & Marco Teórico</span>
+                </div>
+                <div class="hero-meta-item">
+                    <span class="hero-meta-label">Estándar Metodológico</span>
+                    <span class="hero-meta-val">Ficha Sistemática de 8 Ejes Científicos</span>
+                </div>
+                <div class="hero-meta-item">
+                    <span class="hero-meta-label">Familia en Revisión</span>
+                    <span class="hero-meta-val" style="color: var(--accent);">Quilt Family (Prioridad 1)</span>
+                </div>
+                <div class="hero-meta-item">
+                    <span class="hero-meta-label">Pipeline Visual</span>
+                    <span class="hero-meta-val" style="color: var(--accent-green);">Diagramas Nativos SVG + Flujos I/O</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- DATASET 1: QUILT-1M -->
+        <section id="quilt-1m" class="dataset-card">
+            
+            <!-- Header Dataset -->
+            <div class="dataset-header">
+                <div class="dataset-title-area">
+                    <div class="dataset-order-pill">Dataset #1 • Familia Quilt</div>
+                    <h2 class="dataset-name">
+                        Quilt-1M
+                        <span style="font-size: 1.1rem; color: var(--text-muted); font-weight: 500;">(One Million Image-Text Pairs for Histopathology)</span>
+                    </h2>
+                    <div class="dataset-repo-sub">Repositorio oficial: wisdomik/Quilt-1M • Hugging Face & GitHub</div>
+                </div>
+                <div class="badges-wrapper">
+                    <span class="badge badge-cyan">Tarea: VLP Pre-training</span>
+                    <span class="badge badge-purple">Entrada: Raw Pixels (Sin pre-embeddings)</span>
+                    <span class="badge badge-indigo">Fusión: Late Fusion (Contrastive / InfoNCE)</span>
+                    <span class="badge badge-amber">Escala: 1,017,712 Pares</span>
+                    <span class="badge badge-green">Licencia: CC BY-NC-SA 4.0</span>
+                </div>
+            </div>
+
+            <!-- Ejes de Análisis Científico -->
+            <div class="ejes-grid">
+
+                <!-- EJE 1: BIBLIOGRAFÍA & ENLACES FORMALES -->
+                <div id="q1m-biblio" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">1</span>
+                            <h3 class="eje-title">Metadatos Bibliográficos y Enlaces Oficiales</h3>
+                        </div>
+                        <span class="eje-badge">Peer-Reviewed Conference</span>
+                    </div>
+
+                    <p>
+                        <strong>Publicación Oficial:</strong> Artículo publicado en el track formal de Datasets y Benchmarks de 
+                        <strong>NeurIPS 2023</strong> (Thirty-seventh Conference on Neural Information Processing Systems) con distinción de 
+                        <span class="badge badge-purple" style="padding: 2px 6px;">Oral Presentation</span>.
+                    </p>
+                    <p style="margin-bottom: 6px;">
+                        <strong>Autores:</strong> Wisdom O. Ikezogwo, Mehmet Saygin Seyfioglu, Fatemeh Ghezloo, Dylan Geva, Fatwir Sheikh Mohammed, Pavan Kumar Anand, Ranjay Krishna, Linda Shapiro (University of Washington).
+                    </p>
+
+                    <div class="pub-links-bar">
+                        <a href="https://proceedings.neurips.cc/paper_files/paper/2023/file/775ec578876fa6812c062644964b9870-Paper-Datasets_and_Benchmarks.pdf" target="_blank" class="btn-link btn-primary-pub">
+                            📄 Paper Oficial en NeurIPS Proceedings (PDF)
+                        </a>
+                        <a href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/775ec578876fa6812c062644964b9870-Abstract-Datasets_and_Benchmarks.html" target="_blank" class="btn-link">
+                            🔗 NeurIPS Conference Record
+                        </a>
+                        <a href="https://arxiv.org/abs/2306.11207" target="_blank" class="btn-link">
+                            📑 arXiv:2306.11207 (v4)
+                        </a>
+                        <a href="https://github.com/wisdomikezogwo/quilt1m" target="_blank" class="btn-link">
+                            💻 GitHub Oficial (Code & Pipeline)
+                        </a>
+                        <a href="https://huggingface.co/datasets/wisdomik/Quilt-1M" target="_blank" class="btn-link">
+                            🤗 Hugging Face Dataset Hub
+                        </a>
+                        <a href="preview_wisdomik_quilt_1m.html" target="_blank" class="btn-link" style="border-color: rgba(56, 189, 248, 0.4); color: var(--accent);">
+                            👁️ Ver Auditoría Visual Local del Proyecto
+                        </a>
+                    </div>
+                </div>
+
+                <!-- EJE 2: RESUMEN CIENTÍFICO DEL PAPER BASE -->
+                <div id="q1m-resumen" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">2</span>
+                            <h3 class="eje-title">Resumen Científico del Paper Base</h3>
+                        </div>
+                        <span class="eje-badge">Síntesis Académica</span>
+                    </div>
+
+                    <p>
+                        <strong>Problema y Motivación:</strong> En patología computacional, la mayoría de modelos clásicos han dependido de aprendizaje débilmente supervisado (<span class="text-term">Weakly-Supervised Learning</span>) sobre láminas completas (<span class="text-term">WSI</span>), asignando una única etiqueta categórica a gigapíxeles de información. Esto sobresimplifica la enorme heterogeneidad celular y desestima el conocimiento morfológico granular. Mientras en visión general el preentrenamiento visión-lenguaje (<span class="text-term">Vision-Language Pretraining - VLP</span>) como CLIP revolucionó las representaciones transferibles gracias a cientos de millones de pares web, en histopatología existía una escasez crítica de datos emparejados (los datasets previos más grandes como ARCH apenas alcanzaban ~8K pares y OpenPath ~200K pares en Twitter).
+                    </p>
+
+                    <p>
+                        <strong>Hipótesis y Solución Propuesta:</strong> Los autores identifican que los videos educativos de histopatología en YouTube constituyen una fuente desaprovechada de narración clínica experta de alta fidelidad. Curan <strong>Quilt</strong> a partir de <strong>1,087 horas de video</strong> donde patólogos certificados desplazan (<span class="text-term">pan</span>) y aumentan (<span class="text-term">zoom</span>) láminas mientras describen estructuras microscópicas. Para trascender las limitaciones de ruido del audio y del video, implementan un pipeline multi-modelo combinando transcripción automática (<span class="text-term">ASR</span> con Whisper), corrección de texto y extracción con <span class="text-term">LLMs (GPT-3.5)</span> condicionados con ontologías médicas (<span class="text-term">UMLS</span>), y clasificadores visuales para detectar láminas y magnificación.
+                    </p>
+
+                    <p>
+                        <strong>Consolidación de Quilt-1M:</strong> Al integrar Quilt con otras tres fuentes abiertas (PubMed Central, Twitter/OpenPath y LAION-5B), crean <strong>Quilt-1M</strong> con <strong>1,017,712 pares imagen-texto</strong>, posicionándose como el dataset de alineación multimodal libre más grande de la literatura. Entrenan el modelo baseline <strong>QuiltNet</strong> (adaptación de CLIP mediante contraste de representaciones), demostrando un rendimiento superior frente a modelos del estado del arte (OpenAI CLIP, PLIP y BiomedCLIP) en 13 datasets externos de evaluación patológica bajo regímenes <span class="text-term">Zero-Shot</span>, <span class="text-term">Linear Probing</span> y <span class="text-term">Cross-Modal Retrieval</span>.
+                    </p>
+                </div>
+
+                <!-- EJE 3: METODOLOGÍA DE OBTENCIÓN, CURACIÓN Y CALIDAD TEXTUAL -->
+                <div id="q1m-curacion" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">3</span>
+                            <h3 class="eje-title">Metodología de Obtención, Curación y Supervisión Textual</h3>
+                        </div>
+                        <span class="eje-badge">Pipeline de Depuración</span>
+                    </div>
+
+                    <div class="subgrid-2col">
+                        <div class="card-inner">
+                            <h4 class="card-inner-title">
+                                <span style="color: var(--accent);">🔬</span> Adquisición de Fuentes Multicéntricas
+                            </h4>
+                            <ul style="margin: 0; padding-left: 18px;">
+                                <li>
+                                    <strong>Subconjunto YouTube (Quilt Core - 78.82% / 802,148 pares):</strong> 4,504 videos de estilo narrativo educativo seleccionados mediante búsqueda por palabras clave de 18 subespecialidades patológicas (descartando canales generales con $\ge 300\text{K}$ suscriptores).
+                                </li>
+                                <li>
+                                    <strong>Twitter / OpenPath (13.12% / 133,511 pares):</strong> Tuits médicos recopilados por Huang et al. emparejados en relación uno-a-muchos (una misma imagen asociada a múltiples descripciones complementarias).
+                                </li>
+                                <li>
+                                    <strong>PubMed Central Open Access (5.83% / 59,371 pares):</strong> Artículos entre 2010 y 2022 procesados mediante detección de bordes (filtros Sobel) y contornos para desagregar subfiguras compuestas (<span class="text-term">multi-plane figure cropping</span>).
+                                </li>
+                                <li>
+                                    <strong>LAION-5B (2.23% / 22,682 pares):</strong> Recuperación semántica de parches histopatológicos en la web usando similitud coseno con embeddings de CLIP sobre semillas de Quilt y PubMed.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card-inner">
+                            <h4 class="card-inner-title">
+                                <span style="color: var(--accent-green);">✍️</span> Origen y Supervisión de la Parte Textual
+                            </h4>
+                            <ul style="margin: 0; padding-left: 18px;">
+                                <li>
+                                    <strong>¿Quién generó la anotación original?</strong> Patólogos clínicos y docentes universitarios expertos que explican los casos en los videos y escriben las leyendas en PubMed y Twitter.
+                                </li>
+                                <li>
+                                    <strong>Transcripción de Audio:</strong> Generada automáticamente mediante <span class="text-term">Whisper Large-V2</span>. Dado que Whisper comete sustituciones fonéticas (ej. <em>"serious"</em> en vez de <em>"serous carcinoma"</em>), se aplicó un pipeline de 4 etapas:
+                                    <ol style="padding-left: 16px; margin-top: 4px;">
+                                        <li>Extracción de keywords con RAKE y remoción de stopwords.</li>
+                                        <li>Validación contra ontologías UMLS usando SciSpacy.</li>
+                                        <li>Denoising con <strong>GPT-3.5 a temperatura 0</strong> condicionado en contexto para corregir errores médicos sin inventar términos.</li>
+                                        <li>Doble verificación: solo se sustituyen correcciones validadas en UMLS y vocabularios (HPATH, MPATH, BCGO, NCIT).</li>
+                                    </ol>
+                                </li>
+                                <li>
+                                    <strong>Extracción de Texto Médico y ROI:</strong> GPT-3.5 discriminó texto clínico relevante de charla informal, y aisló frases deícticas cuando el narrador dice <em>"look here..."</em> para generar <span class="text-term">roi_text</span>.
+                                </li>
+                                <li>
+                                    <strong>Validación Humana Experta:</strong> Patólogos evaluaron una muestra aleatoria de 100 videos para medir la clasificación de subpatologías de GPT-3.5 (86.8% Top-1, 94.9% Top-3). La tasa de error del ASR final bajó a 0.79%.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="callout-box green">
+                        <div class="callout-title">
+                            <span>🛡️</span> Garantía de Filtrado y Privacidad
+                        </div>
+                        <p style="margin: 0;">
+                            Al obligar al LLM a extraer exclusivamente texto descriptivo de lesiones citoarquitectónicas, se eliminaron automáticamente datos personales, nombres de clínicas o información de identificación de pacientes presentes en las introducciones o diapositivas de los videos.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- EJE 4: DIAGRAMA METODOLÓGICO Y DE ARQUITECTURA -->
+                <div id="q1m-diagrama" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">4</span>
+                            <h3 class="eje-title">Diagrama Metodológico: Del Video al Modelo QuiltNet</h3>
+                        </div>
+                        <span class="eje-badge">Pipeline Visual Integrado</span>
+                    </div>
+
+                    <p>
+                        A continuación se presenta la reconstrucción esquemática intuitiva de la metodología completa de Quilt-1M y su modelo baseline QuiltNet, distinguiendo las etapas de adquisición, curación multi-modelo, flujos de datos ($I/O$) y la arquitectura de contraste visión-lenguaje:
+                    </p>
+
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 1180 500" width="100%" height="500" xmlns="http://www.w3.org/2000/svg" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                            <defs>
+                                <linearGradient id="gradSource" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1e293b"/>
+                                    <stop offset="100%" stop-color="#0f172a"/>
+                                </linearGradient>
+                                <linearGradient id="gradVis" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#0369a1"/>
+                                    <stop offset="100%" stop-color="#0284c7"/>
+                                </linearGradient>
+                                <linearGradient id="gradTxt" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4338ca"/>
+                                    <stop offset="100%" stop-color="#6366f1"/>
+                                </linearGradient>
+                                <linearGradient id="gradLoss" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#831843"/>
+                                    <stop offset="100%" stop-color="#be185d"/>
+                                </linearGradient>
+                                <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8"/>
+                                </marker>
+                                <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 1 L 8 5 L 0 9 z" fill="#4ade80"/>
+                                </marker>
+                            </defs>
+
+                            <!-- Background Zones -->
+                            <rect x="15" y="15" width="260" height="470" rx="10" fill="#0f172a" stroke="#334155" stroke-dasharray="4"/>
+                            <text x="30" y="42" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="1">FASE 1: FUENTES DE DATOS</text>
+
+                            <rect x="295" y="15" width="310" height="470" rx="10" fill="#0f172a" stroke="#334155" stroke-dasharray="4"/>
+                            <text x="310" y="42" fill="#94a3b8" font-size="11" font-weight="700" letter-spacing="1">FASE 2: CURACIÓN & DENOISING</text>
+
+                            <rect x="625" y="15" width="540" height="470" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+                            <text x="640" y="42" fill="#38bdf8" font-size="11" font-weight="800" letter-spacing="1">FASE 3: MODELO QUILTNET (LATE FUSION CLIP)</text>
+
+                            <!-- Sources Blocks -->
+                            <g transform="translate(30, 60)">
+                                <rect width="230" height="85" rx="8" fill="url(#gradSource)" stroke="#475569"/>
+                                <text x="12" y="24" fill="#38bdf8" font-size="12" font-weight="700">▶ YouTube (Quilt Core)</text>
+                                <text x="12" y="44" fill="#cbd5e1" font-size="10">• 1,087 Horas / 4,504 Videos</text>
+                                <text x="12" y="60" fill="#cbd5e1" font-size="10">• Narración oral de patólogos</text>
+                                <text x="12" y="75" fill="#4ade80" font-size="10" font-weight="600">802,148 Pares (78.8%)</text>
+                            </g>
+
+                            <g transform="translate(30, 160)">
+                                <rect width="230" height="65" rx="8" fill="url(#gradSource)" stroke="#475569"/>
+                                <text x="12" y="22" fill="#38bdf8" font-size="12" font-weight="700">🐦 Twitter / OpenPath</text>
+                                <text x="12" y="38" fill="#cbd5e1" font-size="10">• 55,000 Tuits de casos clínicos</text>
+                                <text x="12" y="54" fill="#4ade80" font-size="10" font-weight="600">133,511 Pares (13.1%)</text>
+                            </g>
+
+                            <g transform="translate(30, 240)">
+                                <rect width="230" height="65" rx="8" fill="url(#gradSource)" stroke="#475569"/>
+                                <text x="12" y="22" fill="#38bdf8" font-size="12" font-weight="700">📚 PubMed Central (PMC)</text>
+                                <text x="12" y="38" fill="#cbd5e1" font-size="10">• Multi-plane Sobel Crop</text>
+                                <text x="12" y="54" fill="#4ade80" font-size="10" font-weight="600">59,371 Pares (5.8%)</text>
+                            </g>
+
+                            <g transform="translate(30, 320)">
+                                <rect width="230" height="65" rx="8" fill="url(#gradSource)" stroke="#475569"/>
+                                <text x="12" y="22" fill="#38bdf8" font-size="12" font-weight="700">🌐 LAION-5B Retrieval</text>
+                                <text x="12" y="38" fill="#cbd5e1" font-size="10">• Cosine CLIP similarity search</text>
+                                <text x="12" y="54" fill="#4ade80" font-size="10" font-weight="600">22,682 Pares (2.2%)</text>
+                            </g>
+
+                            <g transform="translate(30, 400)">
+                                <rect width="230" height="70" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+                                <text x="12" y="24" fill="#ffffff" font-size="12" font-weight="800">TOTAL QUILT-1M</text>
+                                <text x="12" y="44" fill="#38bdf8" font-size="14" font-weight="900">1,017,712 Pares</text>
+                                <text x="12" y="60" fill="#94a3b8" font-size="10">Entrenamiento masivo multimodal</text>
+                            </g>
+
+                            <!-- Arrows Sources -> Curation -->
+                            <line x1="260" y1="102" x2="310" y2="102" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+                            <line x1="260" y1="192" x2="310" y2="280" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arrow)"/>
+                            <line x1="260" y1="272" x2="310" y2="280" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+                            <!-- Curation Phase Blocks -->
+                            <!-- Visual Stream -->
+                            <g transform="translate(310, 60)">
+                                <rect width="280" height="155" rx="8" fill="#1e293b" stroke="#0284c7" stroke-width="1.5"/>
+                                <text x="12" y="22" fill="#38bdf8" font-size="11" font-weight="800">CANAL VISUAL (FRAMES DE VIDEO)</text>
+                                <text x="12" y="42" fill="#cbd5e1" font-size="10">• FFmpeg Keyframe Detection (Scene Chunks)</text>
+                                <text x="12" y="58" fill="#cbd5e1" font-size="10">• Ensemble 3x ConvNeXt (Filtro Histopatología)</text>
+                                <text x="12" y="74" fill="#cbd5e1" font-size="10">• Detección de Cuadros Estáticos (SSIM + Median)</text>
+                                <text x="12" y="90" fill="#cbd5e1" font-size="10">• Clasificador ConvNeXt-Tiny de Magnificación:</text>
+                                <text x="24" y="106" fill="#fbbf24" font-size="9.5" font-weight="700">0: (1x-10x) | 1: (20x) | 2: (40x)</text>
+                                <rect x="10" y="118" width="260" height="26" rx="4" fill="#0c4a6e"/>
+                                <text x="18" y="135" fill="#ffffff" font-size="10" font-weight="700">Salida Visual: Parche RGB 512x512 px</text>
+                            </g>
+
+                            <!-- Text Stream -->
+                            <g transform="translate(310, 230)">
+                                <rect width="280" height="175" rx="8" fill="#1e293b" stroke="#6366f1" stroke-width="1.5"/>
+                                <text x="12" y="22" fill="#c084fc" font-size="11" font-weight="800">CANAL TEXTUAL (AUDIO & ASR)</text>
+                                <text x="12" y="42" fill="#cbd5e1" font-size="10">• Transcripción ASR: Whisper Large-V2</text>
+                                <text x="12" y="58" fill="#cbd5e1" font-size="10">• Extracción RAKE + SciSpacy Entity Linker</text>
+                                <text x="12" y="74" fill="#cbd5e1" font-size="10">• Spellchecker con diccionario de patología</text>
+                                <text x="12" y="90" fill="#cbd5e1" font-size="10">• Denoising & Extracción con GPT-3.5 (T=0)</text>
+                                <text x="12" y="106" fill="#cbd5e1" font-size="10">• Doble verificación contra Ontologías UMLS</text>
+                                <text x="12" y="122" fill="#cbd5e1" font-size="10">• Extracción de Texto de ROI ("look here...")</text>
+                                <rect x="10" y="136" width="260" height="28" rx="4" fill="#312e81"/>
+                                <text x="16" y="154" fill="#ffffff" font-size="10" font-weight="700">Salida Texto: caption + roi_text limpios</text>
+                            </g>
+
+                            <!-- Alignment Connector -->
+                            <g transform="translate(310, 420)">
+                                <rect width="280" height="50" rx="8" fill="#14532d" stroke="#4ade80"/>
+                                <text x="12" y="20" fill="#ffffff" font-size="10.5" font-weight="700">Alineación Temporal Chunk-Keyword</text>
+                                <text x="12" y="38" fill="#bbf7d0" font-size="9.5">Mapeo temporal exacto entre píxeles y voz</text>
+                            </g>
+
+                            <line x1="450" y1="215" x2="450" y2="230" stroke="#94a3b8" stroke-dasharray="3"/>
+                            <line x1="450" y1="405" x2="450" y2="420" stroke="#4ade80" stroke-width="2"/>
+
+                            <!-- Arrow Curation -> QuiltNet Inputs -->
+                            <line x1="590" y1="135" x2="650" y2="135" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+                            <line x1="590" y1="320" x2="650" y2="320" stroke="#818cf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+                            <!-- QuiltNet Model Architecture -->
+                            <!-- Visual Tower -->
+                            <g transform="translate(650, 80)">
+                                <rect width="180" height="110" rx="8" fill="url(#gradVis)" stroke="#38bdf8"/>
+                                <text x="10" y="22" fill="#ffffff" font-size="11" font-weight="800">IMAGE ENCODER</text>
+                                <text x="10" y="40" fill="#e0f2fe" font-size="10">ViT-B/32 ó ViT-B/16</text>
+                                <text x="10" y="56" fill="#bae6fd" font-size="9">• Píxeles Crudos 224x224</text>
+                                <text x="10" y="70" fill="#bae6fd" font-size="9">• Patch Tokens 16x16</text>
+                                <text x="10" y="86" fill="#bae6fd" font-size="9">• Fine-tuning de CLIP</text>
+                                <text x="10" y="102" fill="#ffffff" font-size="9.5" font-weight="700">Vector z_I ∈ ℝ^512</text>
+                            </g>
+
+                            <!-- Text Tower -->
+                            <g transform="translate(650, 265)">
+                                <rect width="180" height="110" rx="8" fill="url(#gradTxt)" stroke="#818cf8"/>
+                                <text x="10" y="22" fill="#ffffff" font-size="11" font-weight="800">TEXT ENCODER</text>
+                                <text x="10" y="40" fill="#e0e7ff" font-size="10">GPT-2 (77) ó PubmedBERT</text>
+                                <text x="10" y="56" fill="#c7d2fe" font-size="9">• Context Length: 77 tokens</text>
+                                <text x="10" y="70" fill="#c7d2fe" font-size="9">• Tokenizer BPE / WordPiece</text>
+                                <text x="10" y="86" fill="#c7d2fe" font-size="9">• Medical / ROI Sampling</text>
+                                <text x="10" y="102" fill="#ffffff" font-size="9.5" font-weight="700">Vector z_T ∈ ℝ^512</text>
+                            </g>
+
+                            <!-- Arrows Towers -> Loss -->
+                            <path d="M 830 135 L 870 135 L 870 210 L 890 210" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+                            <path d="M 830 320 L 870 320 L 870 250 L 890 250" fill="none" stroke="#818cf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+                            <!-- Late Fusion Loss Block -->
+                            <g transform="translate(895, 175)">
+                                <rect width="250" height="110" rx="8" fill="url(#gradLoss)" stroke="#fb7185" stroke-width="1.5"/>
+                                <text x="12" y="24" fill="#ffffff" font-size="12" font-weight="800">LATE FUSION (CONTRASTIVO)</text>
+                                <text x="12" y="44" fill="#fce7f3" font-size="10.5" font-weight="700">Similitud Coseno sim(z_I, z_T) / τ</text>
+                                <text x="12" y="62" fill="#ffd1e3" font-size="10">Pérdida Simétrica InfoNCE</text>
+                                <text x="12" y="80" fill="#ffd1e3" font-size="9">Maximiza pares reales (I_i, T_i)</text>
+                                <text x="12" y="96" fill="#ffd1e3" font-size="9">Minimiza pares no alineados (I_i, T_j)</text>
+                            </g>
+
+                            <!-- Output Tasks -->
+                            <g transform="translate(650, 400)">
+                                <rect width="495" height="70" rx="8" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+                                <text x="14" y="22" fill="#4ade80" font-size="11" font-weight="800">INFERENCIA & TAREAS DE EVALUACIÓN EXTERNA ($OUTPUTS$)</text>
+                                <text x="14" y="40" fill="#cbd5e1" font-size="10">1. Zero-Shot Classification: Logits de similitud con plantillas de texto ("An H&E image patch of...")</text>
+                                <text x="14" y="56" fill="#cbd5e1" font-size="10">2. Cross-Modal Retrieval (Text-to-Image / Image-to-Text) • 3. Linear Probing con frozen features z_I</text>
+                            </g>
+
+                            <line x1="1020" y1="285" x2="1020" y2="400" stroke="#4ade80" stroke-width="2" marker-end="url(#arrow-green)"/>
+                        </svg>
+                        <div class="diagram-caption">
+                            Figura 1. Reconstrucción integral de la metodología de curación de Quilt-1M y arquitectura de contraste late-fusion QuiltNet (NeurIPS 2023).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 5: ORGANIZACIÓN DE CAMPOS Y FLUJO I/O -->
+                <div id="q1m-io" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">5</span>
+                            <h3 class="eje-title">Organización de Campos y Flujo Entrada/Salida ($I/O$)</h3>
+                        </div>
+                        <span class="eje-badge">Arquitectura de Datos</span>
+                    </div>
+
+                    <p>
+                        Para garantizar una integración transparente en los experimentos de la tesis, se detalla la estructura canónica de los registros en los archivos <span class="text-term">.parquet</span> y el desacoplamiento de entradas y salidas:
+                    </p>
+
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Campo del Dataset</th>
+                                    <th>Tipo de Dato</th>
+                                    <th>Rol en el Pipeline</th>
+                                    <th>Descripción y Ejemplos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="schema-field">image_path</span> / <span class="schema-field">image</span></td>
+                                    <td>Binario PNG / JPEG</td>
+                                    <td><strong style="color: var(--accent);">INPUT VISUAL</strong></td>
+                                    <td>Parche histopatológico RGB ($512\times 512$ px originales, re-escalado a $224\times 224$ px en el encoder). Cubre tinciones H&E, IHC y citopatología.</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="schema-field">caption</span></td>
+                                    <td>String de Texto</td>
+                                    <td><strong style="color: var(--accent-purple);">INPUT TEXTUAL</strong></td>
+                                    <td>Descripción médica de toda la imagen generada por GPT-3.5 a partir de ASR corregido (promedio 22.76 palabras).</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="schema-field">roi_text</span></td>
+                                    <td>String de Texto</td>
+                                    <td><strong style="color: var(--accent-purple);">INPUT TEXTUAL AUX</strong></td>
+                                    <td>Descripción específica de la sub-región o foco donde el cursor apuntaba al decir <em>"look here"</em> (promedio 8.68 palabras).</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="schema-field">noisy_text</span></td>
+                                    <td>String de Texto</td>
+                                    <td>Metadata / Auditoría</td>
+                                    <td>Transcripción cruda directa producida por Whisper Large-V2 previa a cualquier corrección (contiene ruido fonético).</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="schema-field">corrected_text</span></td>
+                                    <td>String de Texto</td>
+                                    <td>Metadata Intermedia</td>
+                                    <td>Texto tras aplicar la corrección ortográfica basada en el diccionario de histopatología y ontologías.</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="schema-field">magnification</span></td>
+                                    <td>Float / Categoría</td>
+                                    <td>Metadata Diagnóstica</td>
+                                    <td>Escala estimada por ConvNeXt: <span class="text-term">0.0</span> ($1\times-10\times$), <span class="text-term">1.0</span> ($>10\times-20\times$), <span class="text-term">2.0</span> ($>20\times-40\times$).</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="schema-field">subpathology</span></td>
+                                    <td>String Categórico</td>
+                                    <td>Metadata Diagnóstica</td>
+                                    <td>Una de las 18 subespecialidades (Gastrointestinal, Dermatopathology, Breast, Gynecologic, Pulmonary, etc.).</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="schema-field">med_umls_ids</span></td>
+                                    <td>Lista de Strings</td>
+                                    <td>Entidades Clínicas</td>
+                                    <td>Identificadores unificados CUI de UMLS vinculados mediante SciSpacy (ej. <code>C0025286</code> para meningioma).</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="schema-field">subset</span></td>
+                                    <td>String Categórico</td>
+                                    <td>Procedencia</td>
+                                    <td>Origen del par: <code>quilt</code> (YouTube), <code>openpath</code> (Twitter), <code>pubmed</code>, o <code>laion</code>.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="subgrid-2col">
+                        <div class="card-inner">
+                            <h4 class="card-inner-title">📥 ¿Qué Entradas Recibe el Modelo? ($Inputs$)</h4>
+                            <p style="margin: 0; font-size: 0.88rem;">
+                                <strong>1. Entrada Visual:</strong> Tensor de parche RGB de dimensiones $[B, 3, 224, 224]$, normalizado con la media y desviación estándar de ImageNet/OpenCLIP. En el preentrenamiento de ViT-B/32, los parches se redimensionaron inicialmente a 512 y se recortaron aleatoriamente a 224.<br><br>
+                                <strong>2. Entrada Textual:</strong> Tensor de tokens $[B, L]$ ($L=77$ para GPT-2, o $L=256$ para PubMedBERT) obtenido tras muestrear aleatoriamente entre <code>caption</code> o <code>roi_text</code> con probabilidad $p$ parametrizada.
+                            </p>
+                        </div>
+                        <div class="card-inner">
+                            <h4 class="card-inner-title">📤 ¿Qué Salidas Genera el Modelo? ($Outputs$)</h4>
+                            <p style="margin: 0; font-size: 0.88rem;">
+                                <strong>1. En Preentrenamiento:</strong> Dos vectores normalizados de dimensión latente $d=512$: $\mathbf{z}_I = f_{\text{img}}(x_{\text{img}})$ y $\mathbf{z}_T = f_{\text{txt}}(x_{\text{txt}})$, donde $\|\mathbf{z}_I\|_2 = \|\mathbf{z}_T\|_2 = 1$.<br><br>
+                                <strong>2. En Evaluación Zero-Shot:</strong> Distribución de probabilidades de clase vía Softmax:
+                                $P(y = c \mid x) = \frac{\exp(\mathbf{z}_I \cdot \mathbf{z}_{T, c} / \tau)}{\sum_j \exp(\mathbf{z}_I \cdot \mathbf{z}_{T, j} / \tau)}$.<br><br>
+                                <strong>3. En Retrieval:</strong> Índice de ranking de los $k$ pares más próximos en el espacio métrico latente.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EJE 6: BASELINE QUILTNET Y METODOLOGÍA DE ARQUITECTURA -->
+                <div id="q1m-baseline" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">6</span>
+                            <h3 class="eje-title">Baseline QuiltNet y Metodología de la Arquitectura</h3>
+                        </div>
+                        <span class="eje-badge">Dual-Encoder CLIP</span>
+                    </div>
+
+                    <div class="subgrid-2col">
+                        <div class="card-inner">
+                            <h4 class="card-inner-title">🔍 Preguntas Metodológicas Clave</h4>
+                            <ul style="margin: 0; padding-left: 18px;">
+                                <li>
+                                    <strong>¿Usa Pre-embeddings o Píxeles Crudos?:</strong> 
+                                    <strong style="color: var(--accent-green);">PÍXELES CRUDOS.</strong> A diferencia de modelos que operan sobre bolsas de features WSI pre-congeladas (como HistGen con DINOv2), QuiltNet actualiza los pesos de las capas convolucionales/atencionales del Vision Transformer de extremo a extremo durante el entrenamiento.
+                                </li>
+                                <li>
+                                    <strong>¿Es Nativamente Multimodal o Adaptado?:</strong> 
+                                    <strong style="color: var(--accent-amber);">ADAPTADO (Fine-tuning de CLIP).</strong> Inicializa los pesos desde el checkpoint preentrenado de OpenAI CLIP y los ajusta finamente sobre Quilt-1M. (Los autores reportan en sus ablaciones que entrenar CLIP desde cero con 1M de pares rinde sustancialmente peor que transferir pesos preentrenados de visión natural).
+                                </li>
+                                <li>
+                                    <strong>Estrategia de Fusión Multimodal:</strong> 
+                                    <strong style="color: var(--accent-indigo);">LATE FUSION (Contrastivo / Dual Encoder).</strong> No existe interacción atencional temprana ni proyector transversal (<span class="text-term">No Cross-Attention</span>) entre píxeles y palabras en el backbone. Ambos flujos transcurren en torres paralelas independientes y se encuentran en una matriz de similitud de producto punto al final.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card-inner">
+                            <h4 class="card-inner-title">⚙️ Especificaciones de los Backbones</h4>
+                            <ul style="margin: 0; padding-left: 18px;">
+                                <li>
+                                    <strong>Visual Backbones evaluados:</strong> ViT-B/32 (parches de $32\times 32$ px) y ViT-B/16 (parches de $16\times 16$ px con mayor resolución espacial fina).
+                                </li>
+                                <li>
+                                    <strong>Text Backbones evaluados:</strong> GPT-2 modificado con contexto de 77 tokens (OpenAI CLIP) y PubMedBERT (context length de 256 tokens para comparaciones homólogas con BiomedCLIP).
+                                </li>
+                                <li>
+                                    <strong>Optimización:</strong> AdamW, precisión mixta automática (AMP) en <code>bfloat16</code>, gradient checkpointing y hardware de 4 GPUs NVIDIA A40 sobre la librería OpenCLIP.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="formula-box">
+                        $$\mathcal{L}_{\text{InfoNCE}} = -\frac{1}{2N} \sum_{i=1}^{N} \left[ \log \frac{\exp(\mathbf{z}_{I,i} \cdot \mathbf{z}_{T,i} / \tau)}{\sum_{j=1}^{N} \exp(\mathbf{z}_{I,i} \cdot \mathbf{z}_{T,j} / \tau)} + \log \frac{\exp(\mathbf{z}_{I,i} \cdot \mathbf{z}_{T,i} / \tau)}{\sum_{j=1}^{N} \exp(\mathbf{z}_{I,j} \cdot \mathbf{z}_{T,i} / \tau)} \right]$$
+                    </div>
+                </div>
+
+                <!-- EJE 7: EVALUACIONES, TAREAS Y MÉTRICAS -->
+                <div id="q1m-eval" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">7</span>
+                            <h3 class="eje-title">Evaluaciones, Tareas y Métricas Reportadas en el Paper</h3>
+                        </div>
+                        <span class="eje-badge">Benchmarking Riguroso</span>
+                    </div>
+
+                    <p>
+                        Los autores validaron exhaustivamente QuiltNet frente a <strong>OpenAI CLIP</strong>, <strong>PLIP</strong> (Nature Medicine 2023) y <strong>BiomedCLIP</strong> (Microsoft 2023) sobre <strong>13 benchmarks histopatológicos externos</strong>:
+                    </p>
+
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Régimen de Evaluación</th>
+                                    <th>Benchmarks Utilizados</th>
+                                    <th>Métricas</th>
+                                    <th>Hallazgo Principal de QuiltNet</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Zero-Shot Classification</strong></td>
+                                    <td>13 datasets: PatchCamelyon (PCam), NCT-CRC-HE-100K, SICAPv2, Databiox, BACH, Osteo, RenalCell, SkinCancer, MHIST, LC25000 Lung/Colon.</td>
+                                    <td>Top-1 Accuracy, Macro-F1</td>
+                                    <td>Superó a CLIP, PLIP y BiomedCLIP en 11 de los 13 datasets evaluados, exhibiendo alta generalización en tejidos no vistos durante el preentrenamiento.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Linear Probing (Few-Shot / Full-Shot)</strong></td>
+                                    <td>NCT-CRC-HE, SICAPv2, SkinCancer, LC25000 evaluados al 1%, 10% y 100% de muestras etiquetadas con 3 semillas.</td>
+                                    <td>Accuracy promedio ± Std</td>
+                                    <td>En NCT-CRC y SICAPv2, QuiltNet congelado con solo un clasificador lineal entrenado sobre el <strong>1% de las etiquetas</strong> superó a baselines completamente supervisados.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cross-Modal Retrieval</strong></td>
+                                    <td>Holdout de prueba de Quilt-1M y dataset externo ARCH (CVPR 2021).</td>
+                                    <td>Recall@1, Recall@50, Recall@200</td>
+                                    <td>Demostró superioridad en alineación bidireccional texto-a-imagen e imagen-a-texto, demostrando la riqueza del vocabulario patológico aprendido.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- EJE 8: ECOSISTEMA, MODELOS DERIVADOS Y CRUCE DE AUDITORÍA -->
+                <div id="q1m-ecosistema" class="eje-block">
+                    <div class="eje-header">
+                        <div class="eje-title-group">
+                            <span class="eje-number">8</span>
+                            <h3 class="eje-title">Ecosistema Científico y Cruce con la Auditoría del Proyecto</h3>
+                        </div>
+                        <span class="eje-badge">Impacto & Factualidad</span>
+                    </div>
+
+                    <div class="subgrid-2col">
+                        <div class="card-inner">
+                            <h4 class="card-inner-title">🌱 Modelos y Trabajos Posteriores que Adoptaron Quilt-1M</h4>
+                            <p style="margin: 0; font-size: 0.88rem;">
+                                Quilt-1M se ha convertido en el pilar fundacional más citado para modelos LMM en patología:
+                            </p>
+                            <ul style="margin: 8px 0 0 0; padding-left: 18px; font-size: 0.88rem;">
+                                <li><strong>Quilt-LLaVA (CVPR 2024):</strong> Extiende los parches de Quilt-1M asociándolos a coordenadas de cursor para crear el dataset de 107K diálogos instruccionales <span class="text-term">Quilt-Instruct</span>.</li>
+                                <li><strong>Quilt-VQA (CVPR 2024):</strong> Conjunto de 985 preguntas de prueba curadas por patólogos humanos construido sobre los mismos videos de Quilt.</li>
+                                <li><strong>PathAsst / PathCap (AAAI 2024):</strong> Utilizan las formulaciones de alineación multimodal de Quilt para comparar la calidad de diálogos clínicos frente a datos de PubMed.</li>
+                                <li><strong>Bi-Path & Slide-LLM (2024-2025):</strong> Emplean el encoder visual de QuiltNet como backbone extractor de parches para alimentar decodificadores de lámina completa.</li>
+                            </ul>
+                        </div>
+
+                        <div class="card-inner">
+                            <h4 class="card-inner-title">⚖️ Cruce Factual con la Auditoría Local</h4>
+                            <ul style="margin: 0; padding-left: 18px; font-size: 0.88rem;">
+                                <li><strong>Volumen Confirmado en Hub:</strong> <strong>1,017,712 registros</strong> (1,017,708 con captions válidos no nulos). Coincide exactamente con la auditoría local del proyecto.</li>
+                                <li><strong>Particiones Fácticas:</strong> A pesar de que el paper original indica que no requiere split por ser de preentrenamiento, el repositorio oficial distribuye <code>train</code>: <strong>1,004,153 pares (98.67%)</strong> y <code>val</code>: <strong>13,559 pares (1.33%)</strong>.</li>
+                                <li><strong>Tamaño Fáctico:</strong> ~15 GB comprimido en Hugging Face / ~45 GB descomprimido en disco.</li>
+                                <li>
+                                    <strong>Riesgo Crítico de Data Leakage:</strong> <span class="badge badge-rose" style="padding: 1px 6px;">Alto Riesgo Inter-Dataset</span>. Al incorporar OpenPath/Twitter y PubMed, Quilt-1M se solapa parcialmente con benchmarks como Kather, ARCH y PathVQA. Para experimentos de evaluación pura en la tesis, se deben aislar rigurosamente los IDs de PubMed y canales de YouTube.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="callout-box" style="margin-top: 20px;">
+                        <div class="callout-title">
+                            <span>🎯</span> Recomendación Estratégica para la Tesis de Maestría
+                        </div>
+                        <p style="margin: 0;">
+                            <strong>Uso sugerido en el marco experimental:</strong> Quilt-1M debe considerarse el estándar de oro como <em>Corpus de Preentrenamiento / Alineación Continua de Visión y Lenguaje</em>. Su modelo asociado <strong>QuiltNet (ViT-B/16)</strong> constituye un <em>Visual Backbone</em> de primer orden para extraer representaciones de parches histopatológicos previo a la proyección hacia LLMs autorregresivos (LLaVA-style).
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Placeholder for next datasets dictated by user -->
+        <div id="quilt-vqa-slot" style="margin-top: 40px; padding: 24px; border: 2px dashed var(--border-color); border-radius: 14px; text-align: center; color: var(--text-muted);">
+            <h3 style="color: #ffffff; margin-top: 0;">Próximo Dataset en la Fila: Quilt-VQA / Quilt-Instruct</h3>
+            <p style="font-size: 0.9rem; max-width: 650px; margin: 0 auto;">
+                Este bloque se completará a continuación con la misma profundidad analítica, diagrama metodológico y cruce de datos siguiendo las instrucciones del usuario.
+            </p>
+        </div>
+
+    </main>
+
+</body>
+</html>
