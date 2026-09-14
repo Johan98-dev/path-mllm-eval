@@ -6173,7 +6173,7 @@
                                         <td>Fotogramas de video YouTube<br>(capturas 1080p comprimidas)</td>
                                         <td>Subtítulos narrados ASR y transcripciones orales</td>
                                         <td><strong>QuiltNet</strong><br>(ViT-B/16 / ResNet-50)</td>
-                                        <td>$$\mathcal{L}_{	ext{InfoNCE}}$$ simétrica</td>
+                                        <td>$$\mathcal{L}_{\text{InfoNCE}}$$ simétrica</td>
                                         <td>Zero-Shot 58.9% prom.<br>Supera a PLIP en retrieval</td>
                                     </tr>
                                     <tr>
@@ -6181,10 +6181,10 @@
                                         <td><strong>Quilt-Instruct</strong><br><span style="color: var(--text-muted);">CVPR 2024</span></td>
                                         <td><span class="badge badge-purple" style="font-size: 0.68rem;">Visual Instruction (SFT)</span></td>
                                         <td>107,131 pares instrucción<br>(narrativa localizada)</td>
-                                        <td>Parches $224	imes 224$ px con bounding boxes y puntero</td>
+                                        <td>Parches $224\times 224$ px con bounding boxes y puntero</td>
                                         <td>Instrucciones Q/A, diálogos clínicos y razonamiento</td>
                                         <td><strong>Quilt-LLaVA</strong><br>(LLaVA-v1.5 + CLIP)</td>
-                                        <td>$$\mathcal{L}_{	ext{SFT}}$$ autorregresiva (2 fases)</td>
+                                        <td>$$\mathcal{L}_{\text{SFT}}$$ autorregresiva (2 fases)</td>
                                         <td>Anclaje espacial dinámico;<br>supera a LLaVA-Med en QA</td>
                                     </tr>
                                     <tr>
@@ -6195,7 +6195,7 @@
                                         <td>Imágenes microscópicas de YouTube seleccionadas</td>
                                         <td>Preguntas clínicas abiertas con respuestas verificadas</td>
                                         <td>Evaluación de LMMs (Quilt-LLaVA, GPT-4V)</td>
-                                        <td>Métrica de dependencia multimodal $$\Delta_{	ext{vis}}$$</td>
+                                        <td>Métrica de dependencia multimodal $$\Delta_{\text{vis}}$$</td>
                                         <td>Alucinación del LMM: responde por atajos textuales sin ver imagen</td>
                                     </tr>
                                     <tr>
@@ -6217,7 +6217,7 @@
                                         <td>Paneles multi-figura de libros y artículos médicos</td>
                                         <td>Leyendas compuestas con sub-etiquetas (A, B, C)</td>
                                         <td><strong>Attention-MIL + VirTex</strong><br>(ResNet-50 + Transformer)</td>
-                                        <td>$$\mathcal{L}_{	ext{NLL}}$$ con atención MIL</td>
+                                        <td>$$\mathcal{L}_{\text{NLL}}$$ con atención MIL</td>
                                         <td>Pionero en desambiguar paneles visuales histológicos</td>
                                     </tr>
                                     <tr>
@@ -6227,8 +6227,8 @@
                                         <td>7,690 casos auditados en 32 cohortes TCGA</td>
                                         <td>Embeddings DINOv2 ViT-L<br>(299 GB / 55K WSIs)</td>
                                         <td>Reportes sinópticos completos depurados con GPT-4</td>
-                                        <td><strong>HistGen (LGH + CMC)</strong><br>(Clusters $S=96$, Memoria $512	imes 2048$)</td>
-                                        <td>$$\mathcal{L}_{	ext{CE}} + lpha \mathcal{L}_{	ext{R-Drop}} + eta \mathcal{L}_{	ext{con}}$$</td>
+                                        <td><strong>HistGen (LGH + CMC)</strong><br>(Clusters $S=96$, Memoria $512\times 2048$)</td>
+                                        <td>$$\mathcal{L}_{\text{CE}} + \alpha \mathcal{L}_{\text{R-Drop}} + \beta \mathcal{L}_{\text{con}}$$</td>
                                         <td>SOTA en reporte WSI: BLEU-1 0.446, METEOR 0.283, GreenScore 0.428</td>
                                     </tr>
                                     <tr>
@@ -6238,8 +6238,8 @@
                                         <td>9,009 casos en 30 proyectos TCGA</td>
                                         <td>Láminas gigapíxel SVS con coordenadas espaciales $(X, Y)$</td>
                                         <td>Reportes quirúrgicos sinópticos estructurados</td>
-                                        <td><strong>MI-Gen (PAM)</strong><br>(Convoluciones 2D $3	imes 3, 7	imes 7, 13	imes 13$)</td>
-                                        <td>$$\mathcal{L}_{	ext{NLL}}$$ condicionada espacialmente</td>
+                                        <td><strong>MI-Gen (PAM)</strong><br>(Convoluciones 2D $3\times 3, 7\times 7, 13\times 13$)</td>
+                                        <td>$$\mathcal{L}_{\text{NLL}}$$ condicionada espacialmente</td>
                                         <td>Modelado geométrico 2D continuo; reporte extrae subtipos mejor que MIL (F1 0.838)</td>
                                     </tr>
                                     <tr>
@@ -6247,10 +6247,10 @@
                                         <td><strong>PathGen-1.6M</strong><br><span style="color: var(--text-muted);">ICLR 2025</span></td>
                                         <td><span class="badge badge-indigo" style="font-size: 0.68rem;">Preentrenamiento Sintético Denso</span></td>
                                         <td>1,620,876 pares parche-texto densos</td>
-                                        <td>Parches nativos Nivel 0 ($672	imes 672$ px) de 7,300 WSIs</td>
+                                        <td>Parches nativos Nivel 0 ($672\times 672$ px) de 7,300 WSIs</td>
                                         <td>Descripciones citoarquitectónicas hiperdensas generadas por IA</td>
                                         <td><strong>PathGen-CLIP-L</strong> (ViT-L@336)<br>&amp; <strong>PathGen-LLaVA</strong></td>
-                                        <td>$$\mathcal{L}_{	ext{CLIP}}$$ simétrica + Curriculum en 2 fases</td>
+                                        <td>$$\mathcal{L}_{\text{CLIP}}$$ simétrica + Curriculum en 2 fases</td>
                                         <td>Supera a todo VLM previo: 79.7% Zero-Shot prom., 92.6% AUC WSI, 58.4% PathMMU</td>
                                     </tr>
                                 </tbody>
@@ -6338,7 +6338,7 @@
                                 <ul style="margin: 0; padding-left: 18px; font-size: 0.88rem; line-height: 1.6;">
                                     <li><strong>InfoNCE Simétrica (Preentrenamiento VLP):</strong> Alinea espacios bimodales maximizando el producto punto entre parches y textos del mismo par frente a $B-1$ negativos. Usada en Quilt-1M y PathGen-CLIP.</li>
                                     <li><strong>NLL Autoregresiva de Próxima Palabra:</strong> Genera texto clínico paso a paso: $\mathcal{L} = -\sum \log P(w_t \mid w_{&lt;t}, \mathbf{X}_v)$. Empleada en ARCH, Wsi-Caption y Quilt-LLaVA.</li>
-                                    <li><strong>Pérdida Híbrida Compuesta (HistGen):</strong> Combina entropía cruzada, regularización de consistencia simétrica R-Drop ($\mathcal{L}_{	ext{R-Drop}}$) y contrastiva cruzada multimodal ($\mathcal{L}_{	ext{con}}$), evitando colapso modal en secuencias largas.</li>
+                                    <li><strong>Pérdida Híbrida Compuesta (HistGen):</strong> Combina entropía cruzada, regularización de consistencia simétrica R-Drop ($\mathcal{L}_{\text{R-Drop}}$) y contrastiva cruzada multimodal ($\mathcal{L}_{\text{con}}$), evitando colapso modal en secuencias largas.</li>
                                     <li><strong>Curriculum en Dos Etapas (SFT &amp; CLIP):</strong> Demostrado como indispensable tanto en LMMs (Quilt-LLaVA: primero alinear proyector $\mathbf{W}$, luego afinar LLM) como en CLIP (PathGen: primero datos sintéticos morfológicos, luego datos humanos diagnósticos).</li>
                                 </ul>
                             </div>
@@ -6380,12 +6380,12 @@
 
                             <!-- Alucinación Visual y Atajos Textuales -->
                             <div class="card-inner">
-                                <h4 class="card-inner-title">👁️❌ 2. La Falacia del "Razonamiento Visual" ($\Delta_{	ext{vis}}$)</h4>
+                                <h4 class="card-inner-title">👁️❌ 2. La Falacia del "Razonamiento Visual" ($\Delta_{\text{vis}}$)</h4>
                                 <p style="margin: 0; font-size: 0.88rem; line-height: 1.6;">
                                     Quilt-VQA demostró un fenómeno alarmante en los LMMs biomédicos: <strong>la dependencia desproporcionada de atajos lingüísticos</strong>.<br>
                                     • Al evaluar a los LMMs proporcionando únicamente la pregunta de texto y <em>ocultando por completo la imagen microscópica</em> (input ciego), muchos modelos retienen hasta el <strong>80% &ndash; 90% de su rendimiento</strong>.<br>
                                     • La métrica de ganancia visual:
-                                    $$\Delta_{	ext{vis}} = 	ext{Score}(	ext{Imagen} + 	ext{Pregunta}) - 	ext{Score}(	ext{Solo Pregunta})$$
+                                    $$\Delta_{\text{vis}} = \text{Score}(\text{Imagen} + \text{Pregunta}) - \text{Score}(\text{Solo Pregunta})$$
                                     es con frecuencia muy baja o incluso negativa en modelos genéricos. Esto demuestra que los modelos a menudo <em>alucinan basándose en correlaciones sintácticas del prompt</em> en lugar de detectar la verdadera atipia nuclear o mitosis en el tejido histológico.
                                 </p>
                             </div>
@@ -6481,7 +6481,7 @@
                                 <h4 class="card-inner-title">🧪 Objetivos Específicos 3 y 4: Diseño Experimental &amp; Evaluación</h4>
                                 <ul style="margin: 0; padding-left: 18px; font-size: 0.88rem; line-height: 1.6;">
                                     <li><strong>Diseño Experimental Anti-Sesgo:</strong>
-                                        <br>&bull; Evaluación con y sin imagen microscópica para calcular la ganancia visual real ($\Delta_{	ext{vis}}$) y reportar el porcentaje de alucinación sintáctica del LLM.
+                                        <br>&bull; Evaluación con y sin imagen microscópica para calcular la ganancia visual real ($\Delta_{\text{vis}}$) y reportar el porcentaje de alucinación sintáctica del LLM.
                                         <br>&bull; Prompts diagnósticos estandarizados idénticos para modelos especializados y comerciales.
                                     </li>
                                     <li><strong>Batería de Métricas Multicriterio:</strong>
