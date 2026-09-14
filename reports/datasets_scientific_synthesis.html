@@ -1779,7 +1779,7 @@
                                 Durante la Fase 2, se optimiza la probabilidad logarítmica de los tokens de la respuesta generada por el asistente humano, condicionada a la historia previa y los tokens visuales proyectados:
                             </p>
                             <div class="formula-box" style="margin: 10px 0; font-size: 0.95rem;">
-                                $$\mathcal{L}_{\text{SFT}} = -\sum_{t=1}^{T} \log P(w_t \mid w_{<t}, \mathbf{H}_v)$$
+                                $$\mathcal{L}_{\text{SFT}} = -\sum_{t=1}^{T} \log P(w_t \mid w_{&lt;t}, \mathbf{H}_v)$$
                             </div>
                             <p style="margin: 0; font-size: 0.84rem; color: var(--text-muted);">
                                 Donde $\mathbf{H}_v = \mathbf{W}_{\text{MLP}} \cdot f_{\text{vis}}(I_{\text{patch}})$ representa el conjunto de tokens visuales proyectados desde el parche.
