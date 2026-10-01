@@ -22,7 +22,7 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 | 11 | **ARCH** | Subfigura / Bolsa MIL + Caption Compuesto | Multiple-Instance Captioning & Retrieval | **7,579 imágenes / 7,614 captions** (4,270 libros + 3,309 PubMed) | CC BY-NC-SA 4.0 / Abierto | ✅ Auditado (Local ZIPs) | [`preview_arch.html`](../reports/preview_arch.html) |
 | 12 | **WSI-VQA** | WSI + Q/A diagnóstico | VQA a nivel de lámina completa | **8,672 preguntas** (train: 7,139 | val: 798 | test: 735) / 976 WSIs | Abierto / GDC Portal | ✅ Auditado (GitHub + GDC Stream) | [`preview_cpystan_wsi_vqa.html`](../reports/preview_cpystan_wsi_vqa.html) |
 | 13 | **PathText (WsiCaption)** | WSI (SVS) + Reporte Quirúrgico Estructurado | WSI-Level Captioning & Report Generation | **9,009 pares WSI-reporte** (30 proyectos TCGA, 55 sitios) | MIT / Abierto (GDC) | ✅ Auditado (JSON + GDC Stream) | [`preview_cpystan_wsi_caption.html`](../reports/preview_cpystan_wsi_caption.html) |
-| 14 | **SlideInstruction / SlideBench** | WSI + instrucciones / VQA | WSI Visual Instruction Tuning & Benchmarking | 4.9K WSI-reportes → 4.2K captions + 176K VQA | Abierto / GDC | ⏳ Pendiente Auditoría | - |
+| 14 | **SlideChat (SlideBench & SlideInstruct)** | WSI + instrucciones / VQA | WSI Visual Instruction Tuning & Benchmarking | **204,926 registros** (train: 190,737 | bench: 14,189) | CC BY-NC-SA 4.0 / Abierto | ✅ Auditado (Hub + GDC Stream) | [`preview_general_medical_ai_slidechat.html`](../reports/preview_general_medical_ai_slidechat.html) |
 | 15 | **PatchGastricADC22** | Parches + caption de reporte clínico | Patch-Level Diagnostic Captioning | **262,777 parches** / 1,305 reportes de 991 WSIs | Acceso Abierto / Zenodo (6021442) | ✅ Auditado (Local Zip/CSV) | [`preview_patch_gastric_adc22.html`](../reports/preview_patch_gastric_adc22.html) |
 | 16 | **CAMELYON16 / 17** | WSI + anotación a nivel de píxel/slide | Metástasis en Ganglio Centinela | 400 WSIs (CAMELYON16) / 1,000 WSIs (CAMELYON17) | CC0 (Dominio Público) | ⏳ Pendiente Auditoría | - |
 | 17 | **TCGA (familia)** | WSI SVS + reporte PDF + clínica | Corpus Clínico y Genómico Multimodal | >30K láminas gigapíxel SVS con reportes clínicos | Open-Access (GDC) | ⏳ Base Multicéntrica | - |
@@ -432,17 +432,35 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 
 ---
 
-### 14. SlideInstruction / SlideBench
+### 14. SlideChat: SlideBench & SlideInstruct (`General-Medical-AI/SlideChat`)
 
-- **Tipo de Dato / Modalidad Principal:** WSI + instrucciones multimodales / Benchmark de lámina completa.
-- **Descripción General:** 4.9K WSI-reportes transformados en 4.2K captions y 176K preguntas VQA de TCGA; incluye benchmark de evaluación exhaustivo.
-- **Acceso / Licencia:** Abierto con WSIs en GDC.
-- **Referencia Bibliográfica:** Chen et al., *"SlideInstruction: Multi-granular Visual Instruction Tuning for Whole Slide Images"*, CVPR 2025 / arXiv:2410.11761.
+- **Tipo de Dato / Modalidad Principal:** Lámina Histopatológica Completa (WSI Gigapíxel SVS) + Instrucciones Multimodales de SFT + Benchmark de Evaluación Clínico (*Whole Slide Image Visual Instruction Tuning & Benchmarking*).
+- **Descripción General:** Conjunto integral de datos para el entrenamiento y evaluación de modelos de lenguaje multimodal (MLLMs) capaces de procesar directamente láminas gigapíxel completas. Publicado por el consorcio *General-Medical-AI* en el marco de SlideChat (CVPR 2025 / *Nature Cancer*), comprende datos de instrucción supervisada en dos fases (*SlideInstruct*) y una suite de evaluación multicéntrica (*SlideBench*) sobre cohortes clínicas de TCGA, BCNB, CPTAC e HistAI.
+- **Acceso / Licencia:** Repositorio público en Hugging Face ([`General-Medical-AI/SlideChat`](https://huggingface.co/datasets/General-Medical-AI/SlideChat)), Licencia **CC BY-NC-SA 4.0**. Acceso abierto directo.
+- **Referencia Bibliográfica:** Chen et al., *"SlideChat: A Large Multimodal Model for Whole-Slide Pathology Image Understanding"*, **CVPR 2025** / *Nature Cancer*, 2025 / arXiv:2410.11761.
 
-#### 📋 Registro de Auditoría y Métricas Detalladas
-- **Modalidades de Entrada:** Láminas completas de TCGA y secuencias multi-granulares de VQA (subtipos, biomarcadores, pronóstico).
-- **Número de Ejemplos:** 4,900 láminas / 176,000 preguntas VQA.
-- **Estado en el Proyecto:** ⏳ Pendiente de auditoría.
+#### 📋 Registro de Auditoría Factual y Métricas Verificadas
+- **Modalidades de Entrada:**
+  - **Visual:** Láminas gigapíxel SVS originales provenientes de NIH GDC (resoluciones típicas $100,000 \times 80,000$ px a $20\times$/$40\times$) y tensores de características preextraídas (`Feat/` empaquetadas por cohortes en archivos `.tar.gz` para TCGA y BCNB), facilitando el entrenamiento y evaluación eficiente sin requerir decodificación masiva de TBs en disco local.
+  - **Textual:** 
+    - **SlideBench:** Reportes patológicos estructurados (`SlideBench-Caption-*.csv`) y preguntas de opción múltiple (`SlideBench-VQA-*.csv`) con cuatro alternativas ($A, B, C, D$) y taxonomía clínica formal (*Microscopy*, *Tissue Architecture*, *Diagnosis*, *Grading*, *Staging*).
+    - **SlideInstruct:** Diálogos multi-turno en formato ShareGPT/LLaVA (`conversations: [{"from": "human", "value": "..."}, {"from": "gpt", "value": "..."}]`).
+- **Número de Ejemplos / Registros Fácticos:**
+  - **Gran Total Auditado:** **`204,926 registros`**.
+  - **Subconjunto de Entrenamiento SFT (SlideInstruct):** **`190,737 pares`**:
+    - `SlideInstruct_train_stage1_caption.json`: **4,181 diálogos** (Alineación y descripción diagnóstica WSI).
+    - `SlideInstruct_train_stage2_vqa.json`: **175,734 diálogos** (Razonamiento clínico y VQA interactivo).
+    - `SlideInstruction+.json`: **436 instrucciones**.
+    - `SlideInstruction++.json`: **10,386 instrucciones** de razonamiento extendido.
+  - **Subconjunto de Evaluación / Benchmark (SlideBench):** **`14,189 casos`**:
+    - **WSI Captioning / Reportes:** **2,730 casos** (`TCGA`: 1,547 | `HistAI`: 1,145 | `CPTAC`: 38).
+    - **Closed VQA Multiple-Choice:** **11,459 preguntas** (`BCNB`: 7,274 | `TCGA`: 3,176 | `HistAI`: 769 | `CPTAC`: 240).
+- **Riesgo de Data Leakage (Aislamiento por Paciente y Cohorte):**
+  - **Bajo a Controlado:** SlideBench mantiene una separación estricta por casos clínicos frente a la partición de entrenamiento de SlideInstruct. Además, incluye cohortes externas no vistas durante el entrenamiento como validación ciega multicéntrica (ej. BCNB para biopsias con aguja gruesa de mama e HistAI).
+- **Notas y Hallazgos del Proyecto:**
+  - Es el dataset de lámina completa más ambicioso y completo disponible abiertamente para MLLMs, cerrando la brecha entre el análisis local de parches y la comprensión clínica holística del paciente.
+  - El modelo fundacional asociado en Hugging Face es [`General-Medical-AI/SlideChat_Weight`](https://huggingface.co/General-Medical-AI/SlideChat_Weight).
+  - **Reporte Visual HTML:** [`reports/preview_general_medical_ai_slidechat.html`](../reports/preview_general_medical_ai_slidechat.html) (auditado con 15 casos clínicos completos y miniaturas panorámicas reales extraídas desde NIH GDC).
 
 ---
 

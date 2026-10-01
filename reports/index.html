@@ -489,13 +489,13 @@
         <div class="kpi-grid">
             <div class="kpi-card">
                 <div class="kpi-label">Datasets Auditados</div>
-                <div class="kpi-value" style="color: var(--accent);">14 Datasets</div>
+                <div class="kpi-value" style="color: var(--accent);">15 Datasets</div>
                 <div class="kpi-subtext">100% con reportes visuales interactivos generados</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">Total Registros Auditados</div>
-                <div class="kpi-value" style="color: var(--accent-green);">3,501,862</div>
-                <div class="kpi-subtext">&gt;3.50 Millones de pares imagen-texto/Q&amp;A</div>
+                <div class="kpi-value" style="color: var(--accent-green);">3,706,788</div>
+                <div class="kpi-subtext">&gt;3.70 Millones de pares imagen-texto/Q&amp;A</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">Tareas Multimodales Formalizadas</div>
@@ -504,8 +504,8 @@
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">Modelos Baselines Vinculados</div>
-                <div class="kpi-value" style="color: var(--accent-amber);">7+ Baselines</div>
-                <div class="kpi-subtext">PLIP, PathChat, Quilt-LLaVA, HistGen, W2T, LLaVA-Med, BiomedCLIP</div>
+                <div class="kpi-value" style="color: var(--accent-amber);">8+ Baselines</div>
+                <div class="kpi-subtext">PLIP, PathChat, Quilt-LLaVA, HistGen, W2T, SlideChat, LLaVA-Med</div>
             </div>
         </div>
 
@@ -532,11 +532,11 @@
                 <input type="text" id="searchInput" class="search-input" placeholder="Buscar por dataset, tarea, repositorio o formato...">
             </div>
             <div class="filter-buttons">
-                <button class="filter-btn active" onclick="filterCategory('all', this)">Todos (14)</button>
-                <button class="filter-btn" onclick="filterCategory('VQA', this)">VQA (3)</button>
-                <button class="filter-btn" onclick="filterCategory('Instruction Tuning', this)">Visual Instruction Tuning (2)</button>
+                <button class="filter-btn active" onclick="filterCategory('all', this)">Todos (15)</button>
+                <button class="filter-btn" onclick="filterCategory('VQA', this)">VQA (4)</button>
+                <button class="filter-btn" onclick="filterCategory('Instruction Tuning', this)">Visual Instruction Tuning (3)</button>
                 <button class="filter-btn" onclick="filterCategory('Captioning / VLP', this)">Captioning &amp; VLP (5)</button>
-                <button class="filter-btn" onclick="filterCategory('WSI / Reports', this)">WSI &amp; Reports (3)</button>
+                <button class="filter-btn" onclick="filterCategory('WSI / Reports', this)">WSI &amp; Reports (4)</button>
                 <button class="filter-btn" onclick="filterCategory('Zero-Shot / Retrieval', this)">Zero-Shot &amp; Retrieval (1)</button>
             </div>
         </div>
@@ -1167,6 +1167,49 @@
             </a>
             <a href="datasets_scientific_synthesis.html#arch" class="btn-report" style="background: linear-gradient(135deg, #b45309 0%, #f59e0b 100%); margin-top: 4px; font-size: 0.72rem; padding: 4px 8px;" title="Ver Síntesis Científica y Metodológica Profunda">
                 🔬 Síntesis Paper
+            </a>
+        </td>
+    </tr>
+    
+    <tr class="dataset-row" data-category="WSI / Reports" data-access="open">
+        <td style="text-align: center; font-weight: bold; color: var(--accent);">15</td>
+        <td>
+            <div style="font-weight: bold; font-size: 1.05rem; color: #f8fafc;">SlideChat (SlideBench &amp; SlideInstruct)</div>
+            <code style="font-size: 0.75rem; color: #94a3b8;">slidechat</code>
+        </td>
+        <td>
+            <a href="https://huggingface.co/datasets/General-Medical-AI/SlideChat" target="_blank" class="hf-link">
+                🤗 <code>General-Medical-AI/SlideChat</code>
+            </a>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                <strong>Baseline:</strong> SlideChat-7B (CVPR 2025 / Nature Cancer)
+            </div>
+        </td>
+        <td>
+            <span class="badge badge-wsi">WSI / Reports</span>
+            <span class="badge badge-vqa" style="margin-left: 4px;">VQA</span>
+            <div style="font-size: 0.85rem; font-weight: 600; color: #e2e8f0; margin-top: 4px;">Whole Slide Image Visual Instruction Tuning &amp; Benchmarking</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Sí (WSI Captioning &amp; VQA cerrado: TCGA, BCNB, CPTAC, HistAI)</div>
+        </td>
+        <td style="text-align: right;">
+            <div style="font-weight: bold; color: var(--accent-green); font-size: 1rem;">204,926 registros</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">train: 190,737 SFT | test (bench): 14,189 casos</div>
+        </td>
+        <td>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">Láminas WSI SVS + Tensores de parches Tar.gz</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;"><code>JSON (SFT) + CSV (SlideBench) + Tensores</code></div>
+        </td>
+        <td style="font-size: 0.85rem;">
+            <div><strong>Hub:</strong> ~7.5 GB</div>
+            <div style="color: var(--text-muted); font-size: 0.75rem;"><strong>Descomp.:</strong> ~25 GB</div>
+        </td>
+        <td>
+            <span class='badge badge-open'>🔓 Abierto</span>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Licencia: <code>CC BY-NC-SA 4.0</code></div>
+        </td>
+        <td style="text-align: center;">
+            <a href="preview_general_medical_ai_slidechat.html" class="btn-report" title="Ver reporte visual interactivo con 15 muestras de WSI Caption, Closed VQA e Instruction SFT">
+                👁️ Ver Reporte
             </a>
         </td>
     </tr>
