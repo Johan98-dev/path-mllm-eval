@@ -24,9 +24,10 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 | 13 | **PathText (WsiCaption)** | WSI (SVS) + Reporte Quirúrgico Estructurado | WSI-Level Captioning & Report Generation | **9,009 pares WSI-reporte** (30 proyectos TCGA, 55 sitios) | MIT / Abierto (GDC) | ✅ Auditado (JSON + GDC Stream) | [`preview_cpystan_wsi_caption.html`](../reports/preview_cpystan_wsi_caption.html) |
 | 14 | **SlideChat (SlideBench & SlideInstruct)** | WSI + instrucciones / VQA | WSI Visual Instruction Tuning & Benchmarking | **204,926 registros** (train: 190,737 | bench: 14,189) | CC BY-NC-SA 4.0 / Abierto | ✅ Auditado (Hub + GDC Stream) | [`preview_general_medical_ai_slidechat.html`](../reports/preview_general_medical_ai_slidechat.html) |
 | 15 | **PatchGastricADC22** | Parches + caption de reporte clínico | Patch-Level Diagnostic Captioning | **262,777 parches** / 1,305 reportes de 991 WSIs | Acceso Abierto / Zenodo (6021442) | ✅ Auditado (Local Zip/CSV) | [`preview_patch_gastric_adc22.html`](../reports/preview_patch_gastric_adc22.html) |
-| 16 | **CAMELYON16 / 17** | WSI + anotación a nivel de píxel/slide | Metástasis en Ganglio Centinela | 400 WSIs (CAMELYON16) / 1,000 WSIs (CAMELYON17) | CC0 (Dominio Público) | ⏳ Pendiente Auditoría | - |
-| 17 | **TCGA (familia)** | WSI SVS + reporte PDF + clínica | Corpus Clínico y Genómico Multimodal | >30K láminas gigapíxel SVS con reportes clínicos | Open-Access (GDC) | ⏳ Base Multicéntrica | - |
-| 18 | **HEST-1k** | WSI H&E + transcriptómica espacial | Histology-to-Spatial-Transcriptomics | 1.2K perfiles de transcriptómica ligados a WSI | CC BY-NC-SA 4.0 | ⏳ Pendiente Auditoría | - |
+| 16 | **PathBench** | Parche + WSI + Reporte / VQA | Anti-Shortcut VQA & WSI Report Generation | **33,262 registros** (PatchVQA: 6,335 \| WSICap: 6,893 \| WSIVQA: 20,034) | MIT / Apache-2.0 / Abierto | ✅ Auditado (GitHub + Range Stream) | [`preview_superjamessyx_pathbench.html`](../reports/preview_superjamessyx_pathbench.html) |
+| 17 | **CAMELYON16 / 17** | WSI + anotación a nivel de píxel/slide | Metástasis en Ganglio Centinela | 400 WSIs (CAMELYON16) / 1,000 WSIs (CAMELYON17) | CC0 (Dominio Público) | ⏳ Pendiente Auditoría | - |
+| 18 | **TCGA (familia)** | WSI SVS + reporte PDF + clínica | Corpus Clínico y Genómico Multimodal | >30K láminas gigapíxel SVS con reportes clínicos | Open-Access (GDC) | ⏳ Base Multicéntrica | - |
+| 19 | **HEST-1k** | WSI H&E + transcriptómica espacial | Histology-to-Spatial-Transcriptomics | 1.2K perfiles de transcriptómica ligados a WSI | CC BY-NC-SA 4.0 | ⏳ Pendiente Auditoría | - |
 
 ---
 
@@ -493,7 +494,37 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 
 ---
 
-### 16. CAMELYON16 / 17
+### 16. PathBench (`superjamessyx/PathBench`)
+
+- **Tipo de Dato / Modalidad Principal:** Parches Histopatológicos (Anti-Shortcut VQA) + Láminas Gigapíxel Completas (WSI Captioning & WSI-VQA).
+- **Descripción General:** Benchmark multimodal de evaluación estandarizado y riguroso diseñado específicamente para mitigar el aprendizaje de atajos (*shortcut learning*) detectado en benchmarks anteriores (como PathMMU). Publicado en **IEEE Transactions on Medical Imaging (IEEE TMI, 2025)** por Yuxuan Sun et al. Evalúa modelos MLLM tanto a nivel local (parches diagnósticos con 4 a 6 opciones y distractores patológicos validados por patólogos certificados) como a nivel global (generación de reportes quirúrgicos completos a partir de WSIs y VQA de lámina completa sobre cohortes de TCGA).
+- **Acceso / Licencia:** Repositorio en GitHub ([`superjamessyx/PathBench`](https://github.com/superjamessyx/PathBench)), Licencias **MIT** (código y metadatos) / **Apache-2.0** / Acceso abierto directo. Las imágenes de parches derivan de [`jamessyx/PathMMU`](https://huggingface.co/datasets/jamessyx/PathMMU) (Gated / `HF_TOKEN`) y las láminas WSI completas derivan de NIH Genomic Data Commons (GDC).
+- **Referencia Bibliográfica:** Sun et al., *"PathBench: A Comprehensive Benchmark for Multimodal Language Models in Pathology"*, **IEEE Transactions on Medical Imaging (TMI)**, 2025 / arXiv:2505.14362.
+
+#### 📋 Registro de Auditoría Factual y Métricas Verificadas
+- **Modalidades de Entrada:**
+  - **Nivel Parche (PatchVQA):** Parches microfotográficos histopatológicos RGB (típicos $224 \times 224$ a $1024 \times 1024$ px) extraídos de 4 dominios clínicos: PubMed, SocialPath (Twitter/X patológico), EduContent (atlas docentes de patología) y PathCLS (subtipos diagnósticos). Formato JSON estructurado de preguntas con entre 4 y 6 opciones múltiples ($A$ hasta $F$), eliminando preguntas redundantes o resolubles sin imagen (*text-only shortcuts*).
+  - **Nivel Lámina Completa (WSICap & WSIVQA):** Láminas diagnósticas gigapíxel SVS originales provenientes de NIH GDC asociadas a reportes estructurados de patología quirúrgica (~200 palabras por reporte) y cuestionarios clínicos cerrados con 3 preguntas diagnósticas por lámina (estadificación TNM, grado histológico, tipo tumoral) más prompts MIZero para evaluación Zero-Shot MIL.
+- **Número de Ejemplos / Registros Fácticos:**
+  - **Gran Total Auditado:** **`33,262 registros multimodales`**.
+  - **PatchVQA (Preguntas de Opción Múltiple Anti-Shortcut):** **`6,335 preguntas`** sobre 5,382 imágenes únicas:
+    - `PubMed`: **2,019 preguntas** (test: 1,718 | val: 154 | test_tiny: 147).
+    - `PathCLS`: **1,905 preguntas** (test: 1,632 | val: 96 | test_tiny: 177).
+    - `EduContent`: **1,230 preguntas** (test: 995 | val: 88 | test_tiny: 147).
+    - `SocialPath`: **1,181 preguntas** (test: 945 | val: 100 | test_tiny: 136).
+    - *Desglose de Splits Globales en PatchVQA:* `test`: 5,290 preguntas | `val`: 438 preguntas | `test_tiny`: 607 preguntas (subconjunto de test).
+  - **WSICap (Generación de Reportes a Nivel WSI):** **`6,893 reportes patológicos estructurados`** vinculados a UUIDs de láminas de TCGA en NIH GDC.
+  - **WSIVQA (VQA a Nivel WSI):** **`20,034 preguntas clínicas cerradas`** distribuidas en **6,678 láminas histopatológicas** (exactamente 3 preguntas cerradas por lámina) + prompts Zero-Shot MIZero-CLIP.
+- **Riesgo de Data Leakage y Aislamiento Metodológico:**
+  - **Muy Bajo a Nivel WSI:** Los identificadores de pacientes y casos (`TCGA-XX-XXXX`) están claramente mapeados en `wsi_id`, permitiendo una estricta exclusión de casos vistos en preentrenamiento.
+  - **Controlado en PatchVQA:** Al ser un subconjunto curado de PathMMU con filtrado de atajos y reformulación de opciones por patólogos, sirve como benchmark de prueba cero-shot (*zero-shot test set*) altamente discriminativo.
+- **Notas y Hallazgos del Proyecto:**
+  - Resuelve una de las mayores críticas científicas a los benchmarks de VQA en patología: demuestra que modelos de lenguaje ciegos (sin imagen) alcanzaban precisiones artificialmente altas en benchmarks previos; PathBench garantiza que la imagen histológica sea indispensable para responder correctamente.
+  - **Reporte Visual HTML:** [`reports/preview_superjamessyx_pathbench.html`](../reports/preview_superjamessyx_pathbench.html) (incluye 10 microfotografías reales de parches y 10 láminas gigapíxel panorámicas transmitidas directamente desde NIH GDC con enlaces de zoom a $40\times$).
+
+---
+
+### 17. CAMELYON16 / 17
 
 - **Tipo de Dato / Modalidad Principal:** WSI + anotación a nivel de píxel y slide (Metástasis en Ganglio Linfático Centinela de Cáncer de Mama).
 - **Descripción General:** 400 WSIs (CAMELYON16) y 1,000 WSIs (CAMELYON17) de ganglio centinela con máscaras exhaustivas de metástasis trazadas a mano por patólogos expertos.
@@ -507,7 +538,7 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 
 ---
 
-### 17. TCGA (Familia The Cancer Genome Atlas)
+### 18. TCGA (Familia The Cancer Genome Atlas)
 
 - **Tipo de Dato / Modalidad Principal:** Whole Slide Images (SVS) + Reportes Quirúrgicos PDF + Perfiles Moleculares y Clínicos.
 - **Descripción General:** Repositorio multicéntrico y multi-canceroso de referencia mundial que contiene más de 30,000 láminas gigapíxel SVS junto con datos moleculares y reportes patológicos oficiales.
@@ -517,11 +548,11 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 #### 📋 Registro de Auditoría y Métricas Detalladas
 - **Modalidades de Entrada:** Láminas gigapíxel SVS a $20\times$ ($0.50\,\mu\text{m/px}$) y $40\times$ ($0.25\,\mu\text{m/px}$) cubriendo más de 33 tipos tumorales.
 - **Número de Ejemplos:** >30,000 láminas diagnósticas (`DX`) y de corte por congelación (`TS`).
-- **Estado en el Proyecto:** Base madre de la cual derivan datasets multimodales clave como HistGen, PathGen-1.6M, WSI-VQA y SlideInstruction.
+- **Estado en el Proyecto:** Base madre de la cual derivan datasets multimodales clave como HistGen, PathGen-1.6M, WSI-VQA, PathText, SlideChat y PathBench.
 
 ---
 
-### 18. HEST-1k
+### 19. HEST-1k
 
 - **Tipo de Dato / Modalidad Principal:** WSI H&E + Perfiles de Transcriptómica Espacial (*Spatial Transcriptomics*).
 - **Descripción General:** 1,200 perfiles de transcriptómica espacial ligados a láminas histopatológicas completas H&E en 26 órganos y 25 tipos de cáncer.
@@ -540,13 +571,14 @@ Este documento sirve como catálogo, matriz metodológica y base de conocimiento
 | Tarea Estandarizada del Proyecto | Datasets Auditados Disponibles | Formato de Entrada Visual | Formato de Entrada / Salida Textual | Métrica de Evaluación Principal |
 | :--- | :--- | :--- | :--- | :--- |
 | **1. Visual Question Answering (VQA Abierta)** | `path-vqa`, `quilt-vqa` | Parche $224\times 224$ / $512\times 512$ px | Pregunta clínica abierta $\to$ Respuesta corta de patología | Accuracy exacta, F1-Score, BLEU-1 |
-| **2. Benchmark VQA Multiple-Choice** | `pathmmu` | Parche de subfigura clínica | Pregunta + Opciones A/B/C/D $\to$ Clave de respuesta + Justificación | Accuracy por opción, Rationale BLEU/ROUGE |
-| **3. Visual Instruction Tuning (SFT)** | `quilt-instruct`, `pathinstruct` | Parche anclado / Subfigura | Diálogo interactivo multi-turno (Humano $\leftrightarrow$ Modelo) | GPT-4 Judge Score, Human Pathologist Rating |
-| **4. Image Captioning / VLP** | `pathcap`, `openpath`, `quilt-1m` | Parche H&E / IHC | Parche $\to$ Caption descriptivo del artículo | BLEU-4, ROUGE-L, METEOR, CIDEr |
-| **5. Cross-Modal Image-Text Retrieval** | `openpath`, `pathcap` | Parche TIF / JPEG | Consulta de texto $\leftrightarrow$ Búsqueda de parches en espacio latente | Recall@1, Recall@5, Mean Reciprocal Rank (MRR) |
+| **2. Benchmark VQA Multiple-Choice** | `pathmmu`, `pathbench (PatchVQA)` | Parche de microfotografía / subfigura | Pregunta + Opciones A/B/C/D/E/F $\to$ Clave + Justificación | Accuracy por opción, Macro-F1, Anti-Shortcut Gap |
+| **3. Visual Instruction Tuning (SFT)** | `quilt-instruct`, `pathinstruct`, `slidechat (SlideInstruct)` | Parche / Bolsa de características WSI | Diálogo interactivo multi-turno (Humano $\leftrightarrow$ Modelo) | GPT-4 Judge Score, Human Pathologist Rating |
+| **4. Image Captioning / VLP** | `pathcap`, `openpath`, `quilt-1m`, `patchgastricadc22`, `arch` | Parche H&E / IHC / Subfigura | Parche $\to$ Caption descriptivo o reporte diagnóstico | BLEU-4, ROUGE-L, METEOR, CIDEr |
+| **5. Cross-Modal Image-Text Retrieval** | `openpath`, `pathcap`, `quilt-1m`, `arch` | Parche TIF / JPEG / Subfigura | Consulta de texto $\leftrightarrow$ Búsqueda de parches en espacio latente | Recall@1, Recall@5, Mean Reciprocal Rank (MRR) |
 | **6. Zero-Shot Tissue Classification** | `openpath` (Kather, PanNuke, LUAD) | Parche TIF | Prompts de clases tisulares $\to$ Similitud coseno con parche | Zero-Shot Accuracy, Macro-F1 |
-| **7. WSI-to-Diagnostic Report Generation** | `histgen`, `pathtext` | Embeddings WSI (DINOv2) | Matriz de lámina completa $\to$ Reporte quirúrgico completo | BLEU-1/4, ROUGE-L, F1-RadGraph clínico |
-| **8. Dense Captioning Sintético** | `pathgen` | Coordenadas $(X, Y)$ en TCGA | Coordenada en lámina $\to$ Descripción morfológica densa GPT-4 | Perplejidad, Semantic Density Score |
+| **7. WSI-to-Diagnostic Report Generation** | `histgen`, `pathtext`, `slidechat (SlideBench)`, `pathbench (WSICap)` | Lámina completa gigapíxel SVS / DINOv2 Features | Lámina completa WSI $\to$ Reporte quirúrgico patológico completo | BLEU-1/4, ROUGE-L, METEOR, F1-RadGraph |
+| **8. Whole Slide Image VQA (Closed / Diagnostic)** | `wsi-vqa`, `slidechat (SlideBench-VQA)`, `pathbench (WSIVQA)` | Lámina gigapíxel SVS / Tensores WSI | Pregunta a nivel de lámina $\to$ Subtipo / Estadio / Grado / Opción | Top-1 Accuracy, Macro-F1, Per-Cohort Accuracy |
+| **9. Dense Captioning Sintético** | `pathgen` | Coordenadas $(X, Y)$ en TCGA | Coordenada en lámina $\to$ Descripción morfológica densa GPT-4 | Perplejidad, Semantic Density Score |
 
 ---
 

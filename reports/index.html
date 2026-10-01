@@ -444,7 +444,7 @@
                         <div class="obj-card active-phase">
                             <div class="obj-header">
                                 <span class="obj-num">Objetivo 1</span>
-                                <span class="obj-status obj-status-active">🟢 Fase Actual (14 Datasets)</span>
+                                <span class="obj-status obj-status-active">🟢 Fase Actual (16 Datasets)</span>
                             </div>
                             <div class="obj-text">
                                 <strong>Consolidación de Datasets:</strong> Consolidar el conjunto de datos públicos en tareas estandarizadas de análisis de imágenes y texto de histopatología.
@@ -489,23 +489,23 @@
         <div class="kpi-grid">
             <div class="kpi-card">
                 <div class="kpi-label">Datasets Auditados</div>
-                <div class="kpi-value" style="color: var(--accent);">15 Datasets</div>
+                <div class="kpi-value" style="color: var(--accent);">16 Datasets</div>
                 <div class="kpi-subtext">100% con reportes visuales interactivos generados</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">Total Registros Auditados</div>
-                <div class="kpi-value" style="color: var(--accent-green);">3,706,788</div>
-                <div class="kpi-subtext">&gt;3.70 Millones de pares imagen-texto/Q&amp;A</div>
+                <div class="kpi-value" style="color: var(--accent-green);">3,740,050</div>
+                <div class="kpi-subtext">&gt;3.74 Millones de pares imagen-texto/Q&amp;A</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">Tareas Multimodales Formalizadas</div>
-                <div class="kpi-value" style="color: var(--accent-purple);">8 Tareas</div>
+                <div class="kpi-value" style="color: var(--accent-purple);">9 Tareas</div>
                 <div class="kpi-subtext">VQA, SFT, Captioning, Retrieval, WSI-Report, WSI-VQA</div>
             </div>
             <div class="kpi-card">
                 <div class="kpi-label">Modelos Baselines Vinculados</div>
-                <div class="kpi-value" style="color: var(--accent-amber);">8+ Baselines</div>
-                <div class="kpi-subtext">PLIP, PathChat, Quilt-LLaVA, HistGen, W2T, SlideChat, LLaVA-Med</div>
+                <div class="kpi-value" style="color: var(--accent-amber);">9+ Baselines</div>
+                <div class="kpi-subtext">PLIP, PathChat, Quilt-LLaVA, HistGen, W2T, SlideChat, PathBench, LLaVA-Med</div>
             </div>
         </div>
 
@@ -532,11 +532,11 @@
                 <input type="text" id="searchInput" class="search-input" placeholder="Buscar por dataset, tarea, repositorio o formato...">
             </div>
             <div class="filter-buttons">
-                <button class="filter-btn active" onclick="filterCategory('all', this)">Todos (15)</button>
-                <button class="filter-btn" onclick="filterCategory('VQA', this)">VQA (4)</button>
+                <button class="filter-btn active" onclick="filterCategory('all', this)">Todos (16)</button>
+                <button class="filter-btn" onclick="filterCategory('VQA', this)">VQA (5)</button>
                 <button class="filter-btn" onclick="filterCategory('Instruction Tuning', this)">Visual Instruction Tuning (3)</button>
                 <button class="filter-btn" onclick="filterCategory('Captioning / VLP', this)">Captioning &amp; VLP (5)</button>
-                <button class="filter-btn" onclick="filterCategory('WSI / Reports', this)">WSI &amp; Reports (4)</button>
+                <button class="filter-btn" onclick="filterCategory('WSI / Reports', this)">WSI &amp; Reports (5)</button>
                 <button class="filter-btn" onclick="filterCategory('Zero-Shot / Retrieval', this)">Zero-Shot &amp; Retrieval (1)</button>
             </div>
         </div>
@@ -1171,7 +1171,7 @@
         </td>
     </tr>
     
-    <tr class="dataset-row" data-category="WSI / Reports" data-access="open">
+    <tr class="dataset-row" data-category="WSI / Reports VQA" data-access="open">
         <td style="text-align: center; font-weight: bold; color: var(--accent);">15</td>
         <td>
             <div style="font-weight: bold; font-size: 1.05rem; color: #f8fafc;">SlideChat (SlideBench &amp; SlideInstruct)</div>
@@ -1213,6 +1213,49 @@
             </a>
         </td>
     </tr>
+
+    <tr class="dataset-row" data-category="VQA WSI / Reports" data-access="open">
+        <td style="text-align: center; font-weight: bold; color: var(--accent);">16</td>
+        <td>
+            <div style="font-weight: bold; font-size: 1.05rem; color: #f8fafc;">PathBench</div>
+            <code style="font-size: 0.75rem; color: #94a3b8;">superjamessyx/PathBench</code>
+        </td>
+        <td>
+            <a href="https://github.com/superjamessyx/PathBench" target="_blank" class="hf-link">
+                🐙 <code>superjamessyx/PathBench (GitHub)</code>
+            </a>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+                <strong>Baseline:</strong> PathMMU / MIZero / MI-Gen / IEEE TMI 2025
+            </div>
+        </td>
+        <td>
+            <span class="badge badge-vqa">VQA</span>
+            <span class="badge badge-wsi" style="margin-left: 4px;">WSI / Reports</span>
+            <div style="font-size: 0.85rem; font-weight: 600; color: #e2e8f0; margin-top: 4px;">Multimodal Pathology Benchmark (PatchVQA, WSICap &amp; WSIVQA)</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;">Sí (Anti-Shortcut VQA, 4-6 opciones, reportes WSI quirúrgicos y VQA de lámina completa)</div>
+        </td>
+        <td style="text-align: right;">
+            <div style="font-weight: bold; color: var(--accent-green); font-size: 1rem;">33,262 registros</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">val: 438 | test: 32,824 (6,335 PatchVQA, 6,893 WSICap, 20,034 WSIVQA)</div>
+        </td>
+        <td>
+            <div style="font-size: 0.85rem; color: #cbd5e1;">Parches PNG/JPG + WSIs SVS (GDC) + JSON estructurado</div>
+            <div style="font-size: 0.75rem; color: #64748b; margin-top: 2px;"><code>PatchVQA.json + WSICap.json + WSIVQA.json + PathMMU images</code></div>
+        </td>
+        <td style="font-size: 0.85rem;">
+            <div><strong>JSON:</strong> ~45 MB</div>
+            <div style="color: var(--text-muted); font-size: 0.75rem;"><strong>Imágenes:</strong> ~1.8 GB + NIH GDC SVS</div>
+        </td>
+        <td>
+            <span class='badge badge-open'>🔓 Abierto</span>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Licencia: <code>MIT / Apache-2.0</code></div>
+        </td>
+        <td style="text-align: center;">
+            <a href="preview_superjamessyx_pathbench.html" class="btn-report" title="Ver reporte visual interactivo con 10 parches anti-shortcut y 10 láminas gigapíxel completas">
+                👁️ Ver Reporte
+            </a>
+        </td>
+    </tr>
     
                 </tbody>
             </table>
@@ -1228,7 +1271,7 @@
                     <p style="margin-top: 0;"><strong>A. Parquet Nativo con Imágenes Embebidas (PathVQA, Quilt-VQA):</strong> Permite streaming puro fila por fila mediante <code>load_dataset(..., streaming=True)</code> sin necesidad de descargar el dataset completo a disco.</p>
                     <p><strong>B. Contenedor ZIP + JSON de Metadatos (PathMMU, PathCap, PathInstruct):</strong> Las imágenes están empaquetadas en un único archivo ZIP (hasta 12.68 GB). El acceso por streaming se resolvió mediante <em>HTTP Range Requests</em> para extraer exclusivamente las muestras deseadas sin saturar el almacenamiento.</p>
                     <p><strong>C. Desacoplamiento de Gran Escala (Quilt-Instruct, HistGen, PathGen):</strong> Separación entre el dato textual (instrucciones, reportes) y los píxeles o embeddings densos (Quilt-1M, DINOv2 Features de 299 GB, o coordenadas en TCGA).</p>
-                    <p style="margin-bottom: 0;"><strong>D. Streaming de Láminas Gigapíxel y Zenodo (WSI-VQA, PatchGastricADC22):</strong> Streaming por rangos de bytes sobre archivos SVS en NIH GDC para ensamblar miniaturas de alta resolución ($1024\times 750$ px) con visores $40\times$, y extracción directa de parches y reportes patológicos en Zenodo.</p>
+                    <p style="margin-bottom: 0;"><strong>D. Streaming de Láminas Gigapíxel y Zenodo (WSI-VQA, PatchGastricADC22, SlideChat, PathBench):</strong> Streaming por rangos de bytes sobre archivos SVS en NIH GDC para ensamblar miniaturas de alta resolución ($1024\times 750$ px) con visores $40\times$, y extracción directa de parches y reportes patológicos en Zenodo y GitHub.</p>
                 </div>
             </div>
 
@@ -1237,13 +1280,12 @@
                     <span>⚖️ 2. Taxonomía de Tareas y Evaluación en la Tesis</span>
                 </div>
                 <div class="insight-content">
-                    <p style="margin-top: 0;"><strong>• VQA de Opción Múltiple &amp; Justificación (PathMMU):</strong> Evalúa precisión diagnóstica y calidad del razonamiento patológico (*Clinical Rationale*).</p>
+                    <p style="margin-top: 0;"><strong>• VQA de Opción Múltiple &amp; Justificación (PathMMU, PathBench):</strong> Evalúa precisión diagnóstica, calidad del razonamiento patológico y resistencia a atajos (*anti-shortcut learning*).</p>
                     <p><strong>• VQA Abierta (PathVQA, Quilt-VQA):</strong> Evalúa generación directa de respuestas concisas sobre parches histológicos.</p>
-                    <p><strong>• Visual Instruction Tuning (Quilt-Instruct, PathInstruct):</strong> Evalúa la capacidad conversacional y seguimiento de instrucciones complejas en patología.</p>
+                    <p><strong>• Visual Instruction Tuning (Quilt-Instruct, PathInstruct, SlideChat):</strong> Evalúa la capacidad conversacional y seguimiento de instrucciones complejas en patología local y global.</p>
                     <p><strong>• Zero-Shot &amp; Retrieval (OpenPath / PLIP):</strong> Evalúa la alineación del espacio latente multimodal en 4 benchmarks canónicos.</p>
-                    <p><strong>• WSI-to-Report Generation (HistGen):</strong> Evalúa la síntesis de reportes quirúrgicos completos a partir de láminas gigapíxel.</p>
-                    <p><strong>• Whole Slide Image VQA (WSI-VQA):</strong> Evalúa VQA generativo multimodal a nivel de lámina completa (subtipos, biomarcadores ER/PR/HER2 y supervivencia).</p>
-                    <p style="margin-bottom: 0;"><strong>• Patch-Level Diagnostic Captioning (PatchGastricADC22):</strong> Evalúa la generación de descripciones diagnósticas y subtipificación en biopsias gástricas.</p>
+                    <p><strong>• WSI-to-Report Generation (HistGen, PathText, SlideChat, PathBench):</strong> Evalúa la síntesis de reportes quirúrgicos completos a partir de láminas gigapíxel.</p>
+                    <p style="margin-bottom: 0;"><strong>• Whole Slide Image VQA (WSI-VQA, SlideChat, PathBench):</strong> Evalúa VQA generativo y discriminativo a nivel de lámina completa (subtipos, biomarcadores ER/PR/HER2, estadios TNM y supervivencia).</p>
                 </div>
             </div>
 
@@ -1252,8 +1294,8 @@
                     <span>🛡️ 3. Aislamiento Metodológico y Control de Data Leakage</span>
                 </div>
                 <div class="insight-content">
-                    <p style="margin-top: 0;"><strong>• Solapamiento por Fuentes Comunes:</strong> Datasets como PathCap, PathInstruct, PathVQA y Quilt-1M comparten artículos de PubMed Central (PMC). Para evaluaciones ciego-rigurosas, se debe filtrar por <code>PMID / PMC ID</code>.</p>
-                    <p><strong>• Cobertura Multicéntrica de TCGA:</strong> HistGen, PathGen, WSI-VQA y SlideInstruction se basan en láminas de TCGA. La unidad de partición estricta debe ser el <code>Patient ID</code> (ej. <code>TCGA-XX-XXXX</code>) para garantizar que ninguna lámina del mismo paciente esté en entrenamiento y prueba.</p>
+                    <p style="margin-top: 0;"><strong>• Solapamiento por Fuentes Comunes:</strong> Datasets como PathCap, PathInstruct, PathVQA, Quilt-1M y PathBench comparten artículos de PubMed Central (PMC). Para evaluaciones ciego-rigurosas, se debe filtrar por <code>PMID / PMC ID</code>.</p>
+                    <p><strong>• Cobertura Multicéntrica de TCGA:</strong> HistGen, PathGen, WSI-VQA, SlideChat y PathBench se basan en láminas de TCGA. La unidad de partición estricta debe ser el <code>Patient ID</code> (ej. <code>TCGA-XX-XXXX</code>) para garantizar que ninguna lámina del mismo paciente esté en entrenamiento y prueba.</p>
                 </div>
             </div>
         </div>
@@ -1274,7 +1316,8 @@
 
             const rows = document.querySelectorAll('.dataset-row');
             rows.forEach(row => {
-                if (category === 'all' || row.getAttribute('data-category') === category) {
+                const catAttr = row.getAttribute('data-category') || '';
+                if (category === 'all' || catAttr.includes(category)) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
