@@ -329,7 +329,7 @@ def main():
         "TCGA-DJ-A3UV": ("THCA", "Tiroides (Papillary Thyroid Carcinoma)"),
         "TCGA-BR-8361": ("STAD", "Estómago (Stomach Adenocarcinoma)"),
         "TCGA-F6-A8O4": ("LGG", "Cerebro (Lower Grade Glioma)"),
-        "TCGA-EE-A2M5": ("SKCM", "Piel (Skin Cutaneous Melanoma)")
+        "TCGA-BF-A1PU": ("SKCM", "Piel (Skin Cutaneous Melanoma)")
     }
 
     wsi_samples = []
@@ -349,8 +349,9 @@ def main():
                 found = True
                 break
         if not found:
-            # tomar el siguiente disponible si no coincide el prefijo exacto
-            entry = wsi_cap_data[len(wsi_samples)]
+            # tomar el siguiente disponible que sí tenga preguntas en WSIVQA
+            fallback_entries = [e for e in wsi_cap_data if e["wsi_id"] in wsi_vqa_dict]
+            entry = fallback_entries[len(wsi_samples)]
             wsi_samples.append({
                 "wsi_id": entry["wsi_id"],
                 "file_id": entry["file_id"],
